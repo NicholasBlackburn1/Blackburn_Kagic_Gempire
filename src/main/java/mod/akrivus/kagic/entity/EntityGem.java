@@ -39,7 +39,6 @@ import mod.akrivus.kagic.tileentity.TileEntityWarpPadCore;
 import mod.akrivus.kagic.util.PoofDamage;
 import mod.akrivus.kagic.util.ShatterDamage;
 import mod.akrivus.kagic.util.SlagDamage;
-import mod.heimrarnadalr.kagic.modcompat.CompatTConstruct;
 import mod.heimrarnadalr.kagic.worlddata.GalaxyPadLocation;
 import mod.heimrarnadalr.kagic.worlddata.WarpPadDataEntry;
 import mod.heimrarnadalr.kagic.worlddata.WorldDataGalaxyPad;
@@ -984,7 +983,7 @@ public class EntityGem extends EntityCrystalSkills implements IEntityOwnable, IR
 			if (this.isOwner(player)) {
 				boolean toolChanged = true;
 				if (!this.isCoreItem(stack) && (stack.isEmpty() || (item instanceof ItemSword || item instanceof ItemTool 
-					|| item instanceof ItemBow || CompatTConstruct.isTinkersMeleeWeapon(item) || CompatTConstruct.isTinkersRangedWeapon(item)))) {
+					|| item instanceof ItemBow /*|| CompatTConstruct.isTinkersMeleeWeapon(item) || CompatTConstruct.isTinkersRangedWeapon(item)*/))) {
 					if (!this.getItemStackFromSlot(EntityEquipmentSlot.MAINHAND).isItemEqualIgnoreDurability(stack)) {
 						this.entityDropItem(this.getItemStackFromSlot(EntityEquipmentSlot.MAINHAND), 0.0F);
 					}
@@ -1002,7 +1001,7 @@ public class EntityGem extends EntityCrystalSkills implements IEntityOwnable, IR
 					}
 					return true;
 				}
-				else if (stack.getItem() instanceof ItemArrow || stack.getItem() instanceof ItemShield || CompatTConstruct.isTinkersProjectile(item)) {
+				else if (stack.getItem() instanceof ItemArrow || stack.getItem() instanceof ItemShield /*|| CompatTConstruct.isTinkersProjectile(item)*/) {
 					if (!this.getItemStackFromSlot(EntityEquipmentSlot.OFFHAND).isItemEqualIgnoreDurability(stack)) {
 						this.entityDropItem(this.getItemStackFromSlot(EntityEquipmentSlot.OFFHAND), 0.0F);
 					}
@@ -1027,7 +1026,7 @@ public class EntityGem extends EntityCrystalSkills implements IEntityOwnable, IR
 	public void setFusionWeapon(ItemStack weapon) {
 		if (!this.isFusion()) return;
 		Item item = weapon.getItem();
-		if (item instanceof ItemSword || item instanceof ItemTool || item instanceof ItemBow || CompatTConstruct.isTinkersMeleeWeapon(item)) {
+		if (item instanceof ItemSword || item instanceof ItemTool || item instanceof ItemBow /*|| CompatTConstruct.isTinkersMeleeWeapon(item)*/) {
 			ItemStack heldItem = weapon.copy();
 			this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, heldItem);
 		}
@@ -1650,7 +1649,7 @@ public class EntityGem extends EntityCrystalSkills implements IEntityOwnable, IR
 	public void setAttackAI() {
 		this.tasks.removeTask(this.rangedAttack);
 		this.tasks.removeTask(this.meleeAttack);
-		if (this.getHeldItem(EnumHand.MAIN_HAND).getItem() instanceof ItemBow || CompatTConstruct.isTinkersRangedWeapon(this.getHeldItem(EnumHand.MAIN_HAND).getItem())) {
+		if (this.getHeldItem(EnumHand.MAIN_HAND).getItem() instanceof ItemBow /*|| CompatTConstruct.isTinkersRangedWeapon(this.getHeldItem(EnumHand.MAIN_HAND).getItem())*/) {
 			this.tasks.addTask(1, this.rangedAttack);
 		}
 		else {
