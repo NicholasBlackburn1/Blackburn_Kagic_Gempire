@@ -1,7 +1,8 @@
 buildscript {
     repositories {
-        jcenter()
         maven { url = "http://files.minecraftforge.net/maven" }
+        mavenCentral()
+        jcenter()
     }
     dependencies {
         classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
@@ -10,29 +11,25 @@ buildscript {
 
 apply plugin: 'net.minecraftforge.gradle.forge'
 
-def minecraft_version = "[1.12.1,1.12.2]"
 version = "1.10.1"
-group = "mod.akrivus.kagic"
-archivesBaseName = "kagic"
+group = "mod.kagic"
+archivesBaseName = "KAGIC"
 
 sourceCompatibility = targetCompatibility = "1.8"
 compileJava {
     sourceCompatibility = targetCompatibility = "1.8"
 }
 minecraft {
-    replace "@mcversion", minecraft_version
     replace "@version", project.version
-    replaceIn "KAGIC.java"
-    version = "1.12.2-14.23.2.2631"
+    version = "1.12.2-14.23.5.2814"
     runDir = "run"
     mappings = "snapshot_20171003"
 }
 processResources {
-    inputs.property "mcversion", minecraft_version
     inputs.property "version", project.version
     from (sourceSets.main.resources.srcDirs) {
         include 'mcmod.info'
-        expand 'version': project.version, 'mcversion': minecraft_version
+        expand 'version': project.version
     }
     from (sourceSets.main.resources.srcDirs) {
         exclude 'mcmod.info'
@@ -47,28 +44,18 @@ dependencies {
 }
 jar {
 	from sourceSets.api.output
-	from ( configurations.customCompile.collect { it.isDirectory() ? it : zipTree(it)}) { exclude 'META-INF/**' }
-	//appendix = minecraft_version
+	from (
+		configurations.customCompile.collect {
+			it.isDirectory() ? it : zipTree(it)
+		}
+	) { exclude 'META-INF/**' }
 }
-task jarApi(type: Jar){
-	from sourceSets.api.output
-	appendix = minecraft_version
-	classifier = "api"
-}
-task jarDev(type: Jar){
+task deobf(type: Jar) {
 	from sourceSets.main.output
 	from sourceSets.api.output
-	appendix = minecraft_version
-	classifier = "dev"
+	appendix = "deobf"
+	classifier = "deobf"
 }
-task jarSrc(type: Jar){
-	from sourceSets.main.allSource
-	from sourceSets.api.allSource
-	appendix = minecraft_version
-	classifier = "src"
-}
-artifacts{
-	archives jarApi
-	archives jarDev
-	archives jarSrc
+artifacts {
+	archives deobf
 }
