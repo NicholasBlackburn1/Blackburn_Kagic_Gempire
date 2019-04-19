@@ -15,7 +15,6 @@ public class ModCreativeTabs extends CreativeTabs {
 	public static final CreativeTabs CREATIVE_TAB_GOOD_GEMS = new ModCreativeTabs("good_gems", 0);
 	public static final CreativeTabs CREATIVE_TAB_BAD_GEMS = new ModCreativeTabs("bad_gems", 1);
 	public static final CreativeTabs CREATIVE_TAB_OTHER = new ModCreativeTabs("other", 2);
-	public static final CreativeTabs CREATIVE_TAB_MUSIC = new ModCreativeTabs("music", 3);
 	private final int id;
 	
 	public ModCreativeTabs(String label, int id) {
@@ -32,8 +31,6 @@ public class ModCreativeTabs extends CreativeTabs {
 			return new ItemStack(ModItems.CRACKED_YELLOW_DIAMOND_GEM);
 		case 2:
 			return new ItemStack(ModItems.GEM_STAFF);
-		case 3:
-			return new ItemStack(ModItems.RECORD_LAPIS_FLIGHT);
 		}
 		return new ItemStack(ModItems.CRACKED_YELLOW_DIAMOND_GEM);
 	}

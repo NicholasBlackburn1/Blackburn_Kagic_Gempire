@@ -32,21 +32,6 @@ import net.minecraftforge.oredict.OreDictionary;
 public class ModItems {
 	public static final HashMap<ItemGem, ItemGem> GEM_TABLE = new HashMap<ItemGem, ItemGem>();
 
-	public static final ModRecord RECORD_LITTLE_PERIDOT = new ModRecord("little_peridot", ModSounds.RECORD_LITTLE_PERIDOT);
-	public static final ModRecord RECORD_ROSES_FOUNTAIN = new ModRecord("roses_fountain", ModSounds.RECORD_ROSES_FOUNTAIN);
-	public static final ModRecord RECORD_LAPIS_FLIGHT = new ModRecord("lapis_flight", ModSounds.RECORD_LAPIS_FLIGHT);
-	public static final ModRecord RECORD_THE_BREAKING_POINT = new ModRecord("the_breaking_point", ModSounds.RECORD_THE_BREAKING_POINT);
-	public static final ModRecord RECORD_DUEL_OF_THE_QUARTZ = new ModRecord("duel_of_the_quartz", ModSounds.RECORD_DUEL_OF_THE_QUARTZ);
-	public static final ModRecord RECORD_YELLOW_DIAMOND = new ModRecord("yellow_diamond", ModSounds.RECORD_YELLOW_DIAMOND);
-	public static final ModRecord RECORD_BLUE_DIAMOND = new ModRecord("blue_diamond", ModSounds.RECORD_BLUE_DIAMOND);
-	public static final ModRecord RECORD_WHATS_THE_USE_OF_FEELING_BLUE = new ModRecord("whats_the_use_of_feeling_blue", ModSounds.RECORD_WHATS_THE_USE_OF_FEELING_BLUE);
-
-	public static final ModRecord RECORD_HEAVEN_BEETLE = new ModRecord("heaven_beetle", ModSounds.RECORD_HEAVEN_BEETLE);
-	public static final ModRecord RECORD_DEFECTIVE = new ModRecord("defective", ModSounds.RECORD_DEFECTIVE);
-	public static final ModRecord RECORD_GEM_SHARDS = new ModRecord("gem_shards", ModSounds.RECORD_GEM_SHARDS);
-	public static final ModRecord RECORD_HEART_OF_THE_PYRAMID = new ModRecord("pyramid", ModSounds.RECORD_HEART_OF_THE_PYRAMID);
-	public static final ModRecord RECORD_UNDERWATER_TEMPLE = new ModRecord("underwater_temple", ModSounds.RECORD_UNDERWATER_TEMPLE);
-
 	public static final ItemActiveGemShard ACTIVATED_GEM_SHARD = new ItemActiveGemShard();
 	public static final ItemActiveGemBase ACTIVATED_GEM_BASE = new ItemActiveGemBase();
 	public static final ItemInactiveGemBase INACTIVE_GEM_BASE = new ItemInactiveGemBase();
@@ -418,19 +403,6 @@ public class ModItems {
 		registerGem(CORRUPTED_GREEN_WATER_BEAR_GEM, CRACKED_CORRUPTED_GREEN_WATER_BEAR_GEM, event);
 		registerGem(CORRUPTED_WATERMELON_TOURMALINE_GEM, CRACKED_CORRUPTED_WATERMELON_TOURMALINE_GEM, event);
 
-		registerItem(RECORD_LITTLE_PERIDOT, event, "record");
-		registerItem(RECORD_ROSES_FOUNTAIN, event, "record");
-		registerItem(RECORD_LAPIS_FLIGHT, event, "record");
-		registerItem(RECORD_THE_BREAKING_POINT, event, "record");
-		registerItem(RECORD_DUEL_OF_THE_QUARTZ, event, "record");
-		registerItem(RECORD_YELLOW_DIAMOND, event, "record");
-		registerItem(RECORD_BLUE_DIAMOND, event, "record");
-		registerItem(RECORD_WHATS_THE_USE_OF_FEELING_BLUE, event, "record");
-		registerItem(RECORD_HEAVEN_BEETLE, event, "record");
-		registerItem(RECORD_DEFECTIVE, event, "record");
-		registerItem(RECORD_GEM_SHARDS, event, "record");
-		registerItem(RECORD_HEART_OF_THE_PYRAMID, event, "record");
-		registerItem(RECORD_UNDERWATER_TEMPLE, event, "record");
 		registerItem(ACTIVATED_GEM_SHARD, event);
 		registerItem(ACTIVATED_GEM_BASE, event);
 		registerItem(INACTIVE_GEM_BASE, event);

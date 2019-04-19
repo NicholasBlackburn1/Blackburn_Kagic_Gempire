@@ -265,17 +265,7 @@ public class EntityRoseQuartz extends EntityQuartzSoldier implements INpc {
 		}
 		return super.attackEntityFrom(source, amount);
 	}
-	public void onDeath(DamageSource cause) {
-		if (!this.world.isRemote) {
-			if (cause.getTrueSource() != null) {
-				if (!this.isOwner((EntityLivingBase) cause.getTrueSource())) {
-					this.dropItem(ModItems.RECORD_ROSES_FOUNTAIN, 1);
-				}
-			}
-		}
-		super.onDeath(cause);
-	}
-	
+
 	/*********************************************************
 	 * Methods related to combat.							*
 	 *********************************************************/

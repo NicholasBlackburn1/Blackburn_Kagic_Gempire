@@ -208,7 +208,6 @@ public class EntityBlueDiamond extends EntityGem {
 	 *********************************************************/
 	public void onDeath(DamageSource cause) {
 		if (!this.world.isRemote) {
-			this.dropItem(ModItems.RECORD_BLUE_DIAMOND, 1);
 			if (cause.getTrueSource() instanceof EntityPlayer) {
 				List<EntityGem> list = this.world.<EntityGem>getEntitiesWithinAABB(EntityGem.class, this.getEntityBoundingBox().grow(24.0D, 8.0D, 24.0D));
 				EntityPlayer player = (EntityPlayer) cause.getTrueSource();

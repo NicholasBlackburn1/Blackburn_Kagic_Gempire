@@ -46,7 +46,7 @@ public class GetHealth extends Speak<EntityGem> {
 			feedback = "I'm feeling great, ";
 		} else
 		if (ratio <= 1.0) {
-			feedback = "I'm perfect, ";
+			feedback = "I'm perfective, ";
 		}
 		feedback += "I'm at " + new DecimalFormat("#.00").format(ratio * 100) + "% health.";
 		gem.feedback(feedback);

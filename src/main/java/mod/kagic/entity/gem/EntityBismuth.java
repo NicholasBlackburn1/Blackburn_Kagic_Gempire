@@ -267,22 +267,6 @@ public class EntityBismuth extends EntityGem implements IInventoryChangedListene
 	/*********************************************************
      * Methods related to entity death.                      *
      *********************************************************/
-	public void onDeath(DamageSource cause) {
-		if (!this.world.isRemote) {
-			if (cause.getTrueSource() instanceof EntityLivingBase) {
-				ItemStack heldItem = ((EntityLivingBase)cause.getTrueSource()).getHeldItemMainhand();
-				if (heldItem.isItemEnchanted()) {
-					NBTTagList enchantments = heldItem.getEnchantmentTagList();
-					for (int i = 0; i < enchantments.tagCount(); i++) {
-						if (enchantments.getCompoundTagAt(i).getInteger("id") == Enchantment.getEnchantmentID(ModEnchantments.BREAKING_POINT)) {
-							this.dropItem(ModItems.RECORD_THE_BREAKING_POINT, 1);
-						}
-					}
-				}
-			}
-		}
-		super.onDeath(cause);
-    }
 	
 	/*********************************************************
      * Methods related to entity sounds.                     *

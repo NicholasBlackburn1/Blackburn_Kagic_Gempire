@@ -498,16 +498,7 @@ public class EntityLapisLazuli extends EntityGem implements IInventoryChangedLis
 	/*********************************************************
 	 * Methods related to death.                             *
 	 *********************************************************/
-	@Override
-	public void onDeath(DamageSource cause) {
-		if (!this.world.isRemote) {
-			if (cause.getTrueSource() instanceof EntitySkeleton) {
-				this.dropItem(ModItems.RECORD_LAPIS_FLIGHT, 1);
-			}
-		}
-		super.onDeath(cause);
-	}
-	
+
 	/*********************************************************
 	 * Methods related to sounds.                            *
 	 *********************************************************/

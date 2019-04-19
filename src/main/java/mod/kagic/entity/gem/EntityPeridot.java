@@ -436,12 +436,6 @@ public class EntityPeridot extends EntityGem implements IInventoryChangedListene
 	/*********************************************************
 	 * Methods related to combat.							*
 	 *********************************************************/
-	@Override
-	public void onStruckByLightning(EntityLightningBolt lightningBolt) {
-		if (!this.world.isRemote && !this.isDead) {
-			this.dropItem(ModItems.RECORD_LITTLE_PERIDOT, 1);
-		}
-	}
 	public boolean attackEntityFrom(DamageSource source, float amount) {
 		return super.attackEntityFrom(source, amount);
 	}

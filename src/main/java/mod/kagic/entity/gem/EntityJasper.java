@@ -610,11 +610,6 @@ public class EntityJasper extends EntityQuartzSoldier implements IAnimals {
 	 * Methods related to entity death.					  *
 	 *********************************************************/
 	public void onDeath(DamageSource cause) {
-		if (!this.world.isRemote) {
-			if (cause.getTrueSource() instanceof EntityAmethyst) {
-				this.dropItem(ModItems.RECORD_DUEL_OF_THE_QUARTZ, 1);
-			}
-		}
 		switch (this.getSpecial()) {
 		case 0:
 			if (this.isPrimary()) {
