@@ -81,11 +81,6 @@ public class EntityShardFusion extends EntityGem {
 	}
 	
 	@Override
-	public boolean spokenTo(EntityPlayer player, String message) {
-		return false;
-	}
-	
-	@Override
 	public String generateSpecificName(BlockPos pos) {
 		return "Fusion";
 	}

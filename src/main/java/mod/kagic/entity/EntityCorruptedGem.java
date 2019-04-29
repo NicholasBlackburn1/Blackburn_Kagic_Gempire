@@ -90,11 +90,6 @@ public class EntityCorruptedGem extends EntityGem {
 	}
 	
 	@Override
-	public boolean spokenTo(EntityPlayer player, String message) {
-		return false;
-	}
-	
-	@Override
 	public boolean getCanSpawnHere() {
 		if (this.rand.nextFloat() > 0.0001) {
 			return false;

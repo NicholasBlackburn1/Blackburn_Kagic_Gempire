@@ -57,7 +57,7 @@ public class EntityAIMineOres extends EntityAIMoveToBlock {
 	@Override
 	public void updateTask() {
 		if (this.gem.getDistanceSq(this.destinationBlock) < 5) {
-			this.gem.breakBlock(this.destinationBlock);
+			this.gem.world.destroyBlock(this.destinationBlock, false);
 		}
 	}
 	protected boolean shouldMoveTo(World world, BlockPos pos) {

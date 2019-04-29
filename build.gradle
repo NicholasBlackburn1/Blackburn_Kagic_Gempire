@@ -41,10 +41,6 @@ compileJava {
 configurations {
 	customCompile
 }
-dependencies {
-	customCompile fileTree(dir: 'lib', includes: ['*.jar'])
-	compile configurations.customCompile
-}
 jar {
 	from sourceSets.api.output
 	from (

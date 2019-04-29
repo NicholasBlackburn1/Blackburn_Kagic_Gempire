@@ -46,6 +46,7 @@ import mod.kagic.worlddata.WorldDataWarpPad;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.IEntityOwnable;
@@ -99,7 +100,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.oredict.DyeUtils;
 
-public class EntityGem extends EntityCrystalSkills implements IEntityOwnable, IRangedAttackMob, IEntityAdditionalSpawnData {
+public class EntityGem extends EntityCreature implements IEntityOwnable, IRangedAttackMob, IEntityAdditionalSpawnData {
 	protected static final DataParameter<Optional<UUID>> OWNER_UNIQUE_ID = EntityDataManager.<Optional<UUID>>createKey(EntityGem.class, DataSerializers.OPTIONAL_UNIQUE_ID);
 	protected static final DataParameter<Optional<UUID>> GEUUID = EntityDataManager.<Optional<UUID>>createKey(EntityGem.class, DataSerializers.OPTIONAL_UNIQUE_ID);
 	protected static final DataParameter<String> SPECIFIC_NAME = EntityDataManager.<String>createKey(EntityGem.class, DataSerializers.STRING);
@@ -1494,12 +1495,7 @@ public class EntityGem extends EntityCrystalSkills implements IEntityOwnable, IR
 	public void setRestPosition(BlockPos pos) {
 		this.restPosition = pos;
 	}
-	public boolean spokenTo(EntityPlayer player, String message) {
-		if (this.isTamed() && this.isOwner(player)) {
-			return super.spokenTo(player, message);
-		}
-		return false;
-	}
+	
 	public boolean isOwner(EntityLivingBase entityIn) {
 		if (entityIn != null) {
 			if (this.servitude == EntityGem.SERVE_HUMAN) {
@@ -1630,13 +1626,6 @@ public class EntityGem extends EntityCrystalSkills implements IEntityOwnable, IR
 			return s[3];
 		}
 		return null;
-	}
-	
-	@Override
-	public void setCallibleNames(ArrayList<String> list) {
-		super.setCallibleNames(list);
-		list.add(this.getFacet());
-		list.add(this.getCut());
 	}
 
 	/*********************************************************

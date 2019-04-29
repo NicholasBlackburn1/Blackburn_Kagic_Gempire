@@ -393,7 +393,7 @@ public class ModEntities {
 		EntityRegistry.registerModEntity(new ResourceLocation("kagic:kagic." + name), entity, "kagic." + name, currentID, KAGIC.instance, 256, 1, true, back, fore);
 		if (FMLCommonHandler.instance().getSide() == Side.CLIENT) {
 			try {
-				Class<Render<? extends T>> render = (Class<Render<? extends T>>) KAGIC.class.getClassLoader().loadClass("mod/akrivus/kagic/client/render/" + entity.getName().replaceAll(".+?Entity", "Render"));
+				Class<Render<? extends T>> render = (Class<Render<? extends T>>) KAGIC.class.getClassLoader().loadClass("mod.kagic/client/render/" + entity.getName().replaceAll(".+?Entity", "Render"));
 				if (GENERATE_FACTORIES_INSTEAD_OF_INSTANCES) {
 					IRenderFactory<T> factory = null;
 	                try {
@@ -428,7 +428,7 @@ public class ModEntities {
 		EntityRegistry.registerModEntity(new ResourceLocation("kagic:kagic." + name), entity, "kagic." + name, currentID, KAGIC.instance, 256, 1, true);
 	 	if (FMLCommonHandler.instance().getSide() == Side.CLIENT) {
 			try {
-				Class<Render<? extends T>> render = (Class<Render<? extends T>>) KAGIC.class.getClassLoader().loadClass("mod/akrivus/kagic/client/render/" + entity.getName().replaceAll(".+?Entity", "Render"));
+				Class<Render<? extends T>> render = (Class<Render<? extends T>>) KAGIC.class.getClassLoader().loadClass("mod.kagic/client/render/" + entity.getName().replaceAll(".+?Entity", "Render"));
 				if (GENERATE_FACTORIES_INSTEAD_OF_INSTANCES) {
 					IRenderFactory<T> factory = null;
 	                try {
@@ -504,7 +504,7 @@ public class ModEntities {
 		EntityRegistry.registerModEntity(new ResourceLocation("kagic:kagic." + name), entity, "kagic." + name, currentID, KAGIC.instance, 256, 1, true, back, fore);
 		if (FMLCommonHandler.instance().getSide() == Side.CLIENT) {
 			try {
-				Class<Render<? extends T>> render = (Class<Render<? extends T>>) KAGIC.class.getClassLoader().loadClass("mod/akrivus/kagic/client/render/" + entity.getName().replaceAll(".+?Entity", "Render"));
+				Class<Render<? extends T>> render = (Class<Render<? extends T>>) KAGIC.class.getClassLoader().loadClass("mod.kagic/client/render/" + entity.getName().replaceAll(".+?Entity", "Render"));
 				if (GENERATE_FACTORIES_INSTEAD_OF_INSTANCES) {
 					IRenderFactory<T> factory = null;
 	                try {
@@ -533,7 +533,7 @@ public class ModEntities {
 		EntityRegistry.registerModEntity(new ResourceLocation("kagic:kagic." + name), entity, "kagic." + name, currentID, KAGIC.instance, 256, 1, true);
 		if (FMLCommonHandler.instance().getSide() == Side.CLIENT) {
 			try {
-				Class<Render<? extends T>> render = (Class<Render<? extends T>>) KAGIC.class.getClassLoader().loadClass("mod/akrivus/kagic/client/render/" + entity.getName().replaceAll(".+?Entity", "Render"));
+				Class<Render<? extends T>> render = (Class<Render<? extends T>>) KAGIC.class.getClassLoader().loadClass("mod.kagic/client/render/" + entity.getName().replaceAll(".+?Entity", "Render"));
 				if (GENERATE_FACTORIES_INSTEAD_OF_INSTANCES) {
 					IRenderFactory<T> factory = null;
 	                try {
@@ -562,7 +562,7 @@ public class ModEntities {
 		EntityRegistry.registerModEntity(new ResourceLocation("kagic:kagic.custom_" + name), entity, "kagic.custom_" + name, currentID, KAGIC.instance, 256, 1, true);
 		if (FMLCommonHandler.instance().getSide() == Side.CLIENT) {
 			try {
-				Class<Render<? extends T>> render = (Class<Render<? extends T>>) KAGIC.class.getClassLoader().loadClass("mod/akrivus/kagic/client/render/customnpcs/" + entity.getName().replaceAll(".+?Entity", "Render"));
+				Class<Render<? extends T>> render = (Class<Render<? extends T>>) KAGIC.class.getClassLoader().loadClass("mod.kagic/client/render/customnpcs/" + entity.getName().replaceAll(".+?Entity", "Render"));
 				if (GENERATE_FACTORIES_INSTEAD_OF_INSTANCES) {
 					IRenderFactory<T> factory = null;
 	                try {

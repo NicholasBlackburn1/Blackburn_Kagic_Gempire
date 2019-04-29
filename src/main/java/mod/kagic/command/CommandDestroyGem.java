@@ -1,8 +1,6 @@
 package mod.kagic.command;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Pattern;
 
 import mod.kagic.entity.EntityGem;
 import mod.kagic.util.ShatterDamage;
@@ -57,11 +55,6 @@ public class CommandDestroyGem extends CommandBase {
 				}
 				else if (filter == "diamond") {
 					destroy = gem.getServitude() > EntityGem.SERVE_HUMAN;
-				}
-				for (String name : gem.getNames(new ArrayList<String>())) {
-					if (name != null) {
-						destroy = Pattern.compile("\\b" + name.toLowerCase() + "\\b").matcher(filter.toLowerCase()).find() || destroy;
-					}
 				}
 				if (destroy) {
 					EntityLightningBolt lightningBolt = new EntityLightningBolt(sender.getEntityWorld(), gem.posX, gem.posY, gem.posZ, true);

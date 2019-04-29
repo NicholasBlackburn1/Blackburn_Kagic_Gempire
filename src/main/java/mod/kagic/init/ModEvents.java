@@ -3,11 +3,8 @@ package mod.kagic.init;
 import java.io.IOException;
 import java.util.List;
 
-import org.apache.commons.lang3.ArrayUtils;
-
 import com.google.common.base.Predicate;
 
-import mod.kagic.entity.EntityCrystalSkills;
 import mod.kagic.entity.EntityGem;
 import mod.kagic.entity.ai.EntityAIFollowTopaz;
 import mod.kagic.entity.gem.EntityAgate;
@@ -17,9 +14,7 @@ import mod.kagic.entity.gem.EntityRuby;
 import mod.kagic.entity.gem.EntityRutile;
 import mod.kagic.entity.gem.EntitySapphire;
 import mod.kagic.init.ModMetrics.Update;
-import mod.kagic.linguistics.LinguisticsHelper;
 import mod.kagic.server.SpaceStuff;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.ai.EntityAIAvoidEntity;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
@@ -35,7 +30,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextComponentTranslation;
-import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.storage.loot.LootEntry;
 import net.minecraft.world.storage.loot.LootEntryItem;
 import net.minecraft.world.storage.loot.LootPool;
@@ -46,11 +40,9 @@ import net.minecraft.world.storage.loot.functions.LootFunction;
 import net.minecraft.world.storage.loot.functions.SetCount;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.LootTableLoadEvent;
-import net.minecraftforge.event.ServerChatEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.world.WorldEvent;
-import net.minecraftforge.fml.client.event.ConfigChangedEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
@@ -225,19 +217,5 @@ public class ModEvents {
 		if (!e.getWorld().isRemote) {
 			KAGIC.spaceStuff.save();
 		}
-	}
-	@SubscribeEvent
-	public void onServerChat(ServerChatEvent e) {
-		EntityPlayer player = e.getPlayer();
-		List<Entity> list = player.world.<Entity>getEntitiesWithinAABB(Entity.class, e.getPlayer().getEntityBoundingBox().grow(64.0D, 16.0D, 64.0D));
-		for (Entity entity : list) {
-			if (entity instanceof EntityCrystalSkills) {
-				EntityCrystalSkills gem = (EntityCrystalSkills) entity;
-	    		boolean result = gem.spokenTo(player, e.getMessage());
-	    		if (result) {
-	    			e.getComponent().getStyle().setColor(TextFormatting.YELLOW);
-	    		}
-			}
-        }
 	}
 }
