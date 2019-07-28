@@ -19,6 +19,7 @@ public class ItemVehicle extends Item {
 		this.setCreativeTab(ModCreativeTabs.CREATIVE_TAB_OTHER);
 		this.vehicle = vehicle;
 	}
+	@Override
 	public EnumActionResult onItemUse(EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
 		if (!worldIn.isRemote) {
 			ItemStack stack = playerIn.getHeldItem(hand);
@@ -33,7 +34,7 @@ public class ItemVehicle extends Item {
 		return EnumActionResult.PASS;
 	}
 	public Entity getEntity(World worldIn) {
-		if (vehicle.equals("roaming_eye")) {
+		if (this.vehicle.equals("roaming_eye")) {
 			return new EntityRoamingEye(worldIn);
 		}
 		return null;

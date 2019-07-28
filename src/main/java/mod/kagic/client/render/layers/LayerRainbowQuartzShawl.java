@@ -12,12 +12,12 @@ import net.minecraft.util.ResourceLocation;
 public class LayerRainbowQuartzShawl implements LayerRenderer<EntityRainbowQuartz> {
 	private final RenderLivingBase<?> gemRenderer;
 	private final ModelBase gemModel;
-
+	
 	public LayerRainbowQuartzShawl(RenderLivingBase<?> gemRenderer) {
 		this.gemRenderer = gemRenderer;
 		this.gemModel = gemRenderer.getMainModel();
 	}
-
+	
 	@Override
 	public void doRenderLayer(EntityRainbowQuartz gem, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 		if (!gem.isInvisible()) {
@@ -32,12 +32,12 @@ public class LayerRainbowQuartzShawl implements LayerRenderer<EntityRainbowQuart
 			GlStateManager.disableNormalize();
 		}
 	}
-
+	
 	public ResourceLocation getTexture(EntityGem gem) {
 		ResourceLocation loc = EntityList.getKey(gem);
 		return new ResourceLocation(loc.getResourceDomain() + ":textures/entities/rainbow_quartz/shawl.png");
 	}
-
+	
 	@Override
 	public boolean shouldCombineTextures() {
 		return true;

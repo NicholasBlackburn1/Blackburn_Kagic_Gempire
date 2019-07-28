@@ -25,9 +25,10 @@ public class ModelRoamingEye extends ModelBase {
 		this.bottom.addBox(3, 20, 3, 6, 2, 6);
 		this.bottom.setRotationPoint(-6, 0, -6);
 	}
+	@Override
 	public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-        this.middle.render(scale);
-        this.bottom.render(scale);
-        this.top.render(scale);
-    }
+		this.middle.render(scale);
+		this.bottom.render(scale);
+		this.top.render(scale);
+	}
 }

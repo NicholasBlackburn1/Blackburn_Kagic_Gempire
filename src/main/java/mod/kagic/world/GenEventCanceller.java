@@ -1,6 +1,5 @@
 package mod.kagic.world;
 
-import mod.kagic.init.KAGIC;
 import mod.kagic.init.ModBiomes;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -11,7 +10,7 @@ import net.minecraftforge.fml.common.eventhandler.Event.Result;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class GenEventCanceller {
-
+	
 	@SubscribeEvent
 	public void onGeneration(PopulateChunkEvent.Populate event) {
 		World world = event.getWorld();

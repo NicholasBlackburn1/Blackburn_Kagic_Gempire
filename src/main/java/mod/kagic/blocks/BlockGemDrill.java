@@ -17,16 +17,19 @@ public class BlockGemDrill extends Block {
 		this.setUnlocalizedName("gem_drill");
 		this.setCreativeTab(ModCreativeTabs.CREATIVE_TAB_OTHER);
 	}
+	@Override
 	public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
-        Injector.onGemDrillPlacement(worldIn, pos);
-    }
+		Injector.onGemDrillPlacement(worldIn, pos);
+	}
 	/*********************************************************
-     * Methods related to block rendering.                   *
-     *********************************************************/
+	 * Methods related to block rendering. *
+	 *********************************************************/
+	@Override
 	public boolean isOpaqueCube(IBlockState state) {
-        return false;
-    }
-    public boolean isFullCube(IBlockState state) {
-        return false;
-    }
+		return false;
+	}
+	@Override
+	public boolean isFullCube(IBlockState state) {
+		return false;
+	}
 }

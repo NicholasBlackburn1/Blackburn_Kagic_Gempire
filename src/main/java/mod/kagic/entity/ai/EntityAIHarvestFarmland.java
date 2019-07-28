@@ -2,7 +2,6 @@ package mod.kagic.entity.ai;
 
 import mod.kagic.entity.gem.EntityPeridot;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockBeetroot;
 import net.minecraft.block.BlockCrops;
 import net.minecraft.block.BlockNetherWart;
 import net.minecraft.block.material.Material;
@@ -29,42 +28,44 @@ public class EntityAIHarvestFarmland extends EntityAIMoveToBlock {
 		this.gem = gemIn;
 		this.world = gemIn.world;
 	}
+	@Override
 	public boolean shouldExecute() {
 		if (this.gem.isFarmer()) {
-			if (delay > 20 + this.gem.getRNG().nextInt(20)) {
+			if (this.delay > 20 + this.gem.getRNG().nextInt(20)) {
 				this.runDelay = 0;
 				return super.shouldExecute();
-			}
-			else {
+			} else {
 				++this.delay;
 			}
 		}
 		return false;
 	}
+	@Override
 	public boolean shouldContinueExecuting() {
 		return super.shouldContinueExecuting() && this.currentTask >= 0 && this.gem.isFarmer() && !this.gem.getNavigator().noPath();
 	}
+	@Override
 	public void startExecuting() {
 		super.startExecuting();
 	}
+	@Override
 	public void resetTask() {
 		super.resetTask();
 	}
+	@Override
 	public void updateTask() {
 		super.updateTask();
-		this.gem.getLookHelper().setLookPosition((double) this.destinationBlock.getX() + 0.5D, (double)(this.destinationBlock.getY() + 1), (double) this.destinationBlock.getZ() + 0.5D, 10.0F, (float) this.gem.getVerticalFaceSpeed());
+		this.gem.getLookHelper().setLookPosition(this.destinationBlock.getX() + 0.5D, this.destinationBlock.getY() + 1, this.destinationBlock.getZ() + 0.5D, 10.0F, this.gem.getVerticalFaceSpeed());
 		if (this.getIsAboveDestination()) {
 			BlockPos blockpos = this.destinationBlock.up();
 			IBlockState iblockstate = this.world.getBlockState(blockpos);
 			Block block = iblockstate.getBlock();
-
-			if (this.currentTask == 0 && block instanceof BlockCrops && ((BlockCrops)block).isMaxAge(iblockstate)) {
+			
+			if (this.currentTask == 0 && block instanceof BlockCrops && ((BlockCrops) block).isMaxAge(iblockstate)) {
 				this.world.destroyBlock(blockpos, true);
-			}
-			else if (this.currentTask == 0 && block instanceof BlockNetherWart && iblockstate.getValue(BlockNetherWart.AGE) >= 3) {
+			} else if (this.currentTask == 0 && block instanceof BlockNetherWart && iblockstate.getValue(BlockNetherWart.AGE) >= 3) {
 				this.world.destroyBlock(blockpos, true);
-			}
-			else if (this.currentTask == 1 && iblockstate.getMaterial() == Material.AIR) {
+			} else if (this.currentTask == 1 && iblockstate.getMaterial() == Material.AIR) {
 				InventoryBasic inventory = this.gem.gemStorage;
 				for (int i = 0; i < inventory.getSizeInventory(); ++i) {
 					ItemStack itemstack = inventory.getStackInSlot(i);
@@ -76,24 +77,32 @@ public class EntityAIHarvestFarmland extends EntityAIMoveToBlock {
 								flag = true;
 							}
 							/*
-							if (itemstack.getItem() == Items.WHEAT_SEEDS) {
-								this.world.setBlockState(blockpos, Blocks.WHEAT.getDefaultState(), 3);
-								flag = true;
-							}
-							else if (itemstack.getItem() == Items.POTATO) {
-								this.world.setBlockState(blockpos, Blocks.POTATOES.getDefaultState(), 3);
-								flag = true;
-							}
-							else if (itemstack.getItem() == Items.CARROT) {
-								this.world.setBlockState(blockpos, Blocks.CARROTS.getDefaultState(), 3);
-								flag = true;
-							}
-							else if (itemstack.getItem() == Items.BEETROOT_SEEDS) {
-								this.world.setBlockState(blockpos, Blocks.BEETROOTS.getDefaultState(), 3);
-								flag = true;
-							}*/
-						}
-						else if (this.world.getBlockState(blockpos.down()).getBlock() == Blocks.SOUL_SAND) {
+							 * if (itemstack.getItem() ==
+							 * Items.WHEAT_SEEDS) {
+							 * this.world.setBlockState(
+							 * blockpos,
+							 * Blocks.WHEAT.getDefaultState(
+							 * ), 3); flag = true; } else if
+							 * (itemstack.getItem() ==
+							 * Items.POTATO) {
+							 * this.world.setBlockState(
+							 * blockpos, Blocks.POTATOES.
+							 * getDefaultState(), 3); flag =
+							 * true; } else if
+							 * (itemstack.getItem() ==
+							 * Items.CARROT) {
+							 * this.world.setBlockState(
+							 * blockpos, Blocks.CARROTS.
+							 * getDefaultState(), 3); flag =
+							 * true; } else if
+							 * (itemstack.getItem() ==
+							 * Items.BEETROOT_SEEDS) {
+							 * this.world.setBlockState(
+							 * blockpos, Blocks.BEETROOTS.
+							 * getDefaultState(), 3); flag =
+							 * true; }
+							 */
+						} else if (this.world.getBlockState(blockpos.down()).getBlock() == Blocks.SOUL_SAND) {
 							if (itemstack.getItem() == Items.NETHER_WART) {
 								this.gem.world.setBlockState(blockpos, Blocks.NETHER_WART.getDefaultState());
 								flag = true;
@@ -112,7 +121,7 @@ public class EntityAIHarvestFarmland extends EntityAIMoveToBlock {
 			this.currentTask = -1;
 		}
 	}
-
+	
 	private boolean hasSeeds() {
 		InventoryBasic inventory = this.gem.gemStorage;
 		for (int i = 0; i < inventory.getSizeInventory(); ++i) {
@@ -123,25 +132,25 @@ public class EntityAIHarvestFarmland extends EntityAIMoveToBlock {
 		}
 		return false;
 	}
-	
+
+	@Override
 	protected boolean shouldMoveTo(World world, BlockPos pos) {
 		Block block = world.getBlockState(pos).getBlock();
 		BlockPos cropPos = pos.up();
 		IBlockState iblockstate = world.getBlockState(cropPos);
 		Block crop = iblockstate.getBlock();
 		if (block == Blocks.FARMLAND) {
-			if (crop instanceof BlockCrops && ((BlockCrops)crop).isMaxAge(iblockstate) && (this.currentTask <= 0)) {
+			if (crop instanceof BlockCrops && ((BlockCrops) crop).isMaxAge(iblockstate) && this.currentTask <= 0) {
 				this.currentTask = 0;
 				return true;
 			}
-		}
-		else if (block == Blocks.SOUL_SAND) {
+		} else if (block == Blocks.SOUL_SAND) {
 			if (crop instanceof BlockNetherWart && iblockstate.getValue(BlockNetherWart.AGE) >= 3 && (this.currentTask == 0 || this.currentTask < 0)) {
 				this.currentTask = 0;
 				return true;
 			}
 		}
-		
+
 		if (iblockstate.getMaterial() == Material.AIR && (this.currentTask == 1 || this.currentTask < 0)) {
 			if ((block == Blocks.FARMLAND || block == Blocks.SOUL_SAND) && this.hasSeeds()) {
 				this.currentTask = 1;

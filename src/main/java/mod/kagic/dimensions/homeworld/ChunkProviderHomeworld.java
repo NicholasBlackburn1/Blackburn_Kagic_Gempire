@@ -20,54 +20,54 @@ public class ChunkProviderHomeworld implements IChunkGenerator {
 	private final World world;
 	private final Random rand;
 	private Vector2f nextChunk;
-    public ChunkProviderHomeworld(World world, long seed) {
-    	this.world = world;
-    	this.rand = new Random(seed);
-    }
+	public ChunkProviderHomeworld(World world, long seed) {
+		this.world = world;
+		this.rand = new Random(seed);
+	}
 	public Chunk provideChunk(int chunkX, int chunkZ) {
-        ChunkPrimer chunkPrimer = new ChunkPrimer();
-        boolean fillEmptyKindergarten = this.nextChunk == null || !this.nextChunk.equals(new Vector2f(chunkX, chunkZ));
-        for (int y = 0; y < 255; ++y) {
-    	    for (int z = 0; z < 16; ++z) {
-        		for (int x = 0; x < 16; ++x) {
-        			if (y < 2) {
-        				chunkPrimer.setBlockState(x, y, z, Blocks.BEDROCK.getDefaultState());
-        			}
-        			else if (y < 6) {
-        				if (this.rand.nextInt(6 - y) > 0) {
-        					chunkPrimer.setBlockState(x, y, z, ModBlocks.DRAINED_BLOCK.getDefaultState());
-        				}
-        				else {
-        					chunkPrimer.setBlockState(x, y, z, Blocks.BEDROCK.getDefaultState());
-        				}
-        			}
-        			else if (y < 8) {
-        				chunkPrimer.setBlockState(x, y, z, ModBlocks.DRAINED_BLOCK.getDefaultState());
-        			}
-        			else if (y < 54 && fillEmptyKindergarten) {
-	        			chunkPrimer.setBlockState(x, y, z, ModBlocks.DRAINED_BLOCK.getDefaultState());
-        			}
-    		    }
-        	}
-        }
-        int cX = this.rand.nextBoolean() ? (this.rand.nextBoolean() ? -1 : 1) : 0;
-		int cZ = this.rand.nextBoolean() ? (this.rand.nextBoolean() ? -1 : 1) : 0;
+		ChunkPrimer chunkPrimer = new ChunkPrimer();
+		boolean fillEmptyKindergarten = this.nextChunk == null || !this.nextChunk.equals(new Vector2f(chunkX, chunkZ));
+		for (int y = 0; y < 255; ++y) {
+			for (int z = 0; z < 16; ++z) {
+				for (int x = 0; x < 16; ++x) {
+					if (y < 2) {
+						chunkPrimer.setBlockState(x, y, z, Blocks.BEDROCK.getDefaultState());
+					} else if (y < 6) {
+						if (this.rand.nextInt(6 - y) > 0) {
+							chunkPrimer.setBlockState(x, y, z, ModBlocks.DRAINED_BLOCK.getDefaultState());
+						} else {
+							chunkPrimer.setBlockState(x, y, z, Blocks.BEDROCK.getDefaultState());
+						}
+					} else if (y < 8) {
+						chunkPrimer.setBlockState(x, y, z, ModBlocks.DRAINED_BLOCK.getDefaultState());
+					} else if (y < 54 && fillEmptyKindergarten) {
+						chunkPrimer.setBlockState(x, y, z, ModBlocks.DRAINED_BLOCK.getDefaultState());
+					}
+				}
+			}
+		}
+		int cX = this.rand.nextBoolean() ? this.rand.nextBoolean() ? -1 : 1 : 0;
+		int cZ = this.rand.nextBoolean() ? this.rand.nextBoolean() ? -1 : 1 : 0;
 		this.nextChunk = new Vector2f(chunkX + cX, chunkZ + cZ);
-        Chunk chunk = new Chunk(this.world, chunkPrimer, chunkX, chunkZ);
-        chunk.generateSkylightMap();
-        return chunk;
+		Chunk chunk = new Chunk(this.world, chunkPrimer, chunkX, chunkZ);
+		chunk.generateSkylightMap();
+		return chunk;
 	}
+	@Override
 	public void populate(int x, int z) {
-		
+
 	}
+	@Override
 	public boolean generateStructures(Chunk chunkIn, int x, int z) {
 		return true;
 	}
+	@Override
 	public List<SpawnListEntry> getPossibleCreatures(EnumCreatureType creatureType, BlockPos pos) {
 		return new ArrayList<SpawnListEntry>();
 	}
+	@Override
 	public void recreateStructures(Chunk chunkIn, int x, int z) {
-		
+
 	}
 	public BlockPos getStrongholdGen(World worldIn, String structureName, BlockPos position, boolean p_180513_4_) {
 		return null;
@@ -78,8 +78,7 @@ public class ChunkProviderHomeworld implements IChunkGenerator {
 		return this.provideChunk(x, z);
 	}
 	@Override
-	public BlockPos getNearestStructurePos(World worldIn, String structureName, BlockPos position,
-			boolean findUnexplored) {
+	public BlockPos getNearestStructurePos(World worldIn, String structureName, BlockPos position, boolean findUnexplored) {
 		// TODO Auto-generated method stub
 		return null;
 	}

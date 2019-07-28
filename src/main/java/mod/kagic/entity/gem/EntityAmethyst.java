@@ -46,39 +46,38 @@ public class EntityAmethyst extends EntityQuartzSoldier implements IAnimals {
 	public static final double AMETHYST_DEPTH_THRESHHOLD = 72;
 	public static final HashMap<Integer, ResourceLocation> AMETHYST_HAIR_STYLES = new HashMap<Integer, ResourceLocation>();
 	private static final DataParameter<Boolean> CHARGED = EntityDataManager.<Boolean>createKey(EntityAmethyst.class, DataSerializers.BOOLEAN);
+
+	// 13811681
+	public static final int SKIN_COLOR_BEGIN = 0xD2BFE1;
+	// 12097994
+	public static final int SKIN_COLOR_MID = 0xB899CA;
+	// 11875965
+	public static final int SKIN_COLOR_END = 0xB5367D;
 	
-	//13811681
-	public static final int SKIN_COLOR_BEGIN = 0xD2BFE1; 
-	//12097994
-	public static final int SKIN_COLOR_MID = 0xB899CA; 
-	//11875965
-	public static final int SKIN_COLOR_END = 0xB5367D; 
-
-
 	public static final int HAIR_COLOR_BEGIN = 0xBD79C9;
-	
+
 	public static final int HAIR_COLOR_MID_1 = 0x9877B1;
-
+	
 	public static final int HAIR_COLOR_MID_2 = 0xF9E4FF;
-
-	public static final int HAIR_COLOR_MID_3 = 0xFFFDFF; 
-	//Amethyst
-	public static final int HAIR_COLOR_MID_4 = 0xDCD3EF; 
+	
+	public static final int HAIR_COLOR_MID_3 = 0xFFFDFF;
+	// Amethyst
+	public static final int HAIR_COLOR_MID_4 = 0xDCD3EF;
 	
 	public static final int HAIR_COLOR_MID_5 = 0xAD859F;
-	
-	public static final int HAIR_COLOR_END = 0xC47DA3; 
+
+	public static final int HAIR_COLOR_END = 0xC47DA3;
 	
 	private static final int NUM_HAIRSTYLES = 5;
-	
+
 	private int charge_ticks = 0;
 	private int hit_count = 0;
-	
+
 	public EntityAmethyst(World worldIn) {
 		super(worldIn);
 		this.nativeColor = 8;
-		
-		//Define valid gem cuts and placements
+
+		// Define valid gem cuts and placements
 		this.setCutPlacement(GemCuts.FACETED, GemPlacements.BACK_OF_HEAD);
 		this.setCutPlacement(GemCuts.FACETED, GemPlacements.FOREHEAD);
 		this.setCutPlacement(GemCuts.FACETED, GemPlacements.LEFT_EYE);
@@ -96,178 +95,188 @@ public class EntityAmethyst extends EntityQuartzSoldier implements IAnimals {
 		this.setCutPlacement(GemCuts.FACETED, GemPlacements.RIGHT_THIGH);
 		this.setCutPlacement(GemCuts.FACETED, GemPlacements.LEFT_KNEE);
 		this.setCutPlacement(GemCuts.FACETED, GemPlacements.RIGHT_KNEE);
-
+		
 		// Apply entity AI.
-        this.tasks.addTask(2, new EntityAIMoveTowardsTarget(this, 0.414D, 32.0F));
-        this.tasks.addTask(3, new EntityAIMoveTowardsRestriction(this, 1.0D));
-        this.tasks.addTask(3, new EntityAIProtectionFuse(this, EntityPearl.class, EntityOpal.class, 16D));
-        this.tasks.addTask(5, new EntityAIStandGuard(this, 0.6D));
-        
-        // Apply targeting.
-        this.targetTasks.addTask(4, new EntityAINearestAttackableTarget<EntityLiving>(this, EntityLiving.class, 10, true, false, new Predicate<EntityLiving>() {
-            public boolean apply(EntityLiving input) {
-                return input != null && IMob.VISIBLE_MOB_SELECTOR.apply(input);
-            }
-        }));
-        
-        // Apply entity attributes.
-        this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(12.0D);
-        
-        this.droppedGemItem = ModItems.AMETHYST_GEM;
+		this.tasks.addTask(2, new EntityAIMoveTowardsTarget(this, 0.414D, 32.0F));
+		this.tasks.addTask(3, new EntityAIMoveTowardsRestriction(this, 1.0D));
+		this.tasks.addTask(3, new EntityAIProtectionFuse(this, EntityPearl.class, EntityOpal.class, 16D));
+		this.tasks.addTask(5, new EntityAIStandGuard(this, 0.6D));
+		
+		// Apply targeting.
+		this.targetTasks.addTask(4, new EntityAINearestAttackableTarget<EntityLiving>(this, EntityLiving.class, 10, true, false, new Predicate<EntityLiving>() {
+			@Override
+			public boolean apply(EntityLiving input) {
+				return input != null && IMob.VISIBLE_MOB_SELECTOR.apply(input);
+			}
+		}));
+		
+		// Apply entity attributes.
+		this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(12.0D);
+		
+		this.droppedGemItem = ModItems.AMETHYST_GEM;
 		this.droppedCrackedGemItem = ModItems.CRACKED_AMETHYST_GEM;
-        
-        // Register entity data.
-        this.dataManager.register(CHARGED, false);
+		
+		// Register entity data.
+		this.dataManager.register(EntityAmethyst.CHARGED, false);
 	}
-	
-	/*********************************************************
-	 * Methods related to entity loading.                    *
-	 *********************************************************/
-	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
-    	this.setSpecial(0);
-		return super.onInitialSpawn(difficulty, livingdata);
-    }
-	
-	public void writeEntityToNBT(NBTTagCompound compound) {
-        compound.setBoolean("charged", this.dataManager.get(CHARGED).booleanValue());
-        compound.setInteger("charge_ticks", this.charge_ticks);
-        compound.setInteger("hit_count", this.hit_count);
-        super.writeEntityToNBT(compound);
-    }
-    public void readEntityFromNBT(NBTTagCompound compound) {
-        this.dataManager.set(CHARGED, compound.getBoolean("charged"));
-        this.charge_ticks = compound.getInteger("charge_ticks");
-        this.hit_count = compound.getInteger("hit_count");
-        super.readEntityFromNBT(compound);
-    }
 
-    @Override
-    protected int generateGemColor() {
-    	return 0xDC64FD;
-    }
-    
-    @Override
-    public void convertGems(int placement) {
-    	this.setGemCut(GemCuts.FACETED.id);
-    	switch (placement) {
-    	case 0:
-    		this.setGemPlacement(GemPlacements.CHEST.id);
-    		break;
-    	case 1:
-    		this.setGemPlacement(GemPlacements.RIGHT_SHOULDER.id);
-    		break;
-    	case 2:
-    		this.setGemPlacement(GemPlacements.BELLY.id);
-    		break;
-    	case 3:
-    		this.setGemPlacement(GemPlacements.LEFT_SHOULDER.id);
-    		break;
-    	}
-    }
-	
 	/*********************************************************
-	 * Methods related to entity interaction.                *
-	*********************************************************/
-    public boolean isCharged() {
-		return this.dataManager.get(CHARGED);
-    }
-    
-	public void setCharged(boolean charged) {
-		this.dataManager.set(CHARGED, charged);
+	 * Methods related to entity loading. *
+	 *********************************************************/
+	@Override
+	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
+		this.setSpecial(0);
+		return super.onInitialSpawn(difficulty, livingdata);
+	}
+
+	@Override
+	public void writeEntityToNBT(NBTTagCompound compound) {
+		compound.setBoolean("charged", this.dataManager.get(EntityAmethyst.CHARGED).booleanValue());
+		compound.setInteger("charge_ticks", this.charge_ticks);
+		compound.setInteger("hit_count", this.hit_count);
+		super.writeEntityToNBT(compound);
+	}
+	@Override
+	public void readEntityFromNBT(NBTTagCompound compound) {
+		this.dataManager.set(EntityAmethyst.CHARGED, compound.getBoolean("charged"));
+		this.charge_ticks = compound.getInteger("charge_ticks");
+		this.hit_count = compound.getInteger("hit_count");
+		super.readEntityFromNBT(compound);
 	}
 	
 	@Override
-	public void whenDefective() {
-		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(50.0D);
-        this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(3.0D);
-        this.getEntityAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE).setBaseValue(0.0D);
-        this.setSize(0.82F, 1.48F);
+	protected int generateGemColor() {
+		return 0xDC64FD;
 	}
 	
-    /*********************************************************
-     * Methods related to entity combat.                     *
-     *********************************************************/
-    public boolean attackEntityFrom(DamageSource source, float amount) {
-    	if (source.getTrueSource() instanceof EntityLivingBase && !this.isOwner((EntityLivingBase) source.getTrueSource())) {
+	@Override
+	public void convertGems(int placement) {
+		this.setGemCut(GemCuts.FACETED.id);
+		switch (placement) {
+			case 0 :
+				this.setGemPlacement(GemPlacements.CHEST.id);
+				break;
+			case 1 :
+				this.setGemPlacement(GemPlacements.RIGHT_SHOULDER.id);
+				break;
+			case 2 :
+				this.setGemPlacement(GemPlacements.BELLY.id);
+				break;
+			case 3 :
+				this.setGemPlacement(GemPlacements.LEFT_SHOULDER.id);
+				break;
+		}
+	}
+
+	/*********************************************************
+	 * Methods related to entity interaction. *
+	 *********************************************************/
+	public boolean isCharged() {
+		return this.dataManager.get(EntityAmethyst.CHARGED);
+	}
+	
+	public void setCharged(boolean charged) {
+		this.dataManager.set(EntityAmethyst.CHARGED, charged);
+	}
+
+	@Override
+	public void whenDefective() {
+		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(50.0D);
+		this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(3.0D);
+		this.getEntityAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE).setBaseValue(0.0D);
+		this.setSize(0.82F, 1.48F);
+	}
+	
+	/*********************************************************
+	 * Methods related to entity combat. *
+	 *********************************************************/
+	@Override
+	public boolean attackEntityFrom(DamageSource source, float amount) {
+		if (source.getTrueSource() instanceof EntityLivingBase && !this.isOwner((EntityLivingBase) source.getTrueSource())) {
 			this.charge_ticks += 20;
 			this.hit_count += 1;
 		}
 		return super.attackEntityFrom(source, amount);
 	}
+	@Override
 	public boolean attackEntityAsMob(Entity entityIn) {
 		if (!this.world.isRemote) {
 			boolean smite = this.rand.nextInt(3) == 1;
 			if (smite) {
 				this.isImmuneToFire = true;
-			}
-			else {
+			} else {
 				this.isImmuneToFire = false;
 			}
 			if (this.isCharged()) {
-				AxisAlignedBB axisalignedbb = (new AxisAlignedBB(this.posX, this.posY, this.posZ, (this.posX + 1), (this.posY + 1), (this.posZ + 1))).grow(12.0, (double) this.world.getHeight(), 12.0);
-	            List<EntityLivingBase> list = this.world.<EntityLivingBase>getEntitiesWithinAABB(EntityLivingBase.class, axisalignedbb);
-	            for (EntityLivingBase entity : list) {
-	            	if (!this.isOwner(entity)) {
-		            	boolean shouldAttack = true;
-		            	if (entity instanceof EntityGem) {
-		            		EntityGem gem = (EntityGem) entity;
-		            		if (this.getServitude() == gem.getServitude()) {
-		            			if (this.getServitude() == EntityGem.SERVE_HUMAN) {
-		            				shouldAttack = !this.isOwnerId(gem.getOwnerId());
-		            			}
-		            			else {
-		            				shouldAttack = false;
-		            			}
-		            		}
-		            	}
-		            	if (shouldAttack) {
-			            	if (smite) {
-			            		EntityLightningBolt lightningBolt = new EntityLightningBolt(this.world, entity.posX, entity.posY, entity.posZ, true);
-			            		this.world.addWeatherEffect(lightningBolt);
-			            		entity.setFire(12);
-			            	}
-		            		entity.addPotionEffect(new PotionEffect(MobEffects.MINING_FATIGUE, 80));
-		    				entity.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 80));
-		    				entity.addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 80));
-		            	}
-	            	}
-	            }
-	            /*if (this.getServitude() == EntityGem.SERVE_HUMAN && this.getOwner() != null) {
-	            	this.getOwner().addStat(ModAchievements.STEP_OFF);
-	            }*/
-	        }
-			else {
+				AxisAlignedBB axisalignedbb = new AxisAlignedBB(this.posX, this.posY, this.posZ, this.posX + 1, this.posY + 1, this.posZ + 1).grow(12.0, this.world.getHeight(), 12.0);
+				List<EntityLivingBase> list = this.world.<EntityLivingBase>getEntitiesWithinAABB(EntityLivingBase.class, axisalignedbb);
+				for (EntityLivingBase entity : list) {
+					if (!this.isOwner(entity)) {
+						boolean shouldAttack = true;
+						if (entity instanceof EntityGem) {
+							EntityGem gem = (EntityGem) entity;
+							if (this.getServitude() == gem.getServitude()) {
+								if (this.getServitude() == EntityGem.SERVE_HUMAN) {
+									shouldAttack = !this.isOwnerId(gem.getOwnerId());
+								} else {
+									shouldAttack = false;
+								}
+							}
+						}
+						if (shouldAttack) {
+							if (smite) {
+								EntityLightningBolt lightningBolt = new EntityLightningBolt(this.world, entity.posX, entity.posY, entity.posZ, true);
+								this.world.addWeatherEffect(lightningBolt);
+								entity.setFire(12);
+							}
+							entity.addPotionEffect(new PotionEffect(MobEffects.MINING_FATIGUE, 80));
+							entity.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 80));
+							entity.addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 80));
+						}
+					}
+				}
+				/*
+				 * if (this.getServitude() ==
+				 * EntityGem.SERVE_HUMAN && this.getOwner()
+				 * != null) {
+				 * this.getOwner().addStat(ModAchievements.
+				 * STEP_OFF); }
+				 */
+			} else {
 				if (smite) {
-            		EntityLightningBolt lightningBolt = new EntityLightningBolt(this.world, entityIn.posX, entityIn.posY, entityIn.posZ, true);
-            		this.world.addWeatherEffect(lightningBolt);
-            		entityIn.setFire(12);
-            	}
-        		((EntityLivingBase) entityIn).addPotionEffect(new PotionEffect(MobEffects.MINING_FATIGUE, 80));
-        		((EntityLivingBase) entityIn).addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 80));
-        		((EntityLivingBase) entityIn).addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 80));
+					EntityLightningBolt lightningBolt = new EntityLightningBolt(this.world, entityIn.posX, entityIn.posY, entityIn.posZ, true);
+					this.world.addWeatherEffect(lightningBolt);
+					entityIn.setFire(12);
+				}
+				((EntityLivingBase) entityIn).addPotionEffect(new PotionEffect(MobEffects.MINING_FATIGUE, 80));
+				((EntityLivingBase) entityIn).addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 80));
+				((EntityLivingBase) entityIn).addPotionEffect(new PotionEffect(MobEffects.WEAKNESS, 80));
 			}
 		}
-		
+
 		return super.attackEntityAsMob(entityIn);
 	}
+	@Override
 	public void attackEntityWithRangedAttack(EntityLivingBase target, float distanceFactor) {
 		if (!this.world.isRemote) {
 			this.attackEntityAsMob(target);
 		}
 		super.attackEntityWithRangedAttack(target, distanceFactor);
 	}
+	@Override
 	public void onDeath(DamageSource cause) {
 		super.onDeath(cause);
 	}
-	
+
 	/*********************************************************
-	 * Methods related to entity living.                     *
+	 * Methods related to entity living. *
 	 *********************************************************/
+	@Override
 	public void onLivingUpdate() {
 		if (this.hit_count > 7) {
 			this.charge_ticks -= 1;
 			this.setCharged(true);
-
+			
 			if (this.charge_ticks < 7) {
 				this.hit_count = 0;
 				this.setCharged(false);
@@ -275,33 +284,36 @@ public class EntityAmethyst extends EntityQuartzSoldier implements IAnimals {
 		}
 		super.onLivingUpdate();
 	}
-	
+
 	/*********************************************************
-	 * Methods related to sound.                             *
+	 * Methods related to sound. *
 	 *********************************************************/
+	@Override
 	protected SoundEvent getHurtSound(DamageSource source) {
 		return ModSounds.AMETHYST_HURT;
 	}
+	@Override
 	protected SoundEvent getObeySound() {
 		return ModSounds.AMETHYST_OBEY;
 	}
+	@Override
 	protected SoundEvent getDeathSound() {
 		return ModSounds.AMETHYST_DEATH;
 	}
-	
+
 	/*********************************************************
-	 * Methods related to rendering.                         *
+	 * Methods related to rendering. *
 	 *********************************************************/
 	@Override
 	public int generateSkinColor() {
 		return Colors.triLerp(EntityAmethyst.SKIN_COLOR_BEGIN, EntityAmethyst.SKIN_COLOR_MID, EntityAmethyst.SKIN_COLOR_END);
 	}
-	
+
 	@Override
 	protected int generateHairStyle() {
 		return this.rand.nextInt(EntityAmethyst.NUM_HAIRSTYLES);
 	}
-	
+
 	@Override
 	protected int generateHairColor() {
 		ArrayList<Integer> hairColors = new ArrayList<Integer>();
@@ -314,38 +326,40 @@ public class EntityAmethyst extends EntityQuartzSoldier implements IAnimals {
 		hairColors.add(EntityAmethyst.HAIR_COLOR_END);
 		return Colors.arbiLerp(hairColors);
 	}
-
+	
 	@Override
 	public boolean hasUniformVariant(GemPlacements placement) {
-		switch(placement) {
-		case BELLY:
-			return true;
-		default:
-			return false;
+		switch (placement) {
+			case BELLY :
+				return true;
+			default :
+				return false;
 		}
 	}
-	
+
 	@Override
 	public boolean hasCape() {
 		return true;
 	}
-	
+
 	@Override
 	public boolean hasHairVariant(GemPlacements placement) {
-		switch(placement) {
-		case FOREHEAD:
-			return true;
-		default:
-			return false;
+		switch (placement) {
+			case FOREHEAD :
+				return true;
+			default :
+				return false;
 		}
 	}
-	
+
+	@Override
 	@SideOnly(Side.CLIENT)
-    public int getBrightnessForRender() {
-        return isCharged() ? 15728880 : super.getBrightnessForRender();
+	public int getBrightnessForRender() {
+		return this.isCharged() ? 15728880 : super.getBrightnessForRender();
 	}
 	
-    public float getBrightness() {
-        return isCharged() ? 1.0F : super.getBrightness();
-    }
+	@Override
+	public float getBrightness() {
+		return this.isCharged() ? 1.0F : super.getBrightness();
+	}
 }

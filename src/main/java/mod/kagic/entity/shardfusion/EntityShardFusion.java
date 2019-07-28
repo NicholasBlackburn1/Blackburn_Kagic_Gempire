@@ -28,11 +28,11 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 
 public class EntityShardFusion extends EntityGem {
-
+	
 	public EntityShardFusion(World world) {
 		super(world);
 		this.isImmuneToFire = true;
-
+		
 		// Apply entity AI.
 		this.stayAI = new EntityAIStay(this);
 		this.tasks.addTask(2, new EntityAIMoveTowardsTarget(this, 0.414D, 32.0F));
@@ -41,25 +41,26 @@ public class EntityShardFusion extends EntityGem {
 		this.tasks.addTask(6, new EntityAIWatchClosest(this, EntityPlayer.class, 16.0F));
 		this.tasks.addTask(6, new EntityAIWatchClosest(this, EntityMob.class, 16.0F));
 		this.tasks.addTask(7, new EntityAILookIdle(this));
-		
+
 		// Apply targeting.
 		this.targetTasks.addTask(1, new EntityAIDiamondHurtByTarget(this));
 		this.targetTasks.addTask(2, new EntityAIDiamondHurtTarget(this));
 		this.targetTasks.addTask(3, new EntityAIHurtByTarget(this, false, new Class[0]));
 		this.targetTasks.addTask(4, new EntityAINearestAttackableTarget<EntityLivingBase>(this, EntityLivingBase.class, 10, true, false, new Predicate<EntityLivingBase>() {
+			@Override
 			public boolean apply(EntityLivingBase input) {
 				return input != null && !(input instanceof EntityShardFusion);
 			}
 		}));
 	}
-	
+
 	@Override
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
 		this.setServitude(EntityGem.SERVE_HOSTILE);
 		this.setAttackAI();
 		return super.onInitialSpawn(difficulty, livingdata);
 	}
-	
+
 	@Override
 	public boolean processInteract(EntityPlayer player, EnumHand hand) {
 		if (!this.world.isRemote) {
@@ -69,8 +70,7 @@ public class EntityShardFusion extends EntityGem {
 					if (player.isSneaking()) {
 						this.alternateInteract(player);
 						this.playObeySound();
-					}
-					else {
+					} else {
 						player.sendMessage(new TextComponentTranslation("command.kagic.does_not_understand", this.getName()));
 						return true;
 					}
@@ -79,7 +79,7 @@ public class EntityShardFusion extends EntityGem {
 		}
 		return false;
 	}
-	
+
 	@Override
 	public String generateSpecificName(BlockPos pos) {
 		return "Fusion";

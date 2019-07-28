@@ -10,7 +10,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
-import net.minecraftforge.registries.IForgeRegistryEntry;
 
 public class RepairGemsRecipes implements IRecipe {
 	public ItemStack getPotion() {
@@ -20,6 +19,7 @@ public class RepairGemsRecipes implements IRecipe {
 		healthPotion.setTagCompound(nbt);
 		return healthPotion;
 	}
+	@Override
 	public ItemStack getCraftingResult(InventoryCrafting inventory) {
 		ItemStack gem = ItemStack.EMPTY;
 		boolean heal = false;
@@ -31,47 +31,53 @@ public class RepairGemsRecipes implements IRecipe {
 				heal = true;
 			}
 		}
-    	ItemStack result = new ItemStack(ModItems.GEM_TABLE.get(gem.getItem()));
-    	result.setTagCompound(gem.getTagCompound());
-    	ItemGem gemItem = (ItemGem) gem.getItem();
-    	if ((heal && gemItem.isCracked) || (!heal && !gemItem.isCracked)) {
-    		return result;
-    	}
-        return ItemStack.EMPTY;
-    }
+		ItemStack result = new ItemStack(ModItems.GEM_TABLE.get(gem.getItem()));
+		result.setTagCompound(gem.getTagCompound());
+		ItemGem gemItem = (ItemGem) gem.getItem();
+		if (heal && gemItem.isCracked || !heal && !gemItem.isCracked) {
+			return result;
+		}
+		return ItemStack.EMPTY;
+	}
+	@Override
 	public boolean matches(InventoryCrafting inv, World worldIn) {
-        for (int y = 0; y < inv.getHeight(); ++y) {
-            for (int x = 0; x < inv.getWidth(); ++x) {
-                ItemStack itemstack = inv.getStackInRowAndColumn(x, y);
-                if (!itemstack.isEmpty()) {
-                    if (itemstack.getItem() instanceof ItemGem) {
-                    	return true;
-                    }
-                }
-            }
-        }
-        return false;
+		for (int y = 0; y < inv.getHeight(); ++y) {
+			for (int x = 0; x < inv.getWidth(); ++x) {
+				ItemStack itemstack = inv.getStackInRowAndColumn(x, y);
+				if (!itemstack.isEmpty()) {
+					if (itemstack.getItem() instanceof ItemGem) {
+						return true;
+					}
+				}
+			}
+		}
+		return false;
 	}
 	public int getRecipeSize() {
 		return 2;
 	}
+	@Override
 	public ItemStack getRecipeOutput() {
 		return ItemStack.EMPTY;
 	}
+	@Override
 	public NonNullList<ItemStack> getRemainingItems(InventoryCrafting inv) {
 		NonNullList<ItemStack> nonnulllist = NonNullList.<ItemStack>withSize(inv.getSizeInventory(), ItemStack.EMPTY);
-        for (int i = 0; i < nonnulllist.size(); ++i) {
-            ItemStack itemstack = inv.getStackInSlot(i);
-            nonnulllist.set(i, net.minecraftforge.common.ForgeHooks.getContainerItem(itemstack));
-        }
-        return nonnulllist;
+		for (int i = 0; i < nonnulllist.size(); ++i) {
+			ItemStack itemstack = inv.getStackInSlot(i);
+			nonnulllist.set(i, net.minecraftforge.common.ForgeHooks.getContainerItem(itemstack));
+		}
+		return nonnulllist;
 	}
+	@Override
 	public IRecipe setRegistryName(ResourceLocation name) {
 		return this;
 	}
+	@Override
 	public ResourceLocation getRegistryName() {
 		return new ResourceLocation("kagic:repair_gems");
 	}
+	@Override
 	public Class<IRecipe> getRegistryType() {
 		return IRecipe.class;
 	}

@@ -39,20 +39,20 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.oredict.OreDictionary;
 
 public class ModBlocks {
-	public static final Material DRAINED = (new Material(MapColor.PURPLE) {
+	public static final Material DRAINED = new Material(MapColor.PURPLE) {
 		@Override
 		public EnumPushReaction getMobilityFlag() {
 			return EnumPushReaction.BLOCK;
 		}
-		
+
 		@Override
 		public boolean isToolNotRequired() {
 			return false;
 		}
-	});
-	
+	};
+
 	public static final BlockGemSeed GEM_SEED = new BlockGemSeed();
-	public static final ItemBlock GEM_SEED_BLOCK = new ItemBlock(GEM_SEED);
+	public static final ItemBlock GEM_SEED_BLOCK = new ItemBlock(ModBlocks.GEM_SEED);
 	public static final BlockGemDrill GEM_DRILL = new BlockGemDrill();
 	public static final BlockInjector INJECTOR = new BlockInjector(false, false);
 	public static final BlockInjector EQUIPPED_INJECTOR = new BlockInjector(true, false);
@@ -75,103 +75,103 @@ public class ModBlocks {
 	public static final BlockPinkSandstoneSlab PINK_SANDSTONE_SLAB = new BlockPinkSandstoneSlab();
 	public static final BlockPinkSandstoneDoubleSlab PINK_SANDSTONE_DOUBLE_SLAB = new BlockPinkSandstoneDoubleSlab();
 	public static final BlockGiantStrawberry GIANT_STRAWBERRY = new BlockGiantStrawberry();
-	public static final BlockGiantStrawberryStem GIANT_STRAWBERRY_STEM = new BlockGiantStrawberryStem(GIANT_STRAWBERRY);
+	public static final BlockGiantStrawberryStem GIANT_STRAWBERRY_STEM = new BlockGiantStrawberryStem(ModBlocks.GIANT_STRAWBERRY);
 	public static final BlockMoonGoddessStatue MOON_GODDESS_STATUE = new BlockMoonGoddessStatue();
 	public static final BlockMoonBlessedStone MOON_BLESSED_STONE = new BlockMoonBlessedStone("moon_blessed_stone");
-	
+
 	public static final Fluid FLUID_ROSE_TEARS = new Fluid("rose_tears", new ResourceLocation("kagic:blocks/rose_tears_still"), new ResourceLocation("kagic:blocks/rose_tears_flowing"));
 	public static BlockRoseTears ROSE_TEARS;
-	
+
 	public static void registerBlocks(RegistryEvent.Register<Block> event) {
-		registerBlock(GEM_SEED, new ResourceLocation("kagic:gem_seed"), event);
-		registerBlock(GEM_DRILL, new ResourceLocation("kagic:gem_drill"), event);
-		registerBlock(INJECTOR, new ResourceLocation("kagic:injector"), event);
-		registerBlock(EQUIPPED_INJECTOR, new ResourceLocation("kagic:equipped_injector"), event);
-		registerBlock(ANALOG_INJECTOR, new ResourceLocation("kagic:analog_injector"), event);
-		registerBlock(EQUIPPED_ANALOG_INJECTOR, new ResourceLocation("kagic:equipped_analog_injector"), event);
-		registerBlock(INCUBATOR, new ResourceLocation("kagic:incubator"), event);
-		registerBlock(DRAINED_BLOCK, new ResourceLocation("kagic:drained_block"), event);
-		registerBlock(DRAINED_BLOCK_2, new ResourceLocation("kagic:drained_block_2"), event);
-		registerBlock(DRAINED_BANDS, new ResourceLocation("kagic:drained_bands"), event);
-		registerBlock(SMOOTH_CARBONITE, new ResourceLocation("kagic:smooth_carbonite"), event);
-		registerBlock(CHISELED_CARBONITE, new ResourceLocation("kagic:chiseled_carbonite"), event);
-		registerBlock(DRAINED_GRAVEL, new ResourceLocation("kagic:drained_gravel"), event);
-		registerBlock(ROCK_MELT, new ResourceLocation("kagic:rock_melt"), event);
-		registerBlock(RUTILE_TRAIL, new ResourceLocation("kagic:rutile_trail"), event);
-		registerBlock(WARP_PAD_CORE, new ResourceLocation("kagic:warp_pad_core"), event);
-		registerBlock(GALAXY_PAD_CORE, new ResourceLocation("kagic:galaxy_pad_core"), event);
-		registerBlock(PINK_SANDSTONE, new ResourceLocation("kagic:pink_sandstone"), event);
-		registerBlock(PINK_SANDSTONE_STAIRS, new ResourceLocation("kagic:pink_sandstone_stairs"), event);
-		registerBlock(WAVY_PINK_SANDSTONE_STAIRS, new ResourceLocation("kagic:wavy_pink_sandstone_stairs"), event);
-		registerBlock(PINK_SANDSTONE_SLAB, new ResourceLocation("kagic:pink_sandstone_slab"), event);
-		registerBlock(PINK_SANDSTONE_DOUBLE_SLAB, new ResourceLocation("kagic:pink_sandstone_double_slab"), event);
-		registerBlock(GIANT_STRAWBERRY, new ResourceLocation("kagic:giant_strawberry_block"), event);
-		registerBlock(GIANT_STRAWBERRY_STEM, new ResourceLocation("kagic:giant_strawberry_stem"), event);
-		registerBlock(MOON_GODDESS_STATUE, new ResourceLocation("kagic:moon_goddess_statue"), event);
-		registerBlock(MOON_BLESSED_STONE, new ResourceLocation("kagic:moon_blessed_stone"), event);
-		
-		registerFluid(FLUID_ROSE_TEARS);
-		ROSE_TEARS = new BlockRoseTears(FLUID_ROSE_TEARS, Material.WATER);
-		registerBlock(ROSE_TEARS, new ResourceLocation("kagic:rose_tears"), event);
+		ModBlocks.registerBlock(ModBlocks.GEM_SEED, new ResourceLocation("kagic:gem_seed"), event);
+		ModBlocks.registerBlock(ModBlocks.GEM_DRILL, new ResourceLocation("kagic:gem_drill"), event);
+		ModBlocks.registerBlock(ModBlocks.INJECTOR, new ResourceLocation("kagic:injector"), event);
+		ModBlocks.registerBlock(ModBlocks.EQUIPPED_INJECTOR, new ResourceLocation("kagic:equipped_injector"), event);
+		ModBlocks.registerBlock(ModBlocks.ANALOG_INJECTOR, new ResourceLocation("kagic:analog_injector"), event);
+		ModBlocks.registerBlock(ModBlocks.EQUIPPED_ANALOG_INJECTOR, new ResourceLocation("kagic:equipped_analog_injector"), event);
+		ModBlocks.registerBlock(ModBlocks.INCUBATOR, new ResourceLocation("kagic:incubator"), event);
+		ModBlocks.registerBlock(ModBlocks.DRAINED_BLOCK, new ResourceLocation("kagic:drained_block"), event);
+		ModBlocks.registerBlock(ModBlocks.DRAINED_BLOCK_2, new ResourceLocation("kagic:drained_block_2"), event);
+		ModBlocks.registerBlock(ModBlocks.DRAINED_BANDS, new ResourceLocation("kagic:drained_bands"), event);
+		ModBlocks.registerBlock(ModBlocks.SMOOTH_CARBONITE, new ResourceLocation("kagic:smooth_carbonite"), event);
+		ModBlocks.registerBlock(ModBlocks.CHISELED_CARBONITE, new ResourceLocation("kagic:chiseled_carbonite"), event);
+		ModBlocks.registerBlock(ModBlocks.DRAINED_GRAVEL, new ResourceLocation("kagic:drained_gravel"), event);
+		ModBlocks.registerBlock(ModBlocks.ROCK_MELT, new ResourceLocation("kagic:rock_melt"), event);
+		ModBlocks.registerBlock(ModBlocks.RUTILE_TRAIL, new ResourceLocation("kagic:rutile_trail"), event);
+		ModBlocks.registerBlock(ModBlocks.WARP_PAD_CORE, new ResourceLocation("kagic:warp_pad_core"), event);
+		ModBlocks.registerBlock(ModBlocks.GALAXY_PAD_CORE, new ResourceLocation("kagic:galaxy_pad_core"), event);
+		ModBlocks.registerBlock(ModBlocks.PINK_SANDSTONE, new ResourceLocation("kagic:pink_sandstone"), event);
+		ModBlocks.registerBlock(ModBlocks.PINK_SANDSTONE_STAIRS, new ResourceLocation("kagic:pink_sandstone_stairs"), event);
+		ModBlocks.registerBlock(ModBlocks.WAVY_PINK_SANDSTONE_STAIRS, new ResourceLocation("kagic:wavy_pink_sandstone_stairs"), event);
+		ModBlocks.registerBlock(ModBlocks.PINK_SANDSTONE_SLAB, new ResourceLocation("kagic:pink_sandstone_slab"), event);
+		ModBlocks.registerBlock(ModBlocks.PINK_SANDSTONE_DOUBLE_SLAB, new ResourceLocation("kagic:pink_sandstone_double_slab"), event);
+		ModBlocks.registerBlock(ModBlocks.GIANT_STRAWBERRY, new ResourceLocation("kagic:giant_strawberry_block"), event);
+		ModBlocks.registerBlock(ModBlocks.GIANT_STRAWBERRY_STEM, new ResourceLocation("kagic:giant_strawberry_stem"), event);
+		ModBlocks.registerBlock(ModBlocks.MOON_GODDESS_STATUE, new ResourceLocation("kagic:moon_goddess_statue"), event);
+		ModBlocks.registerBlock(ModBlocks.MOON_BLESSED_STONE, new ResourceLocation("kagic:moon_blessed_stone"), event);
+
+		ModBlocks.registerFluid(ModBlocks.FLUID_ROSE_TEARS);
+		ModBlocks.ROSE_TEARS = new BlockRoseTears(ModBlocks.FLUID_ROSE_TEARS, Material.WATER);
+		ModBlocks.registerBlock(ModBlocks.ROSE_TEARS, new ResourceLocation("kagic:rose_tears"), event);
 		KAGIC.proxy.registerStateMappers();
-		//KAGIC.proxy.registerBlockColors();
+		// KAGIC.proxy.registerBlockColors();
 	}
-	
+
 	public static void registerBlock(Block block, ResourceLocation location, RegistryEvent.Register<Block> event) {
 		block.setRegistryName(location);
 		event.getRegistry().register(block);
 	}
-	
+
 	public static void registerFluid(Fluid fluid) {
 		FluidRegistry.registerFluid(fluid);
 		FluidRegistry.addBucketForFluid(fluid);
 	}
-	
+
 	public static void registerBlockItems(RegistryEvent.Register<Item> event) {
-		registerBlockItem(GEM_SEED, new ResourceLocation("kagic:gem_seed"), event);
-		registerBlockItem(GEM_DRILL, new ResourceLocation("kagic:gem_drill"), event);
-		registerBlockItem(INJECTOR, new ResourceLocation("kagic:injector"), event);
-		registerBlockItem(EQUIPPED_INJECTOR, new ResourceLocation("kagic:equipped_injector"), event);
-		registerBlockItem(ANALOG_INJECTOR, new ResourceLocation("kagic:analog_injector"), event);
-		registerBlockItem(EQUIPPED_ANALOG_INJECTOR, new ResourceLocation("kagic:equipped_analog_injector"), event);
-		registerBlockItem(INCUBATOR, new ResourceLocation("kagic:incubator"), event);
-		registerBlockItem(DRAINED_BLOCK, new ResourceLocation("kagic:drained_block"), event, "stoneDrained");
-		registerBlockItem(DRAINED_BLOCK_2, new ResourceLocation("kagic:drained_block_2"), event, "stoneDrained");
-		registerBlockItem(DRAINED_BANDS, new ResourceLocation("kagic:drained_bands"), event, "stoneDrained");
-		registerBlockItem(SMOOTH_CARBONITE, new ResourceLocation("kagic:smooth_carbonite"), event);
-		registerBlockItem(DRAINED_GRAVEL, new ResourceLocation("kagic:drained_gravel"), event, "gravelDrained");
-		registerBlockItem(CHISELED_CARBONITE, new ResourceLocation("kagic:chiseled_carbonite"), event);
-		registerBlockItem(ROCK_MELT, new ResourceLocation("kagic:rock_melt"), event);
-		registerBlockItem(RUTILE_TRAIL, new ResourceLocation("kagic:rutile_trail"), event);
-		registerBlockItem(WARP_PAD_CORE, new ResourceLocation("kagic:warp_pad_core"), event);		
-		registerBlockItem(GALAXY_PAD_CORE, new ResourceLocation("kagic:galaxy_pad_core"), event);		
-		registerPinkSandstoneItems(event);
-		registerBlockItem(PINK_SANDSTONE_STAIRS, new ResourceLocation("kagic:pink_sandstone_stairs"), event);		
-		registerBlockItem(WAVY_PINK_SANDSTONE_STAIRS, new ResourceLocation("kagic:wavy_pink_sandstone_stairs"), event);		
-		registerBlockItemSlab(PINK_SANDSTONE_SLAB, PINK_SANDSTONE_DOUBLE_SLAB, new ResourceLocation("kagic:pink_sandstone_slab"), event);		
-		registerBlockItem(GIANT_STRAWBERRY, new ResourceLocation("kagic:giant_strawberry_block"), event, "blockGiantStrawberry");
-		registerBlockItem(MOON_GODDESS_STATUE, new ResourceLocation("kagic:moon_goddess_statue"), event);
-		registerBlockItem(MOON_BLESSED_STONE, new ResourceLocation("kagic:moon_blessed_stone"), event);
+		ModBlocks.registerBlockItem(ModBlocks.GEM_SEED, new ResourceLocation("kagic:gem_seed"), event);
+		ModBlocks.registerBlockItem(ModBlocks.GEM_DRILL, new ResourceLocation("kagic:gem_drill"), event);
+		ModBlocks.registerBlockItem(ModBlocks.INJECTOR, new ResourceLocation("kagic:injector"), event);
+		ModBlocks.registerBlockItem(ModBlocks.EQUIPPED_INJECTOR, new ResourceLocation("kagic:equipped_injector"), event);
+		ModBlocks.registerBlockItem(ModBlocks.ANALOG_INJECTOR, new ResourceLocation("kagic:analog_injector"), event);
+		ModBlocks.registerBlockItem(ModBlocks.EQUIPPED_ANALOG_INJECTOR, new ResourceLocation("kagic:equipped_analog_injector"), event);
+		ModBlocks.registerBlockItem(ModBlocks.INCUBATOR, new ResourceLocation("kagic:incubator"), event);
+		ModBlocks.registerBlockItem(ModBlocks.DRAINED_BLOCK, new ResourceLocation("kagic:drained_block"), event, "stoneDrained");
+		ModBlocks.registerBlockItem(ModBlocks.DRAINED_BLOCK_2, new ResourceLocation("kagic:drained_block_2"), event, "stoneDrained");
+		ModBlocks.registerBlockItem(ModBlocks.DRAINED_BANDS, new ResourceLocation("kagic:drained_bands"), event, "stoneDrained");
+		ModBlocks.registerBlockItem(ModBlocks.SMOOTH_CARBONITE, new ResourceLocation("kagic:smooth_carbonite"), event);
+		ModBlocks.registerBlockItem(ModBlocks.DRAINED_GRAVEL, new ResourceLocation("kagic:drained_gravel"), event, "gravelDrained");
+		ModBlocks.registerBlockItem(ModBlocks.CHISELED_CARBONITE, new ResourceLocation("kagic:chiseled_carbonite"), event);
+		ModBlocks.registerBlockItem(ModBlocks.ROCK_MELT, new ResourceLocation("kagic:rock_melt"), event);
+		ModBlocks.registerBlockItem(ModBlocks.RUTILE_TRAIL, new ResourceLocation("kagic:rutile_trail"), event);
+		ModBlocks.registerBlockItem(ModBlocks.WARP_PAD_CORE, new ResourceLocation("kagic:warp_pad_core"), event);
+		ModBlocks.registerBlockItem(ModBlocks.GALAXY_PAD_CORE, new ResourceLocation("kagic:galaxy_pad_core"), event);
+		ModBlocks.registerPinkSandstoneItems(event);
+		ModBlocks.registerBlockItem(ModBlocks.PINK_SANDSTONE_STAIRS, new ResourceLocation("kagic:pink_sandstone_stairs"), event);
+		ModBlocks.registerBlockItem(ModBlocks.WAVY_PINK_SANDSTONE_STAIRS, new ResourceLocation("kagic:wavy_pink_sandstone_stairs"), event);
+		ModBlocks.registerBlockItemSlab(ModBlocks.PINK_SANDSTONE_SLAB, ModBlocks.PINK_SANDSTONE_DOUBLE_SLAB, new ResourceLocation("kagic:pink_sandstone_slab"), event);
+		ModBlocks.registerBlockItem(ModBlocks.GIANT_STRAWBERRY, new ResourceLocation("kagic:giant_strawberry_block"), event, "blockGiantStrawberry");
+		ModBlocks.registerBlockItem(ModBlocks.MOON_GODDESS_STATUE, new ResourceLocation("kagic:moon_goddess_statue"), event);
+		ModBlocks.registerBlockItem(ModBlocks.MOON_BLESSED_STONE, new ResourceLocation("kagic:moon_blessed_stone"), event);
 	}
-	
+
 	public static void registerBlockItem(Block block, ResourceLocation location, RegistryEvent.Register<Item> event) {
-		registerBlockItem(block, location, event, "");
+		ModBlocks.registerBlockItem(block, location, event, "");
 	}
-	
+
 	public static void registerBlockItem(Block block, ResourceLocation location, RegistryEvent.Register<Item> event, String oredictName) {
 		ItemBlock item = new ItemBlock(block);
 		item.setRegistryName(location);
 		event.getRegistry().register(item);
-
+		
 		if (!oredictName.isEmpty()) {
 			OreDictionary.registerOre(oredictName, item);
 		}
-
+		
 		if (FMLCommonHandler.instance().getSide() == Side.CLIENT) {
 			ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(item.getRegistryName(), "inventory"));
 		}
 	}
-	
+
 	public static void registerBlockItemSlab(BlockSlab singleSlab, BlockSlab doubleSlab, ResourceLocation location, RegistryEvent.Register<Item> event) {
 		ItemSlab item = new ItemSlab(singleSlab, singleSlab, doubleSlab);
 		item.setRegistryName(location);
@@ -180,16 +180,14 @@ public class ModBlocks {
 			ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(item.getRegistryName(), "inventory"));
 		}
 	}
-	
+
 	public static void registerPinkSandstoneItems(RegistryEvent.Register<Item> event) {
-		ItemMultiTexture item = (ItemMultiTexture) (new ItemMultiTexture(PINK_SANDSTONE, PINK_SANDSTONE, new ItemMultiTexture.Mapper()
-        {
+		ItemMultiTexture item = (ItemMultiTexture) new ItemMultiTexture(ModBlocks.PINK_SANDSTONE, ModBlocks.PINK_SANDSTONE, new ItemMultiTexture.Mapper() {
 			@Override
-            public String apply(ItemStack p_apply_1_)
-            {
-                return BlockPinkSandstone.EnumType.byMetadata(p_apply_1_.getMetadata()).getUnlocalizedName();
-            }
-        })).setUnlocalizedName(PINK_SANDSTONE.getUnlocalizedName());
+			public String apply(ItemStack p_apply_1_) {
+				return BlockPinkSandstone.EnumType.byMetadata(p_apply_1_.getMetadata()).getUnlocalizedName();
+			}
+		}).setUnlocalizedName(ModBlocks.PINK_SANDSTONE.getUnlocalizedName());
 		item.setRegistryName(new ResourceLocation("kagic:pink_sandstone"));
 		event.getRegistry().register(item);
 		OreDictionary.registerOre("sandstone", item);

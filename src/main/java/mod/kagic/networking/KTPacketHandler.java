@@ -7,22 +7,22 @@ import net.minecraftforge.fml.relauncher.Side;
 public class KTPacketHandler {
 	private static int packetID = 0;
 	public static SimpleNetworkWrapper INSTANCE = null;
-	
+
 	public static int nextID() {
-		return packetID++;
+		return KTPacketHandler.packetID++;
 	}
-	
+
 	public static void registerMessages(String channelName) {
-		INSTANCE = NetworkRegistry.INSTANCE.newSimpleChannel(channelName);
-		registerMessages();
+		KTPacketHandler.INSTANCE = NetworkRegistry.INSTANCE.newSimpleChannel(channelName);
+		KTPacketHandler.registerMessages();
 	}
-	
+
 	public static void registerMessages() {
-		INSTANCE.registerMessage(TENameMessage.TENameMessageHandler.class, TENameMessage.class, nextID(), Side.SERVER);
-		INSTANCE.registerMessage(PadDataRequestMessage.PadDataRequestMessageHandler.class, PadDataRequestMessage.class, nextID(), Side.SERVER);
-		INSTANCE.registerMessage(PadDataMessage.PadDataMessageHandler.class, PadDataMessage.class, nextID(), Side.CLIENT);
-		INSTANCE.registerMessage(WarpSignalMessage.WarpSignalMessageHandler.class, WarpSignalMessage.class, nextID(), Side.SERVER);
-		INSTANCE.registerMessage(EntityTeleportMessage.EntityTeleportMessageHandler.class, EntityTeleportMessage.class, nextID(), Side.CLIENT);
-		INSTANCE.registerMessage(GalaxySignalMessage.GalaxySignalMessageHandler.class, GalaxySignalMessage.class, nextID(), Side.SERVER);
+		KTPacketHandler.INSTANCE.registerMessage(TENameMessage.TENameMessageHandler.class, TENameMessage.class, KTPacketHandler.nextID(), Side.SERVER);
+		KTPacketHandler.INSTANCE.registerMessage(PadDataRequestMessage.PadDataRequestMessageHandler.class, PadDataRequestMessage.class, KTPacketHandler.nextID(), Side.SERVER);
+		KTPacketHandler.INSTANCE.registerMessage(PadDataMessage.PadDataMessageHandler.class, PadDataMessage.class, KTPacketHandler.nextID(), Side.CLIENT);
+		KTPacketHandler.INSTANCE.registerMessage(WarpSignalMessage.WarpSignalMessageHandler.class, WarpSignalMessage.class, KTPacketHandler.nextID(), Side.SERVER);
+		KTPacketHandler.INSTANCE.registerMessage(EntityTeleportMessage.EntityTeleportMessageHandler.class, EntityTeleportMessage.class, KTPacketHandler.nextID(), Side.CLIENT);
+		KTPacketHandler.INSTANCE.registerMessage(GalaxySignalMessage.GalaxySignalMessageHandler.class, GalaxySignalMessage.class, KTPacketHandler.nextID(), Side.SERVER);
 	}
 }

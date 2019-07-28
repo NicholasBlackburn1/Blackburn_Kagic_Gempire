@@ -9,14 +9,14 @@ import net.minecraft.util.ResourceLocation;
 
 public class RenderPumpkin extends RenderLivingBase<EntityPumpkin> {
 	public RenderPumpkin() {
-        super(Minecraft.getMinecraft().getRenderManager(), new ModelPepo(), 0.25F);
-        this.addLayer(new LayerArrow(this));
-    }
+		super(Minecraft.getMinecraft().getRenderManager(), new ModelPepo(), 0.25F);
+		this.addLayer(new LayerArrow(this));
+	}
+	@Override
 	protected ResourceLocation getEntityTexture(EntityPumpkin entity) {
 		if (entity.isLit()) {
 			return new ResourceLocation("kagic:textures/entities/pepo/pumpkin_lit.png");
-		}
-		else {
+		} else {
 			return new ResourceLocation("kagic:textures/entities/pepo/pumpkin.png");
 		}
 	}

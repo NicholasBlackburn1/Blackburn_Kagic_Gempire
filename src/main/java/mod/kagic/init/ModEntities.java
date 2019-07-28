@@ -78,65 +78,74 @@ import net.minecraftforge.oredict.OreDictionary;
 public class ModEntities {
 	public static final HashMap<String, Class<? extends EntityGem>> GEMS = new HashMap<String, Class<? extends EntityGem>>();
 	public static final ArrayList<Class<? extends EntityGem>> MINERALS = new ArrayList<Class<? extends EntityGem>>();
-	public static final boolean GENERATE_FACTORIES_INSTEAD_OF_INSTANCES = false;	// Switches to the new system, which doesn't work right now.
+	public static final boolean GENERATE_FACTORIES_INSTEAD_OF_INSTANCES = false; // Switches
+																					// to
+																					// the
+																					// new
+																					// system,
+																					// which
+																					// doesn't
+																					// work
+																					// right
+																					// now.
 	private static int currentID = 0;
-	
-	public static void register() {
-		registerGem("ruby", EntityRuby.class, 0xE52C5C, 0x3A0015, true);
-		registerGem("sapphire", EntitySapphire.class, 0xBAF5FD, 0x7298EC, false);
-		registerGem("pearl", EntityPearl.class, 0xFCCCB1, 0x92EAD9, true);
-		registerGem("bismuth", EntityBismuth.class, 0x91A8CF, 0x9C5867, false);
-		registerGem("peridot", EntityPeridot.class, 0x98FF72, 0x13BA54, true);
-		registerGem("jasper", EntityJasper.class, 0xF89E57, 0xE13941, true);
-		registerGem("amethyst", EntityAmethyst.class, 0xEAE2FF, 0xC49EDB, true);
-		registerGem("rose_quartz", EntityRoseQuartz.class, 0xFEDED3, 0xE99CBE, false);
-		registerGem("lapis_lazuli", EntityLapisLazuli.class, 0x4FEEFB, 0x1B6AD6, false);
-		registerGem("carnelian", EntityCarnelian.class, 0xC13178, 0x510245, true);
-		registerGem("agate", EntityAgate.class, 0xB3DEFF, 0x1B50D0, true);
-		registerGem("aquamarine", EntityAquamarine.class, 0x8AFFFF, 0x0487E3, false);
-		registerGem("topaz", EntityTopaz.class, 0xF5FC51, 0xFDFEA4, false);
-		registerGem("rutile", EntityRutile.class, 0xD2508C, 0x23020D, false);
-		registerGem("zircon", EntityZircon.class, 0x458FBE, 0x57C7CF, false);
-		registerGem("hessonite", EntityHessonite.class, 0xBE331C, 0xEDCC41, false);
-		registerDiamond("yellow_diamond", EntityYellowDiamond.class);
-		registerDiamond("blue_diamond", EntityBlueDiamond.class);
-		
-		// removed gem, still needs to be registered though
-		registerDiamond("padparadscha", EntityPadparadscha.class);
-		
-		registerDiamond("handbody", EntityHandBody.class);
-		registerDiamond("footarm", EntityFootArm.class);
-		registerDiamond("mouthtorso", EntityMouthTorso.class);
-		
-		registerCorruptedGem("corrupted_amatista", EntityCorruptedAmethyst.class);
-		registerCorruptedGem("corrupted_cornalina", EntityCorruptedCarnelian.class);
-		registerCorruptedGem("corrupted_jasper", EntityCorruptedJasper.class);
-		registerDiamond("corrupted_moissanita", EntityCorruptedMoissanite.class);
-		registerCorruptedGem("corrupted_cuarzo_rosa", EntityCorruptedRoseQuartz.class);
-		registerCorruptedGem("tongue_monster", EntityTongueMonster.class);
-		registerCorruptedGem("water_bear", EntityCorruptedWaterBear.class);
-		registerCorruptedGem("corrupted_watermelon_tourmaline", EntityCorruptedWatermelonTourmaline.class);
 
-		registerDiamond("opal", EntityOpal.class);
-		registerDiamond("garnet", EntityGarnet.class);
-		registerDiamond("rhodonite", EntityRhodonite.class);
-		registerDiamond("holopearl", EntityHoloPearl.class);
-		registerDiamond("rainbow_quartz", EntityRainbowQuartz.class);
-		registerDiamond("malachite", EntityMalachite.class);
-		registerDiamond("ruby_fusion", EntityRubyFusion.class);
+	public static void register() {
+		ModEntities.registerGem("ruby", EntityRuby.class, 0xE52C5C, 0x3A0015, true);
+		ModEntities.registerGem("sapphire", EntitySapphire.class, 0xBAF5FD, 0x7298EC, false);
+		ModEntities.registerGem("pearl", EntityPearl.class, 0xFCCCB1, 0x92EAD9, true);
+		ModEntities.registerGem("bismuth", EntityBismuth.class, 0x91A8CF, 0x9C5867, false);
+		ModEntities.registerGem("peridot", EntityPeridot.class, 0x98FF72, 0x13BA54, true);
+		ModEntities.registerGem("jasper", EntityJasper.class, 0xF89E57, 0xE13941, true);
+		ModEntities.registerGem("amethyst", EntityAmethyst.class, 0xEAE2FF, 0xC49EDB, true);
+		ModEntities.registerGem("rose_quartz", EntityRoseQuartz.class, 0xFEDED3, 0xE99CBE, false);
+		ModEntities.registerGem("lapis_lazuli", EntityLapisLazuli.class, 0x4FEEFB, 0x1B6AD6, false);
+		ModEntities.registerGem("carnelian", EntityCarnelian.class, 0xC13178, 0x510245, true);
+		ModEntities.registerGem("agate", EntityAgate.class, 0xB3DEFF, 0x1B50D0, true);
+		ModEntities.registerGem("aquamarine", EntityAquamarine.class, 0x8AFFFF, 0x0487E3, false);
+		ModEntities.registerGem("topaz", EntityTopaz.class, 0xF5FC51, 0xFDFEA4, false);
+		ModEntities.registerGem("rutile", EntityRutile.class, 0xD2508C, 0x23020D, false);
+		ModEntities.registerGem("zircon", EntityZircon.class, 0x458FBE, 0x57C7CF, false);
+		ModEntities.registerGem("hessonite", EntityHessonite.class, 0xBE331C, 0xEDCC41, false);
+		ModEntities.registerDiamond("yellow_diamond", EntityYellowDiamond.class);
+		ModEntities.registerDiamond("blue_diamond", EntityBlueDiamond.class);
+
+		// removed gem, still needs to be registered though
+		ModEntities.registerDiamond("padparadscha", EntityPadparadscha.class);
+
+		ModEntities.registerDiamond("handbody", EntityHandBody.class);
+		ModEntities.registerDiamond("footarm", EntityFootArm.class);
+		ModEntities.registerDiamond("mouthtorso", EntityMouthTorso.class);
+
+		ModEntities.registerCorruptedGem("corrupted_amatista", EntityCorruptedAmethyst.class);
+		ModEntities.registerCorruptedGem("corrupted_cornalina", EntityCorruptedCarnelian.class);
+		ModEntities.registerCorruptedGem("corrupted_jasper", EntityCorruptedJasper.class);
+		ModEntities.registerDiamond("corrupted_moissanita", EntityCorruptedMoissanite.class);
+		ModEntities.registerCorruptedGem("corrupted_cuarzo_rosa", EntityCorruptedRoseQuartz.class);
+		ModEntities.registerCorruptedGem("tongue_monster", EntityTongueMonster.class);
+		ModEntities.registerCorruptedGem("water_bear", EntityCorruptedWaterBear.class);
+		ModEntities.registerCorruptedGem("corrupted_watermelon_tourmaline", EntityCorruptedWatermelonTourmaline.class);
 		
-		registerMob("melon", EntityMelon.class, 0xB5B128, 0x5A671A);
-		registerMob("pumpkin", EntityPumpkin.class, 0xD58116, 0x744E03);
-		registerMob("cactus", EntityCactus.class, 0x138622, 0xD9DB9F);
-		registerMob("strawberry", EntityStrawberry.class, 0xEF4B69, 0x80855A);
-		registerMob("slag", EntitySlag.class, 0xFFFFFF, 0x00FF5D);
-		registerEntity("roaming_eye", EntityRoamingEye.class);
-		registerEntity("laser", EntityLaser.class);
-		
-		//registerGemYields();
-		registerGemAddons();
+		ModEntities.registerDiamond("opal", EntityOpal.class);
+		ModEntities.registerDiamond("garnet", EntityGarnet.class);
+		ModEntities.registerDiamond("rhodonite", EntityRhodonite.class);
+		ModEntities.registerDiamond("holopearl", EntityHoloPearl.class);
+		ModEntities.registerDiamond("rainbow_quartz", EntityRainbowQuartz.class);
+		ModEntities.registerDiamond("malachite", EntityMalachite.class);
+		ModEntities.registerDiamond("ruby_fusion", EntityRubyFusion.class);
+
+		ModEntities.registerMob("melon", EntityMelon.class, 0xB5B128, 0x5A671A);
+		ModEntities.registerMob("pumpkin", EntityPumpkin.class, 0xD58116, 0x744E03);
+		ModEntities.registerMob("cactus", EntityCactus.class, 0x138622, 0xD9DB9F);
+		ModEntities.registerMob("strawberry", EntityStrawberry.class, 0xEF4B69, 0x80855A);
+		ModEntities.registerMob("slag", EntitySlag.class, 0xFFFFFF, 0x00FF5D);
+		ModEntities.registerEntity("roaming_eye", EntityRoamingEye.class);
+		ModEntities.registerEntity("laser", EntityLaser.class);
+
+		// registerGemYields();
+		ModEntities.registerGemAddons();
 	}
-	
+
 	public static void registerGemYields() {
 		ModEntities.registerOreDictValue(EntityRuby.RUBY_YIELDS, 0.77, "oreIron");
 		EntityRuby.RUBY_YIELDS.put(Blocks.LAVA.getDefaultState(), 0.55);
@@ -153,7 +162,7 @@ public class ModEntities {
 		ModEntities.registerOreDictValue(EntityRuby.RUBY_YIELDS, 0.33, "oreAluminium");
 		ModEntities.registerOreDictValue(EntityRuby.RUBY_YIELDS, 0.99, "oreGarnet");
 		ModEntities.registerOreDictValue(EntityRuby.RUBY_YIELDS, 1.99, "blockGarnet");
-
+		
 		EntitySapphire.SAPPHIRE_YIELDS.put(Blocks.ICE.getDefaultState(), 0.99);
 		ModEntities.registerOreDictValue(EntitySapphire.SAPPHIRE_YIELDS, 0.11, "stoneMarble");
 		ModEntities.registerOreDictValue(EntitySapphire.SAPPHIRE_YIELDS, 0.44, "stoneMarblePolished");
@@ -165,7 +174,7 @@ public class ModEntities {
 		ModEntities.registerOreDictValue(EntitySapphire.SAPPHIRE_YIELDS, 0.33, "oreAluminium");
 		ModEntities.registerOreDictValue(EntitySapphire.SAPPHIRE_YIELDS, 0.99, "oreGarnet");
 		ModEntities.registerOreDictValue(EntitySapphire.SAPPHIRE_YIELDS, 1.99, "blockGarnet");
-
+		
 		EntityPearl.PEARL_YIELDS.put(Blocks.CLAY.getDefaultState(), 0.77);
 		ModEntities.registerOreDictValue(EntityPearl.PEARL_YIELDS, 0.99, "oreCoal");
 		ModEntities.registerOreDictValue(EntityPearl.PEARL_YIELDS, 0.55, "endstone");
@@ -176,7 +185,7 @@ public class ModEntities {
 		EntityPearl.PEARL_YIELDS.put(Blocks.BONE_BLOCK.getDefaultState().withProperty(BlockRotatedPillar.AXIS, EnumFacing.Axis.Y), 1.99);
 		EntityPearl.PEARL_YIELDS.put(Blocks.BONE_BLOCK.getDefaultState().withProperty(BlockRotatedPillar.AXIS, EnumFacing.Axis.Z), 1.99);
 		ModEntities.registerOreDictValue(EntityPearl.PEARL_YIELDS, 5.99, "blockCoal");
-		
+
 		EntityPearl.PEARL_YIELDS.put(Blocks.BLACK_SHULKER_BOX.getDefaultState(), 5.99);
 		EntityPearl.PEARL_YIELDS.put(Blocks.BLUE_SHULKER_BOX.getDefaultState(), 5.99);
 		EntityPearl.PEARL_YIELDS.put(Blocks.RED_SHULKER_BOX.getDefaultState(), 5.99);
@@ -192,9 +201,9 @@ public class ModEntities {
 		EntityPearl.PEARL_YIELDS.put(Blocks.CYAN_SHULKER_BOX.getDefaultState(), 5.99);
 		EntityPearl.PEARL_YIELDS.put(Blocks.MAGENTA_SHULKER_BOX.getDefaultState(), 5.99);
 		EntityPearl.PEARL_YIELDS.put(Blocks.PINK_SHULKER_BOX.getDefaultState(), 5.99);
-		EntityPearl.PEARL_YIELDS.put(Blocks.PURPLE_SHULKER_BOX.getDefaultState(), 5.99);	
+		EntityPearl.PEARL_YIELDS.put(Blocks.PURPLE_SHULKER_BOX.getDefaultState(), 5.99);
 		ModEntities.registerWithOreDictionary(EntityPearl.PEARL_YIELDS, "Pearl", "Salt", "Calcite", "Amber");
-		
+
 		ModEntities.registerOreDictValue(EntityBismuth.BISMUTH_YIELDS, 0.99, "oreDiamond");
 		ModEntities.registerOreDictValue(EntityBismuth.BISMUTH_YIELDS, 0.99, "oreGold");
 		ModEntities.registerOreDictValue(EntityBismuth.BISMUTH_YIELDS, 5.99, "blockGold");
@@ -202,7 +211,7 @@ public class ModEntities {
 		ModEntities.registerOreDictValue(EntityBismuth.BISMUTH_YIELDS, 0.11, "oreCopper");
 		ModEntities.registerOreDictValue(EntityBismuth.BISMUTH_YIELDS, 0.11, "oreTin");
 		ModEntities.registerOreDictValue(EntityBismuth.BISMUTH_YIELDS, 0.33, "oreLead");
-
+		
 		ModEntities.registerOreDictValue(EntityPeridot.PERIDOT_YIELDS, 0.99, "endstone");
 		ModEntities.registerOreDictValue(EntityPeridot.PERIDOT_YIELDS, 0.99, "oreIron");
 		EntityPeridot.PERIDOT_YIELDS.put(Blocks.LAVA.getDefaultState(), 0.33);
@@ -214,7 +223,7 @@ public class ModEntities {
 		EntityPeridot.PERIDOT_YIELDS.put(Blocks.END_BRICKS.getDefaultState(), 5.99);
 		ModEntities.registerWithOreDictionary(EntityPeridot.PERIDOT_YIELDS, "Peridot", "Olivine", "Vanadium");
 		ModEntities.registerOreDictValue(EntityPeridot.PERIDOT_YIELDS, 0.33, "oreCopper");
-		
+
 		EntityJasper.JASPER_YIELDS.put(Blocks.CLAY.getDefaultState(), 0.22);
 		EntityJasper.JASPER_YIELDS.put(Blocks.HARDENED_CLAY.getDefaultState(), 0.44);
 		ModEntities.registerOreDictValue(EntityJasper.JASPER_YIELDS, 0.33, "oreIron");
@@ -227,7 +236,7 @@ public class ModEntities {
 		ModEntities.registerOreDictValue(EntityJasper.JASPER_YIELDS, 0.11, "stoneLimestonePolished");
 		ModEntities.registerOreDictValue(EntityJasper.JASPER_YIELDS, 5.99, "blockQuartz");
 		ModEntities.registerWithOreDictionary(EntityJasper.JASPER_YIELDS, "Jasper");
-		
+
 		ModEntities.registerOreDictValue(EntityAmethyst.AMETHYST_YIELDS, 0.66, "oreIron");
 		ModEntities.registerOreDictValue(EntityAmethyst.AMETHYST_YIELDS, 1.99, "oreQuartz");
 		ModEntities.registerOreDictValue(EntityAmethyst.AMETHYST_YIELDS, 0.44, "stoneDiorite");
@@ -236,7 +245,7 @@ public class ModEntities {
 		ModEntities.registerOreDictValue(EntityAmethyst.AMETHYST_YIELDS, 0.11, "stoneLimestonePolished");
 		ModEntities.registerOreDictValue(EntityAmethyst.AMETHYST_YIELDS, 5.99, "blockQuartz");
 		ModEntities.registerWithOreDictionary(EntityAmethyst.AMETHYST_YIELDS, "Amethyst");
-		
+
 		ModEntities.registerOreDictValue(EntityRoseQuartz.ROSE_QUARTZ_YIELDS, 0.11, "oreIron");
 		EntityRoseQuartz.ROSE_QUARTZ_YIELDS.put(Blocks.PURPUR_BLOCK.getDefaultState(), 0.11);
 		EntityRoseQuartz.ROSE_QUARTZ_YIELDS.put(Blocks.PURPUR_PILLAR.getDefaultState(), 0.11);
@@ -248,11 +257,11 @@ public class ModEntities {
 		ModEntities.registerOreDictValue(EntityRoseQuartz.ROSE_QUARTZ_YIELDS, 0.11, "stoneLimestonePolished");
 		ModEntities.registerOreDictValue(EntityRoseQuartz.ROSE_QUARTZ_YIELDS, 5.99, "blockQuartz");
 		ModEntities.registerWithOreDictionary(EntityRoseQuartz.ROSE_QUARTZ_YIELDS, "RoseQuartz");
-		
+
 		ModEntities.registerOreDictValue(EntityLapisLazuli.LAPIS_LAZULI_YIELDS, 0.44, "blockPrismarine");
 		EntityLapisLazuli.LAPIS_LAZULI_YIELDS.put(Blocks.WATER.getDefaultState(), 0.22);
 		ModEntities.registerWithOreDictionary(EntityLapisLazuli.LAPIS_LAZULI_YIELDS, "LapisLazuli", "Lapis", "Lazuli", "Pyrite", "Sodalite");
-
+		
 		EntityCarnelian.CARNELIAN_YIELDS.put(Blocks.CLAY.getDefaultState(), 0.22);
 		EntityCarnelian.CARNELIAN_YIELDS.put(Blocks.HARDENED_CLAY.getDefaultState(), 0.99);
 		ModEntities.registerOreDictValue(EntityCarnelian.CARNELIAN_YIELDS, 0.11, "oreIron");
@@ -266,7 +275,7 @@ public class ModEntities {
 		ModEntities.registerOreDictValue(EntityCarnelian.CARNELIAN_YIELDS, 0.11, "stoneLimestonePolished");
 		ModEntities.registerOreDictValue(EntityCarnelian.CARNELIAN_YIELDS, 5.99, "blockQuartz");
 		ModEntities.registerWithOreDictionary(EntityCarnelian.CARNELIAN_YIELDS, "Carnelian");
-		
+
 		ModEntities.registerOreDictValue(EntityAgate.AGATE_YIELDS, 0.88, "endstone");
 		ModEntities.registerOreDictValue(EntityAgate.AGATE_YIELDS, 0.11, "stoneLimestone");
 		ModEntities.registerOreDictValue(EntityAgate.AGATE_YIELDS, 0.11, "stoneLimestonePolished");
@@ -276,14 +285,14 @@ public class ModEntities {
 		ModEntities.registerOreDictValue(EntityAgate.AGATE_YIELDS, 5.99, "blockQuartz");
 		EntityAgate.AGATE_YIELDS.put(Blocks.END_BRICKS.getDefaultState(), 5.99);
 		ModEntities.registerWithOreDictionary(EntityAgate.AGATE_YIELDS, "Agate", "Chalcedony", "Onyx");
-		
+
 		EntityAquamarine.AQUAMARINE_YIELDS.put(Blocks.ICE.getDefaultState(), 0.33);
 		ModEntities.registerOreDictValue(EntityAquamarine.AQUAMARINE_YIELDS, 0.66, "obsidian");
 		EntityAquamarine.AQUAMARINE_YIELDS.put(Blocks.PACKED_ICE.getDefaultState(), 0.99);
 		ModEntities.registerOreDictValue(EntityAquamarine.AQUAMARINE_YIELDS, 1.99, "blockPrismarine");
 		EntityAquamarine.AQUAMARINE_YIELDS.put(Blocks.WATER.getDefaultState(), 0.11);
 		ModEntities.registerWithOreDictionary(EntityAquamarine.AQUAMARINE_YIELDS, "Aquamarine", "Beryl", "GoldenBeryl", "Emerald", "Heliodor", "Morganite");
-		
+
 		ModEntities.registerOreDictValue(EntityHessonite.HESSONITE_YIELDS, 0.11, "oreIron");
 		ModEntities.registerOreDictValue(EntityHessonite.HESSONITE_YIELDS, 0.55, "blockIron");
 		ModEntities.registerOreDictValue(EntityHessonite.HESSONITE_YIELDS, 0.99, "endstone");
@@ -294,14 +303,14 @@ public class ModEntities {
 		ModEntities.registerOreDictValue(EntityHessonite.HESSONITE_YIELDS, 1.99, "oreAluminum");
 		ModEntities.registerOreDictValue(EntityHessonite.HESSONITE_YIELDS, 1.99, "oreAluminium");
 		ModEntities.registerOreDictValue(EntityHessonite.HESSONITE_YIELDS, 5.99, "blockGarnet");
-		
+
 		ModEntities.registerOreDictValue(EntityTopaz.TOPAZ_YIELDS, 0.22, "endstone");
 		ModEntities.registerOreDictValue(EntityTopaz.TOPAZ_YIELDS, 0.99, "glowstone");
 		ModEntities.registerOreDictValue(EntityTopaz.TOPAZ_YIELDS, 0.45, "oreGold");
 		ModEntities.registerOreDictValue(EntityTopaz.TOPAZ_YIELDS, 0.11, "stoneGranite");
 		ModEntities.registerOreDictValue(EntityTopaz.TOPAZ_YIELDS, 0.22, "stoneGranitePolished");
 		ModEntities.registerWithOreDictionary(EntityTopaz.TOPAZ_YIELDS, "Topaz", "BlueTopaz", "Sulfur");
-		
+
 		ModEntities.registerOreDictValue(EntityRutile.RUTILE_YIELDS, 0.99, "glowstone");
 		EntityRutile.RUTILE_YIELDS.put(Blocks.LAVA.getDefaultState(), 0.50);
 		EntityRutile.RUTILE_YIELDS.put(Blocks.MAGMA.getDefaultState(), 0.75);
@@ -309,7 +318,7 @@ public class ModEntities {
 		ModEntities.registerOreDictValue(EntityRutile.RUTILE_YIELDS, 5.99, "blockRedstone");
 		ModEntities.registerWithOreDictionary(EntityRutile.RUTILE_YIELDS, "Rutile", "Apatite");
 		ModEntities.registerOreDictValue(EntityRutile.RUTILE_YIELDS, 0.99, "oreTitanium");
-		
+
 		ModEntities.registerOreDictValue(EntityZircon.ZIRCON_YIELDS, 2.99, "oreDiamond");
 		ModEntities.registerOreDictValue(EntityZircon.ZIRCON_YIELDS, 5.99, "blockDiamond");
 		ModEntities.registerOreDictValue(EntityZircon.ZIRCON_YIELDS, 0.22, "stoneGranite");
@@ -318,7 +327,7 @@ public class ModEntities {
 		EntityZircon.ZIRCON_YIELDS.put(Blocks.LAVA.getDefaultState(), 0.44);
 		ModEntities.registerWithOreDictionary(EntityZircon.ZIRCON_YIELDS, "Zircon", "Uranium");
 	}
-	
+
 	public static void registerWithOreDictionary(HashMap<IBlockState, Double> yields, String... keys) {
 		NonNullList<ItemStack> totalCruxes = NonNullList.create();
 		for (String suffix : keys) {
@@ -341,7 +350,7 @@ public class ModEntities {
 			}
 		}
 	}
-	
+
 	public static void registerOreDictValue(HashMap<IBlockState, Double> yields, double value, String key) {
 		NonNullList<ItemStack> cruxes = OreDictionary.getOres(key);
 		for (ItemStack stack : cruxes) {
@@ -351,21 +360,21 @@ public class ModEntities {
 			}
 		}
 	}
-	
+
 	public static void registerGemAddons() {
 		EntityAgate.AGATE_HAIR_STYLES.add(new ResourceLocation("kagic:textures/entities/agate/hair/holly.png"));
 		EntityAgate.AGATE_HAIR_STYLES.add(new ResourceLocation("kagic:textures/entities/agate/hair/back.png"));
 		EntityAgate.AGATE_HAIR_STYLES.add(new ResourceLocation("kagic:textures/entities/agate/hair/top.png"));
 		EntityAgate.AGATE_HAIR_STYLES.add(new ResourceLocation("kagic:textures/entities/agate/hair/spikes.png"));
 		EntityAgate.AGATE_HAIR_STYLES.add(new ResourceLocation("kagic:textures/entities/agate/hair/axis.png"));
- 		EntityAgate.AGATE_BAND_STYLES.add(new ResourceLocation("kagic:textures/entities/agate/band/holly.png"));
- 		EntityAgate.AGATE_BAND_STYLES.add(new ResourceLocation("kagic:textures/entities/agate/band/back.png"));
- 		EntityAgate.AGATE_BAND_STYLES.add(new ResourceLocation("kagic:textures/entities/agate/band/top.png"));
- 		EntityAgate.AGATE_BAND_STYLES.add(new ResourceLocation("kagic:textures/entities/agate/band/spikes.png"));
- 		EntityAgate.AGATE_BAND_STYLES.add(new ResourceLocation("kagic:textures/entities/agate/band/axis.png"));
-  		EntityPearl.PEARL_HAIR_STYLES.add(new ResourceLocation("kagic:textures/entities/pearl/hair/blue.png"));
-  		EntityPearl.PEARL_HAIR_STYLES.add(new ResourceLocation("kagic:textures/entities/pearl/hair/brows.png"));
-  		EntityPearl.PEARL_HAIR_STYLES.add(new ResourceLocation("kagic:textures/entities/pearl/hair/curly.png"));
+		EntityAgate.AGATE_BAND_STYLES.add(new ResourceLocation("kagic:textures/entities/agate/band/holly.png"));
+		EntityAgate.AGATE_BAND_STYLES.add(new ResourceLocation("kagic:textures/entities/agate/band/back.png"));
+		EntityAgate.AGATE_BAND_STYLES.add(new ResourceLocation("kagic:textures/entities/agate/band/top.png"));
+		EntityAgate.AGATE_BAND_STYLES.add(new ResourceLocation("kagic:textures/entities/agate/band/spikes.png"));
+		EntityAgate.AGATE_BAND_STYLES.add(new ResourceLocation("kagic:textures/entities/agate/band/axis.png"));
+		EntityPearl.PEARL_HAIR_STYLES.add(new ResourceLocation("kagic:textures/entities/pearl/hair/blue.png"));
+		EntityPearl.PEARL_HAIR_STYLES.add(new ResourceLocation("kagic:textures/entities/pearl/hair/brows.png"));
+		EntityPearl.PEARL_HAIR_STYLES.add(new ResourceLocation("kagic:textures/entities/pearl/hair/curly.png"));
 		EntityPearl.PEARL_HAIR_STYLES.add(new ResourceLocation("kagic:textures/entities/pearl/hair/blue.png"));
 		EntityPearl.PEARL_HAIR_STYLES.add(new ResourceLocation("kagic:textures/entities/pearl/hair/brows.png"));
 		EntityPearl.PEARL_HAIR_STYLES.add(new ResourceLocation("kagic:textures/entities/pearl/hair/curly.png"));
@@ -388,72 +397,66 @@ public class ModEntities {
 		EntityZircon.ZIRCON_HAIR_STYLES.add(new ResourceLocation("kagic:textures/entities/zircon/hair/combover.png"));
 		EntityZircon.ZIRCON_HAIR_STYLES.add(new ResourceLocation("kagic:textures/entities/zircon/hair/smooth.png"));
 	}
-	@SuppressWarnings({ "unchecked" })
+	@SuppressWarnings({"unchecked"})
 	public static <T extends EntityGem> void registerGem(String name, Class<T> entity, int back, int fore, boolean mineral) {
-		EntityRegistry.registerModEntity(new ResourceLocation("kagic:kagic." + name), entity, "kagic." + name, currentID, KAGIC.instance, 256, 1, true, back, fore);
+		EntityRegistry.registerModEntity(new ResourceLocation("kagic:kagic." + name), entity, "kagic." + name, ModEntities.currentID, KAGIC.instance, 256, 1, true, back, fore);
 		if (FMLCommonHandler.instance().getSide() == Side.CLIENT) {
 			try {
 				Class<Render<? extends T>> render = (Class<Render<? extends T>>) KAGIC.class.getClassLoader().loadClass("mod.kagic/client/render/" + entity.getName().replaceAll(".+?Entity", "Render"));
-				if (GENERATE_FACTORIES_INSTEAD_OF_INSTANCES) {
+				if (ModEntities.GENERATE_FACTORIES_INSTEAD_OF_INSTANCES) {
 					IRenderFactory<T> factory = null;
-	                try {
-	                    MethodHandles.Lookup lookup = MethodHandles.lookup();
-	                    MethodHandle constructor = lookup.findConstructor(render, MethodType.methodType(void.class, String.class));
-	                    MethodType type = constructor.type().changeReturnType(IRenderFactory.class);
-	                    factory = (IRenderFactory<T>) LambdaMetafactory.metafactory(lookup, "getInstance", MethodType.methodType(IRenderFactory.class), type, constructor, type).getTarget().invokeExact();
-	                }
-	                catch (Throwable t) {
-	                	CrashReport.makeCrashReport(t, "Something when wrong registering a Gem.");
-	                }
-	                RenderingRegistry.registerEntityRenderingHandler(entity, factory);
-				}
-				else {
+					try {
+						MethodHandles.Lookup lookup = MethodHandles.lookup();
+						MethodHandle constructor = lookup.findConstructor(render, MethodType.methodType(void.class, String.class));
+						MethodType type = constructor.type().changeReturnType(IRenderFactory.class);
+						factory = (IRenderFactory<T>) LambdaMetafactory.metafactory(lookup, "getInstance", MethodType.methodType(IRenderFactory.class), type, constructor, type).getTarget().invokeExact();
+					} catch (Throwable t) {
+						CrashReport.makeCrashReport(t, "Something when wrong registering a Gem.");
+					}
+					RenderingRegistry.registerEntityRenderingHandler(entity, factory);
+				} else {
 					RenderingRegistry.registerEntityRenderingHandler(entity, render.newInstance());
 				}
-			}
-			catch (Exception e) {
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
-		GEMS.put(name, entity);
+		ModEntities.GEMS.put(name, entity);
 		if (mineral) {
-			MINERALS.add(entity);
+			ModEntities.MINERALS.add(entity);
 		}
-		++currentID;
-	}
-	
-	//Just like registerGem, but no spawn egg
-	@SuppressWarnings({ "unchecked" })
-	public static <T extends EntityGem> void registerDiamond(String name, Class<T> entity) {
-		EntityRegistry.registerModEntity(new ResourceLocation("kagic:kagic." + name), entity, "kagic." + name, currentID, KAGIC.instance, 256, 1, true);
-	 	if (FMLCommonHandler.instance().getSide() == Side.CLIENT) {
-			try {
-				Class<Render<? extends T>> render = (Class<Render<? extends T>>) KAGIC.class.getClassLoader().loadClass("mod.kagic/client/render/" + entity.getName().replaceAll(".+?Entity", "Render"));
-				if (GENERATE_FACTORIES_INSTEAD_OF_INSTANCES) {
-					IRenderFactory<T> factory = null;
-	                try {
-	                    MethodHandles.Lookup lookup = MethodHandles.lookup();
-	                    MethodHandle constructor = lookup.findConstructor(render, MethodType.methodType(void.class, String.class));
-	                    MethodType type = constructor.type().changeReturnType(IRenderFactory.class);
-	                    factory = (IRenderFactory<T>) LambdaMetafactory.metafactory(lookup, "getInstance", MethodType.methodType(IRenderFactory.class), type, constructor, type).getTarget().invokeExact();
-	                }
-	                catch (Throwable t) {
-	                	CrashReport.makeCrashReport(t, "Something went wrong registering a Gem.");
-	                }
-	                RenderingRegistry.registerEntityRenderingHandler(entity, factory);
-				}
-				else {
-					RenderingRegistry.registerEntityRenderingHandler(entity, render.newInstance());
-				}
-			}
-			catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-		GEMS.put(name, entity);
-		++currentID;
+		++ModEntities.currentID;
 	}
 
+	// Just like registerGem, but no spawn egg
+	@SuppressWarnings({"unchecked"})
+	public static <T extends EntityGem> void registerDiamond(String name, Class<T> entity) {
+		EntityRegistry.registerModEntity(new ResourceLocation("kagic:kagic." + name), entity, "kagic." + name, ModEntities.currentID, KAGIC.instance, 256, 1, true);
+		if (FMLCommonHandler.instance().getSide() == Side.CLIENT) {
+			try {
+				Class<Render<? extends T>> render = (Class<Render<? extends T>>) KAGIC.class.getClassLoader().loadClass("mod.kagic/client/render/" + entity.getName().replaceAll(".+?Entity", "Render"));
+				if (ModEntities.GENERATE_FACTORIES_INSTEAD_OF_INSTANCES) {
+					IRenderFactory<T> factory = null;
+					try {
+						MethodHandles.Lookup lookup = MethodHandles.lookup();
+						MethodHandle constructor = lookup.findConstructor(render, MethodType.methodType(void.class, String.class));
+						MethodType type = constructor.type().changeReturnType(IRenderFactory.class);
+						factory = (IRenderFactory<T>) LambdaMetafactory.metafactory(lookup, "getInstance", MethodType.methodType(IRenderFactory.class), type, constructor, type).getTarget().invokeExact();
+					} catch (Throwable t) {
+						CrashReport.makeCrashReport(t, "Something went wrong registering a Gem.");
+					}
+					RenderingRegistry.registerEntityRenderingHandler(entity, factory);
+				} else {
+					RenderingRegistry.registerEntityRenderingHandler(entity, render.newInstance());
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		ModEntities.GEMS.put(name, entity);
+		++ModEntities.currentID;
+	}
+	
 	public static <T extends EntityCorruptedGem> void registerCorruptedGem(String name, Class<T> gem) {
 		ModEntities.registerDiamond(name, gem);
 		for (BiomeType type : BiomeType.values()) {
@@ -462,128 +465,116 @@ public class ModEntities {
 			}
 		}
 	}
-	
-	@SuppressWarnings({ "unchecked" })
-    public static <T extends EntityGem> void registerExternalGem(String prefix, String name, Class<T> entity, String renderpath, int back, int fore, boolean mineral) {
-        EntityRegistry.registerModEntity(new ResourceLocation(prefix + ":" + name), entity, name, currentID, KAGIC.instance, 256, 1, true, back, fore);
-        if (FMLCommonHandler.instance().getSide() == Side.CLIENT) {
-            try {
-                Class<Render<? extends T>> render = (Class<Render<? extends T>>) KAGIC.class.getClassLoader().loadClass(renderpath);
-                if (GENERATE_FACTORIES_INSTEAD_OF_INSTANCES) {
+
+	@SuppressWarnings({"unchecked"})
+	public static <T extends EntityGem> void registerExternalGem(String prefix, String name, Class<T> entity, String renderpath, int back, int fore, boolean mineral) {
+		EntityRegistry.registerModEntity(new ResourceLocation(prefix + ":" + name), entity, name, ModEntities.currentID, KAGIC.instance, 256, 1, true, back, fore);
+		if (FMLCommonHandler.instance().getSide() == Side.CLIENT) {
+			try {
+				Class<Render<? extends T>> render = (Class<Render<? extends T>>) KAGIC.class.getClassLoader().loadClass(renderpath);
+				if (ModEntities.GENERATE_FACTORIES_INSTEAD_OF_INSTANCES) {
 					IRenderFactory<T> factory = null;
-	                try {
-	                    MethodHandles.Lookup lookup = MethodHandles.lookup();
-	                    MethodHandle constructor = lookup.findConstructor(render, MethodType.methodType(void.class, String.class));
-	                    MethodType type = constructor.type().changeReturnType(IRenderFactory.class);
-	                    factory = (IRenderFactory<T>) LambdaMetafactory.metafactory(lookup, "getInstance", MethodType.methodType(IRenderFactory.class), type, constructor, type).getTarget().invokeExact();
-	                }
-	                catch (Throwable t) {
-	                	CrashReport.makeCrashReport(t, "Something went wrong registering a Gem.");
-	                }
-	                RenderingRegistry.registerEntityRenderingHandler(entity, factory);
-				}
-				else {
+					try {
+						MethodHandles.Lookup lookup = MethodHandles.lookup();
+						MethodHandle constructor = lookup.findConstructor(render, MethodType.methodType(void.class, String.class));
+						MethodType type = constructor.type().changeReturnType(IRenderFactory.class);
+						factory = (IRenderFactory<T>) LambdaMetafactory.metafactory(lookup, "getInstance", MethodType.methodType(IRenderFactory.class), type, constructor, type).getTarget().invokeExact();
+					} catch (Throwable t) {
+						CrashReport.makeCrashReport(t, "Something went wrong registering a Gem.");
+					}
+					RenderingRegistry.registerEntityRenderingHandler(entity, factory);
+				} else {
 					RenderingRegistry.registerEntityRenderingHandler(entity, render.newInstance());
 				}
-            }
-            catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        GEMS.put(name, entity);
-        if (mineral) {
-			MINERALS.add(entity);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
-        ++currentID;
-    }
+		ModEntities.GEMS.put(name, entity);
+		if (mineral) {
+			ModEntities.MINERALS.add(entity);
+		}
+		++ModEntities.currentID;
+	}
 	public static <T extends EntityGem> void registerExternalGem(String prefix, String name, Class<T> entity, String renderpath, int back, int fore) {
 		ModEntities.registerExternalGem(prefix, name, entity, renderpath, back, fore, false);
 	}
-	@SuppressWarnings({ "unchecked" })
+	@SuppressWarnings({"unchecked"})
 	public static <T extends Entity> void registerMob(String name, Class<T> entity, int back, int fore) {
-		EntityRegistry.registerModEntity(new ResourceLocation("kagic:kagic." + name), entity, "kagic." + name, currentID, KAGIC.instance, 256, 1, true, back, fore);
+		EntityRegistry.registerModEntity(new ResourceLocation("kagic:kagic." + name), entity, "kagic." + name, ModEntities.currentID, KAGIC.instance, 256, 1, true, back, fore);
 		if (FMLCommonHandler.instance().getSide() == Side.CLIENT) {
 			try {
 				Class<Render<? extends T>> render = (Class<Render<? extends T>>) KAGIC.class.getClassLoader().loadClass("mod.kagic/client/render/" + entity.getName().replaceAll(".+?Entity", "Render"));
-				if (GENERATE_FACTORIES_INSTEAD_OF_INSTANCES) {
+				if (ModEntities.GENERATE_FACTORIES_INSTEAD_OF_INSTANCES) {
 					IRenderFactory<T> factory = null;
-	                try {
-	                    MethodHandles.Lookup lookup = MethodHandles.lookup();
-	                    MethodHandle constructor = lookup.findConstructor(render, MethodType.methodType(void.class, String.class));
-	                    MethodType type = constructor.type().changeReturnType(IRenderFactory.class);
-	                    factory = (IRenderFactory<T>) LambdaMetafactory.metafactory(lookup, "getInstance", MethodType.methodType(IRenderFactory.class), type, constructor, type).getTarget().invokeExact();
-	                }
-	                catch (Throwable t) {
-	                	CrashReport.makeCrashReport(t, "Something went wrong registering a mob.");
-	                }
-	                RenderingRegistry.registerEntityRenderingHandler(entity, factory);
-				}
-				else {
+					try {
+						MethodHandles.Lookup lookup = MethodHandles.lookup();
+						MethodHandle constructor = lookup.findConstructor(render, MethodType.methodType(void.class, String.class));
+						MethodType type = constructor.type().changeReturnType(IRenderFactory.class);
+						factory = (IRenderFactory<T>) LambdaMetafactory.metafactory(lookup, "getInstance", MethodType.methodType(IRenderFactory.class), type, constructor, type).getTarget().invokeExact();
+					} catch (Throwable t) {
+						CrashReport.makeCrashReport(t, "Something went wrong registering a mob.");
+					}
+					RenderingRegistry.registerEntityRenderingHandler(entity, factory);
+				} else {
 					RenderingRegistry.registerEntityRenderingHandler(entity, render.newInstance());
 				}
-			}
-			catch (Exception e) {
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
-		++currentID;
+		++ModEntities.currentID;
 	}
-	@SuppressWarnings({ "unchecked" })
+	@SuppressWarnings({"unchecked"})
 	public static <T extends Entity> void registerEntity(String name, Class<T> entity) {
-		EntityRegistry.registerModEntity(new ResourceLocation("kagic:kagic." + name), entity, "kagic." + name, currentID, KAGIC.instance, 256, 1, true);
+		EntityRegistry.registerModEntity(new ResourceLocation("kagic:kagic." + name), entity, "kagic." + name, ModEntities.currentID, KAGIC.instance, 256, 1, true);
 		if (FMLCommonHandler.instance().getSide() == Side.CLIENT) {
 			try {
 				Class<Render<? extends T>> render = (Class<Render<? extends T>>) KAGIC.class.getClassLoader().loadClass("mod.kagic/client/render/" + entity.getName().replaceAll(".+?Entity", "Render"));
-				if (GENERATE_FACTORIES_INSTEAD_OF_INSTANCES) {
+				if (ModEntities.GENERATE_FACTORIES_INSTEAD_OF_INSTANCES) {
 					IRenderFactory<T> factory = null;
-	                try {
-	                    MethodHandles.Lookup lookup = MethodHandles.lookup();
-	                    MethodHandle constructor = lookup.findConstructor(render, MethodType.methodType(void.class, String.class));
-	                    MethodType type = constructor.type().changeReturnType(IRenderFactory.class);
-	                    factory = (IRenderFactory<T>) LambdaMetafactory.metafactory(lookup, "getInstance", MethodType.methodType(IRenderFactory.class), type, constructor, type).getTarget().invokeExact();
-	                }
-	                catch (Throwable t) {
-	                	CrashReport.makeCrashReport(t, "Something went wrong registering an entity.");
-	                }
-	                RenderingRegistry.registerEntityRenderingHandler(entity, factory);
-				}
-				else {
+					try {
+						MethodHandles.Lookup lookup = MethodHandles.lookup();
+						MethodHandle constructor = lookup.findConstructor(render, MethodType.methodType(void.class, String.class));
+						MethodType type = constructor.type().changeReturnType(IRenderFactory.class);
+						factory = (IRenderFactory<T>) LambdaMetafactory.metafactory(lookup, "getInstance", MethodType.methodType(IRenderFactory.class), type, constructor, type).getTarget().invokeExact();
+					} catch (Throwable t) {
+						CrashReport.makeCrashReport(t, "Something went wrong registering an entity.");
+					}
+					RenderingRegistry.registerEntityRenderingHandler(entity, factory);
+				} else {
 					RenderingRegistry.registerEntityRenderingHandler(entity, render.newInstance());
 				}
-			}
-			catch (Exception e) {
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
-		++currentID;
+		++ModEntities.currentID;
 	}
-	@SuppressWarnings({ "unchecked" })
+	@SuppressWarnings({"unchecked"})
 	public static <T extends Entity> void registerCustomEntity(String name, Class<T> entity) {
-		EntityRegistry.registerModEntity(new ResourceLocation("kagic:kagic.custom_" + name), entity, "kagic.custom_" + name, currentID, KAGIC.instance, 256, 1, true);
+		EntityRegistry.registerModEntity(new ResourceLocation("kagic:kagic.custom_" + name), entity, "kagic.custom_" + name, ModEntities.currentID, KAGIC.instance, 256, 1, true);
 		if (FMLCommonHandler.instance().getSide() == Side.CLIENT) {
 			try {
 				Class<Render<? extends T>> render = (Class<Render<? extends T>>) KAGIC.class.getClassLoader().loadClass("mod.kagic/client/render/customnpcs/" + entity.getName().replaceAll(".+?Entity", "Render"));
-				if (GENERATE_FACTORIES_INSTEAD_OF_INSTANCES) {
+				if (ModEntities.GENERATE_FACTORIES_INSTEAD_OF_INSTANCES) {
 					IRenderFactory<T> factory = null;
-	                try {
-	                    MethodHandles.Lookup lookup = MethodHandles.lookup();
-	                    MethodHandle constructor = lookup.findConstructor(render, MethodType.methodType(void.class, String.class));
-	                    MethodType type = constructor.type().changeReturnType(IRenderFactory.class);
-	                    factory = (IRenderFactory<T>) LambdaMetafactory.metafactory(lookup, "getInstance", MethodType.methodType(IRenderFactory.class), type, constructor, type).getTarget().invokeExact();
-	                }
-	                catch (Throwable t) {
-	                	CrashReport.makeCrashReport(t, "Something went wrong registering an entity.");
-	                }
-	                RenderingRegistry.registerEntityRenderingHandler(entity, factory);
-				}
-				else {
+					try {
+						MethodHandles.Lookup lookup = MethodHandles.lookup();
+						MethodHandle constructor = lookup.findConstructor(render, MethodType.methodType(void.class, String.class));
+						MethodType type = constructor.type().changeReturnType(IRenderFactory.class);
+						factory = (IRenderFactory<T>) LambdaMetafactory.metafactory(lookup, "getInstance", MethodType.methodType(IRenderFactory.class), type, constructor, type).getTarget().invokeExact();
+					} catch (Throwable t) {
+						CrashReport.makeCrashReport(t, "Something went wrong registering an entity.");
+					}
+					RenderingRegistry.registerEntityRenderingHandler(entity, factory);
+				} else {
 					RenderingRegistry.registerEntityRenderingHandler(entity, render.newInstance());
 				}
-			}
-			catch (Exception e) {
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
-		++currentID;
+		++ModEntities.currentID;
 	}
 }

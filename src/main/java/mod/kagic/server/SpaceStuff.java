@@ -16,9 +16,13 @@ public class SpaceStuff {
 	private boolean blueDiamondSpawned = false;
 	private long lastRubyImpactTime = 0;
 	private long lastRobonoidImpactTime = 0;
-
+	
 	public SpaceStuff(World world) throws IOException {
-		this.FILE_PATH = new File(world.getMinecraftServer().getDataDirectory().getAbsolutePath().replaceAll("\\\\\\.$", "") + (world.getMinecraftServer().isSinglePlayer() ? "\\saves\\" : "\\") + world.getMinecraftServer().getFolderName() + "\\space_stuff.dat").getAbsolutePath();
+		this.FILE_PATH = new File(world.getMinecraftServer().getDataDirectory().getAbsolutePath().replaceAll("\\\\\\.$", "") + (world.getMinecraftServer().isSinglePlayer()
+																																																																																																																																																																																						? "\\saves\\"
+																																																																																																																																																																																						: "\\")
+																																																																																																																																																																																						+ world.getMinecraftServer().getFolderName()
+																																																																																																																																																																																						+ "\\space_stuff.dat").getAbsolutePath();
 		this.load();
 	}
 	public void load() {
@@ -27,15 +31,13 @@ public class SpaceStuff {
 			if (!file.exists()) {
 				file.createNewFile();
 				this.save();
-			}
-			else {
+			} else {
 				FileInputStream stream = new FileInputStream(file);
 				NBTTagCompound nbt = CompressedStreamTools.readCompressed(stream);
 				this.readFromNBT(nbt);
 				stream.close();
 			}
-		}
-		catch(IOException e) {
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
@@ -50,8 +52,7 @@ public class SpaceStuff {
 			CompressedStreamTools.writeCompressed(nbt, stream);
 			stream.flush();
 			stream.close();
-		}
-		catch(IOException e) {
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}

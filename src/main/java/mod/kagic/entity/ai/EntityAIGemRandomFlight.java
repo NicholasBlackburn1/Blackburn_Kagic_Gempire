@@ -8,15 +8,16 @@ import net.minecraft.entity.ai.EntityMoveHelper;
 
 public class EntityAIGemRandomFlight extends EntityAIBase {
 	private final EntityGem gem;
-
+	
 	public EntityAIGemRandomFlight(EntityGem gem) {
 		this.gem = gem;
 		this.setMutexBits(1);
 	}
-
+	
+	@Override
 	public boolean shouldExecute() {
 		EntityMoveHelper entitymovehelper = this.gem.getMoveHelper();
-
+		
 		if (!entitymovehelper.isUpdating()) {
 			return true;
 		} else {
@@ -27,19 +28,21 @@ public class EntityAIGemRandomFlight extends EntityAIBase {
 			return d3 < 1.0D || d3 > 3600.0D;
 		}
 	}
-
+	
+	@Override
 	public boolean shouldContinueExecuting() {
 		return false;
 	}
-
+	
+	@Override
 	public void startExecuting() {
 		Random random = this.gem.getRNG();
-		double nextPosX = this.gem.posX + (double)((random.nextFloat() * 2.0F - 1.0F) * 16.0F);
-		double nextPosY = this.gem.posY + (double)((random.nextFloat() * 2.0F - 1.0F) * 4.0F);
+		double nextPosX = this.gem.posX + (random.nextFloat() * 2.0F - 1.0F) * 16.0F;
+		double nextPosY = this.gem.posY + (random.nextFloat() * 2.0F - 1.0F) * 4.0F;
 		if (nextPosY >= 255) {
 			nextPosY = 250;
 		}
-		double nextPosZ = this.gem.posZ + (double)((random.nextFloat() * 2.0F - 1.0F) * 16.0F);
+		double nextPosZ = this.gem.posZ + (random.nextFloat() * 2.0F - 1.0F) * 16.0F;
 		this.gem.getMoveHelper().setMoveTo(nextPosX, nextPosY, nextPosZ, 1.0D);
 	}
 }

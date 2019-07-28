@@ -27,26 +27,26 @@ public class BlockMoonGoddessStatue extends Block implements ITileEntityProvider
 	public static final PropertyDirection FACING = PropertyDirection.create("facing");
 	protected static final AxisAlignedBB MOON_GODDESS_STATUE_AABB_NORTH = new AxisAlignedBB(0.3125D, 0.0D, 0.375D, 0.6875D, 0.9375D, 0.6875D);
 	protected static final AxisAlignedBB MOON_GODDESS_STATUE_AABB_SOUTH = new AxisAlignedBB(0.3125D, 0.0D, 0.3125D, 0.6875D, 0.9375D, 0.625D);
-	protected static final AxisAlignedBB MOON_GODDESS_STATUE_AABB_EAST  = new AxisAlignedBB(0.3125D, 0.0D, 0.3125D, 0.625D, 0.9375D, 0.6875D);
-	protected static final AxisAlignedBB MOON_GODDESS_STATUE_AABB_WEST  = new AxisAlignedBB(0.375D, 0.0D, 0.3125D, 0.6875D, 0.9375D, 0.6875D);
-	
+	protected static final AxisAlignedBB MOON_GODDESS_STATUE_AABB_EAST = new AxisAlignedBB(0.3125D, 0.0D, 0.3125D, 0.625D, 0.9375D, 0.6875D);
+	protected static final AxisAlignedBB MOON_GODDESS_STATUE_AABB_WEST = new AxisAlignedBB(0.375D, 0.0D, 0.3125D, 0.6875D, 0.9375D, 0.6875D);
+
 	public BlockMoonGoddessStatue() {
 		super(Material.CIRCUITS, MapColor.DIAMOND);
 		this.setUnlocalizedName("moon_goddess_statue");
-		
+
 		this.setResistance(4);
 		this.setHardness(0.8f);
-		
-		setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
-		
+
+		this.setDefaultState(this.blockState.getBaseState().withProperty(BlockMoonGoddessStatue.FACING, EnumFacing.NORTH));
+
 		this.setCreativeTab(ModCreativeTabs.CREATIVE_TAB_OTHER);
 	}
-
+	
 	@Override
 	public TileEntity createNewTileEntity(World worldIn, int meta) {
 		return new TileEntityMoonGoddessStatue();
 	}
-
+	
 	@Override
 	public int getLightValue(IBlockState state, IBlockAccess world, BlockPos pos) {
 		TileEntity te = world.getTileEntity(pos);
@@ -57,65 +57,66 @@ public class BlockMoonGoddessStatue extends Block implements ITileEntityProvider
 		}
 		return 0;
 	}
-	
+
 	@Override
 	public EnumBlockRenderType getRenderType(IBlockState state) {
 		return EnumBlockRenderType.MODEL;
 	}
-	
+
+	@Override
 	@SideOnly(Side.CLIENT)
 	public BlockRenderLayer getBlockLayer() {
 		return BlockRenderLayer.CUTOUT;
 	}
-
+	
 	@Override
 	public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
-		EnumFacing facing = EnumFacing.getHorizontal(MathHelper.floor((double)(placer.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3).getOpposite();
-		world.setBlockState(pos, state.withProperty(FACING, facing), 3);
+		EnumFacing facing = EnumFacing.getHorizontal(MathHelper.floor(placer.rotationYaw * 4.0F / 360.0F + 0.5D) & 3).getOpposite();
+		world.setBlockState(pos, state.withProperty(BlockMoonGoddessStatue.FACING, facing), 3);
 	}
-
+	
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
-		return getDefaultState().withProperty(FACING, EnumFacing.getFront(meta & 7));
+		return this.getDefaultState().withProperty(BlockMoonGoddessStatue.FACING, EnumFacing.getFront(meta & 7));
 	}
-
+	
 	@Override
 	public int getMetaFromState(IBlockState state) {
-		return state.getValue(FACING).getIndex();
+		return state.getValue(BlockMoonGoddessStatue.FACING).getIndex();
 	}
-
+	
 	@Override
 	protected BlockStateContainer createBlockState() {
-		return new BlockStateContainer(this, FACING);
-	}	
+		return new BlockStateContainer(this, BlockMoonGoddessStatue.FACING);
+	}
 	
 	@Override
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
 		int facing = this.getMetaFromState(state);
-		switch(facing) {
-			case 2:
-				return MOON_GODDESS_STATUE_AABB_NORTH;
-			case 3:
-				return MOON_GODDESS_STATUE_AABB_SOUTH;
-			case 4:
-				return MOON_GODDESS_STATUE_AABB_WEST;
-			case 5:
-				return MOON_GODDESS_STATUE_AABB_EAST;
-			default:
-				return MOON_GODDESS_STATUE_AABB_NORTH;					
-		}				
+		switch (facing) {
+			case 2 :
+				return BlockMoonGoddessStatue.MOON_GODDESS_STATUE_AABB_NORTH;
+			case 3 :
+				return BlockMoonGoddessStatue.MOON_GODDESS_STATUE_AABB_SOUTH;
+			case 4 :
+				return BlockMoonGoddessStatue.MOON_GODDESS_STATUE_AABB_WEST;
+			case 5 :
+				return BlockMoonGoddessStatue.MOON_GODDESS_STATUE_AABB_EAST;
+			default :
+				return BlockMoonGoddessStatue.MOON_GODDESS_STATUE_AABB_NORTH;
+		}
 	}
-	
+
 	@Override
 	public boolean isFullCube(IBlockState state) {
 		return false;
 	}
-	
+
 	@Override
 	public boolean isOpaqueCube(IBlockState state) {
 		return false;
 	}
-	
+
 	@Override
 	public boolean canRenderInLayer(IBlockState state, BlockRenderLayer layer) {
 		return true;

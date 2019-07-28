@@ -10,31 +10,34 @@ import net.minecraftforge.fml.common.network.IGuiHandler;
 public class KTGUIProxy implements IGuiHandler {
 	public static final int GUIWARPPADID = 0;
 	public static final int GUIWARPPADSELECTIONID = 1;
-
+	
 	@Override
 	public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
-		if (ID == GUIWARPPADID) {
+		if (ID == KTGUIProxy.GUIWARPPADID) {
 			return new GUIWarpPadContainer();
-		} else if (ID == GUIWARPPADSELECTIONID) {
+		} else if (ID == KTGUIProxy.GUIWARPPADSELECTIONID) {
 			return new GUIWarpPadSelectionContainer();
 		}
 		return null;
 	}
-	
+
 	@Override
 	public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
-		if (ID == GUIWARPPADID && world.isRemote) {
+		if (ID == KTGUIProxy.GUIWARPPADID && world.isRemote) {
 			BlockPos pos = new BlockPos(x, y, z);
 			TileEntity te = world.getTileEntity(pos);
 			if (te instanceof TileEntityWarpPadCore) {
 				return new GUIWarpPad((TileEntityWarpPadCore) te);
 			}
-		} else if (ID == GUIWARPPADSELECTIONID) {
-			/*BlockPos pos = new BlockPos(x, y, z);
-			TileEntity te = world.getTileEntity(pos);
-			if (te instanceof TileEntityWarpPadCore) {
-				return new GUIWarpPadSelection((TileEntityWarpPadCore) te);
-			}	*/		
+		} else if (ID == KTGUIProxy.GUIWARPPADSELECTIONID) {
+			/*
+			 * BlockPos pos = new BlockPos(x, y, z);
+			 * TileEntity te = world.getTileEntity(pos); if
+			 * (te instanceof TileEntityWarpPadCore) {
+			 * return new
+			 * GUIWarpPadSelection((TileEntityWarpPadCore)
+			 * te); }
+			 */
 		}
 		return null;
 	}

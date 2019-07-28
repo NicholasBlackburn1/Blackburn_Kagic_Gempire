@@ -13,11 +13,11 @@ import net.minecraft.util.EnumHandSide;
 
 public class ModelQuartz extends ModelGem {
 	private final ModelRenderer bipedCape;
-	
+
 	public ModelQuartz() {
 		this(0F, false);
 	}
-	
+
 	public ModelQuartz(float modelSize, boolean isArmor) {
 		super(modelSize, 0.0F, 64, isArmor ? 32 : 64, isArmor, -4F);
 		// Head.
@@ -31,12 +31,12 @@ public class ModelQuartz extends ModelGem {
 		if (!isArmor && (KAGIC.isHalloween() || KAGIC.isBirthday() || KAGIC.isChristmas())) {
 			this.bipedHead.addChild(this.witchHat);
 		}
-		
+
 		// Hair.
 		this.bipedHeadwear = new ModelRenderer(this, 32, 0);
 		this.bipedHeadwear.addBox(-4F, -12F, -4F, 8, 8, 8, modelSize + 1.1F);
 		this.bipedHeadwear.setRotationPoint(0F, 0F, 0F);
-		
+
 		// Body.
 		this.bipedBody = new ModelRenderer(this, 16, 16);
 		if (!isArmor) {
@@ -45,7 +45,7 @@ public class ModelQuartz extends ModelGem {
 			this.bipedBody.addBox(-4F, -1.25F, -2F, 8, 12, 4, modelSize + 1F);
 		}
 		this.bipedBody.setRotationPoint(0F, 0F, 0F);
-		
+
 		// Right arm.
 		this.bipedRightArm = new ModelRenderer(this, 48, 16);
 		if (isArmor) {
@@ -53,7 +53,7 @@ public class ModelQuartz extends ModelGem {
 		}
 		this.bipedRightArm.addBox(-4F, -4F, -2F, 4, 14, 4, modelSize);
 		this.bipedRightArm.setRotationPoint(0F, 0F, 0F);
-		
+
 		// Left arm.
 		this.bipedLeftArm = new ModelRenderer(this, 48, 34);
 		if (isArmor) {
@@ -62,7 +62,7 @@ public class ModelQuartz extends ModelGem {
 		}
 		this.bipedLeftArm.addBox(0F, -4F, -2F, 4, 14, 4, modelSize);
 		this.bipedLeftArm.setRotationPoint(0F, 0F, 0F);
-		
+
 		// Right leg.
 		this.bipedRightLeg = new ModelRenderer(this, 0, 16);
 		if (isArmor) {
@@ -71,7 +71,7 @@ public class ModelQuartz extends ModelGem {
 		this.bipedRightLeg.addBox(1F, 0F, -2F, 4, 12, 4, modelSize);
 		this.bipedRightLeg.setRotationPoint(0F, 0F, 0F);
 		
-	  	// Left leg.
+		// Left leg.
 		this.bipedLeftLeg = new ModelRenderer(this, 0, 32);
 		if (isArmor) {
 			this.bipedLeftLeg.setTextureOffset(0, 16);
@@ -79,12 +79,13 @@ public class ModelQuartz extends ModelGem {
 		}
 		this.bipedLeftLeg.addBox(-5F, 0F, -2F, 4, 12, 4, modelSize);
 		this.bipedLeftLeg.setRotationPoint(0F, 0F, 0F);
-
+		
 		this.bipedCape = new ModelRenderer(this, 0, 0);
 		this.bipedCape.setTextureSize(64, 32);
 		this.bipedCape.addBox(-5.0F, -4.0F, -2.f, 10, 20, 1, modelSize);
 	}
-	
+
+	@Override
 	public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 		this.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entityIn);
 		this.bipedHead.render(scale);
@@ -95,25 +96,25 @@ public class ModelQuartz extends ModelGem {
 		this.bipedRightLeg.render(scale);
 		this.bipedLeftLeg.render(scale);
 	}
-	
+
 	@Override
-	public void renderCape(float scale)
-	{
+	public void renderCape(float scale) {
 		this.bipedCape.render(scale);
 	}
-
+	
+	@Override
 	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
 		super.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scaleFactor, entityIn);
-/*
-		if (entityIn.isSneaking()) {
-			this.bipedCape.rotationPointY = 2.0F;
-		} else {
-			this.bipedCape.rotationPointY = 0.0F;
-		}
-		this.bipedCape.rotationPointY = -4.0F;
-		this.bipedBody.rotationPointZ = -1f;*/
+		/*
+		 * if (entityIn.isSneaking()) {
+		 * this.bipedCape.rotationPointY = 2.0F; } else {
+		 * this.bipedCape.rotationPointY = 0.0F; }
+		 * this.bipedCape.rotationPointY = -4.0F;
+		 * this.bipedBody.rotationPointZ = -1f;
+		 */
 	}
-	
+
+	@Override
 	public void setLivingAnimations(EntityLivingBase entitylivingbaseIn, float p_78086_2_, float p_78086_3_, float partialTickTime) {
 		this.rightArmPose = ModelBiped.ArmPose.EMPTY;
 		this.leftArmPose = ModelBiped.ArmPose.EMPTY;
@@ -123,8 +124,7 @@ public class ModelQuartz extends ModelGem {
 			if (itemstack != null && itemstack.getItem() == Items.BOW && gem.isSwingingArms()) {
 				if (entitylivingbaseIn.getPrimaryHand() == EnumHandSide.RIGHT) {
 					this.rightArmPose = ModelBiped.ArmPose.BOW_AND_ARROW;
-				}
-				else {
+				} else {
 					this.leftArmPose = ModelBiped.ArmPose.BOW_AND_ARROW;
 				}
 			}

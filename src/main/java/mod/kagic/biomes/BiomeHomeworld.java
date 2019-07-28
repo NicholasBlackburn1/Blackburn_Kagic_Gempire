@@ -6,7 +6,7 @@ public class BiomeHomeworld extends Biome {
 	public BiomeHomeworld() {
 		super(new BiomeProperties("homeworld"));
 		this.spawnableMonsterList.clear();
-        this.spawnableCreatureList.clear();
-        this.spawnableWaterCreatureList.clear();
+		this.spawnableCreatureList.clear();
+		this.spawnableWaterCreatureList.clear();
 	}
 }

@@ -18,6 +18,7 @@ public class EntityAIMineOres extends EntityAIMoveToBlock {
 		super(gemIn, speedIn, 16);
 		this.gem = gemIn;
 	}
+	@Override
 	public boolean shouldExecute() {
 		boolean canExecute = false;
 		List<EntityPearl> list = this.gem.world.<EntityPearl>getEntitiesWithinAABB(EntityPearl.class, this.gem.getEntityBoundingBox().grow(8.0D, 4.0D, 8.0D));
@@ -26,42 +27,42 @@ public class EntityAIMineOres extends EntityAIMoveToBlock {
 				canExecute = this.gem.getHeldItemMainhand().getItem() instanceof ItemPickaxe;
 				break;
 			}
-        }
+		}
 		if (canExecute) {
-			if (delay > 20 + this.gem.getRNG().nextInt(20)) {
+			if (this.delay > 20 + this.gem.getRNG().nextInt(20)) {
 				this.runDelay = 0;
 				return super.shouldExecute();
-			}
-			else {
+			} else {
 				++this.delay;
 			}
 		}
 		return false;
 	}
-	
+
 	@Override
 	public void startExecuting() {
 		super.startExecuting();
 	}
-	
+
 	@Override
 	public boolean shouldContinueExecuting() {
 		return super.shouldContinueExecuting() && !this.gem.getNavigator().noPath();
 	}
-	
+
 	@Override
 	public void resetTask() {
 		super.resetTask();
 	}
-	
+
 	@Override
 	public void updateTask() {
 		if (this.gem.getDistanceSq(this.destinationBlock) < 5) {
 			this.gem.world.destroyBlock(this.destinationBlock, false);
 		}
 	}
+	@Override
 	protected boolean shouldMoveTo(World world, BlockPos pos) {
-		Block block =  this.gem.world.getBlockState(pos).getBlock();
+		Block block = this.gem.world.getBlockState(pos).getBlock();
 		if (block instanceof BlockOre) {
 			boolean canBeSeen = false;
 			for (int ox = -1; ox <= 1 && !canBeSeen; ++ox) {

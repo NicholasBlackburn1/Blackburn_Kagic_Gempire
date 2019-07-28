@@ -56,15 +56,14 @@ public class ModEvents {
 		if (KAGIC.DEVELOPER) {
 			e.player.sendMessage(new TextComponentString("You are playing KAGIC " + KAGIC.VERSION + " in DEVELOPER mode."));
 			e.player.sendMessage(new TextComponentString("Note that some features may be removed!"));
-		}
-		else {
+		} else {
 			e.player.sendMessage(ITextComponent.Serializer.jsonToComponent("[{\"text\":\"�dKAGIC " + KAGIC.VERSION + "�f\"}, {\"text\":\" - \"}, {\"text\":\"�3[Discord]�f\",\"clickEvent\":{\"action\":\"open_url\",\"value\":\"https://discord.gg/MwEuu9x\"}}, {\"text\":\" | \"}, {\"text\":\"�e[Wiki]�f\",\"clickEvent\":{\"action\":\"open_url\",\"value\":\"http://kagic.wikia.com/\"}}]"));
 		}
 		if (ModConfigs.notifyOnUpdates) {
 			Update result = ModMetrics.checkForUpdates();
 			if (result != null && !KAGIC.VERSION.equals(result.getNewVersion())) {
 				e.player.sendMessage(ITextComponent.Serializer.jsonToComponent("[{\"text\":\"�cKAGIC v" + result.getNewVersion() + " is out for Minecraft " + KAGIC.MCVERSION + "�f\"}]"));
-				e.player.sendMessage(ITextComponent.Serializer.jsonToComponent("[{\"text\":\"�e�nDownload�r�f\",\"clickEvent\":{\"action\":\"open_url\",\"value\":\"" +  result.getDownloadLink() + "\"}}, {\"text\":\" | \"}, {\"text\":\"�3�nDiscord�r�f\",\"clickEvent\":{\"action\":\"open_url\",\"value\":\"" +  result.getDiscordLink() + "\"}}]"));
+				e.player.sendMessage(ITextComponent.Serializer.jsonToComponent("[{\"text\":\"�e�nDownload�r�f\",\"clickEvent\":{\"action\":\"open_url\",\"value\":\"" + result.getDownloadLink() + "\"}}, {\"text\":\" | \"}, {\"text\":\"�3�nDiscord�r�f\",\"clickEvent\":{\"action\":\"open_url\",\"value\":\"" + result.getDiscordLink() + "\"}}]"));
 			}
 		}
 	}
@@ -78,12 +77,14 @@ public class ModEvents {
 			EntityMob mob = (EntityMob) e.getEntity();
 			if (!(e.getEntity() instanceof EntityEnderman || e.getEntity() instanceof EntityGolem)) {
 				mob.targetTasks.addTask(3, new EntityAINearestAttackableTarget<EntityGem>(mob, EntityGem.class, 1, true, true, new Predicate<EntityGem>() {
-		            public boolean apply(EntityGem input) {
-		                return !(input instanceof EntityAgate || (input.isDefective() && input instanceof EntityRutile));
-		            }
-		        }));
+					@Override
+					public boolean apply(EntityGem input) {
+						return !(input instanceof EntityAgate || input.isDefective() && input instanceof EntityRutile);
+					}
+				}));
 			}
 			mob.tasks.addTask(1, new EntityAIAvoidEntity<EntityAgate>(mob, EntityAgate.class, new Predicate<EntityAgate>() {
+				@Override
 				public boolean apply(EntityAgate input) {
 					return !input.isDefective();
 				}
@@ -92,14 +93,14 @@ public class ModEvents {
 		if (e.getEntity() instanceof EntityAnimal) {
 			EntityAnimal animal = (EntityAnimal) e.getEntity();
 			animal.targetTasks.addTask(3, new EntityAIFollowTopaz(animal, 0.9D));
-		}
-		else if (e.getEntity() instanceof EntityGolem) {
+		} else if (e.getEntity() instanceof EntityGolem) {
 			EntityGolem golem = (EntityGolem) e.getEntity();
 			golem.targetTasks.addTask(1, new EntityAINearestAttackableTarget<EntityGem>(golem, EntityGem.class, 1, true, true, new Predicate<EntityGem>() {
-	            public boolean apply(EntityGem input) {
-	                return input.getServitude() > EntityGem.SERVE_HUMAN;
-	            }
-	        }));
+				@Override
+				public boolean apply(EntityGem input) {
+					return input.getServitude() > EntityGem.SERVE_HUMAN;
+				}
+			}));
 		}
 	}
 	@SubscribeEvent
@@ -110,7 +111,7 @@ public class ModEvents {
 				List<EntityPearl> list = player.world.<EntityPearl>getEntitiesWithinAABB(EntityPearl.class, player.getEntityBoundingBox().grow(8.0D, 4.0D, 8.0D));
 				for (EntityPearl entity : list) {
 					entity.sendMessage(new TextComponentTranslation("command.kagic.pearl_warning", player.getName()));
-		        }
+				}
 			}
 		}
 	}
@@ -123,82 +124,58 @@ public class ModEvents {
 				if (player.dimension == 0 && !player.world.isDaytime()) {
 					if (player.world.getTotalWorldTime() - SpaceStuff.get().getLastRubyImpactTime() >= 24000 * ModConfigs.meteorRubyRate && player.world.rand.nextInt(12000) == 0) {
 						EntityRuby ruby = new EntityRuby(player.world);
-						double xdev = (player.world.rand.nextInt(128) - 64);
+						double xdev = player.world.rand.nextInt(128) - 64;
 						double newX = player.posX + Math.abs(xdev) < 16 ? 128 : xdev;
-						double zdev = (player.world.rand.nextInt(128) - 64);
+						double zdev = player.world.rand.nextInt(128) - 64;
 						double newZ = player.posZ + Math.abs(zdev) < 16 ? 128 : zdev;
 						ruby.setPosition(newX, 256, newZ);
 						ruby.isSpaceBorn = true;
 						player.world.spawnEntity(ruby);
-						ruby.onInitialSpawn(ruby.world.getDifficultyForLocation(new BlockPos(ruby)), (IEntityLivingData)null);
+						ruby.onInitialSpawn(ruby.world.getDifficultyForLocation(new BlockPos(ruby)), (IEntityLivingData) null);
 						player.world.playSound(player, player.getPosition(), ModSounds.RUBY_EXPLODE, SoundCategory.NEUTRAL, 10.0F, 1.0F);
 						SpaceStuff.get().setLastRubyImpactTime(player.world.getTotalWorldTime());
 					}
 				}
 			}
 		}
-	}/* Access to Homeworld REMOVED in 1.9p1r10 - will revisit at a later date
-	@SubscribeEvent
-	public void onPlayerTick(TickEvent.PlayerTickEvent event) {
-		if (event.player.posY > 480 && !event.player.world.isRemote) {
-			event.player.world.getMinecraftServer().getPlayerList().transferPlayerToDimension((EntityPlayerMP) event.player, 2, new TeleporterHomeworld(event.player.world.getMinecraftServer().worldServerForDimension(event.player.dimension)));
-		}
-	}*/
+	}/*
+		 * Access to Homeworld REMOVED in 1.9p1r10 - will
+		 * revisit at a later date
+		 * @SubscribeEvent public void
+		 * onPlayerTick(TickEvent.PlayerTickEvent event) {
+		 * if (event.player.posY > 480 &&
+		 * !event.player.world.isRemote) {
+		 * event.player.world.getMinecraftServer().
+		 * getPlayerList().transferPlayerToDimension((
+		 * EntityPlayerMP) event.player, 2, new
+		 * TeleporterHomeworld(event.player.world.
+		 * getMinecraftServer().worldServerForDimension(
+		 * event.player.dimension))); } }
+		 */
 	@SubscribeEvent
 	public void onLootTableLoad(LootTableLoadEvent e) {
 		if (e.getName().equals(LootTableList.CHESTS_ABANDONED_MINESHAFT) || e.getName().equals(LootTableList.CHESTS_VILLAGE_BLACKSMITH)) {
-			e.getTable().addPool(new LootPool(new LootEntry[] {
-					new LootEntryItem(ModItems.CRACKED_BISMUTH_GEM, 1, 1, new LootFunction[] {
-							new SetCount(new LootCondition[0], new RandomValueRange(1))
-					}, new LootCondition[0], "kagic"),
-					new LootEntryItem(ModItems.CRACKED_PERIDOT_GEM, 3, 1, new LootFunction[] {
-							new SetCount(new LootCondition[0], new RandomValueRange(1))
-					}, new LootCondition[0], "kagic"),
-					new LootEntryItem(ModItems.CRACKED_PEARL_GEM, 3, 1, new LootFunction[] {
-							new SetCount(new LootCondition[0], new RandomValueRange(1))
-					}, new LootCondition[0], "kagic"),
-					new LootEntryItem(ModItems.INACTIVE_GEM_BASE, 3, 1, new LootFunction[] {
-							new SetCount(new LootCondition[0], new RandomValueRange(2))
-					}, new LootCondition[0], "kagic"),
-					new LootEntryItem(Item.getItemFromBlock(ModBlocks.INJECTOR), 3, 1, new LootFunction[] {
-							new SetCount(new LootCondition[0], new RandomValueRange(1))
-					}, new LootCondition[0], "kagic"),
-					new LootEntryItem(Item.getItemFromBlock(ModBlocks.GEM_DRILL), 3, 1, new LootFunction[] {
-							new SetCount(new LootCondition[0], new RandomValueRange(1))
-					}, new LootCondition[0], "kagic"),
-					new LootEntryItem(Item.getItemFromBlock(ModBlocks.INCUBATOR), 3, 1, new LootFunction[] {
-							new SetCount(new LootCondition[0], new RandomValueRange(1))
-					}, new LootCondition[0], "kagic")
-			}, new LootCondition[0], new RandomValueRange(1), new RandomValueRange(2), "kagic"));
-		}
-		else if (e.getName().equals(LootTableList.CHESTS_DESERT_PYRAMID) || e.getName().equals(LootTableList.CHESTS_END_CITY_TREASURE) || e.getName().equals(LootTableList.CHESTS_JUNGLE_TEMPLE) || e.getName().equals(LootTableList.CHESTS_NETHER_BRIDGE)) {
-			e.getTable().addPool(new LootPool(new LootEntry[] {
-					new LootEntryItem(ModItems.CRACKED_PERIDOT_GEM, 4, 1, new LootFunction[] {
-							new SetCount(new LootCondition[0], new RandomValueRange(1))
-					}, new LootCondition[0], "kagic"),
-					new LootEntryItem(ModItems.CRACKED_AMETHYST_GEM, 2, 1, new LootFunction[] {
-							new SetCount(new LootCondition[0], new RandomValueRange(1))
-					}, new LootCondition[0], "kagic"),
-					new LootEntryItem(ModItems.CRACKED_JASPER_GEM, 2, 1, new LootFunction[] {
-							new SetCount(new LootCondition[0], new RandomValueRange(1))
-					}, new LootCondition[0], "kagic"),
-					new LootEntryItem(ModItems.CRACKED_CARNELIAN_GEM, 2, 1, new LootFunction[] {
-							new SetCount(new LootCondition[0], new RandomValueRange(1))
-					}, new LootCondition[0], "kagic"),
-			}, new LootCondition[0], new RandomValueRange(1), new RandomValueRange(2), "kagic"));
-		}
-		else if (e.getName().equals(LootTableList.CHESTS_SIMPLE_DUNGEON) || e.getName().equals(LootTableList.CHESTS_STRONGHOLD_CORRIDOR)) {
-			e.getTable().addPool(new LootPool(new LootEntry[] {
-					new LootEntryItem(ModItems.CRACKED_RUBY_GEM, 2, 1, new LootFunction[] {
-							new SetCount(new LootCondition[0], new RandomValueRange(1))
-					}, new LootCondition[0], "kagic"),
-					new LootEntryItem(ModItems.CRACKED_PEARL_GEM, 2, 1, new LootFunction[] {
-							new SetCount(new LootCondition[0], new RandomValueRange(1))
-					}, new LootCondition[0], "kagic"),
-					new LootEntryItem(ModItems.INACTIVE_GEM_BASE, 5, 1, new LootFunction[] {
-							new SetCount(new LootCondition[0], new RandomValueRange(4))
-					}, new LootCondition[0], "kagic")
-			}, new LootCondition[0], new RandomValueRange(1), new RandomValueRange(2), "kagic"));
+			e.getTable().addPool(new LootPool(new LootEntry[]{new LootEntryItem(ModItems.CRACKED_BISMUTH_GEM, 1, 1, new LootFunction[]{new SetCount(new LootCondition[0], new RandomValueRange(1))}, new LootCondition[0], "kagic"), new LootEntryItem(ModItems.CRACKED_PERIDOT_GEM, 3, 1, new LootFunction[]{new SetCount(new LootCondition[0], new RandomValueRange(1))}, new LootCondition[0], "kagic"), new LootEntryItem(ModItems.CRACKED_PEARL_GEM, 3, 1, new LootFunction[]{new SetCount(new LootCondition[0], new RandomValueRange(1))}, new LootCondition[0], "kagic"), new LootEntryItem(ModItems.INACTIVE_GEM_BASE, 3, 1, new LootFunction[]{new SetCount(new LootCondition[0], new RandomValueRange(2))}, new LootCondition[0], "kagic"), new LootEntryItem(
+																																																																																																																																																																																							Item.getItemFromBlock(ModBlocks.INJECTOR),
+																																																																																																																																																																																							3,
+																																																																																																																																																																																							1,
+																																																																																																																																																																																							new LootFunction[]{new SetCount(new LootCondition[0], new RandomValueRange(1))},
+																																																																																																																																																																																							new LootCondition[0],
+																																																																																																																																																																																							"kagic"),
+																																																																																																																																																																																							new LootEntryItem(Item.getItemFromBlock(ModBlocks.GEM_DRILL), 3, 1, new LootFunction[]{new SetCount(new LootCondition[0], new RandomValueRange(1))}, new LootCondition[0], "kagic"),
+																																																																																																																																																																																							new LootEntryItem(Item.getItemFromBlock(ModBlocks.INCUBATOR), 3, 1, new LootFunction[]{new SetCount(new LootCondition[0], new RandomValueRange(1))}, new LootCondition[0], "kagic")},
+																																																																																																																																																																																							new LootCondition[0],
+																																																																																																																																																																																							new RandomValueRange(1),
+																																																																																																																																																																																							new RandomValueRange(2),
+																																																																																																																																																																																							"kagic"));
+		} else if (e.getName().equals(LootTableList.CHESTS_DESERT_PYRAMID) || e.getName().equals(LootTableList.CHESTS_END_CITY_TREASURE) || e.getName().equals(LootTableList.CHESTS_JUNGLE_TEMPLE) || e.getName().equals(LootTableList.CHESTS_NETHER_BRIDGE)) {
+			e.getTable().addPool(new LootPool(new LootEntry[]{new LootEntryItem(ModItems.CRACKED_PERIDOT_GEM, 4, 1, new LootFunction[]{new SetCount(new LootCondition[0], new RandomValueRange(1))}, new LootCondition[0], "kagic"), new LootEntryItem(ModItems.CRACKED_AMETHYST_GEM, 2, 1, new LootFunction[]{new SetCount(new LootCondition[0], new RandomValueRange(1))}, new LootCondition[0], "kagic"), new LootEntryItem(ModItems.CRACKED_JASPER_GEM, 2, 1, new LootFunction[]{new SetCount(new LootCondition[0], new RandomValueRange(1))}, new LootCondition[0], "kagic"), new LootEntryItem(ModItems.CRACKED_CARNELIAN_GEM, 2, 1, new LootFunction[]{new SetCount(new LootCondition[0], new RandomValueRange(1))}, new LootCondition[0], "kagic"),},
+																																																																																																																																																																																							new LootCondition[0],
+																																																																																																																																																																																							new RandomValueRange(1),
+																																																																																																																																																																																							new RandomValueRange(2),
+																																																																																																																																																																																							"kagic"));
+		} else if (e.getName().equals(LootTableList.CHESTS_SIMPLE_DUNGEON) || e.getName().equals(LootTableList.CHESTS_STRONGHOLD_CORRIDOR)) {
+			e.getTable().addPool(new LootPool(new LootEntry[]{new LootEntryItem(ModItems.CRACKED_RUBY_GEM, 2, 1, new LootFunction[]{new SetCount(new LootCondition[0], new RandomValueRange(1))}, new LootCondition[0], "kagic"), new LootEntryItem(ModItems.CRACKED_PEARL_GEM, 2, 1, new LootFunction[]{new SetCount(new LootCondition[0], new RandomValueRange(1))}, new LootCondition[0], "kagic"), new LootEntryItem(ModItems.INACTIVE_GEM_BASE, 5, 1, new LootFunction[]{new SetCount(new LootCondition[0], new RandomValueRange(4))}, new LootCondition[0], "kagic")}, new LootCondition[0], new RandomValueRange(1), new RandomValueRange(2), "kagic"));
 		}
 	}
 	@SubscribeEvent
@@ -206,8 +183,7 @@ public class ModEvents {
 		if (!e.getWorld().isRemote) {
 			try {
 				KAGIC.spaceStuff = new SpaceStuff(e.getWorld());
-			}
-			catch (IOException ex) {
+			} catch (IOException ex) {
 				ex.printStackTrace();
 			}
 		}

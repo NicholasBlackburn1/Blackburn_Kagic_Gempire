@@ -3,7 +3,6 @@ package mod.kagic.worlddata;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -20,23 +19,24 @@ public class WorldDataRuins extends WorldSavedData {
 	private static final String DATA_NAME = KAGIC.MODID + "_ruins";
 	private final Map<ChunkLocation, String> ruins = new HashMap<ChunkLocation, String>();
 	private final Map<String, ArrayList<BlockPos>> locations = new HashMap<String, ArrayList<BlockPos>>();
-
-	public WorldDataRuins() {
-		super(DATA_NAME);
-	}
 	
+	public WorldDataRuins() {
+		super(WorldDataRuins.DATA_NAME);
+	}
+
 	public WorldDataRuins(String identifier) {
 		super(identifier);
 	}
-
+	
 	public static WorldDataRuins get(World world) {
 		if (!world.isRemote) {
 			MapStorage storage = world.getPerWorldStorage();
-			WorldDataRuins instance = (WorldDataRuins) storage.getOrLoadData(WorldDataRuins.class, DATA_NAME);
+			WorldDataRuins instance = (WorldDataRuins) storage.getOrLoadData(WorldDataRuins.class, WorldDataRuins.DATA_NAME);
 			if (instance == null) {
-				//KAGIC.instance.chatInfoMessage("Data on server was null");
+				// KAGIC.instance.chatInfoMessage("Data on
+				// server was null");
 				instance = new WorldDataRuins();
-				storage.setData(DATA_NAME, instance);
+				storage.setData(WorldDataRuins.DATA_NAME, instance);
 			}
 			return instance;
 		} else {
@@ -44,7 +44,7 @@ public class WorldDataRuins extends WorldSavedData {
 			return null;
 		}
 	}
-
+	
 	@Override
 	public void readFromNBT(NBTTagCompound comp) {
 		NBTTagList ruinsList = comp.getTagList("ruins", Constants.NBT.TAG_COMPOUND);
@@ -54,11 +54,11 @@ public class WorldDataRuins extends WorldSavedData {
 			String type = tc.getString("type");
 			this.ruins.put(chunk, type);
 		}
-		
+
 		NBTTagCompound locationsListList = (NBTTagCompound) comp.getTag("locations");
 		for (String type : locationsListList.getKeySet()) {
 			NBTTagList locationsList = locationsListList.getTagList(type, Constants.NBT.TAG_COMPOUND);
-			
+
 			ArrayList<BlockPos> locs = new ArrayList<BlockPos>();
 			for (int i = 0; i < locationsList.tagCount(); ++i) {
 				NBTTagCompound tc = locationsList.getCompoundTagAt(i);
@@ -68,7 +68,7 @@ public class WorldDataRuins extends WorldSavedData {
 			this.locations.put(type, locs);
 		}
 	}
-
+	
 	@Override
 	public NBTTagCompound writeToNBT(NBTTagCompound comp) {
 		NBTTagList ruinsList = new NBTTagList();
@@ -76,13 +76,13 @@ public class WorldDataRuins extends WorldSavedData {
 		while (it.hasNext()) {
 			NBTTagCompound tc = new NBTTagCompound();
 			Entry<ChunkLocation, String> pair = it.next();
-			tc.setInteger("x", ((ChunkLocation) pair.getKey()).getX());
-			tc.setInteger("z", ((ChunkLocation) pair.getKey()).getZ());
-			tc.setString("type", (String) (pair.getValue()));
+			tc.setInteger("x", pair.getKey().getX());
+			tc.setInteger("z", pair.getKey().getZ());
+			tc.setString("type", pair.getValue());
 			ruinsList.appendTag(tc);
 		}
 		comp.setTag("ruins", ruinsList);
-		
+
 		NBTTagCompound locationsListList = new NBTTagCompound();
 		for (String type : this.locations.keySet()) {
 			NBTTagList locationsList = new NBTTagList();
@@ -96,14 +96,14 @@ public class WorldDataRuins extends WorldSavedData {
 			locationsListList.setTag(type, locationsList);
 		}
 		comp.setTag("locations", locationsListList);
-		
+
 		return comp;
 	}
-
+	
 	public boolean chunkHasRuin(ChunkLocation chunk) {
 		return this.ruins.containsKey(chunk);
 	}
-	
+
 	public boolean chunkHasSpecificRuin(ChunkLocation chunk, String type) {
 		if (this.ruins.containsKey(chunk)) {
 			return this.ruins.get(chunk).equals(type);
@@ -111,7 +111,7 @@ public class WorldDataRuins extends WorldSavedData {
 			return false;
 		}
 	}
-	
+
 	public void setChunk(ChunkLocation chunk, String type) {
 		if (this.chunkHasRuin(chunk)) {
 			KAGIC.instance.chatInfoMessage("WARNING: double-setting chunk " + chunk.toString());
@@ -119,7 +119,7 @@ public class WorldDataRuins extends WorldSavedData {
 		this.ruins.put(chunk, type);
 		this.markDirty();
 	}
-	
+
 	public void setLocation(String type, BlockPos location) {
 		if (this.locations.containsKey(type)) {
 			this.locations.get(type).add(location);
@@ -130,7 +130,7 @@ public class WorldDataRuins extends WorldSavedData {
 		}
 		this.markDirty();
 	}
-	
+
 	public boolean checkDistances(String type, BlockPos location, double minDistanceSq) {
 		if (this.locations.containsKey(type)) {
 			for (BlockPos ruinPos : this.locations.get(type)) {

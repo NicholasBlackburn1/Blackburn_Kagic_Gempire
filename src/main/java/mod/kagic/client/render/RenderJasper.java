@@ -19,18 +19,10 @@ import mod.kagic.client.render.layers.LayerWitchHat;
 import mod.kagic.entity.gem.EntityJasper;
 import mod.kagic.init.KAGIC;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.model.ModelBiped;
-import net.minecraft.client.model.ModelZombie;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.entity.RenderBiped;
-import net.minecraft.client.renderer.entity.RenderLivingBase;
 import net.minecraft.client.renderer.entity.layers.LayerBipedArmor;
 import net.minecraft.client.renderer.entity.layers.LayerHeldItem;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.item.ItemArmor;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 
 public class RenderJasper extends RenderGemBase<EntityJasper> {
@@ -42,7 +34,7 @@ public class RenderJasper extends RenderGemBase<EntityJasper> {
 				iter.remove();
 			}
 		}
-		
+
 		this.addLayer(new LayerQuartzItem(this));
 		this.addLayer(new LayerSkin(this));
 		this.addLayer(new LayerJasperMark1(this));
@@ -61,7 +53,7 @@ public class RenderJasper extends RenderGemBase<EntityJasper> {
 			}
 		};
 		this.addLayer(jasperArmor);
-		
+
 		if (KAGIC.isBirthday()) {
 			this.addLayer(new LayerBirthdayHat(this));
 		} else if (KAGIC.isHalloween()) {
@@ -70,7 +62,7 @@ public class RenderJasper extends RenderGemBase<EntityJasper> {
 			this.addLayer(new LayerSantaHat(this));
 		}
 	}
-		
+	
 	@Override
 	protected void preRenderCallback(EntityJasper jasper, float partialTickTime) {
 		if (jasper.isDefective()) {
@@ -78,7 +70,7 @@ public class RenderJasper extends RenderGemBase<EntityJasper> {
 		} else if (jasper.isPrimary()) {
 			GlStateManager.scale(1.1F, 1.1F, 1.1F);
 		}
-	}	
+	}
 	
 	@Override
 	protected ResourceLocation getEntityTexture(EntityJasper entity) {

@@ -15,19 +15,18 @@ import mod.kagic.entity.gem.EntityLapisLazuli;
 import mod.kagic.init.KAGIC;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.entity.RenderLivingBase;
 import net.minecraft.util.ResourceLocation;
 
 public class RenderLapisLazuli extends RenderGemBase<EntityLapisLazuli> {
 	public RenderLapisLazuli() {
-        super(Minecraft.getMinecraft().getRenderManager(), new ModelLapisLazuli(), 0.25F);
-        this.addLayer(new LayerLapisLazuliItem(this));
-        this.addLayer(new LayerSkin(this));
-        this.addLayer(new LayerHair(this));
-        this.addLayer(new LayerUniform(this));
-        this.addLayer(new LayerInsignia(this));
-        this.addLayer(new LayerVisor(this));
-        this.addLayer(new LayerGemPlacement(this));
+		super(Minecraft.getMinecraft().getRenderManager(), new ModelLapisLazuli(), 0.25F);
+		this.addLayer(new LayerLapisLazuliItem(this));
+		this.addLayer(new LayerSkin(this));
+		this.addLayer(new LayerHair(this));
+		this.addLayer(new LayerUniform(this));
+		this.addLayer(new LayerInsignia(this));
+		this.addLayer(new LayerVisor(this));
+		this.addLayer(new LayerGemPlacement(this));
 		if (KAGIC.isBirthday()) {
 			this.addLayer(new LayerBirthdayHat(this));
 		} else if (KAGIC.isHalloween()) {
@@ -35,8 +34,8 @@ public class RenderLapisLazuli extends RenderGemBase<EntityLapisLazuli> {
 		} else if (KAGIC.isChristmas()) {
 			this.addLayer(new LayerSantaHat(this));
 		}
-    }
-	
+	}
+
 	@Override
 	protected void preRenderCallback(EntityLapisLazuli entitylivingbaseIn, float partialTickTime) {
 		if (entitylivingbaseIn.isBeingRidden() && entitylivingbaseIn.canBeSteered()) {
@@ -44,7 +43,7 @@ public class RenderLapisLazuli extends RenderGemBase<EntityLapisLazuli> {
 			GlStateManager.rotate(90.0F, 1, 0, 0);
 		}
 	}
-	
+
 	@Override
 	protected ResourceLocation getEntityTexture(EntityLapisLazuli entity) {
 		return new ResourceLocation("kagic:textures/entities/lapis_lazuli/lapis_lazuli.png");

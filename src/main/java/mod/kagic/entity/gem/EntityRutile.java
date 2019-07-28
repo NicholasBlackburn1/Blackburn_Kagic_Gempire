@@ -42,12 +42,12 @@ public class EntityRutile extends EntityGem implements INpc {
 	public static final HashMap<IBlockState, Double> RUTILE_YIELDS = new HashMap<IBlockState, Double>();
 	public static final double RUTILE_DEFECTIVITY_MULTIPLIER = 1;
 	public static final double RUTILE_DEPTH_THRESHOLD = 0;
-	private static final int SKIN_COLOR_BEGIN = 0x5F243F; 
-	private static final int SKIN_COLOR_END = 0xC4695C; 
-
+	private static final int SKIN_COLOR_BEGIN = 0x5F243F;
+	private static final int SKIN_COLOR_END = 0xC4695C;
+	
 	private static final int HAIR_COLOR_BEGIN = 0x0E0005;
 	private static final int HAIR_COLOR_END = 0x832C13;
-	
+
 	private static final int NUM_HAIRSTYLES = 1;
 	public EntityRutile(World worldIn) {
 		super(worldIn);
@@ -55,8 +55,8 @@ public class EntityRutile extends EntityGem implements INpc {
 		this.setSize(0.6F, 1.9F);
 		this.seePastDoors();
 		this.visorChanceReciprocal = 20;
-		
-		//Define valid gem cuts and placements
+
+		// Define valid gem cuts and placements
 		this.setCutPlacement(GemCuts.TINY, GemPlacements.BACK_OF_HEAD);
 		this.setCutPlacement(GemCuts.TINY, GemPlacements.FOREHEAD);
 		this.setCutPlacement(GemCuts.TINY, GemPlacements.LEFT_EYE);
@@ -65,70 +65,80 @@ public class EntityRutile extends EntityGem implements INpc {
 		this.setCutPlacement(GemCuts.TINY, GemPlacements.RIGHT_CHEEK);
 		this.setCutPlacement(GemCuts.TINY, GemPlacements.BACK);
 		this.setCutPlacement(GemCuts.TINY, GemPlacements.CHEST);
-
+		
 		// Apply entity AI.
 		this.stayAI = new EntityAIStay(this);
 		this.tasks.addTask(1, new EntityAIAvoidEntity<EntityCreeper>(this, EntityCreeper.class, new Predicate<EntityCreeper>() {
+			@Override
 			public boolean apply(EntityCreeper input) {
 				return input.getCreeperState() == 1;
 			}
-        }, 6.0F, 1.0D, 1.2D));
+		}, 6.0F, 1.0D, 1.2D));
 		this.tasks.addTask(1, new EntityAIAvoidEntity<EntityRutile>(this, EntityRutile.class, new Predicate<EntityRutile>() {
+			@Override
 			public boolean apply(EntityRutile input) {
 				return input.isDefective();
 			}
-        }, 6.0F, 1.0D, 1.2D));
+		}, 6.0F, 1.0D, 1.2D));
 		this.tasks.addTask(1, new EntityAIFollowDiamond(this, 1.0D));
-        this.tasks.addTask(1, new EntityAICommandGems(this, 0.6D));
+		this.tasks.addTask(1, new EntityAICommandGems(this, 0.6D));
 		this.tasks.addTask(2, new EntityAIFindDarkSpots(this, 0.6D, 4));
-        this.tasks.addTask(3, new EntityAIOpenDoor(this, true));
-        this.tasks.addTask(4, new EntityAIWatchClosest(this, EntityPlayer.class, 16.0F));
-        this.tasks.addTask(4, new EntityAIWatchClosest(this, EntityMob.class, 16.0F));
-        this.tasks.addTask(6, new EntityAIStandGuard(this, 0.6D));
-        this.tasks.addTask(7, new EntityAILookIdle(this));
-        
-        // Apply entity attributes.
-        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(40.0D);
-        this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(1.0D);
-        this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.4D);
+		this.tasks.addTask(3, new EntityAIOpenDoor(this, true));
+		this.tasks.addTask(4, new EntityAIWatchClosest(this, EntityPlayer.class, 16.0F));
+		this.tasks.addTask(4, new EntityAIWatchClosest(this, EntityMob.class, 16.0F));
+		this.tasks.addTask(6, new EntityAIStandGuard(this, 0.6D));
+		this.tasks.addTask(7, new EntityAILookIdle(this));
+		
+		// Apply entity attributes.
+		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(40.0D);
+		this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(1.0D);
+		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.4D);
 	}
+	@Override
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
 		livingdata = super.onInitialSpawn(difficulty, livingdata);
 		this.setInsigniaColor(15);
 		return livingdata;
 	}
+	@Override
 	public void setDefective(boolean defective) {
 		super.setDefective(defective);
 		if (defective) {
 			this.setGemPlacement(14);
 		}
 	}
+	@Override
 	public void itemDataToGemData(int data) {
 		this.setDefective(data == 1);
 	}
+	@Override
 	public void onDeath(DamageSource cause) {
 		if (this.isDefective()) {
 			this.droppedGemItem = ModItems.TWIN_RUTILE_GEM;
 			this.droppedCrackedGemItem = ModItems.CRACKED_TWIN_RUTILE_GEM;
-		}
-		else {
+		} else {
 			this.droppedGemItem = ModItems.RUTILE_GEM;
 			this.droppedCrackedGemItem = ModItems.CRACKED_RUTILE_GEM;
 		}
-		super.onDeath(cause); 
+		super.onDeath(cause);
 	}
+	@Override
 	protected int generateGemColor() {
-    	return 0xB7513D;
-    }
+		return 0xB7513D;
+	}
+	@Override
 	protected SoundEvent getAmbientSound() {
 		return ModSounds.RUTILE_LIVING;
 	}
+	@Override
 	protected SoundEvent getHurtSound(DamageSource source) {
 		return ModSounds.RUTILE_HURT;
 	}
+	@Override
 	protected SoundEvent getObeySound() {
 		return ModSounds.RUTILE_OBEY;
 	}
+	@Override
 	protected SoundEvent getDeathSound() {
 		return ModSounds.RUTILE_DEATH;
 	}
@@ -139,12 +149,12 @@ public class EntityRutile extends EntityGem implements INpc {
 		skinColors.add(EntityRutile.SKIN_COLOR_END);
 		return Colors.arbiLerp(skinColors);
 	}
-	
+
 	@Override
 	protected int generateHairStyle() {
 		return this.rand.nextInt(EntityRutile.NUM_HAIRSTYLES);
 	}
-	
+
 	@Override
 	protected int generateHairColor() {
 		ArrayList<Integer> hairColors = new ArrayList<Integer>();
@@ -152,14 +162,14 @@ public class EntityRutile extends EntityGem implements INpc {
 		hairColors.add(EntityRutile.HAIR_COLOR_END);
 		return Colors.arbiLerp(hairColors);
 	}
+	@Override
 	public boolean alternateInteract(EntityPlayer player) {
 		if (!this.world.isRemote) {
 			if (this.isTamed()) {
 				if (this.isOwner(player)) {
 					this.entityDropItem(this.getItemStackFromSlot(EntityEquipmentSlot.MAINHAND), 0.0F);
 					this.setHeldItem(EnumHand.MAIN_HAND, ItemStack.EMPTY);
-				}
-				else {
+				} else {
 					player.sendMessage(new TextComponentTranslation("command.kagic.does_not_serve_you", this.getName()));
 					return true;
 				}
@@ -167,6 +177,7 @@ public class EntityRutile extends EntityGem implements INpc {
 		}
 		return super.alternateInteract(player);
 	}
+	@Override
 	public boolean processInteract(EntityPlayer player, EnumHand hand) {
 		if (!this.world.isRemote) {
 			if (hand == EnumHand.MAIN_HAND) {
@@ -180,8 +191,7 @@ public class EntityRutile extends EntityGem implements INpc {
 							this.playObeySound();
 							return true;
 						}
-					}
-					else {
+					} else {
 						player.sendMessage(new TextComponentTranslation("command.kagic.does_not_serve_you", this.getName()));
 						return true;
 					}
@@ -189,12 +199,13 @@ public class EntityRutile extends EntityGem implements INpc {
 			}
 		}
 		return super.processInteract(player, hand);
-    }
+	}
+	@Override
 	public void onLivingUpdate() {
-        if (this.isPrimary()) {	
-	        if (this.world.isAirBlock(this.getPosition()) && this.world.isBlockNormalCube(this.getPosition().down(), false) && this.world.getLightFor(EnumSkyBlock.SKY, this.getPosition()) < 8) {
-	            this.world.setBlockState(this.getPosition(), ModBlocks.RUTILE_TRAIL.getDefaultState());
-	        }
+		if (this.isPrimary()) {
+			if (this.world.isAirBlock(this.getPosition()) && this.world.isBlockNormalCube(this.getPosition().down(), false) && this.world.getLightFor(EnumSkyBlock.SKY, this.getPosition()) < 8) {
+				this.world.setBlockState(this.getPosition(), ModBlocks.RUTILE_TRAIL.getDefaultState());
+			}
 		}
 		super.onLivingUpdate();
 	}

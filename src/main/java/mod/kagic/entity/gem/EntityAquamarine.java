@@ -56,8 +56,8 @@ public class EntityAquamarine extends EntityGem implements IAnimals {
 		this.moveHelper = new EntityFlyHelper(this);
 		this.setSize(0.4F, 0.8F);
 		this.seePastDoors();
-		
-		//Define valid gem cuts and placements
+
+		// Define valid gem cuts and placements
 		this.setCutPlacement(GemCuts.TEARDROP, GemPlacements.BACK_OF_HEAD);
 		this.setCutPlacement(GemCuts.TEARDROP, GemPlacements.FOREHEAD);
 		this.setCutPlacement(GemCuts.TEARDROP, GemPlacements.LEFT_EYE);
@@ -67,77 +67,83 @@ public class EntityAquamarine extends EntityGem implements IAnimals {
 		this.setCutPlacement(GemCuts.TEARDROP, GemPlacements.BACK);
 		this.setCutPlacement(GemCuts.TEARDROP, GemPlacements.CHEST);
 		this.setCutPlacement(GemCuts.TEARDROP, GemPlacements.BELLY);
-
+		
 		// Apply entity AI.
 		this.stayAI = new EntityAIStay(this);
-        this.tasks.addTask(1, new EntityAIFollowDiamond(this, 1.0D));
-        this.tasks.addTask(1, new EntityAICommandGems(this, 0.6D));
-        this.tasks.addTask(2, new EntityAIScan(this));
-        this.tasks.addTask(3, new EntityAIOpenDoor(this, true));
-        this.tasks.addTask(3, new EntityAIAttackAquamarine(this, 1.0D));
-        this.tasks.addTask(4, new EntityAIParalyzeEnemies(this));
-        this.tasks.addTask(5, new EntityAIWatchClosest(this, EntityPlayer.class, 16.0F));
-        this.tasks.addTask(5, new EntityAIWatchClosest(this, EntityMob.class, 16.0F));
-        this.tasks.addTask(6, new EntityAIStandGuard(this, 0.6D));
-        this.tasks.addTask(7, new EntityAILookIdle(this));
-        
-        this.targetTasks.addTask(1, new EntityAIDiamondHurtByTarget(this));
+		this.tasks.addTask(1, new EntityAIFollowDiamond(this, 1.0D));
+		this.tasks.addTask(1, new EntityAICommandGems(this, 0.6D));
+		this.tasks.addTask(2, new EntityAIScan(this));
+		this.tasks.addTask(3, new EntityAIOpenDoor(this, true));
+		this.tasks.addTask(3, new EntityAIAttackAquamarine(this, 1.0D));
+		this.tasks.addTask(4, new EntityAIParalyzeEnemies(this));
+		this.tasks.addTask(5, new EntityAIWatchClosest(this, EntityPlayer.class, 16.0F));
+		this.tasks.addTask(5, new EntityAIWatchClosest(this, EntityMob.class, 16.0F));
+		this.tasks.addTask(6, new EntityAIStandGuard(this, 0.6D));
+		this.tasks.addTask(7, new EntityAILookIdle(this));
+		
+		this.targetTasks.addTask(1, new EntityAIDiamondHurtByTarget(this));
 		this.targetTasks.addTask(2, new EntityAIDiamondHurtTarget(this));
 		this.targetTasks.addTask(3, new EntityAIHurtByTarget(this, false, new Class[0]));
-        
-        // Apply entity attributes.
-        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(40.0D);
-        this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(2.0D);
-        this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(1.0D);
-        this.droppedGemItem = ModItems.AQUAMARINE_GEM;
+		
+		// Apply entity attributes.
+		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(40.0D);
+		this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(2.0D);
+		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(1.0D);
+		this.droppedGemItem = ModItems.AQUAMARINE_GEM;
 		this.droppedCrackedGemItem = ModItems.CRACKED_AQUAMARINE_GEM;
 	}
+	@Override
 	protected PathNavigate createNavigator(World worldIn) {
-        return new PathNavigateFlying(this, worldIn);
-    }
-
-	protected int generateGemColor() {
-    	return 0x4FFCE7;
-    }
-	public void convertGems(int placement) {
-    	this.setGemCut(GemCuts.TINY.id);
-    	switch (placement) {
-    	case 0:
-    		this.setGemPlacement(GemPlacements.LEFT_CHEEK.id);
-    		break;
-    	case 1:
-    		this.setGemPlacement(GemPlacements.RIGHT_CHEEK.id);
-    		break;
-    	case 2:
-    		this.setGemPlacement(GemPlacements.FOREHEAD.id);
-    		break;
-    	}
-    }
+		return new PathNavigateFlying(this, worldIn);
+	}
 	
+	@Override
+	protected int generateGemColor() {
+		return 0x4FFCE7;
+	}
+	@Override
+	public void convertGems(int placement) {
+		this.setGemCut(GemCuts.TINY.id);
+		switch (placement) {
+			case 0 :
+				this.setGemPlacement(GemPlacements.LEFT_CHEEK.id);
+				break;
+			case 1 :
+				this.setGemPlacement(GemPlacements.RIGHT_CHEEK.id);
+				break;
+			case 2 :
+				this.setGemPlacement(GemPlacements.FOREHEAD.id);
+				break;
+		}
+	}
+
+	@Override
 	public void setDefective(boolean defective) {
 		super.setDefective(defective);
 		if (defective) {
 			this.moveHelper = new EntityMoveHelper(this);
-		}
-		else {
+		} else {
 			this.moveHelper = new EntityFlyHelper(this);
 		}
 	}
-	
+
 	/*********************************************************
-     * Methods related to entity interaction.                *
-     *********************************************************/
+	 * Methods related to entity interaction. *
+	 *********************************************************/
+	@Override
 	public boolean processInteract(EntityPlayer player, EnumHand hand) {
 		return super.processInteract(player, hand);
-    }
+	}
+	@Override
 	public boolean alternateInteract(EntityPlayer player) {
 		this.wantsToScan = true;
 		return true;
 	}
-	
+
 	/*********************************************************
-     * Methods related to entity life/death.                 *
-     *********************************************************/
+	 * Methods related to entity life/death. *
+	 *********************************************************/
+	@Override
 	public void onLivingUpdate() {
 		super.onLivingUpdate();
 		if (this.lastScanTime > 20) {
@@ -146,66 +152,69 @@ public class EntityAquamarine extends EntityGem implements IAnimals {
 		}
 		++this.lastScanTime;
 	}
+	@Override
 	public void onDeath(DamageSource cause) {
 		super.onDeath(cause);
-    }
-	
+	}
+
 	/********************************************************
-	 * Methods related to entity flight.                    *
+	 * Methods related to entity flight. *
 	 ********************************************************/
+	@Override
 	public void fall(float distance, float damageMultiplier) {
 		super.fall(distance, damageMultiplier);
-    }
-    protected void updateFallState(double y, boolean onGroundIn, IBlockState state, BlockPos pos) {
-    	super.updateFallState(y, onGroundIn, state, pos);
-    }
-    public void travel(float strafe, float up, float forward) {
-        if (this.isInWater()) {
-            this.moveRelative(strafe, up, forward, 0.02F);
-            this.move(MoverType.SELF, this.motionX, this.motionY, this.motionZ);
-            this.motionX *= 0.800000011920929D;
-            this.motionY *= 0.800000011920929D;
-            this.motionZ *= 0.800000011920929D;
-        }
-        else if (this.isInLava()) {
-            this.moveRelative(strafe, up, forward, 0.02F);
-            this.move(MoverType.SELF, this.motionX, this.motionY, this.motionZ);
-            this.motionX *= 0.5D;
-            this.motionY *= 0.5D;
-            this.motionZ *= 0.5D;
-        }
-        else {
-            float friction = 0.91F;
-            if (this.onGround) {
-            	friction = this.world.getBlockState(new BlockPos(MathHelper.floor(this.posX), MathHelper.floor(this.getEntityBoundingBox().minY) - 1, MathHelper.floor(this.posZ))).getBlock().slipperiness * 0.91F;
-            }
-            float factor = 0.16277136F / (friction * friction * friction);
-            this.moveRelative(strafe, up, forward, this.onGround ? 0.1F * factor : 0.02F);
-            friction = 0.91F;
-            if (this.onGround) {
-            	friction = this.world.getBlockState(new BlockPos(MathHelper.floor(this.posX), MathHelper.floor(this.getEntityBoundingBox().minY) - 1, MathHelper.floor(this.posZ))).getBlock().slipperiness * 0.91F;
-            }
-            this.move(MoverType.SELF, this.motionX, this.motionY, this.motionZ);
-            this.motionX *= (double) friction;
-            this.motionY *= (double) friction;
-            this.motionZ *= (double) friction;
-        }
-        this.prevLimbSwingAmount = this.limbSwingAmount;
-        double d1 = this.posX - this.prevPosX;
-        double d0 = this.posZ - this.prevPosZ;
-        float f2 = MathHelper.sqrt(d1 * d1 + d0 * d0) * 4.0F;
-        if (f2 > 1.0F) {
-            f2 = 1.0F;
-        }
-        this.limbSwingAmount += (f2 - this.limbSwingAmount) * 0.4F;
-        this.limbSwing += this.limbSwingAmount;
-    }
-    public boolean isOnLadder() {
-        return false;
-    }
-    
-    /*********************************************************
-	 * Methods related to rendering.                         *
+	}
+	@Override
+	protected void updateFallState(double y, boolean onGroundIn, IBlockState state, BlockPos pos) {
+		super.updateFallState(y, onGroundIn, state, pos);
+	}
+	@Override
+	public void travel(float strafe, float up, float forward) {
+		if (this.isInWater()) {
+			this.moveRelative(strafe, up, forward, 0.02F);
+			this.move(MoverType.SELF, this.motionX, this.motionY, this.motionZ);
+			this.motionX *= 0.800000011920929D;
+			this.motionY *= 0.800000011920929D;
+			this.motionZ *= 0.800000011920929D;
+		} else if (this.isInLava()) {
+			this.moveRelative(strafe, up, forward, 0.02F);
+			this.move(MoverType.SELF, this.motionX, this.motionY, this.motionZ);
+			this.motionX *= 0.5D;
+			this.motionY *= 0.5D;
+			this.motionZ *= 0.5D;
+		} else {
+			float friction = 0.91F;
+			if (this.onGround) {
+				friction = this.world.getBlockState(new BlockPos(MathHelper.floor(this.posX), MathHelper.floor(this.getEntityBoundingBox().minY) - 1, MathHelper.floor(this.posZ))).getBlock().slipperiness * 0.91F;
+			}
+			float factor = 0.16277136F / (friction * friction * friction);
+			this.moveRelative(strafe, up, forward, this.onGround ? 0.1F * factor : 0.02F);
+			friction = 0.91F;
+			if (this.onGround) {
+				friction = this.world.getBlockState(new BlockPos(MathHelper.floor(this.posX), MathHelper.floor(this.getEntityBoundingBox().minY) - 1, MathHelper.floor(this.posZ))).getBlock().slipperiness * 0.91F;
+			}
+			this.move(MoverType.SELF, this.motionX, this.motionY, this.motionZ);
+			this.motionX *= friction;
+			this.motionY *= friction;
+			this.motionZ *= friction;
+		}
+		this.prevLimbSwingAmount = this.limbSwingAmount;
+		double d1 = this.posX - this.prevPosX;
+		double d0 = this.posZ - this.prevPosZ;
+		float f2 = MathHelper.sqrt(d1 * d1 + d0 * d0) * 4.0F;
+		if (f2 > 1.0F) {
+			f2 = 1.0F;
+		}
+		this.limbSwingAmount += (f2 - this.limbSwingAmount) * 0.4F;
+		this.limbSwing += this.limbSwingAmount;
+	}
+	@Override
+	public boolean isOnLadder() {
+		return false;
+	}
+	
+	/*********************************************************
+	 * Methods related to rendering. *
 	 *********************************************************/
 	@Override
 	protected int generateSkinColor() {
@@ -214,12 +223,12 @@ public class EntityAquamarine extends EntityGem implements IAnimals {
 		skinColors.add(EntityAquamarine.SKIN_COLOR_END);
 		return Colors.arbiLerp(skinColors);
 	}
-	
+
 	@Override
 	protected int generateHairStyle() {
 		return this.rand.nextInt(EntityAquamarine.NUM_HAIRSTYLES);
 	}
-	
+
 	@Override
 	protected int generateHairColor() {
 		ArrayList<Integer> hairColors = new ArrayList<Integer>();
@@ -227,16 +236,19 @@ public class EntityAquamarine extends EntityGem implements IAnimals {
 		hairColors.add(EntityAquamarine.HAIR_COLOR_END);
 		return Colors.arbiLerp(hairColors);
 	}
-	
+
 	/*********************************************************
-     * Methods related to entity sounds.                     *
-     *********************************************************/
+	 * Methods related to entity sounds. *
+	 *********************************************************/
+	@Override
 	protected SoundEvent getHurtSound(DamageSource source) {
 		return ModSounds.AQUAMARINE_HURT;
 	}
+	@Override
 	protected SoundEvent getObeySound() {
 		return ModSounds.AQUAMARINE_OBEY;
 	}
+	@Override
 	protected SoundEvent getDeathSound() {
 		return ModSounds.AQUAMARINE_DEATH;
 	}

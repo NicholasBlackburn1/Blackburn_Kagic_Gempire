@@ -18,64 +18,60 @@ public class EntityAIAttackTopaz extends EntityAIBase {
 		this.speedTowardsTarget = speedIn;
 		this.setMutexBits(7);
 	}
-	
+
 	@Override
 	public boolean shouldExecute() {
 		EntityLivingBase target = this.gem.getAttackTarget();
-        if (target == null) {
-            return false;
-        }
-        else if (!target.isEntityAlive()) {
-            return false;
-        }
-        else if (this.gem.getHeldEntities().contains(target)) {
-        	return false;
-        }
-        else {
-            this.path = this.gem.getNavigator().getPathToEntityLiving(target);
-            if (this.path != null) {
-                return true;
-            }
-            else {
-                return this.gem.getDistanceSq(target.posX, target.getEntityBoundingBox().minY, target.posZ) < 8;
-            }
-        }
+		if (target == null) {
+			return false;
+		} else if (!target.isEntityAlive()) {
+			return false;
+		} else if (this.gem.getHeldEntities().contains(target)) {
+			return false;
+		} else {
+			this.path = this.gem.getNavigator().getPathToEntityLiving(target);
+			if (this.path != null) {
+				return true;
+			} else {
+				return this.gem.getDistanceSq(target.posX, target.getEntityBoundingBox().minY, target.posZ) < 8;
+			}
+		}
 	}
-	
+
 	@Override
 	public boolean shouldContinueExecuting() {
 		EntityLivingBase target = this.gem.getAttackTarget();
-        if (target == null) {
-            return false;
-        }
-        else if (!target.isEntityAlive()) {
-            return false;
-        }
-        else if (this.gem.getHeldEntities().contains(target)) {
-        	return false;
-        }
-        return true;
+		if (target == null) {
+			return false;
+		} else if (!target.isEntityAlive()) {
+			return false;
+		} else if (this.gem.getHeldEntities().contains(target)) {
+			return false;
+		}
+		return true;
 	}
-	
+
 	@Override
 	public void startExecuting() {
 		this.gem.getNavigator().setPath(this.path, this.speedTowardsTarget);
 	}
-	
+
 	@Override
 	public void updateTask() {
 		EntityLivingBase target = this.gem.getAttackTarget();
 		if (target != null) {
 			double distance = this.gem.getDistanceSq(target.posX, target.getEntityBoundingBox().minY, target.posZ);
 			boolean flag = this.gem.getEntitySenses().canSee(target);
-			if (distance < (9 * this.gem.width) && flag && !this.gem.isDefective()) {
+			if (distance < 9 * this.gem.width && flag && !this.gem.isDefective()) {
 				boolean caught = this.gem.addHeldEntity(target);
 				if (caught) {
 					try {
-						// This should prevent the other gems from killing the captive.
+						// This should prevent the other
+						// gems from killing the captive.
 						target.getAttackingEntity().setLastAttackedEntity(this.gem);
 					} catch (NullPointerException e) {
-						// Okay, so apparently either I can't access this,
+						// Okay, so apparently either I
+						// can't access this,
 						// or the gem was never attacked???
 					}
 					if (!this.gem.isFusion()) {
@@ -85,13 +81,11 @@ public class EntityAIAttackTopaz extends EntityAIBase {
 								mob.attackEntityFrom(DamageSource.CRAMMING, 20.0F);
 								mob.playSound(ModSounds.SLAG_EAT, 8.0F, 1.0F);
 							}
-						}
-						else if (target instanceof EntityPlayer) {
+						} else if (target instanceof EntityPlayer) {
 							target.attackEntityFrom(DamageSource.CRAMMING, 10.0F);
 							target.playSound(ModSounds.SLAG_EAT, 8.0F, 1.0F);
 						}
-					}
-					else {
+					} else {
 						target.setHealth(target.getMaxHealth());
 					}
 				}

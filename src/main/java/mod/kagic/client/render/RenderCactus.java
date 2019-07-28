@@ -9,9 +9,10 @@ import net.minecraft.util.ResourceLocation;
 
 public class RenderCactus extends RenderLivingBase<EntityCactus> {
 	public RenderCactus() {
-        super(Minecraft.getMinecraft().getRenderManager(), new ModelPepo(), 0.25F);
-        this.addLayer(new LayerArrow(this));
-    }
+		super(Minecraft.getMinecraft().getRenderManager(), new ModelPepo(), 0.25F);
+		this.addLayer(new LayerArrow(this));
+	}
+	@Override
 	protected ResourceLocation getEntityTexture(EntityCactus entity) {
 		return new ResourceLocation("kagic:textures/entities/pepo/cactus.png");
 	}

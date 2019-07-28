@@ -27,7 +27,7 @@ import net.minecraftforge.fml.common.IWorldGenerator;
 public class KAGICWorldGenerator implements IWorldGenerator {
 	private ArrayList<RuinStructure> ruins = new ArrayList<RuinStructure>();
 	private ArrayList<Integer> ruinDimensions = new ArrayList<Integer>();
-	
+
 	public KAGICWorldGenerator() {
 		this.ruins.add(new CommunicationHub("CommHub"));
 		this.ruins.add(new DesertWarpPad("DesertWarpPad"));
@@ -35,7 +35,8 @@ public class KAGICWorldGenerator implements IWorldGenerator {
 		this.ruins.add(new GalaxyWarp("GalaxyWarp"));
 		this.ruins.add(new SkySpire("SkySpire"));
 		this.ruins.add(new ControlRoom("controlroom"));
-		//ruins.add(new PinkSandstoneTest("pinksandstonetest"));
+		// ruins.add(new
+		// PinkSandstoneTest("pinksandstonetest"));
 		this.ruins.add(new RoseFountain("rosefountain"));
 		this.ruins.add(new GiantWeapon("giant_weapon"));
 		this.ruins.add(new PyramidTemple("pyramid_temple"));
@@ -50,22 +51,22 @@ public class KAGICWorldGenerator implements IWorldGenerator {
 			}
 		}
 	}
-	
+
 	@Override
 	public void generate(Random rand, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator, IChunkProvider chunkProvider) {
 		if (this.ruinDimensions.contains(world.provider.getDimension())) {
-			for (RuinStructure ruin : ruins) {
-				runGenerator(ruin, world, rand, chunkX, chunkZ, 1);
+			for (RuinStructure ruin : this.ruins) {
+				this.runGenerator(ruin, world, rand, chunkX, chunkZ, 1);
 			}
 		}
 	}
-
+	
 	private void runGenerator(WorldGenerator generator, World world, Random rand, int chunk_X, int chunk_Z, int chancesToSpawn) {
-	    for (int i = 0; i < chancesToSpawn; ++i) {
-	        int x = chunk_X * 16 + rand.nextInt(16);// + 8;
-	        int z = chunk_Z * 16 + rand.nextInt(16);// + 8;
-	        int y = world.getHeight(x, z);
-	        generator.generate(world, rand, world.getTopSolidOrLiquidBlock(new BlockPos(x, y, z)));
-	    }
+		for (int i = 0; i < chancesToSpawn; ++i) {
+			int x = chunk_X * 16 + rand.nextInt(16);// + 8;
+			int z = chunk_Z * 16 + rand.nextInt(16);// + 8;
+			int y = world.getHeight(x, z);
+			generator.generate(world, rand, world.getTopSolidOrLiquidBlock(new BlockPos(x, y, z)));
+		}
 	}
 }

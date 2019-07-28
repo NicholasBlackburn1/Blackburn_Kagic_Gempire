@@ -1,6 +1,5 @@
 package mod.kagic.entity.gem;
 
-import java.util.HashMap;
 import java.util.List;
 
 import com.google.common.base.Predicate;
@@ -13,7 +12,6 @@ import mod.kagic.entity.ai.EntityAIStay;
 import mod.kagic.init.ModItems;
 import mod.kagic.init.ModSounds;
 import mod.kagic.util.PoofDamage;
-import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityLivingData;
@@ -48,122 +46,130 @@ public class EntityYellowDiamond extends EntityGem {
 		super(worldIn);
 		this.setSize(3.0F, 13.8F);
 		this.stepHeight = 2.0F;
-		
+
 		this.setCutPlacement(GemCuts.DIAMOND, GemPlacements.CHEST);
-		
+
 		// Boss stuff.
 		this.experienceValue = 18000;
 		this.isImmuneToFire = true;
 		this.isDiamond = true;
-		
+
 		// Apply entity AI.
 		this.stayAI = new EntityAIStay(this);
-        this.tasks.addTask(1, new EntityAISwimming(this));
-        this.tasks.addTask(2, new EntityAIAlignGems(this, 1.0D));
-        this.tasks.addTask(3, new EntityAIMoveTowardsRestriction(this, 1.0D));
-        this.tasks.addTask(4, new EntityAIWander(this, 1.0D));
-        this.tasks.addTask(5, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
-        this.tasks.addTask(6, new EntityAILookIdle(this));
-        
-        // Apply targetting.
-        this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false, new Class[0]));
-        this.targetTasks.addTask(1, new EntityAIDiamondHurtByTarget(this));
-        this.targetTasks.addTask(2, new EntityAIDiamondHurtTarget(this));
-        this.targetTasks.addTask(2, new EntityAINearestAttackableTarget<EntityLivingBase>(this, EntityLivingBase.class, 10, true, false, new Predicate<EntityLivingBase>() {
-            public boolean apply(EntityLivingBase input) {
-                if (input instanceof EntityGem) {
-                	return ((EntityGem) input).getServitude() == EntityGem.SERVE_HUMAN || input instanceof EntityYellowDiamond;
-                }
-                return input != null && (input instanceof EntityPlayer || input instanceof EntityDragon || input instanceof EntityWither);
-            }
-        }));
-        
-        // Apply entity attributes.
-        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(600.0D);
-        this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(4.0D);
-        this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.4D);
-        this.getEntityAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE).setBaseValue(4.0D);
-        this.droppedGemItem = ModItems.YELLOW_DIAMOND_GEM;
+		this.tasks.addTask(1, new EntityAISwimming(this));
+		this.tasks.addTask(2, new EntityAIAlignGems(this, 1.0D));
+		this.tasks.addTask(3, new EntityAIMoveTowardsRestriction(this, 1.0D));
+		this.tasks.addTask(4, new EntityAIWander(this, 1.0D));
+		this.tasks.addTask(5, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
+		this.tasks.addTask(6, new EntityAILookIdle(this));
+		
+		// Apply targetting.
+		this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false, new Class[0]));
+		this.targetTasks.addTask(1, new EntityAIDiamondHurtByTarget(this));
+		this.targetTasks.addTask(2, new EntityAIDiamondHurtTarget(this));
+		this.targetTasks.addTask(2, new EntityAINearestAttackableTarget<EntityLivingBase>(this, EntityLivingBase.class, 10, true, false, new Predicate<EntityLivingBase>() {
+			@Override
+			public boolean apply(EntityLivingBase input) {
+				if (input instanceof EntityGem) {
+					return ((EntityGem) input).getServitude() == EntityGem.SERVE_HUMAN || input instanceof EntityYellowDiamond;
+				}
+				return input != null && (input instanceof EntityPlayer || input instanceof EntityDragon || input instanceof EntityWither);
+			}
+		}));
+		
+		// Apply entity attributes.
+		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(600.0D);
+		this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(4.0D);
+		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.4D);
+		this.getEntityAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE).setBaseValue(4.0D);
+		this.droppedGemItem = ModItems.YELLOW_DIAMOND_GEM;
 		this.droppedCrackedGemItem = ModItems.CRACKED_YELLOW_DIAMOND_GEM;
 	}
-	
+
 	/*********************************************************
-	 * Methods related to loading.                           *
+	 * Methods related to loading. *
 	 *********************************************************/
+	@Override
 	public void writeEntityToNBT(NBTTagCompound compound) {
-        super.writeEntityToNBT(compound);
-        compound.setInteger("lastSpecialAttack", this.lastSpecialAttack);
-        compound.setInteger("lastRecruitAttack", this.lastRecruitAttack);
-        this.setServitude(EntityGem.SERVE_YELLOW_DIAMOND);
+		super.writeEntityToNBT(compound);
+		compound.setInteger("lastSpecialAttack", this.lastSpecialAttack);
+		compound.setInteger("lastRecruitAttack", this.lastRecruitAttack);
+		this.setServitude(EntityGem.SERVE_YELLOW_DIAMOND);
 	}
-    public void readEntityFromNBT(NBTTagCompound compound) {
-        super.readEntityFromNBT(compound);
-        this.lastSpecialAttack = compound.getInteger("lastSpecialAttack");
-        this.lastRecruitAttack = compound.getInteger("lastRecruitAttack");
-        this.setServitude(EntityGem.SERVE_YELLOW_DIAMOND);
-    }
-    public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
-    	this.setServitude(EntityGem.SERVE_YELLOW_DIAMOND);
-    	EntityPearl pearl = new EntityPearl(this.world);
+	@Override
+	public void readEntityFromNBT(NBTTagCompound compound) {
+		super.readEntityFromNBT(compound);
+		this.lastSpecialAttack = compound.getInteger("lastSpecialAttack");
+		this.lastRecruitAttack = compound.getInteger("lastRecruitAttack");
+		this.setServitude(EntityGem.SERVE_YELLOW_DIAMOND);
+	}
+	@Override
+	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
+		this.setServitude(EntityGem.SERVE_YELLOW_DIAMOND);
+		EntityPearl pearl = new EntityPearl(this.world);
 		pearl.setPosition(this.posX, this.posY, this.posZ);
 		pearl.setServitude(EntityGem.SERVE_YELLOW_DIAMOND);
 		pearl.setGemPlacement(GemPlacements.CHEST.id);
 		pearl.setSpecialSkin(2);
 		pearl.onInitialSpawn(difficulty, null);
 		this.world.spawnEntity(pearl);
-    	return super.onInitialSpawn(difficulty, livingdata);
-    }
-    
-    /*********************************************************
-     * Methods related to combat.                            *
-     *********************************************************/
-    protected void updateAITasks() {
-    	super.updateAITasks();
-    	this.healthBar.setPercent(this.getHealth() / this.getMaxHealth());
-    	if (this.getAttackTarget() != null) {
-	    	if (this.hurtResistantTime > 0 && this.lastRecruitAttack < 200 && this.lastRecruitAttack % 10 == 0 && this.rand.nextBoolean()) {
-	    		EntityTopaz warrior = new EntityTopaz(this.world);
+		return super.onInitialSpawn(difficulty, livingdata);
+	}
+	
+	/*********************************************************
+	 * Methods related to combat. *
+	 *********************************************************/
+	@Override
+	protected void updateAITasks() {
+		super.updateAITasks();
+		this.healthBar.setPercent(this.getHealth() / this.getMaxHealth());
+		if (this.getAttackTarget() != null) {
+			if (this.hurtResistantTime > 0 && this.lastRecruitAttack < 200 && this.lastRecruitAttack % 10 == 0 && this.rand.nextBoolean()) {
+				EntityTopaz warrior = new EntityTopaz(this.world);
 				warrior.setPosition(this.posX, this.posY, this.posZ);
 				warrior.setServitude(EntityGem.SERVE_YELLOW_DIAMOND);
 				warrior.setRevengeTarget(this.getAttackTarget());
 				warrior.setColor(0);
 				warrior.onInitialSpawn(this.world.getDifficultyForLocation(this.getPosition()), null);
 				this.world.spawnEntity(warrior);
-	    	}
-	    	++this.lastRecruitAttack;
-	    	if (this.lastSpecialAttack > 100 && this.rand.nextBoolean()) {
-	    		AxisAlignedBB axisalignedbb = (new AxisAlignedBB(this.posX, this.posY, this.posZ, (this.posX + 1), (this.posY + 1), (this.posZ + 1))).grow(8.0, (double) this.world.getHeight(), 8.0);
-	            List<EntityGem> list = this.world.<EntityGem>getEntitiesWithinAABB(EntityGem.class, axisalignedbb);
-	            int count = 0;
-	            for (EntityGem gem : list) {
-	            	if (gem.isOwner(this.getAttackTarget())) {
-	            		if (count < list.size() / 2 + 1) {
-		            		EntityLightningBolt lightningBolt = new EntityLightningBolt(this.world, gem.posX, gem.posY, gem.posZ, true);
-		            		this.world.addWeatherEffect(lightningBolt);
-			            	gem.attackEntityFrom(new PoofDamage(), gem.getHealth());
-			            	++count;
-	            		}
-	            	}
-	            }
-	    		this.lastSpecialAttack = 0;
-	    	}
-	    	++this.lastSpecialAttack;
-    	}
-    }
-    public void addTrackingPlayer(EntityPlayerMP player) {
-        super.addTrackingPlayer(player);
-        this.world.playSound(null, player.getPosition(), ModSounds.RECORD_YELLOW_DIAMOND, SoundCategory.MUSIC, 100.0F, 1.0F);
-        this.world.playSound(null, player.getPosition(), ModSounds.YELLOW_DIAMOND_INTRO, SoundCategory.HOSTILE, 10.0F, 1.0F);
-        this.healthBar.addPlayer(player);
-    }
-    public void removeTrackingPlayer(EntityPlayerMP player) {
-    	this.world.playSound(null, player.getPosition(), ModSounds.YELLOW_DIAMOND_OUTRO, SoundCategory.HOSTILE, 10.0F, 1.0F);
-        super.removeTrackingPlayer(player);
-        this.healthBar.removePlayer(player);
-    }
-    public boolean attackEntityFrom(DamageSource source, float amount) {
-    	if (source.getTrueSource() instanceof EntityLivingBase && this.getHealth() / 20 < amount &&  this.rand.nextInt(4) == 0 && !this.world.isRemote) {
-    		EntityGem warrior = new EntityTopaz(this.world);
+			}
+			++this.lastRecruitAttack;
+			if (this.lastSpecialAttack > 100 && this.rand.nextBoolean()) {
+				AxisAlignedBB axisalignedbb = new AxisAlignedBB(this.posX, this.posY, this.posZ, this.posX + 1, this.posY + 1, this.posZ + 1).grow(8.0, this.world.getHeight(), 8.0);
+				List<EntityGem> list = this.world.<EntityGem>getEntitiesWithinAABB(EntityGem.class, axisalignedbb);
+				int count = 0;
+				for (EntityGem gem : list) {
+					if (gem.isOwner(this.getAttackTarget())) {
+						if (count < list.size() / 2 + 1) {
+							EntityLightningBolt lightningBolt = new EntityLightningBolt(this.world, gem.posX, gem.posY, gem.posZ, true);
+							this.world.addWeatherEffect(lightningBolt);
+							gem.attackEntityFrom(new PoofDamage(), gem.getHealth());
+							++count;
+						}
+					}
+				}
+				this.lastSpecialAttack = 0;
+			}
+			++this.lastSpecialAttack;
+		}
+	}
+	@Override
+	public void addTrackingPlayer(EntityPlayerMP player) {
+		super.addTrackingPlayer(player);
+		this.world.playSound(null, player.getPosition(), ModSounds.RECORD_YELLOW_DIAMOND, SoundCategory.MUSIC, 100.0F, 1.0F);
+		this.world.playSound(null, player.getPosition(), ModSounds.YELLOW_DIAMOND_INTRO, SoundCategory.HOSTILE, 10.0F, 1.0F);
+		this.healthBar.addPlayer(player);
+	}
+	@Override
+	public void removeTrackingPlayer(EntityPlayerMP player) {
+		this.world.playSound(null, player.getPosition(), ModSounds.YELLOW_DIAMOND_OUTRO, SoundCategory.HOSTILE, 10.0F, 1.0F);
+		super.removeTrackingPlayer(player);
+		this.healthBar.removePlayer(player);
+	}
+	@Override
+	public boolean attackEntityFrom(DamageSource source, float amount) {
+		if (source.getTrueSource() instanceof EntityLivingBase && this.getHealth() / 20 < amount && this.rand.nextInt(4) == 0 && !this.world.isRemote) {
+			EntityGem warrior = new EntityTopaz(this.world);
 			warrior.setPosition(this.posX, this.posY, this.posZ);
 			warrior.setServitude(EntityGem.SERVE_YELLOW_DIAMOND);
 			warrior.setRevengeTarget(this.getAttackTarget());
@@ -172,57 +178,64 @@ public class EntityYellowDiamond extends EntityGem {
 		}
 		return super.attackEntityFrom(source, amount);
 	}
+	@Override
 	public boolean attackEntityAsMob(Entity entityIn) {
 		int divider = entityIn instanceof EntityPlayer ? 5 : 1;
-		if (entityIn.attackEntityFrom(DamageSource.causeMobDamage(this), (float)((40 + this.rand.nextInt(40))) / divider)) {
-            entityIn.motionX += -this.motionX;
-            entityIn.motionZ += -this.motionZ;
-            entityIn.motionY += 0.4D;
-        }
+		if (entityIn.attackEntityFrom(DamageSource.causeMobDamage(this), (float) (40 + this.rand.nextInt(40)) / divider)) {
+			entityIn.motionX += -this.motionX;
+			entityIn.motionZ += -this.motionZ;
+			entityIn.motionY += 0.4D;
+		}
 		return super.attackEntityAsMob(entityIn);
 	}
-    
-    /*********************************************************
-	 * Methods related to entity death.                      *
+	
+	/*********************************************************
+	 * Methods related to entity death. *
 	 *********************************************************/
+	@Override
 	public void onDeath(DamageSource cause) {
 		if (!this.world.isRemote) {
 			if (cause.getTrueSource() instanceof EntityPlayer) {
 				List<EntityGem> list = this.world.<EntityGem>getEntitiesWithinAABB(EntityGem.class, this.getEntityBoundingBox().grow(24.0D, 8.0D, 24.0D));
-				EntityPlayer player = (EntityPlayer)cause.getTrueSource();
-				for(EntityGem gem : list) {
+				EntityPlayer player = (EntityPlayer) cause.getTrueSource();
+				for (EntityGem gem : list) {
 					if (gem.getServitude() == EntityGem.SERVE_YELLOW_DIAMOND && !gem.equals(this)) {
-			    		gem.setOwnerId(player.getUniqueID());
-			    		gem.setLeader(player);
-			    		gem.setServitude(EntityGem.SERVE_HUMAN);
-			        	gem.getNavigator().clearPath();
-			        	gem.setAttackTarget(null);
-			        	gem.setHealth(gem.getMaxHealth());
-			        	gem.playTameEffect();
-			        	gem.world.setEntityState(gem, (byte) 7);
-			        	gem.playObeySound();
+						gem.setOwnerId(player.getUniqueID());
+						gem.setLeader(player);
+						gem.setServitude(EntityGem.SERVE_HUMAN);
+						gem.getNavigator().clearPath();
+						gem.setAttackTarget(null);
+						gem.setHealth(gem.getMaxHealth());
+						gem.playTameEffect();
+						gem.world.setEntityState(gem, (byte) 7);
+						gem.playObeySound();
 					}
 				}
 			}
 		}
 		super.onDeath(cause);
 	}
-    
+	
 	/*********************************************************
-	 * Methods related to sounds.                            *
+	 * Methods related to sounds. *
 	 *********************************************************/
+	@Override
 	public float getSoundPitch() {
-    	return 1.0F;
-    }
+		return 1.0F;
+	}
+	@Override
 	public int getTalkInterval() {
-    	return 200;
-    }
+		return 200;
+	}
+	@Override
 	protected SoundEvent getAmbientSound() {
 		return ModSounds.YELLOW_DIAMOND_LIVING;
 	}
+	@Override
 	protected SoundEvent getHurtSound(DamageSource source) {
 		return ModSounds.YELLOW_DIAMOND_HURT;
 	}
+	@Override
 	protected SoundEvent getDeathSound() {
 		return ModSounds.YELLOW_DIAMOND_DEATH;
 	}

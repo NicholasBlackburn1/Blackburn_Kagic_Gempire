@@ -19,10 +19,13 @@ public class ItemTimeGlass extends Item {
 		this.setCreativeTab(ModCreativeTabs.CREATIVE_TAB_OTHER);
 		this.setMaxStackSize(1);
 	}
+	@Override
 	public EnumActionResult onItemUse(EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
 		if (!worldIn.isRemote) {
 			TimeGlassEvent e1 = new TimeGlassEvent(playerIn, playerIn.getHeldItem(hand));
-			if (MinecraftForge.EVENT_BUS.post(e1)) return EnumActionResult.SUCCESS;
+			if (MinecraftForge.EVENT_BUS.post(e1)) {
+				return EnumActionResult.SUCCESS;
+			}
 			worldIn.setWorldTime(worldIn.getWorldTime() * -1L);
 			if (worldIn.rand.nextBoolean()) {
 				if (worldIn.isRaining()) {
@@ -30,8 +33,7 @@ public class ItemTimeGlass extends Item {
 					worldIn.getWorldInfo().setThunderTime(0);
 					worldIn.getWorldInfo().setRainTime(0);
 					worldIn.getWorldInfo().setRaining(false);
-				}
-				else {
+				} else {
 					worldIn.getWorldInfo().setCleanWeatherTime(0);
 					worldIn.getWorldInfo().setThunderTime(worldIn.rand.nextInt(12000) + 12000);
 					worldIn.getWorldInfo().setRainTime(worldIn.rand.nextInt(12000) + 12000);
@@ -42,7 +44,8 @@ public class ItemTimeGlass extends Item {
 		}
 		return EnumActionResult.PASS;
 	}
+	@Override
 	public EnumRarity getRarity(ItemStack stack) {
-        return EnumRarity.RARE;
-    }
+		return EnumRarity.RARE;
+	}
 }

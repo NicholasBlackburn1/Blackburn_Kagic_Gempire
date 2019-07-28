@@ -24,15 +24,15 @@ public class RenderRutile extends RenderGemBase<EntityRutile> {
 	private ModelGem normalRutile = new ModelRutile();
 	private ModelGem twinRutile = new ModelTwinRutile();
 	public RenderRutile() {
-        super(Minecraft.getMinecraft().getRenderManager(), new ModelNothing(), 0.25F);
-        this.addLayer(new LayerRutileModel(this));
-        this.addLayer(new LayerRutileItem(this));
-        this.addLayer(new LayerRutileSkin(this));
-        this.addLayer(new LayerRutileUniform(this));
-        this.addLayer(new LayerRutileInsignia(this));
-        this.addLayer(new LayerRutileHair(this));
-        this.addLayer(new LayerRutileVisor(this));
-        this.addLayer(new LayerRutileGemPlacement(this));
+		super(Minecraft.getMinecraft().getRenderManager(), new ModelNothing(), 0.25F);
+		this.addLayer(new LayerRutileModel(this));
+		this.addLayer(new LayerRutileItem(this));
+		this.addLayer(new LayerRutileSkin(this));
+		this.addLayer(new LayerRutileUniform(this));
+		this.addLayer(new LayerRutileInsignia(this));
+		this.addLayer(new LayerRutileHair(this));
+		this.addLayer(new LayerRutileVisor(this));
+		this.addLayer(new LayerRutileGemPlacement(this));
 		if (KAGIC.isBirthday()) {
 			this.addLayer(new LayerBirthdayHat(this));
 		} else if (KAGIC.isHalloween()) {
@@ -40,13 +40,13 @@ public class RenderRutile extends RenderGemBase<EntityRutile> {
 		} else if (KAGIC.isChristmas()) {
 			this.addLayer(new LayerSantaHat(this));
 		}
-    }
-
+	}
+	
 	@Override
 	protected ResourceLocation getEntityTexture(EntityRutile entity) {
 		return new ResourceLocation("kagic:textures/entities/rutile/rutile.png");
 	}
-	
+
 	public ModelGem getModel(boolean defective) {
 		if (defective) {
 			return this.twinRutile;

@@ -6,7 +6,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.EnumSkyBlock;
 
 public class EntityAISlagHateLight extends EntityAIBase {
-    private final EntitySlag slag;
+	private final EntitySlag slag;
 	private final double movementSpeed;
 	private final int searchRadius;
 	private int currentLight;
@@ -14,7 +14,7 @@ public class EntityAISlagHateLight extends EntityAIBase {
 	private double posY;
 	private double posZ;
 	private int delay;
-	
+
 	public EntityAISlagHateLight(EntitySlag slagIn, double speedIn, int radius) {
 		this.slag = slagIn;
 		this.movementSpeed = speedIn;
@@ -22,25 +22,24 @@ public class EntityAISlagHateLight extends EntityAIBase {
 		this.delay = 0;
 		this.setMutexBits(1);
 	}
-	
+
 	@Override
 	public boolean shouldExecute() {
 		if (this.delay > 0) {
 			--this.delay;
 			return false;
-		}
-		else {
+		} else {
 			this.delay = this.slag.getRNG().nextInt(20);
 			return true;
 		}
 	}
-	
+
 	@Override
 	public void startExecuting() {
 		this.currentLight = this.slag.world.getLightFor(EnumSkyBlock.BLOCK, this.slag.getPosition());
-		for (int x = -searchRadius; x <= searchRadius; ++x) {
+		for (int x = -this.searchRadius; x <= this.searchRadius; ++x) {
 			for (int y = -2; y <= 2; ++y) {
-				for (int z = -searchRadius; z <= searchRadius; ++z) {
+				for (int z = -this.searchRadius; z <= this.searchRadius; ++z) {
 					if ((x > 2 || x < -2) && (z > 2 || z < -2)) {
 						BlockPos tempPos = this.slag.getPosition().add(new BlockPos(x, y, z));
 						int tempLight = this.slag.world.getLightFor(EnumSkyBlock.BLOCK, tempPos);
@@ -56,17 +55,17 @@ public class EntityAISlagHateLight extends EntityAIBase {
 		}
 		this.slag.getNavigator().tryMoveToXYZ(this.posX, this.posY, this.posZ, this.movementSpeed);
 	}
-	
+
 	@Override
 	public boolean shouldContinueExecuting() {
 		return !this.slag.getNavigator().noPath();
 	}
-	
+
 	@Override
 	public void resetTask() {
 		this.slag.getNavigator().clearPath();
 	}
-	
+
 	@Override
 	public void updateTask() {
 		this.slag.getNavigator().tryMoveToXYZ(this.posX, this.posY, this.posZ, this.movementSpeed);

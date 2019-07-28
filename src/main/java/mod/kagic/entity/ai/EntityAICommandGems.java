@@ -10,13 +10,13 @@ public class EntityAICommandGems extends EntityAIBase {
 	private final EntityGem gem;
 	private final double movementSpeed;
 	private EntityGem target;
-
+	
 	public EntityAICommandGems(EntityGem gem, double speed) {
 		this.gem = gem;
 		this.movementSpeed = speed;
 		this.setMutexBits(3);
 	}
-	
+
 	@Override
 	public boolean shouldExecute() {
 		if (this.gem.getHeldItemMainhand().getItem() == ModItems.COMMANDER_STAFF) {
@@ -35,29 +35,28 @@ public class EntityAICommandGems extends EntityAIBase {
 		}
 		return false;
 	}
-	
+
 	@Override
 	public boolean shouldContinueExecuting() {
 		return this.target != null && !this.target.isDead && this.target.getInsigniaColor() == this.gem.getInsigniaColor() && this.target.isSitting() && !this.gem.getNavigator().noPath();
 	}
-	
+
 	@Override
 	public void startExecuting() {
 		this.gem.getNavigator().tryMoveToEntityLiving(this.target, this.movementSpeed);
 	}
-	
+
 	@Override
 	public void resetTask() {
 		this.gem.getNavigator().clearPath();
 		this.target = null;
 	}
-	
+
 	@Override
 	public void updateTask() {
 		if (this.gem.getDistanceSq(this.target) > this.gem.width * 3) {
 			this.gem.getNavigator().tryMoveToEntityLiving(this.target, this.movementSpeed);
-		}
-		else if (this.target.isSitting()) {
+		} else if (this.target.isSitting()) {
 			this.target.setSitting(null, false);
 		}
 	}

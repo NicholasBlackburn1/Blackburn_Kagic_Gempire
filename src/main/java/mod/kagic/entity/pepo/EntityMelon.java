@@ -10,6 +10,7 @@ public class EntityMelon extends EntityPepo {
 	public EntityMelon(World worldIn) {
 		super(new ItemStack(Items.MELON), worldIn);
 	}
+	@Override
 	public void onDeath(DamageSource cause) {
 		if (!this.world.isRemote) {
 			int total = this.rand.nextInt(5) + 3;

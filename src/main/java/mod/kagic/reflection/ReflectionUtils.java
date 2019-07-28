@@ -11,7 +11,7 @@ public class ReflectionUtils {
 				return null;
 			}
 		}
-		
+
 		try {
 			return c.getDeclaredField(fieldName);
 		} catch (NoSuchFieldException | SecurityException e) {

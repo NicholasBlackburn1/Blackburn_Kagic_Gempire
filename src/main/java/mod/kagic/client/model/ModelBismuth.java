@@ -1,7 +1,6 @@
 package mod.kagic.client.model;
 
 import mod.kagic.init.KAGIC;
-import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 
@@ -16,7 +15,7 @@ public class ModelBismuth extends ModelGem {
 			this.bipedHead.addChild(this.witchHat);
 		}
 		
-	    // Hair.
+		// Hair.
 		this.bipedHeadwear = new ModelRenderer(this, 32, 0);
 		this.bipedHeadwear.addBox(-4F, -12F, -4F, 8, 8, 8, 1.1F);
 		this.bipedHeadwear.setRotationPoint(0F, 0F, 0F);
@@ -28,19 +27,20 @@ public class ModelBismuth extends ModelGem {
 		this.bipedRightArm = new ModelRenderer(this, 16, 38);
 		this.bipedRightArm.addBox(-7F, -4F, -2F, 4, 14, 4);
 		this.bipedRightArm.setRotationPoint(0F, 0F, 0F);
-	    // Left arm.
+		// Left arm.
 		this.bipedLeftArm = new ModelRenderer(this, 0, 38);
 		this.bipedLeftArm.addBox(3F, -4F, -2F, 4, 14, 4);
 		this.bipedLeftArm.setRotationPoint(0F, 0F, 0F);
-	    // Right leg.
+		// Right leg.
 		this.bipedRightLeg = new ModelRenderer(this, 48, 38);
 		this.bipedRightLeg.addBox(-7F, 0F, -2F, 4, 12, 4);
 		this.bipedRightLeg.setRotationPoint(0F, 12F, 0F);
-	  	// Left leg.
+		// Left leg.
 		this.bipedLeftLeg = new ModelRenderer(this, 32, 38);
 		this.bipedLeftLeg.addBox(3F, 0F, -2F, 4, 12, 4);
 		this.bipedLeftLeg.setRotationPoint(0F, 12F, 0F);
 	}
+	@Override
 	public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 		this.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entityIn);
 		this.bipedHead.render(scale);
@@ -51,6 +51,7 @@ public class ModelBismuth extends ModelGem {
 		this.bipedRightLeg.render(scale);
 		this.bipedLeftLeg.render(scale);
 	}
+	@Override
 	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
 		super.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scaleFactor, entityIn);
 	}

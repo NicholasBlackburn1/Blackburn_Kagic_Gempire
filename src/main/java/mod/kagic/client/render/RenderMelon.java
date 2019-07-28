@@ -9,12 +9,14 @@ import net.minecraft.util.ResourceLocation;
 
 public class RenderMelon extends RenderLivingBase<EntityMelon> {
 	public RenderMelon() {
-        super(Minecraft.getMinecraft().getRenderManager(), new ModelPepo(), 0.25F);
-        this.addLayer(new LayerArrow(this));
-    }
-	protected void preRenderCallback(EntityMelon entitylivingbaseIn, float partialTickTime) {
-		
+		super(Minecraft.getMinecraft().getRenderManager(), new ModelPepo(), 0.25F);
+		this.addLayer(new LayerArrow(this));
 	}
+	@Override
+	protected void preRenderCallback(EntityMelon entitylivingbaseIn, float partialTickTime) {
+
+	}
+	@Override
 	protected ResourceLocation getEntityTexture(EntityMelon entity) {
 		return new ResourceLocation("kagic:textures/entities/pepo/melon.png");
 	}

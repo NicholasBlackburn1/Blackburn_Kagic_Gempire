@@ -14,16 +14,20 @@ import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
 
 public class CommandSpawnGems extends CommandBase {
+	@Override
 	public String getName() {
 		return "spawngems";
 	}
+	@Override
 	public String getUsage(ICommandSender sender) {
 		return "/spawngems [radius]";
 	}
-	
+
+	@Override
 	public int getRequiredPermissionLevel() {
 		return 2;
 	}
+	@Override
 	public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
 		int radius = 11;
 		if (args.length > 0) {

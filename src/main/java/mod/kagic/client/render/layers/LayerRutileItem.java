@@ -15,11 +15,11 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class LayerRutileItem implements LayerRenderer<EntityRutile> {
 	protected final RenderRutile livingEntityRenderer;
-	
+
 	public LayerRutileItem(RenderRutile renderRutile) {
 		this.livingEntityRenderer = renderRutile;
 	}
-
+	
 	@Override
 	public void doRenderLayer(EntityRutile entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 		boolean flag = entitylivingbaseIn.getPrimaryHand() == EnumHandSide.RIGHT;
@@ -32,9 +32,9 @@ public class LayerRutileItem implements LayerRenderer<EntityRutile> {
 			GlStateManager.popMatrix();
 		}
 	}
-	
+
 	private void renderHeldItem(EntityRutile entity, ItemStack stack, ItemCameraTransforms.TransformType camera, EnumHandSide handSide) {
-		if (((EntityRutile) entity).isDefective()) {
+		if (entity.isDefective()) {
 			if (!stack.isEmpty()) {
 				GlStateManager.pushMatrix();
 				if (entity.isSneaking()) {
@@ -44,12 +44,11 @@ public class LayerRutileItem implements LayerRenderer<EntityRutile> {
 				GlStateManager.rotate(-90.0F, 1.0F, 0.0F, 0.0F);
 				GlStateManager.rotate(180.0F, 0.0F, 1.0F, 0.0F);
 				boolean flag = handSide == EnumHandSide.LEFT;
-				GlStateManager.translate((float)(flag ? -1 : 1) / 5.5F, 0.1F, -0.9F);
+				GlStateManager.translate((flag ? -1 : 1) / 5.5F, 0.1F, -0.9F);
 				Minecraft.getMinecraft().getItemRenderer().renderItemSide(entity, stack, camera, flag);
 				GlStateManager.popMatrix();
 			}
-		}
-		else {
+		} else {
 			if (!stack.isEmpty()) {
 				GlStateManager.pushMatrix();
 				if (entity.isSneaking()) {
@@ -59,18 +58,18 @@ public class LayerRutileItem implements LayerRenderer<EntityRutile> {
 				GlStateManager.rotate(-90.0F, 1.0F, 0.0F, 0.0F);
 				GlStateManager.rotate(180.0F, 0.0F, 1.0F, 0.0F);
 				boolean flag = handSide == EnumHandSide.LEFT;
-				GlStateManager.translate((float)(flag ? -1 : 1) / 16.0F, 0.125F, -0.75F);
+				GlStateManager.translate((flag ? -1 : 1) / 16.0F, 0.125F, -0.75F);
 				Minecraft.getMinecraft().getItemRenderer().renderItemSide(entity, stack, camera, flag);
 				GlStateManager.popMatrix();
 			}
-			
+
 		}
 	}
-	
+
 	protected void setSide(EnumHandSide side) {
 		((ModelBiped) this.livingEntityRenderer.getMainModel()).postRenderArm(0.04F, side);
 	}
-	
+
 	@Override
 	public boolean shouldCombineTextures() {
 		return false;

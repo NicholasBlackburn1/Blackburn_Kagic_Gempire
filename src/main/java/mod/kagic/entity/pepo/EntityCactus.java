@@ -10,6 +10,7 @@ public class EntityCactus extends EntityPepo {
 	public EntityCactus(World worldIn) {
 		super(new ItemStack(Blocks.CACTUS), worldIn);
 	}
+	@Override
 	public boolean attackEntityFrom(DamageSource source, float amount) {
 		if (source.getTrueSource() != null) {
 			source.getTrueSource().attackEntityFrom(DamageSource.CACTUS, 1.0F);

@@ -13,22 +13,23 @@ public class EntityOpal extends EntityFusionGem {
 	private static final int OPAL_SKIN_COLOR = 0xD3D9EE;
 	private static final int OPAL_HAIR_COLOR = 0xF9FEEE;
 	private static final int NUM_HAIRSTYLES = 1;
-	
+
 	public EntityOpal(World world) {
 		super(world);
 		this.setSize(.9F, 4.75F);
-
-        // Apply entity attributes.
-        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(300.0D);
-        this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(15.0D);
-        this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.5D);
-        this.getEntityAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE).setBaseValue(2.0D);
+		
+		// Apply entity attributes.
+		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(300.0D);
+		this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(15.0D);
+		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.5D);
+		this.getEntityAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE).setBaseValue(2.0D);
 	}
-
-	//=========================================================================
-	//=== Methods for managing fusion==========================================
-	//=========================================================================
 	
+	// =========================================================================
+	// === Methods for managing
+	// fusion==========================================
+	// =========================================================================
+
 	@Override
 	public boolean addGem(EntityGem gem) {
 		if (this.getFusionCount() >= 2) {
@@ -40,33 +41,33 @@ public class EntityOpal extends EntityFusionGem {
 			return super.addGem(gem);
 		}
 	}
-
-	/*********************************************************
-	 * Methods related to rendering.                         *
-	 *********************************************************/
 	
+	/*********************************************************
+	 * Methods related to rendering. *
+	 *********************************************************/
+
 	@Override
 	protected int generateSkinColor() {
 		return this.getSkinColor();
 	}
-	
+
 	@Override
 	protected int generateHairStyle() {
 		return this.rand.nextInt(EntityOpal.NUM_HAIRSTYLES);
 	}
-	
+
 	@Override
 	protected int generateHairColor() {
 		ArrayList<Integer> hairColors = new ArrayList<Integer>();
 		hairColors.add(EntityOpal.OPAL_HAIR_COLOR);
 		return Colors.arbiLerp(hairColors);
 	}
-	
+
 	@Override
 	public float getSizeFactor() {
 		return super.getSizeFactor() + (1F - super.getSizeFactor()) / 2;
 	}
-	
+
 	@Override
 	public void setAdjustedSize() {
 		float sizeModifier = this.getPrimeCount() - this.getDefectiveCount();

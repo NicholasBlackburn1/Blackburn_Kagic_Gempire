@@ -4,7 +4,6 @@ import mod.kagic.init.KAGIC;
 import mod.kagic.init.ModCreativeTabs;
 import mod.kagic.init.ModItems;
 import mod.kagic.tileentity.TileEntityGalaxyPadCore;
-import mod.kagic.tileentity.TileEntityWarpPadCore;
 import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
@@ -20,33 +19,33 @@ import net.minecraft.world.World;
 public class BlockGalaxyPadCore extends Block implements ITileEntityProvider {
 	public BlockGalaxyPadCore() {
 		super(Material.ROCK);
-        this.setUnlocalizedName("galaxy_pad_core");
-        this.setCreativeTab(ModCreativeTabs.CREATIVE_TAB_OTHER);
-        
-        this.setResistance(4);
-        this.setHardness(0.8f);
+		this.setUnlocalizedName("galaxy_pad_core");
+		this.setCreativeTab(ModCreativeTabs.CREATIVE_TAB_OTHER);
+		
+		this.setResistance(4);
+		this.setHardness(0.8f);
 	}
-	
+
 	@Override
 	public TileEntity createNewTileEntity(World worldIn, int meta) {
 		return new TileEntityGalaxyPadCore();
 	}
-	
+
 	private TileEntityGalaxyPadCore getTE(World world, BlockPos pos) {
 		return (TileEntityGalaxyPadCore) world.getTileEntity(pos);
 	}
-	
+
 	@Override
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
 		if (!worldIn.isRemote) {
 			ItemStack heldItem = playerIn.getHeldItem(hand);
-
+			
 			if (heldItem.getItem() == ModItems.GEM_STAFF) {
 				TileEntityGalaxyPadCore entityPad = this.getTE(worldIn, pos);
 				if (entityPad.isValidPad()) {
-						playerIn.openGui(KAGIC.instance, 0, worldIn, pos.getX(), pos.getY(), pos.getZ());
-						return true;
-				 } else {
+					playerIn.openGui(KAGIC.instance, 0, worldIn, pos.getX(), pos.getY(), pos.getZ());
+					return true;
+				} else {
 					entityPad.validateWarpPad();
 					if (entityPad.isValidPad()) {
 						playerIn.openGui(KAGIC.instance, 0, worldIn, pos.getX(), pos.getY(), pos.getZ());
@@ -57,7 +56,7 @@ public class BlockGalaxyPadCore extends Block implements ITileEntityProvider {
 		}
 		return false;
 	}
-	
+
 	@Override
 	public void breakBlock(World world, BlockPos pos, IBlockState state) {
 		((TileEntityGalaxyPadCore) world.getTileEntity(pos)).destroy();

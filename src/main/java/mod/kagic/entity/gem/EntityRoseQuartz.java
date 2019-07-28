@@ -55,29 +55,29 @@ public class EntityRoseQuartz extends EntityQuartzSoldier implements INpc {
 	public static final HashMap<Integer, ResourceLocation> ROSE_QUARTZ_HAIR_STYLES = new HashMap<Integer, ResourceLocation>();
 	private BlockPos lastSurgeLocation;
 	private int regenTicks = 0;
-
+	
 	public static HashMap<Item, Item> ROSE_RECIPES = new HashMap<Item, Item>();
 	static {
-		ROSE_RECIPES.put(Items.POISONOUS_POTATO, Items.POTATO);
-		ROSE_RECIPES.put(Items.ROTTEN_FLESH, Items.LEATHER);
-		ROSE_RECIPES.put(Items.WHEAT, Items.BREAD);
+		EntityRoseQuartz.ROSE_RECIPES.put(Items.POISONOUS_POTATO, Items.POTATO);
+		EntityRoseQuartz.ROSE_RECIPES.put(Items.ROTTEN_FLESH, Items.LEATHER);
+		EntityRoseQuartz.ROSE_RECIPES.put(Items.WHEAT, Items.BREAD);
 	}
-	
+
 	public static final int SKIN_COLOR_BEGIN = 0xFDDAC9;
-	
+
 	public static final int SKIN_COLOR_END = 0xFDDCCB;
-	
+
 	private static final int NUM_HAIRSTYLES = 1;
-	
+
 	public static final int HAIR_COLOR_BEGIN = 0xFDAECB;
-	
+
 	public static final int HAIR_COLOR_END = 0xFF5EEC;
-	
+
 	public EntityRoseQuartz(World worldIn) {
 		super(worldIn);
 		this.nativeColor = 2;
-		
-		//Define valid gem cuts and placements
+
+		// Define valid gem cuts and placements
 		this.setCutPlacement(GemCuts.FACETED, GemPlacements.BACK_OF_HEAD);
 		this.setCutPlacement(GemCuts.FACETED, GemPlacements.FOREHEAD);
 		this.setCutPlacement(GemCuts.FACETED, GemPlacements.LEFT_EYE);
@@ -95,52 +95,57 @@ public class EntityRoseQuartz extends EntityQuartzSoldier implements INpc {
 		this.setCutPlacement(GemCuts.FACETED, GemPlacements.RIGHT_THIGH);
 		this.setCutPlacement(GemCuts.FACETED, GemPlacements.LEFT_KNEE);
 		this.setCutPlacement(GemCuts.FACETED, GemPlacements.RIGHT_KNEE);
-
+		
 		// Apply entity AI.
 		this.tasks.addTask(2, new EntityAIMoveTowardsTarget(this, 0.414D, 32.0F));
 		this.tasks.addTask(3, new EntityAIMoveTowardsRestriction(this, 1.0D));
 		this.tasks.addTask(3, new EntityAIProtectionFuse(this, EntityPearl.class, EntityRainbowQuartz.class, 16D));
 		this.tasks.addTask(5, new EntityAIWander(this, 0.6D));
-		
+
 		// Apply targetting.
 		this.targetTasks.addTask(4, new EntityAINearestAttackableTarget<EntityMob>(this, EntityMob.class, 10, true, false, new Predicate<EntityMob>() {
+			@Override
 			public boolean apply(EntityMob input) {
 				return input != null && IMob.VISIBLE_MOB_SELECTOR.apply(input);
 			}
 		}));
-		
+
 		// Apply entity attributes.
 		this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(8.0D);
-
+		
 		this.droppedGemItem = ModItems.ROSE_QUARTZ_GEM;
 		this.droppedCrackedGemItem = ModItems.CRACKED_ROSE_QUARTZ_GEM;
 	}
-
+	
+	@Override
 	protected int generateGemColor() {
 		return 0xFFA2E6;
 	}
+	@Override
 	public void convertGems(int placement) {
 		this.setGemCut(GemCuts.FACETED.id);
 		switch (placement) {
-		case 0:
-			this.setGemPlacement(GemPlacements.CHEST.id);
-			break;
-		case 1:
-			this.setGemPlacement(GemPlacements.BELLY.id);
-			break;
+			case 0 :
+				this.setGemPlacement(GemPlacements.CHEST.id);
+				break;
+			case 1 :
+				this.setGemPlacement(GemPlacements.BELLY.id);
+				break;
 		}
-	}
-	
-	/*********************************************************
-	 * Methods related to entity loading.					*
-	 *********************************************************/
-	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
-		return super.onInitialSpawn(difficulty, livingdata);
 	}
 
 	/*********************************************************
-	 * Methods related to interaction.					   *
+	 * Methods related to entity loading. *
 	 *********************************************************/
+	@Override
+	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
+		return super.onInitialSpawn(difficulty, livingdata);
+	}
+	
+	/*********************************************************
+	 * Methods related to interaction. *
+	 *********************************************************/
+	@Override
 	public boolean processInteract(EntityPlayer player, EnumHand hand) {
 		if (hand == EnumHand.MAIN_HAND && !this.world.isRemote) {
 			if (this.isTamed() && this.isOwner(player)) {
@@ -157,14 +162,14 @@ public class EntityRoseQuartz extends EntityQuartzSoldier implements INpc {
 						this.playObeySound();
 						return true;
 					}
-				} else if (ROSE_RECIPES.containsKey(item)) {
+				} else if (EntityRoseQuartz.ROSE_RECIPES.containsKey(item)) {
 					if (!player.capabilities.isCreativeMode) {
 						stack.shrink(1);
 					}
-					this.entityDropItem(new ItemStack(ROSE_RECIPES.get(item)), 1);
+					this.entityDropItem(new ItemStack(EntityRoseQuartz.ROSE_RECIPES.get(item)), 1);
 				} else if (item == Items.BUCKET && !this.isDefective()) {
 					stack.shrink(1);
-
+					
 					if (stack.isEmpty()) {
 						player.setHeldItem(hand, FluidUtil.getFilledBucket(new FluidStack(ModBlocks.FLUID_ROSE_TEARS, 1000)));
 					} else if (!player.inventory.addItemStackToInventory(FluidUtil.getFilledBucket(new FluidStack(ModBlocks.FLUID_ROSE_TEARS, 1000)))) {
@@ -177,16 +182,18 @@ public class EntityRoseQuartz extends EntityQuartzSoldier implements INpc {
 		}
 		return super.processInteract(player, hand);
 	}
+	@Override
 	public void whenDefective() {
 		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(100.0D);
 		this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(5.0D);
 		this.getEntityAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE).setBaseValue(0.0D);
 		this.setSize(0.63F, 2.3F);
 	}
-	
+
 	/*********************************************************
-	 * Methods related to living.							*
+	 * Methods related to living. *
 	 *********************************************************/
+	@Override
 	public void onLivingUpdate() {
 		if (this.regenTicks > 80 && !this.isDefective() && !(this.isDead || this.getHealth() <= 0.0F)) {
 			this.startCryingLikeAnEmo();
@@ -198,10 +205,11 @@ public class EntityRoseQuartz extends EntityQuartzSoldier implements INpc {
 		this.regenTicks += 1;
 		super.onLivingUpdate();
 	}
-	
+
 	/*********************************************************
-	 * Methods related to death.							 *
+	 * Methods related to death. *
 	 *********************************************************/
+	@Override
 	public boolean attackEntityFrom(DamageSource source, float amount) {
 		if (!this.world.isRemote) {
 			if (this.lastSurgeLocation == null || this.getPosition().distanceSq(this.lastSurgeLocation) > 16) {
@@ -214,16 +222,14 @@ public class EntityRoseQuartz extends EntityQuartzSoldier implements INpc {
 						pepo.setHealth(pepo.getMaxHealth());
 						this.world.spawnEntity(pepo);
 						pepo.setMaster(this);
-					}
-					else if (state.getBlock() == Blocks.PUMPKIN) {
+					} else if (state.getBlock() == Blocks.PUMPKIN) {
 						this.world.destroyBlock(pos, false);
 						EntityPumpkin pepo = new EntityPumpkin(this.world);
 						pepo.setPosition(pos.getX(), pos.getY(), pos.getZ());
 						pepo.setHealth(pepo.getMaxHealth());
 						this.world.spawnEntity(pepo);
 						pepo.setMaster(this);
-					}
-					else if (state.getBlock() == Blocks.LIT_PUMPKIN) {
+					} else if (state.getBlock() == Blocks.LIT_PUMPKIN) {
 						this.world.destroyBlock(pos, false);
 						EntityPumpkin pepo = new EntityPumpkin(this.world);
 						pepo.setPosition(pos.getX(), pos.getY(), pos.getZ());
@@ -231,16 +237,14 @@ public class EntityRoseQuartz extends EntityQuartzSoldier implements INpc {
 						this.world.spawnEntity(pepo);
 						pepo.setMaster(this);
 						pepo.setLit(true);
-					}
-					else if (state.getBlock() == Blocks.CACTUS) {
+					} else if (state.getBlock() == Blocks.CACTUS) {
 						this.world.destroyBlock(pos, false);
 						EntityCactus pepo = new EntityCactus(this.world);
 						pepo.setPosition(pos.getX(), pos.getY(), pos.getZ());
 						pepo.setHealth(pepo.getMaxHealth());
 						this.world.spawnEntity(pepo);
 						pepo.setMaster(this);
-					}
-					else if (state.getBlock() == ModBlocks.GIANT_STRAWBERRY) {
+					} else if (state.getBlock() == ModBlocks.GIANT_STRAWBERRY) {
 						this.world.destroyBlock(pos, false);
 						EntityStrawberry pepo = new EntityStrawberry(this.world);
 						pepo.setPosition(pos.getX(), pos.getY(), pos.getZ());
@@ -256,22 +260,24 @@ public class EntityRoseQuartz extends EntityQuartzSoldier implements INpc {
 					pepo.setMaster(this);
 				}
 			}
-			/*if (list.size() > 0) {
-				if (this.getServitude() == EntityGem.SERVE_HUMAN && this.getOwner() != null) {
-					this.getOwner().addStat(ModAchievements.REVOLUTION);
-				}
-			}*/
+			/*
+			 * if (list.size() > 0) { if
+			 * (this.getServitude() == EntityGem.SERVE_HUMAN
+			 * && this.getOwner() != null) {
+			 * this.getOwner().addStat(ModAchievements.
+			 * REVOLUTION); } }
+			 */
 			this.lastSurgeLocation = this.getPosition();
 		}
 		return super.attackEntityFrom(source, amount);
 	}
-
+	
 	/*********************************************************
-	 * Methods related to combat.							*
+	 * Methods related to combat. *
 	 *********************************************************/
 	private void startCryingLikeAnEmo() {
 		if (!this.world.isRemote) {
-			AxisAlignedBB axisalignedbb = (new AxisAlignedBB(this.posX, this.posY, this.posZ, (this.posX + 1), (this.posY + 1), (this.posZ + 1))).grow(16.0, (double) this.world.getHeight(), 16.0);
+			AxisAlignedBB axisalignedbb = new AxisAlignedBB(this.posX, this.posY, this.posZ, this.posX + 1, this.posY + 1, this.posZ + 1).grow(16.0, this.world.getHeight(), 16.0);
 			List<EntityLivingBase> list = this.world.<EntityLivingBase>getEntitiesWithinAABB(EntityLivingBase.class, axisalignedbb);
 			for (EntityLivingBase entity : list) {
 				if (!entity.isDead || entity.getHealth() > 0.0F) {
@@ -282,8 +288,7 @@ public class EntityRoseQuartz extends EntityQuartzSoldier implements INpc {
 								if (this.isOwnerId(gem.getOwnerId())) {
 									entity.addPotionEffect(new PotionEffect(MobEffects.REGENERATION, 100));
 								}
-							}
-							else {
+							} else {
 								entity.addPotionEffect(new PotionEffect(MobEffects.REGENERATION, 100));
 							}
 						}
@@ -295,22 +300,25 @@ public class EntityRoseQuartz extends EntityQuartzSoldier implements INpc {
 			}
 		}
 	}
-	
+
 	/*********************************************************
-	 * Methods related to sounds.							*
+	 * Methods related to sounds. *
 	 *********************************************************/
+	@Override
 	protected SoundEvent getHurtSound(DamageSource source) {
 		return ModSounds.ROSE_QUARTZ_HURT;
 	}
+	@Override
 	protected SoundEvent getObeySound() {
 		return ModSounds.ROSE_QUARTZ_OBEY;
 	}
+	@Override
 	protected SoundEvent getDeathSound() {
 		return ModSounds.ROSE_QUARTZ_DEATH;
 	}
-	
+
 	/*********************************************************
-	 * Methods related to rendering.						 *
+	 * Methods related to rendering. *
 	 *********************************************************/
 	@Override
 	protected int generateSkinColor() {
@@ -319,12 +327,12 @@ public class EntityRoseQuartz extends EntityQuartzSoldier implements INpc {
 		skinColors.add(EntityRoseQuartz.SKIN_COLOR_END);
 		return Colors.arbiLerp(skinColors);
 	}
-	
+
 	@Override
 	protected int generateHairStyle() {
 		return this.rand.nextInt(EntityRoseQuartz.NUM_HAIRSTYLES);
 	}
-	
+
 	@Override
 	protected int generateHairColor() {
 		ArrayList<Integer> hairColors = new ArrayList<Integer>();
@@ -332,29 +340,29 @@ public class EntityRoseQuartz extends EntityQuartzSoldier implements INpc {
 		hairColors.add(EntityRoseQuartz.HAIR_COLOR_END);
 		return Colors.arbiLerp(hairColors);
 	}
-
+	
 	@Override
 	public boolean hasUniformVariant(GemPlacements placement) {
-		switch(placement) {
-		case BELLY:
-			return true;
-		default:
-			return false;
+		switch (placement) {
+			case BELLY :
+				return true;
+			default :
+				return false;
 		}
 	}
-
+	
 	@Override
 	public boolean hasCape() {
 		return true;
 	}
-	
+
 	@Override
 	public boolean hasHairVariant(GemPlacements placement) {
-		switch(placement) {
-		case FOREHEAD:
-			return true;
-		default:
-			return false;
+		switch (placement) {
+			case FOREHEAD :
+				return true;
+			default :
+				return false;
 		}
 	}
 }

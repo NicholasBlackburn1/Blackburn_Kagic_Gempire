@@ -8,13 +8,9 @@ import mod.kagic.entity.ai.EntityAIDiamondHurtByTarget;
 import mod.kagic.entity.ai.EntityAIDiamondHurtTarget;
 import mod.kagic.entity.ai.EntityAIStandGuard;
 import mod.kagic.entity.ai.EntityAIStay;
-import mod.kagic.entity.shardfusion.EntityShardFusion;
-import mod.kagic.init.KAGIC;
 import mod.kagic.init.ModItems;
 import mod.kagic.worlddata.ChunkLocation;
 import mod.kagic.worlddata.WorldDataRuins;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
@@ -29,17 +25,16 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.EntitySelectors;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 
 public class EntityCorruptedGem extends EntityGem {
-
+	
 	public EntityCorruptedGem(World world) {
 		super(world);
-
+		
 		// Apply entity AI.
 		this.stayAI = new EntityAIStay(this);
 		this.tasks.addTask(2, new EntityAIMoveTowardsTarget(this, 0.414D, 32.0F));
@@ -48,27 +43,26 @@ public class EntityCorruptedGem extends EntityGem {
 		this.tasks.addTask(6, new EntityAIWatchClosest(this, EntityPlayer.class, 16.0F));
 		this.tasks.addTask(6, new EntityAIWatchClosest(this, EntityMob.class, 16.0F));
 		this.tasks.addTask(7, new EntityAILookIdle(this));
-		
+
 		// Apply targeting.
 		this.targetTasks.addTask(1, new EntityAIDiamondHurtByTarget(this));
 		this.targetTasks.addTask(2, new EntityAIDiamondHurtTarget(this));
 		this.targetTasks.addTask(3, new EntityAIHurtByTarget(this, false, new Class[0]));
 		this.targetTasks.addTask(4, new EntityAINearestAttackableTarget<EntityLivingBase>(this, EntityLivingBase.class, 10, true, false, new Predicate<EntityLivingBase>() {
+			@Override
 			public boolean apply(EntityLivingBase input) {
-				return input != null 
-						&& ((input instanceof EntityGem && !(input instanceof EntityCorruptedGem)) 
-								|| (input instanceof EntityPlayer && !((EntityPlayer)input).isCreative()));
+				return input != null && (input instanceof EntityGem && !(input instanceof EntityCorruptedGem) || input instanceof EntityPlayer && !((EntityPlayer) input).isCreative());
 			}
 		}));
 	}
-
+	
 	@Override
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) {
 		this.setServitude(EntityGem.SERVE_HOSTILE);
 		this.setAttackAI();
 		return super.onInitialSpawn(difficulty, livingdata);
 	}
-
+	
 	@Override
 	public boolean processInteract(EntityPlayer player, EnumHand hand) {
 		if (!this.world.isRemote) {
@@ -78,8 +72,7 @@ public class EntityCorruptedGem extends EntityGem {
 					if (player.isSneaking()) {
 						this.alternateInteract(player);
 						this.playObeySound();
-					}
-					else {
+					} else {
 						player.sendMessage(new TextComponentTranslation("command.kagic.does_not_understand_corrupted", this.getName()));
 						return true;
 					}
@@ -88,16 +81,16 @@ public class EntityCorruptedGem extends EntityGem {
 		}
 		return false;
 	}
-	
+
 	@Override
 	public boolean getCanSpawnHere() {
 		if (this.rand.nextFloat() > 0.0001) {
 			return false;
 		}
-		
+
 		WorldDataRuins ruins = WorldDataRuins.get(this.world);
 		ChunkLocation cPos = new ChunkLocation(this.getPosition());
-
+		
 		boolean adjacentToRuin = false;
 		for (int i = -2; i <= 2; ++i) {
 			for (int j = -1; j <= 1; ++j) {
@@ -108,24 +101,24 @@ public class EntityCorruptedGem extends EntityGem {
 				}
 			}
 		}
-		
+
 		boolean isValidRuinChunk = !ruins.chunkHasRuin(cPos) || ruins.chunkHasSpecificRuin(cPos, "mask_island");
 		if (!adjacentToRuin || !isValidRuinChunk) {
 			return false;
 		}
-		
+
 		if (!this.world.getEntities(EntityCorruptedGem.class, EntitySelectors.withinRange(this.posX, this.posY, this.posZ, 32)).isEmpty()) {
 			return false;
 		}
-
+		
 		return super.getCanSpawnHere() && this.world.getDifficulty() != EnumDifficulty.PEACEFUL;
 	}
-	
+
 	@Override
 	public int getMaxSpawnedInChunk() {
 		return 1;
 	}
-	
+
 	@Override
 	public String generateSpecificName(BlockPos pos) {
 		return "Corrupted";

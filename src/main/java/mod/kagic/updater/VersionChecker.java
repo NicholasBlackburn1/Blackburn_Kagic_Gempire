@@ -15,32 +15,32 @@ public class VersionChecker {
 	public String UPDATE_URL;
 	public String CHANGELOG;
 	public boolean errored = false;
-	
+
 	public VersionChecker() {
 		Gson parser = new Gson();
 		try {
-			Map<String, String> versionData = parser.fromJson(this.getVersionData("http://akrivus.x10host.com/KAGIC-1.11.2-version-data.json"), new TypeToken<Map<String, String>>() {}.getType());
-			MINECRAFT_VERSION = versionData.get("mcversion");
-			MOD_VERSION = versionData.get("version");
-			UPDATE_URL = versionData.get("url");
-			CHANGELOG = versionData.get("changes");
-		}
-		catch (Exception e) {
-			errored = true;
+			Map<String, String> versionData = parser.fromJson(this.getVersionData("http://akrivus.x10host.com/KAGIC-1.11.2-version-data.json"), new TypeToken<Map<String, String>>() {
+			}.getType());
+			this.MINECRAFT_VERSION = versionData.get("mcversion");
+			this.MOD_VERSION = versionData.get("version");
+			this.UPDATE_URL = versionData.get("url");
+			this.CHANGELOG = versionData.get("changes");
+		} catch (Exception e) {
+			this.errored = true;
 		}
 	}
 	
-    public String getVersionData(String url) throws Exception {
-        URL website = new URL(url);
-        URLConnection connection = website.openConnection();
-        BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-        StringBuilder response = new StringBuilder();
-        String inputLine;
-
-        while ((inputLine = in.readLine()) != null) {
-            response.append(inputLine);
-        }
-        in.close();
-        return response.toString();
-    }
+	public String getVersionData(String url) throws Exception {
+		URL website = new URL(url);
+		URLConnection connection = website.openConnection();
+		BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+		StringBuilder response = new StringBuilder();
+		String inputLine;
+		
+		while ((inputLine = in.readLine()) != null) {
+			response.append(inputLine);
+		}
+		in.close();
+		return response.toString();
+	}
 }

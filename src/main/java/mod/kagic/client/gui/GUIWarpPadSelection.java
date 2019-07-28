@@ -20,17 +20,19 @@ public class GUIWarpPadSelection extends GuiScreen {
 	private Map<BlockPos, WarpPadDataEntry> padData = null;
 	private SortedMap<Double, BlockPos> sortedPoses = new TreeMap<Double, BlockPos>();
 	private GUIWarpPadList padList;
-	private GuiButton buttonDone; 
+	private GuiButton buttonDone;
 	protected String screenTitle = "Select Destination";
-	
+
 	public GUIWarpPadSelection(LinkedHashMap<BlockPos, WarpPadDataEntry> data, int x, int y, int z) {
-		//KAGICTech.instance.chatInfoMessage("Getting Warp Pad TE at " + x + ", " + y + ", " + z);
+		// KAGICTech.instance.chatInfoMessage("Getting Warp
+		// Pad TE at " + x + ", " + y + ", " + z);
 		this.tilePad = (TileEntityWarpPadCore) Minecraft.getMinecraft().world.getTileEntity(new BlockPos(x, y, z));
 		this.padData = data;
-		//KAGICTech.instance.chatInfoMessage("padData has size of " + padData.size());
-		sortedPoses = WorldDataWarpPad.getSortedPositions(padData, this.tilePad.getPos());
+		// KAGICTech.instance.chatInfoMessage("padData has
+		// size of " + padData.size());
+		this.sortedPoses = WorldDataWarpPad.getSortedPositions(this.padData, this.tilePad.getPos());
 	}
-	
+
 	public WarpPadDataEntry getPadDataEntry(BlockPos pos) {
 		if (this.padData.containsKey(pos)) {
 			return this.padData.get(pos);
@@ -38,28 +40,29 @@ public class GUIWarpPadSelection extends GuiScreen {
 			return null;
 		}
 	}
-	
+
 	@Override
 	public boolean doesGuiPauseGame() {
 		return false;
 	}
-	
+
 	@Override
 	public void updateScreen() {
 	}
-
+	
+	@Override
 	public void initGui() {
 		this.padList = new GUIWarpPadList(this, this.tilePad.getPos(), this.sortedPoses, this.mc, this.width, this.height, 0, this.height, 50);
 		this.buttonDone = this.addButton(new GuiButton(618, this.width / 2 - 75, this.height - 25, 150, 20, I18n.format("gui.cancel", new Object[0])));
 	}
-	
-	public void onGuiClosed() {
-		
-	}
-	
+
 	@Override
-	protected void actionPerformed(GuiButton button) throws IOException
-	{
+	public void onGuiClosed() {
+
+	}
+
+	@Override
+	protected void actionPerformed(GuiButton button) throws IOException {
 		if (button.id == 618) {
 			Minecraft.getMinecraft().player.closeScreen();
 		} else {
@@ -67,30 +70,34 @@ public class GUIWarpPadSelection extends GuiScreen {
 			super.actionPerformed(button);
 		}
 	}
-
+	
+	@Override
 	protected void keyTyped(char typedChar, int keyCode) throws IOException {
-		if (keyCode == 1) { //ESC key
+		if (keyCode == 1) { // ESC key
 			Minecraft.getMinecraft().player.closeScreen();
 		}
 	}
-	
+
+	@Override
 	public void handleMouseInput() throws IOException {
 		super.handleMouseInput();
 		this.padList.handleMouseInput();
 	}
-	
+
+	@Override
 	protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
 		if (!this.padList.mouseClicked(mouseX, mouseY, mouseButton)) {
 			super.mouseClicked(mouseX, mouseY, mouseButton);
 		}
 	}
-
+	
+	@Override
 	protected void mouseReleased(int mouseX, int mouseY, int state) {
 		if (!this.padList.mouseReleased(mouseX, mouseY, state)) {
 			super.mouseReleased(mouseX, mouseY, state);
 		}
 	}
-
+	
 	@Override
 	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
 		this.drawDefaultBackground();

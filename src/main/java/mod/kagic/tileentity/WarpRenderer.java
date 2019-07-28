@@ -15,91 +15,94 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class WarpRenderer extends TileEntitySpecialRenderer<TileEntityWarpPadCore> {
 	private static final ResourceLocation warpStream = new ResourceLocation("kagic:textures/blocks/warpstream.png");
 	private static final double height = 6;
-	
+
 	private void renderVertex(BufferBuilder renderer, double x, double y, double z, double u, double v) {
 		renderer.pos(x, y, z).tex(u, v).color(1.0f, 1.0f, 1.0f, 0.75f).lightmap(0, 255).endVertex();
 	}
-
+	
 	@Override
 	public void render(TileEntityWarpPadCore tilePad, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
 		if (tilePad.isWarping() && tilePad.isValidPad()) {
 			Tessellator tessellator = Tessellator.getInstance();
 			GlStateManager.pushMatrix();
 			GlStateManager.translate(x, y + 1.0, z);
-
+			
 			GlStateManager.enableBlend();
-			
+
 			GlStateManager.enableAlpha();
-			//GlStateManager.alphaFunc(GL11.GL_GREATER, 0.003921569F);
-			
+			// GlStateManager.alphaFunc(GL11.GL_GREATER,
+			// 0.003921569F);
+
 			GL11.glDisable(GL11.GL_LIGHTING);
 			GlStateManager.disableCull();
-			
+
 			GlStateManager.depthMask(false);
 			GlStateManager.enableDepth();
-
-			GlStateManager.enableTexture2D();
 			
-			ResourceLocation beamIcon = warpStream;
-			bindTexture(beamIcon);
+			GlStateManager.enableTexture2D();
 
-			long ticks = (System.currentTimeMillis() / 100) % 10;
-			float i1 = 0;//ticks / 10.0f;
-			float i2 = 1;//i1 + .1f;
-
+			ResourceLocation beamIcon = WarpRenderer.warpStream;
+			this.bindTexture(beamIcon);
+			
+			long ticks = System.currentTimeMillis() / 100 % 10;
+			float i1 = 0;// ticks / 10.0f;
+			float i2 = 1;// i1 + .1f;
+			
 			GlStateManager.color(1, 1, 1, 1);
-
+			
 			BufferBuilder renderer = tessellator.getBuffer();
 			renderer.begin(GL11.GL_QUADS, DefaultVertexFormats.PARTICLE_POSITION_TEX_COLOR_LMAP);
-
+			
 			double offset = -1.0;
-			double beamPercent = tilePad.renderCooldown > 0 ? 0 : ((double) tilePad.renderTicks / (double) tilePad.warpTicks) - partialTicks / (double) tilePad.warpTicks;
-			double topHeight = this.height - beamPercent * this.height;
+			double beamPercent = tilePad.renderCooldown > 0
+																																																																																																																																																																																							? 0
+																																																																																																																																																																																							: (double) tilePad.renderTicks / (double) TileEntityWarpPadCore.warpTicks - partialTicks / (double) TileEntityWarpPadCore.warpTicks;
+			double topHeight = WarpRenderer.height - beamPercent * WarpRenderer.height;
+
+			this.renderVertex(renderer, offset, topHeight - 1, offset, 1, .5); // -|
+			this.renderVertex(renderer, 1 - offset, topHeight - 1, offset, 0, .5); // |-
+			this.renderVertex(renderer, 1 - offset, 0, offset, 0, 1); // |_
+			this.renderVertex(renderer, offset, 0, offset, 1, 1); // _|
 			
-			renderVertex(renderer, offset, topHeight - 1, offset, 1, .5);		// -|
-			renderVertex(renderer, 1-offset, topHeight - 1, offset, 0, .5);	// |-
-			renderVertex(renderer, 1-offset, 0, offset, 0, 1);					// |_
-			renderVertex(renderer, offset, 0, offset, 1, 1);					// _|
-
-			renderVertex(renderer, 1-offset, topHeight - 1, 1-offset, 1, .5);
-			renderVertex(renderer, offset, topHeight - 1, 1-offset, 0, .5);
-			renderVertex(renderer, offset, 0, 1-offset, 0, 1);
-			renderVertex(renderer, 1-offset, 0, 1-offset, 1, 1);
-
-			renderVertex(renderer, offset, topHeight - 1, 1-offset, 1, .5);
-			renderVertex(renderer, offset, topHeight - 1, offset, 0, .5);
-			renderVertex(renderer, offset, 0, offset, 0, 1);
-			renderVertex(renderer, offset, 0, 1-offset, 1, 1);
-
-			renderVertex(renderer, 1-offset, topHeight - 1, offset, 1, .5);
-			renderVertex(renderer, 1-offset, topHeight - 1, 1-offset, 0, .5);
-			renderVertex(renderer, 1-offset, 0, 1-offset, 0, 1);
-			renderVertex(renderer, 1-offset, 0, offset, 1, 1);
-
+			this.renderVertex(renderer, 1 - offset, topHeight - 1, 1 - offset, 1, .5);
+			this.renderVertex(renderer, offset, topHeight - 1, 1 - offset, 0, .5);
+			this.renderVertex(renderer, offset, 0, 1 - offset, 0, 1);
+			this.renderVertex(renderer, 1 - offset, 0, 1 - offset, 1, 1);
+			
+			this.renderVertex(renderer, offset, topHeight - 1, 1 - offset, 1, .5);
+			this.renderVertex(renderer, offset, topHeight - 1, offset, 0, .5);
+			this.renderVertex(renderer, offset, 0, offset, 0, 1);
+			this.renderVertex(renderer, offset, 0, 1 - offset, 1, 1);
+			
+			this.renderVertex(renderer, 1 - offset, topHeight - 1, offset, 1, .5);
+			this.renderVertex(renderer, 1 - offset, topHeight - 1, 1 - offset, 0, .5);
+			this.renderVertex(renderer, 1 - offset, 0, 1 - offset, 0, 1);
+			this.renderVertex(renderer, 1 - offset, 0, offset, 1, 1);
+			
 			// TOP //
-
-			renderVertex(renderer, offset, topHeight, offset, 1, 0);			// -|
-			renderVertex(renderer, 1-offset, topHeight, offset, 0, 0);			// |-
-			renderVertex(renderer, 1-offset, topHeight - 1, offset, 0, .5);		// |_
-			renderVertex(renderer, offset, topHeight - 1, offset, 1, .5);		// _|
-
-			renderVertex(renderer, 1-offset, topHeight, 1-offset, 1, 0);
-			renderVertex(renderer, offset, topHeight, 1-offset, 0, 0);
-			renderVertex(renderer, offset, topHeight - 1, 1-offset, 0, .5);
-			renderVertex(renderer, 1-offset, topHeight - 1, 1-offset, 1, .5);
-
-			renderVertex(renderer, offset, topHeight, 1-offset, 1, 0);
-			renderVertex(renderer, offset, topHeight, offset, 0, 0);
-			renderVertex(renderer, offset, topHeight - 1, offset, 0, .5);
-			renderVertex(renderer, offset, topHeight - 1, 1-offset, 1, .5);
-
-			renderVertex(renderer, 1-offset, topHeight, offset, 1, 0);
-			renderVertex(renderer, 1-offset, topHeight, 1-offset, 0, 0);
-			renderVertex(renderer, 1-offset, topHeight - 1, 1-offset, 0, .5);
-			renderVertex(renderer, 1-offset, topHeight - 1, offset, 1, .5);
-
-			tessellator.draw();
 			
+			this.renderVertex(renderer, offset, topHeight, offset, 1, 0); // -|
+			this.renderVertex(renderer, 1 - offset, topHeight, offset, 0, 0); // |-
+			this.renderVertex(renderer, 1 - offset, topHeight - 1, offset, 0, .5); // |_
+			this.renderVertex(renderer, offset, topHeight - 1, offset, 1, .5); // _|
+			
+			this.renderVertex(renderer, 1 - offset, topHeight, 1 - offset, 1, 0);
+			this.renderVertex(renderer, offset, topHeight, 1 - offset, 0, 0);
+			this.renderVertex(renderer, offset, topHeight - 1, 1 - offset, 0, .5);
+			this.renderVertex(renderer, 1 - offset, topHeight - 1, 1 - offset, 1, .5);
+			
+			this.renderVertex(renderer, offset, topHeight, 1 - offset, 1, 0);
+			this.renderVertex(renderer, offset, topHeight, offset, 0, 0);
+			this.renderVertex(renderer, offset, topHeight - 1, offset, 0, .5);
+			this.renderVertex(renderer, offset, topHeight - 1, 1 - offset, 1, .5);
+			
+			this.renderVertex(renderer, 1 - offset, topHeight, offset, 1, 0);
+			this.renderVertex(renderer, 1 - offset, topHeight, 1 - offset, 0, 0);
+			this.renderVertex(renderer, 1 - offset, topHeight - 1, 1 - offset, 0, .5);
+			this.renderVertex(renderer, 1 - offset, topHeight - 1, offset, 1, .5);
+			
+			tessellator.draw();
+
 			if (tilePad.renderTicks > 0) {
 				--tilePad.renderTicks;
 			}
@@ -107,13 +110,14 @@ public class WarpRenderer extends TileEntitySpecialRenderer<TileEntityWarpPadCor
 				--tilePad.renderCooldown;
 			}
 			if (tilePad.renderTicks == 0 && tilePad.renderCooldown == 0) {
-				tilePad.renderCooldown = tilePad.warpCooldownTicks;
+				tilePad.renderCooldown = TileEntityWarpPadCore.warpCooldownTicks;
 			}
-
+			
 			GlStateManager.depthMask(true);
 			GlStateManager.enableLighting();
-			//GlStateManager.alphaFunc(GL11.GL_GREATER, 0.1F);
-			
+			// GlStateManager.alphaFunc(GL11.GL_GREATER,
+			// 0.1F);
+
 			GlStateManager.popMatrix();
 		}
 	}

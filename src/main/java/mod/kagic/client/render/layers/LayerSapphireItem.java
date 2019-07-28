@@ -15,11 +15,11 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class LayerSapphireItem implements LayerRenderer<EntitySapphire> {
 	protected final RenderSapphire livingEntityRenderer;
-	
+
 	public LayerSapphireItem(RenderSapphire renderSapphire) {
 		this.livingEntityRenderer = renderSapphire;
 	}
-
+	
 	@Override
 	public void doRenderLayer(EntitySapphire entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 		boolean flag = entitylivingbaseIn.getPrimaryHand() == EnumHandSide.RIGHT;
@@ -32,7 +32,7 @@ public class LayerSapphireItem implements LayerRenderer<EntitySapphire> {
 			GlStateManager.popMatrix();
 		}
 	}
-	
+
 	private void renderHeldItem(EntitySapphire entity, ItemStack stack, ItemCameraTransforms.TransformType camera, EnumHandSide handSide) {
 		if (!stack.isEmpty()) {
 			GlStateManager.pushMatrix();
@@ -43,16 +43,16 @@ public class LayerSapphireItem implements LayerRenderer<EntitySapphire> {
 			GlStateManager.rotate(-90.0F, 1.0F, 0.0F, 0.0F);
 			GlStateManager.rotate(180.0F, 0.0F, 1.0F, 0.0F);
 			boolean flag = handSide == EnumHandSide.LEFT;
-			GlStateManager.translate((float)(flag ? -1 : 1) / 16.0F, 0.125F, -0.6F);
+			GlStateManager.translate((flag ? -1 : 1) / 16.0F, 0.125F, -0.6F);
 			Minecraft.getMinecraft().getItemRenderer().renderItemSide(entity, stack, camera, flag);
 			GlStateManager.popMatrix();
 		}
 	}
-	
+
 	protected void setSide(EnumHandSide side) {
 		((ModelBiped) this.livingEntityRenderer.getMainModel()).postRenderArm(0.04F, side);
 	}
-	
+
 	@Override
 	public boolean shouldCombineTextures() {
 		return false;

@@ -15,30 +15,31 @@ import net.minecraft.world.World;
 public class EntityGarnet extends EntityFusionGem {
 	private static final int SKIN_COLOR_BEGIN = 0x9B4A6D;
 	private static final int SKIN_COLOR_MID = 0xBE4459;
-	private static final int SKIN_COLOR_END = 0xCC3281; 
-
+	private static final int SKIN_COLOR_END = 0xCC3281;
+	
 	private static final int HAIR_COLOR_BEGIN = 0xF13FA6;
-	private static final int HAIR_COLOR_END = 0xF13FA6; 
+	private static final int HAIR_COLOR_END = 0xF13FA6;
 	
 	private static final int NUM_HAIRSTYLES = 1;
-
+	
 	public EntityGarnet(World world) {
 		super(world);
 		this.setSize(0.7F, 2.1F);
 		this.visorChanceReciprocal = 1;
 		this.isImmuneToFire = true;
-		
+
 		// Apply entity attributes.
 		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(200.0D);
 		this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(12.5D);
 		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.4D);
 		this.getEntityAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE).setBaseValue(2.0D);
 	}
-
-	//=========================================================================
-	//=== Methods for managing fusion==========================================
-	//=========================================================================
 	
+	// =========================================================================
+	// === Methods for managing
+	// fusion==========================================
+	// =========================================================================
+
 	@Override
 	public boolean addGem(EntityGem gem) {
 		if (this.getFusionCount() >= 2) {
@@ -50,28 +51,29 @@ public class EntityGarnet extends EntityFusionGem {
 			return super.addGem(gem);
 		}
 	}
-
+	
 	/*********************************************************
-	 * Methods related to rendering.                         *
+	 * Methods related to rendering. *
 	 *********************************************************/
 	@Override
 	protected int generateGemColor() {
-    	return 0xFF337A;
-    }
-
+		return 0xFF337A;
+	}
+	
 	@Override
 	protected int generateSkinColor() {
 		ArrayList<Integer> skinColors = new ArrayList<Integer>();
 		skinColors.add(EntityGarnet.SKIN_COLOR_BEGIN);
 		skinColors.add(EntityGarnet.SKIN_COLOR_MID);
 		skinColors.add(EntityGarnet.SKIN_COLOR_END);
-		return Colors.arbiLerp(skinColors);	}
-	
+		return Colors.arbiLerp(skinColors);
+	}
+
 	@Override
 	protected int generateHairStyle() {
 		return this.rand.nextInt(EntityGarnet.NUM_HAIRSTYLES);
 	}
-	
+
 	@Override
 	protected int generateHairColor() {
 		ArrayList<Integer> hairColors = new ArrayList<Integer>();
@@ -79,12 +81,12 @@ public class EntityGarnet extends EntityFusionGem {
 		hairColors.add(EntityGarnet.HAIR_COLOR_END);
 		return Colors.arbiLerp(hairColors);
 	}
-	
+
 	@Override
 	public float getSizeFactor() {
 		return super.getSizeFactor() + (1F - super.getSizeFactor()) / 2;
 	}
-	
+
 	@Override
 	public void setAdjustedSize() {
 		float sizeModifier = this.getPrimeCount() - this.getDefectiveCount();
@@ -92,20 +94,20 @@ public class EntityGarnet extends EntityFusionGem {
 		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(200.0D + sizeModifier * 50D);
 		this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(12.5D + sizeModifier * 2.5D);
 	}
-
+	
 	/*********************************************************
-	 * Methods related to sounds.							*
+	 * Methods related to sounds. *
 	 *********************************************************/
 	@Override
 	protected SoundEvent getDeathSound() {
 		return ModSounds.GARNET_DEATH;
 	}
-
+	
 	@Override
 	protected SoundEvent getHurtSound(DamageSource source) {
 		return ModSounds.GARNET_HURT;
 	}
-	
+
 	@Override
 	protected SoundEvent getObeySound() {
 		return ModSounds.GARNET_OBEY;

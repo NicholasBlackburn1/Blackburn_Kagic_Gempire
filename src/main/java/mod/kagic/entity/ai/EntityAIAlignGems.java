@@ -11,13 +11,13 @@ public class EntityAIAlignGems extends EntityAIBase {
 	private final EntityGem alignedGem;
 	private final double movementSpeed;
 	private EntityGem unalignedGem;
-
+	
 	public EntityAIAlignGems(EntityGem alignedGem, double speed) {
 		this.alignedGem = alignedGem;
 		this.movementSpeed = speed;
 		this.setMutexBits(3);
 	}
-	
+
 	@Override
 	public boolean shouldExecute() {
 		if (this.alignedGem.ticksExisted % 20 == 0) {
@@ -32,38 +32,38 @@ public class EntityAIAlignGems extends EntityAIBase {
 					}
 				}
 			}
-			return this.unalignedGem != null && this.alignedGem.getNavigator().getPathToEntityLiving(unalignedGem) != null;
+			return this.unalignedGem != null && this.alignedGem.getNavigator().getPathToEntityLiving(this.unalignedGem) != null;
 		}
 		return false;
 	}
-	
+
 	@Override
 	public boolean shouldContinueExecuting() {
-		return this.unalignedGem != null 
-				&& !this.unalignedGem.isDead 
-				&& !this.unalignedGem.isTamed() 
-				/*&& this.alignedGem.canEntityBeSeen(this.unalignedGem)*/
-				&& !this.alignedGem.getNavigator().noPath();
+		return this.unalignedGem != null && !this.unalignedGem.isDead && !this.unalignedGem.isTamed()
+		/*
+		 * && this.alignedGem.canEntityBeSeen(this.
+		 * unalignedGem)
+		 */
+																																																																																																																																																																																						&& !this.alignedGem.getNavigator().noPath();
 	}
-	
+
 	@Override
 	public void startExecuting() {
 		this.alignedGem.getLookHelper().setLookPositionWithEntity(this.unalignedGem, 30.0F, 30.0F);
 		this.unalignedGem.moveToBlockPosAndAngles(new BlockPos(this.alignedGem), this.unalignedGem.rotationYaw, this.unalignedGem.rotationPitch);
 	}
-	
+
 	@Override
 	public void resetTask() {
 		this.alignedGem.getNavigator().clearPath();
 		this.unalignedGem = null;
 	}
-	
+
 	@Override
 	public void updateTask() {
 		if (this.alignedGem.getDistanceSq(this.unalignedGem) > this.alignedGem.width * 3) {
 			this.alignedGem.getNavigator().tryMoveToEntityLiving(this.unalignedGem, this.movementSpeed);
-		}
-		else if (!this.unalignedGem.isTamed()) {
+		} else if (!this.unalignedGem.isTamed()) {
 			if (this.alignedGem.getServitude() == EntityGem.SERVE_HUMAN) {
 				this.unalignedGem.setOwnerId(this.alignedGem.getOwnerId());
 			}

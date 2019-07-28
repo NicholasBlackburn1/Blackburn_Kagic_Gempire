@@ -8,12 +8,12 @@ import net.minecraft.client.renderer.entity.RenderLivingBase;
 import net.minecraft.util.ResourceLocation;
 
 public class RenderMouthTorso extends RenderLivingBase<EntityMouthTorso> {
-
+	
 	public RenderMouthTorso() {
-        super(Minecraft.getMinecraft().getRenderManager(), new ModelMouthTorso(), 0.25F);
-        this.addLayer(new LayerShardPlacement(this));
+		super(Minecraft.getMinecraft().getRenderManager(), new ModelMouthTorso(), 0.25F);
+		this.addLayer(new LayerShardPlacement(this));
 	}
-
+	
 	@Override
 	protected ResourceLocation getEntityTexture(EntityMouthTorso entity) {
 		return new ResourceLocation("kagic:textures/entities/shardfusions/mouthtorso/mouthtorso.png");

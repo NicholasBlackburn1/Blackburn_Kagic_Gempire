@@ -13,11 +13,10 @@ public class GemLayer {
 			name = name.replaceFirst("_fusion", "");
 		}
 		if (loc.getResourceDomain().equals("kagic")) {
-	        return name.replaceFirst("kagic.", "");
-		}
-		else {
-	        return name;
+			return name.replaceFirst("kagic.", "");
+		} else {
+			return name;
 		}
 	}
-
+	
 }

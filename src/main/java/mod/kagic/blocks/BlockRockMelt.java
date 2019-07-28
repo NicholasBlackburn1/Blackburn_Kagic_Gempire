@@ -29,56 +29,67 @@ public class BlockRockMelt extends Block {
 		if (this.dropsDust) {
 			this.setCreativeTab(ModCreativeTabs.CREATIVE_TAB_OTHER);
 		}
-		
+
 	}
+	@Override
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
 		return new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.0D, 1.0D);
-    }
-    public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
-        return new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.0D, 1.0D);
-    }
-    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
-        this.checkAndDropBlock(worldIn, pos, state);
-    }
-    private boolean checkAndDropBlock(World worldIn, BlockPos pos, IBlockState state) {
-        if (!this.canPlaceBlockAt(worldIn, pos)) {
-            worldIn.setBlockToAir(pos);
-            return false;
-        }
-        else {
-            return true;
-        }
-    }
-    public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
-        return worldIn.getBlockState(pos.down()).isOpaqueCube();
-    }
-    public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-        return this.dropsDust ? Items.BLAZE_POWDER : Item.getItemFromBlock(Blocks.AIR);
-    }
-    public int quantityDropped(Random random) {
-        return 1;
-    }
-    public boolean isReplaceable(IBlockAccess worldIn, BlockPos pos) {
-        return true;
-    }
-    @SideOnly(Side.CLIENT)
-    public BlockRenderLayer getBlockLayer() {
-        return BlockRenderLayer.TRANSLUCENT;
-    }
-    @SideOnly(Side.CLIENT)
-    public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side) {
-        return true;
-    }
-    public boolean isFullyOpaque(IBlockState state) {
-        return false;
-    }
-    public boolean isOpaqueCube(IBlockState state) {
-        return false;
-    }
-    public boolean isFullCube(IBlockState state) {
-        return false;
-    }
-    public boolean isPassable(IBlockAccess worldIn, BlockPos pos) {
-        return true;
-    }
+	}
+	@Override
+	public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
+		return new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.0D, 1.0D);
+	}
+	@Override
+	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
+		this.checkAndDropBlock(worldIn, pos, state);
+	}
+	private boolean checkAndDropBlock(World worldIn, BlockPos pos, IBlockState state) {
+		if (!this.canPlaceBlockAt(worldIn, pos)) {
+			worldIn.setBlockToAir(pos);
+			return false;
+		} else {
+			return true;
+		}
+	}
+	@Override
+	public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
+		return worldIn.getBlockState(pos.down()).isOpaqueCube();
+	}
+	@Override
+	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
+		return this.dropsDust ? Items.BLAZE_POWDER : Item.getItemFromBlock(Blocks.AIR);
+	}
+	@Override
+	public int quantityDropped(Random random) {
+		return 1;
+	}
+	@Override
+	public boolean isReplaceable(IBlockAccess worldIn, BlockPos pos) {
+		return true;
+	}
+	@Override
+	@SideOnly(Side.CLIENT)
+	public BlockRenderLayer getBlockLayer() {
+		return BlockRenderLayer.TRANSLUCENT;
+	}
+	@Override
+	@SideOnly(Side.CLIENT)
+	public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side) {
+		return true;
+	}
+	public boolean isFullyOpaque(IBlockState state) {
+		return false;
+	}
+	@Override
+	public boolean isOpaqueCube(IBlockState state) {
+		return false;
+	}
+	@Override
+	public boolean isFullCube(IBlockState state) {
+		return false;
+	}
+	@Override
+	public boolean isPassable(IBlockAccess worldIn, BlockPos pos) {
+		return true;
+	}
 }

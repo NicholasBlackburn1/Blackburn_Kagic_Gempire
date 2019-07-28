@@ -43,7 +43,7 @@ public class TileEntityWarpPadCore extends TileEntity implements ITickable {
 	protected BlockPos destination = null;
 	public int renderTicks = 0;
 	public int renderCooldown = 0;
-	
+
 	private int ticksSinceLastCheck = 0;
 	protected final int clearanceHeight = 6;
 	protected boolean isClear = false;
@@ -51,144 +51,160 @@ public class TileEntityWarpPadCore extends TileEntity implements ITickable {
 	public String name = "";
 	protected boolean warping = false;
 	protected boolean cooling = false;
-	
+
 	private Ticket ticket = null;
 	private static final int loadChunkTicks = 100;
 	private int loadChunkTicksLeft = 0;
-
+	
 	protected void setDirty() {
-		//KAGIC.instance.chatInfoMessage("Setting dirty");
+		// KAGIC.instance.chatInfoMessage("Setting dirty");
 		this.markDirty();
 		IBlockState state = this.world.getBlockState(this.pos);
-		world.notifyBlockUpdate(this.pos, state, state, 3);
+		this.world.notifyBlockUpdate(this.pos, state, state, 3);
 		if (!this.world.isRemote) {
-			WorldDataWarpPad.get(this.world).addWarpPadEntry(name, this.isPadValid, this.isClear, this.pos);
+			WorldDataWarpPad.get(this.world).addWarpPadEntry(this.name, this.isPadValid, this.isClear, this.pos);
 		}
 	}
-	
+
 	protected boolean isStair(IBlockState state) {
 		if (state.getBlock() != Blocks.QUARTZ_STAIRS || state.getValue(BlockStairs.HALF) != EnumHalf.BOTTOM) {
 			return false;
 		}
 		return true;
 	}
-	
+
 	protected boolean validateStairs() {
 		IBlockState state = this.world.getBlockState(this.pos.add(2, 0, 0));
 		if (state.getBlock() != Blocks.QUARTZ_STAIRS || state.getValue(BlockStairs.FACING) != EnumFacing.WEST || state.getValue(BlockStairs.HALF) != EnumHalf.BOTTOM || state.getValue(BlockStairs.SHAPE) != EnumShape.STRAIGHT) {
-			//KAGICTech.instance.chatInfoMessage("Pad has no west quartz stair");	
+			// KAGICTech.instance.chatInfoMessage("Pad has
+			// no west quartz stair");
 			return false;
 		}
 		state = this.world.getBlockState(this.pos.add(-2, 0, 0));
 		if (state.getBlock() != Blocks.QUARTZ_STAIRS || state.getValue(BlockStairs.FACING) != EnumFacing.EAST || state.getValue(BlockStairs.HALF) != EnumHalf.BOTTOM || state.getValue(BlockStairs.SHAPE) != EnumShape.STRAIGHT) {
-			//KAGICTech.instance.chatInfoMessage("Pad has no east quartz stair");	
+			// KAGICTech.instance.chatInfoMessage("Pad has
+			// no east quartz stair");
 			return false;
 		}
 		state = this.world.getBlockState(this.pos.add(0, 0, 2));
 		if (state.getBlock() != Blocks.QUARTZ_STAIRS || state.getValue(BlockStairs.FACING) != EnumFacing.NORTH || state.getValue(BlockStairs.HALF) != EnumHalf.BOTTOM || state.getValue(BlockStairs.SHAPE) != EnumShape.STRAIGHT) {
-			//KAGICTech.instance.chatInfoMessage("Pad has no north quartz stair");	
+			// KAGICTech.instance.chatInfoMessage("Pad has
+			// no north quartz stair");
 			return false;
 		}
 		state = this.world.getBlockState(this.pos.add(0, 0, -2));
 		if (state.getBlock() != Blocks.QUARTZ_STAIRS || state.getValue(BlockStairs.FACING) != EnumFacing.SOUTH || state.getValue(BlockStairs.HALF) != EnumHalf.BOTTOM || state.getValue(BlockStairs.SHAPE) != EnumShape.STRAIGHT) {
-			//KAGICTech.instance.chatInfoMessage("Pad has no south quartz stair");	
+			// KAGICTech.instance.chatInfoMessage("Pad has
+			// no south quartz stair");
 			return false;
 		}
-		
-		//Corners
+
+		// Corners
 		state = this.world.getBlockState(this.pos.add(-2, 0, -1));
-		if (!isStair(state)) {
-			//KAGICTech.instance.chatInfoMessage("Pad has no NW quartz stair");	
+		if (!this.isStair(state)) {
+			// KAGICTech.instance.chatInfoMessage("Pad has
+			// no NW quartz stair");
 			return false;
 		}
 		state = state.withProperty(BlockStairs.FACING, EnumFacing.SOUTH);
 		state = state.withProperty(BlockStairs.SHAPE, EnumShape.OUTER_LEFT);
 		this.world.setBlockState(this.pos.add(-2, 0, -1), state);
 		state = this.world.getBlockState(this.pos.add(-1, 0, -2));
-		if (!isStair(state)) {
-			//KAGICTech.instance.chatInfoMessage("Pad has no NW quartz stair");	
+		if (!this.isStair(state)) {
+			// KAGICTech.instance.chatInfoMessage("Pad has
+			// no NW quartz stair");
 			return false;
 		}
 		state = state.withProperty(BlockStairs.FACING, EnumFacing.EAST);
 		state = state.withProperty(BlockStairs.SHAPE, EnumShape.OUTER_RIGHT);
 		this.world.setBlockState(this.pos.add(-1, 0, -2), state);
-
+		
 		state = this.world.getBlockState(this.pos.add(2, 0, -1));
-		if (!isStair(state)) {
-			//KAGICTech.instance.chatInfoMessage("Pad has no NE quartz stair");	
+		if (!this.isStair(state)) {
+			// KAGICTech.instance.chatInfoMessage("Pad has
+			// no NE quartz stair");
 			return false;
 		}
 		state = state.withProperty(BlockStairs.FACING, EnumFacing.SOUTH);
 		state = state.withProperty(BlockStairs.SHAPE, EnumShape.OUTER_RIGHT);
 		this.world.setBlockState(this.pos.add(2, 0, -1), state);
 		state = this.world.getBlockState(this.pos.add(1, 0, -2));
-		if (!isStair(state)) {
-			//KAGICTech.instance.chatInfoMessage("Pad has no NE quartz stair");	
-		return false;
+		if (!this.isStair(state)) {
+			// KAGICTech.instance.chatInfoMessage("Pad has
+			// no NE quartz stair");
+			return false;
 		}
 		state = state.withProperty(BlockStairs.FACING, EnumFacing.WEST);
 		state = state.withProperty(BlockStairs.SHAPE, EnumShape.OUTER_LEFT);
 		this.world.setBlockState(this.pos.add(1, 0, -2), state);
-		
+
 		state = this.world.getBlockState(this.pos.add(2, 0, 1));
-		if (!isStair(state)) {
-			//KAGICTech.instance.chatInfoMessage("Pad has no SE quartz stair");	
+		if (!this.isStair(state)) {
+			// KAGICTech.instance.chatInfoMessage("Pad has
+			// no SE quartz stair");
 			return false;
 		}
 		state = state.withProperty(BlockStairs.FACING, EnumFacing.NORTH);
 		state = state.withProperty(BlockStairs.SHAPE, EnumShape.OUTER_LEFT);
 		this.world.setBlockState(this.pos.add(2, 0, 1), state);
 		state = this.world.getBlockState(this.pos.add(1, 0, 2));
-		if (!isStair(state)) {
-			//KAGICTech.instance.chatInfoMessage("Pad has no SE quartz stair");	
+		if (!this.isStair(state)) {
+			// KAGICTech.instance.chatInfoMessage("Pad has
+			// no SE quartz stair");
 			return false;
 		}
 		state = state.withProperty(BlockStairs.FACING, EnumFacing.WEST);
 		state = state.withProperty(BlockStairs.SHAPE, EnumShape.OUTER_RIGHT);
 		this.world.setBlockState(this.pos.add(1, 0, 2), state);
-		
+
 		state = this.world.getBlockState(this.pos.add(-2, 0, 1));
-		if (!isStair(state)) {
-			//KAGICTech.instance.chatInfoMessage("Pad has no SW quartz stair");	
+		if (!this.isStair(state)) {
+			// KAGICTech.instance.chatInfoMessage("Pad has
+			// no SW quartz stair");
 			return false;
 		}
 		state = state.withProperty(BlockStairs.FACING, EnumFacing.NORTH);
 		state = state.withProperty(BlockStairs.SHAPE, EnumShape.OUTER_RIGHT);
 		this.world.setBlockState(this.pos.add(-2, 0, 1), state);
 		state = this.world.getBlockState(this.pos.add(-1, 0, 2));
-		if (!isStair(state)) {
-			//KAGICTech.instance.chatInfoMessage("Pad has no SW quartz stair");	
+		if (!this.isStair(state)) {
+			// KAGICTech.instance.chatInfoMessage("Pad has
+			// no SW quartz stair");
 			return false;
 		}
 		state = state.withProperty(BlockStairs.FACING, EnumFacing.EAST);
 		state = state.withProperty(BlockStairs.SHAPE, EnumShape.OUTER_LEFT);
 		this.world.setBlockState(this.pos.add(-1, 0, 2), state);
-		
-		//KAGICTech.instance.chatInfoMessage("Pad has all quartz stairs");	
+
+		// KAGICTech.instance.chatInfoMessage("Pad has all
+		// quartz stairs");
 		return true;
 	}
-	
+
 	protected boolean validatePad() {
 		for (int i = -1; i <= 1; i++) {
 			for (int j = -1; j <= 1; j++) {
 				if (j == 0 && i == 0) {
 					continue;
 				}
-				IBlockState state = this.world.getBlockState(this.pos.add(i, 0, j));		
+				IBlockState state = this.world.getBlockState(this.pos.add(i, 0, j));
 				if (state.getBlock() != Blocks.QUARTZ_BLOCK || state.getValue(BlockQuartz.VARIANT) != BlockQuartz.EnumType.LINES_Y) {
-					//KAGICTech.instance.chatInfoMessage("Pad is NOT surrounded by vertical quartz columns");
+					// KAGICTech.instance.chatInfoMessage("Pad
+					// is NOT surrounded by vertical quartz
+					// columns");
 					return false;
-				}				
+				}
 			}
 		}
-
-		//KAGICTech.instance.chatInfoMessage("Pad is surrounded by vertical quartz columns");
-		return true && validateStairs();
+		
+		// KAGICTech.instance.chatInfoMessage("Pad is
+		// surrounded by vertical quartz columns");
+		return true && this.validateStairs();
 	}
-	
+
 	private boolean validateClearance() {
 		for (int i = -1; i <= 1; ++i) {
-			for (int j = 1; j <= clearanceHeight; ++j) {
+			for (int j = 1; j <= this.clearanceHeight; ++j) {
 				for (int k = -1; k <= 1; ++k) {
 					if (this.world.isSideSolid(this.pos.add(i, j, k), EnumFacing.UP)) {
 						return false;
@@ -198,50 +214,50 @@ public class TileEntityWarpPadCore extends TileEntity implements ITickable {
 		}
 		return true;
 	}
-	
+
 	public boolean validateWarpPad() {
 		boolean valid = this.validatePad();
 		if (this.isPadValid != valid) {
 			this.isPadValid = valid;
 			this.setDirty();
 		}
-		
+
 		boolean clear = this.validateClearance();
 		if (this.isClear != clear) {
 			this.isClear = clear;
 			this.setDirty();
 		}
-		
+
 		return valid && clear;
 	}
-
+	
 	public boolean isValidPad() {
 		return this.isPadValid && this.isClear;
 	}
-	
+
 	public boolean isClear() {
 		return this.isClear;
 	}
-	
+
 	public boolean isValid() {
 		return this.isPadValid;
 	}
-	
+
 	@Override
 	public void update() {
 		if (!this.world.isRemote) {
-			++(this.ticksSinceLastCheck);
-			if (this.isValid() && (ticksSinceLastCheck & 20) == 0) {
+			++this.ticksSinceLastCheck;
+			if (this.isValid() && (this.ticksSinceLastCheck & 20) == 0) {
 				this.validateWarpPad();
 				this.ticksSinceLastCheck = 0;
 			}
-		
+			
 			if (this.warpTicksLeft > 0) {
 				--this.warpTicksLeft;
 				if (this.warpTicksLeft <= 0) {
 					this.WARP();
 				}
-			} 
+			}
 			
 			if (this.cooldownTicksLeft >= 0) {
 				--this.cooldownTicksLeft;
@@ -249,21 +265,22 @@ public class TileEntityWarpPadCore extends TileEntity implements ITickable {
 				this.cooling = false;
 				this.setDirty();
 			}
-			
+
 			if (this.ticket != null) {
 				--this.loadChunkTicksLeft;
 			}
 			if (this.loadChunkTicksLeft < 0 && this.ticket != null) {
-				//KAGIC.instance.chatInfoMessage("Releasing ticket");
-				ForgeChunkManager.releaseTicket(ticket);
+				// KAGIC.instance.chatInfoMessage("Releasing
+				// ticket");
+				ForgeChunkManager.releaseTicket(this.ticket);
 				this.ticket = null;
 				this.loadChunkTicksLeft = 0;
 			}
 		}
 	}
-	
+
 	@Override
-	public NBTTagCompound writeToNBT(NBTTagCompound compound){
+	public NBTTagCompound writeToNBT(NBTTagCompound compound) {
 		super.writeToNBT(compound);
 		compound.setBoolean("valid", this.isPadValid);
 		compound.setBoolean("clear", this.isClear);
@@ -273,7 +290,7 @@ public class TileEntityWarpPadCore extends TileEntity implements ITickable {
 		compound.setInteger("renderTicks", this.warpTicksLeft);
 		return compound;
 	}
-	
+
 	@Override
 	public void readFromNBT(NBTTagCompound compound) {
 		super.readFromNBT(compound);
@@ -287,22 +304,22 @@ public class TileEntityWarpPadCore extends TileEntity implements ITickable {
 		this.name = compound.getString("name");
 		this.renderTicks = compound.getInteger("renderTicks");
 	}
-	
+
 	@Override
 	public NBTTagCompound getUpdateTag() {
 		return this.writeToNBT(new NBTTagCompound());
 	}
-	
+
 	@Override
 	public SPacketUpdateTileEntity getUpdatePacket() {
 		return new SPacketUpdateTileEntity(this.pos, 1, this.writeToNBT(new NBTTagCompound()));
 	}
-	
+
 	@Override
 	public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity packet) {
 		this.readFromNBT(packet.getNbtCompound());
 	}
-	
+
 	public void setName(String name) {
 		if (!this.world.isRemote) {
 			KAGIC.instance.chatInfoMessage("Name set");
@@ -313,52 +330,51 @@ public class TileEntityWarpPadCore extends TileEntity implements ITickable {
 			KAGIC.instance.chatInfoMessage("ERROR: setName called on client");
 		}
 	}
-	
+
 	public boolean canInteractWith(EntityPlayer player) {
 		return !this.isInvalid() && player.getDistanceSq(this.pos.add(0.5D, 0.5D, 0.5D)) <= 3.0D;
 	}
-	
+
 	public void destroy() {
 		WorldDataWarpPad.get(this.world).removeWarpPadEntry(this.pos);
 	}
-	
+
 	public void loadPadChunks(TileEntityWarpPadCore pad, Ticket ticket) {
 		if (ticket == null) {
 			KAGIC.instance.chatInfoMessage("WARNING: warp pad could not load pad chunks. Strange glitches may occur!");
 			return;
 		}
 		
-        int xStart = (pad.getPos().getX() - 2) >> 4;
-        int zStart = (pad.getPos().getZ() - 2) >> 4;
-        int xEnd = (pad.getPos().getX() + 2) >> 4;
-        int zEnd = (pad.getPos().getZ() + 2) >> 4;
-
-        for (int i = xStart; i <= xEnd; ++i)
-        {
-            for (int j = zStart; j <= zEnd; ++j)
-            {
-            	//KAGIC.instance.chatInfoMessage("Loading chunk " + i + ", " + j);
-        		ForgeChunkManager.forceChunk(ticket, new ChunkPos(i, j));
-            }
-        }
-        
-        this.ticket = ticket;
-        this.loadChunkTicksLeft = this.loadChunkTicks;
+		int xStart = pad.getPos().getX() - 2 >> 4;
+		int zStart = pad.getPos().getZ() - 2 >> 4;
+		int xEnd = pad.getPos().getX() + 2 >> 4;
+		int zEnd = pad.getPos().getZ() + 2 >> 4;
+		
+		for (int i = xStart; i <= xEnd; ++i) {
+			for (int j = zStart; j <= zEnd; ++j) {
+				// KAGIC.instance.chatInfoMessage("Loading
+				// chunk " + i + ", " + j);
+				ForgeChunkManager.forceChunk(ticket, new ChunkPos(i, j));
+			}
+		}
+		
+		this.ticket = ticket;
+		this.loadChunkTicksLeft = TileEntityWarpPadCore.loadChunkTicks;
 	}
-	
+
 	public void beginWarp(BlockPos destination) {
 		Ticket ticket = ForgeChunkManager.requestTicket(KAGIC.instance, this.world, Type.NORMAL);
 		TileEntityWarpPadCore destPad = (TileEntityWarpPadCore) this.world.getTileEntity(destination);
 		this.loadPadChunks(this, ticket);
 		this.loadPadChunks(destPad, ticket);
-		
-		this.warpTicksLeft = this.warpTicks;
+
+		this.warpTicksLeft = TileEntityWarpPadCore.warpTicks;
 		this.destination = destination;
 		this.warping = true;
 		this.setDirty();
 		this.world.playSound(null, this.pos, ModSounds.WARP_PAD, SoundCategory.BLOCKS, 20.0f, 1.0f);
 	}
-	
+
 	public void WARP() {
 		BlockPos minorCorner = new BlockPos(this.pos.getX() - 1, this.pos.getY() + 1, this.pos.getZ() - 1);
 		BlockPos majorCorner = new BlockPos(this.pos.getX() + 2, this.pos.getY() + 5, this.pos.getZ() + 2);
@@ -373,38 +389,37 @@ public class TileEntityWarpPadCore extends TileEntity implements ITickable {
 			return;
 		}
 		ChunkPos cPos = destPad.world.getChunkFromBlockCoords(destPad.pos).getPos();
-		
+
 		while (it.hasNext()) {
-			Entity entity = (Entity) it.next();
+			Entity entity = it.next();
 			double posX = this.destination.getX() + entity.posX - this.pos.getX();
 			double posY = this.destination.getY() + entity.posY - this.pos.getY();
 			double posZ = this.destination.getZ() + entity.posZ - this.pos.getZ();
-
+			
 			if (entity instanceof EntityPlayerMP) {
 				entity.setPositionAndUpdate(posX, posY, posZ);
 			} else if (entity instanceof EntityLivingBase) {
 				entity.setPositionAndUpdate(posX, posY, posZ);
-			}
-			else {
+			} else {
 				entity.setLocationAndAngles(posX, posY, posZ, entity.rotationYaw, entity.rotationPitch);
 				entity.setRotationYawHead(entity.rotationYaw);
 			}
-			
+
 			for (EntityPlayer player : ((WorldServer) this.world).getEntityTracker().getTrackingPlayers(entity)) {
 				KTPacketHandler.INSTANCE.sendTo(new EntityTeleportMessage(entity.getEntityId(), posX, posY, posZ), (EntityPlayerMP) player);
 			}
 		}
-		
+
 		this.warping = false;
 		this.cooling = true;
-		this.cooldownTicksLeft = this.warpCooldownTicks;
+		this.cooldownTicksLeft = TileEntityWarpPadCore.warpCooldownTicks;
 		this.setDirty();
 	}
-	
+
 	public static TileEntityWarpPadCore getEntityPad(Entity entityIn) {
 		for (int i = -1; i <= 1; ++i) {
 			for (int j = -1; j <= 1; ++j) {
-				TileEntity te =  entityIn.getEntityWorld().getTileEntity(new BlockPos(entityIn.posX + i, entityIn.posY - 1, entityIn.posZ + j));
+				TileEntity te = entityIn.getEntityWorld().getTileEntity(new BlockPos(entityIn.posX + i, entityIn.posY - 1, entityIn.posZ + j));
 				if (te instanceof TileEntityWarpPadCore) {
 					return (TileEntityWarpPadCore) te;
 				}
@@ -412,11 +427,12 @@ public class TileEntityWarpPadCore extends TileEntity implements ITickable {
 		}
 		return null;
 	}
-	
+
 	public boolean isWarping() {
 		return this.warping || this.cooling;
 	}
-	
+
+	@Override
 	@SideOnly(Side.CLIENT)
 	public AxisAlignedBB getRenderBoundingBox() {
 		return new AxisAlignedBB(this.pos.add(-1, 0, -1), this.pos.add(1, 6, 1));

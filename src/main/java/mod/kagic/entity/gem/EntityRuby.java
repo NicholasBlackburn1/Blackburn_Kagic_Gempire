@@ -20,8 +20,6 @@ import mod.kagic.entity.ai.EntityAIStandGuard;
 import mod.kagic.entity.ai.EntityAIStay;
 import mod.kagic.entity.gem.fusion.EntityGarnet;
 import mod.kagic.entity.gem.fusion.EntityRhodonite;
-import mod.kagic.entity.gem.fusion.EntityRubyFusion;
-import mod.kagic.init.KAGIC;
 import mod.kagic.init.ModItems;
 import mod.kagic.init.ModSounds;
 import mod.kagic.util.Colors;
@@ -80,25 +78,24 @@ public class EntityRuby extends EntityGem implements IAnimals {
 	private int angerTicks = 0;
 	public boolean fusing = false;
 	private EntityRuby fusionTarget = null;
+
+	private static final int SKIN_COLOR_BEGIN = 0xE0316F;
+	private static final int SKIN_COLOR_MID = 0xE52C5C;
+	private static final int SKIN_COLOR_END = 0xED294C;
 	
-	private static final int SKIN_COLOR_BEGIN = 0xE0316F; 
-	private static final int SKIN_COLOR_MID = 0xE52C5C; 
-	private static final int SKIN_COLOR_END = 0xED294C; 
-
-
 	private static final int HAIR_COLOR_BEGIN = 0x3B0015;
-	private static final int HAIR_COLOR_END = 0x3A0015; 
+	private static final int HAIR_COLOR_END = 0x3A0015;
 	
 	private static final int NUM_HAIRSTYLES = 1;
-	
+
 	public EntityRuby(World worldIn) {
 		super(worldIn);
 		this.nativeColor = 14;
 		this.setSize(0.7F, 1.2F);
 		this.isImmuneToFire = true;
 		this.isSoldier = true;
-		
-		//Define valid gem cuts and placements
+
+		// Define valid gem cuts and placements
 		this.setCutPlacement(GemCuts.FACETED, GemPlacements.BACK_OF_HEAD);
 		this.setCutPlacement(GemCuts.FACETED, GemPlacements.FOREHEAD);
 		this.setCutPlacement(GemCuts.FACETED, GemPlacements.LEFT_EYE);
@@ -133,144 +130,152 @@ public class EntityRuby extends EntityGem implements IAnimals {
 		this.setCutPlacement(GemCuts.SQUARE, GemPlacements.RIGHT_THIGH);
 		this.setCutPlacement(GemCuts.SQUARE, GemPlacements.LEFT_KNEE);
 		this.setCutPlacement(GemCuts.SQUARE, GemPlacements.RIGHT_KNEE);
-
+		
 		// Apply entity AI.
 		this.stayAI = new EntityAIStay(this);
 		this.tasks.addTask(1, new EntityAIAvoidEntity<EntityCreeper>(this, EntityCreeper.class, new Predicate<EntityCreeper>() {
+			@Override
 			public boolean apply(EntityCreeper input) {
-				return ((EntityCreeper)input).getCreeperState() == 1;
+				return input.getCreeperState() == 1;
 			}
-        }, 6.0F, 1.0D, 1.2D));
-        
-        // Other entity AIs.
+		}, 6.0F, 1.0D, 1.2D));
+		
+		// Other entity AIs.
 		this.tasks.addTask(2, new EntityAIPickUpItems(this, 1.0D));
 		this.tasks.addTask(2, new EntityAIRideHorses(this, 1.0D));
-        this.tasks.addTask(3, new EntityAIMoveTowardsTarget(this, 0.414D, 32.0F));
-        this.tasks.addTask(3, new EntityAIProtectionFuse(this, EntitySapphire.class, EntityGarnet.class, 16D));
-        this.tasks.addTask(3, new EntityAIProtectionFuse(this, EntityPearl.class, EntityRhodonite.class, 16D));
-        this.tasks.addTask(4, new EntityAIFollowDiamond(this, 1.0D));
-        this.tasks.addTask(4, new EntityAICommandGems(this, 0.6D));
-        this.tasks.addTask(5, new EntityAIMoveTowardsRestriction(this, 1.0D));
-        this.tasks.addTask(6, new EntityAIRubyFuse(this, 1.0D, 16D));
+		this.tasks.addTask(3, new EntityAIMoveTowardsTarget(this, 0.414D, 32.0F));
+		this.tasks.addTask(3, new EntityAIProtectionFuse(this, EntitySapphire.class, EntityGarnet.class, 16D));
+		this.tasks.addTask(3, new EntityAIProtectionFuse(this, EntityPearl.class, EntityRhodonite.class, 16D));
+		this.tasks.addTask(4, new EntityAIFollowDiamond(this, 1.0D));
+		this.tasks.addTask(4, new EntityAICommandGems(this, 0.6D));
+		this.tasks.addTask(5, new EntityAIMoveTowardsRestriction(this, 1.0D));
+		this.tasks.addTask(6, new EntityAIRubyFuse(this, 1.0D, 16D));
 		this.tasks.addTask(7, new EntityAIStandGuard(this, 0.6D));
-        this.tasks.addTask(8, new EntityAIWatchClosest(this, EntityPlayer.class, 16.0F));
-        this.tasks.addTask(8, new EntityAIWatchClosest(this, EntityMob.class, 16.0F));
-        this.tasks.addTask(9, new EntityAILookIdle(this));
-        
-        // Apply targetting.
-        this.targetTasks.addTask(1, new EntityAIDiamondHurtByTarget(this));
-        this.targetTasks.addTask(2, new EntityAIDiamondHurtTarget(this));
-        this.targetTasks.addTask(3, new EntityAIHurtByTarget(this, false, new Class[0]));
-        this.targetTasks.addTask(4, new EntityAINearestAttackableTarget<EntityLiving>(this, EntityLiving.class, 10, true, false, new Predicate<EntityLiving>() {
-            public boolean apply(EntityLiving input) {
-                return input != null && IMob.VISIBLE_MOB_SELECTOR.apply(input);
-            }
-        }));
-        
-        // Apply entity attributes.
-        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(80.0D);
-        this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(4.0D);
-        this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.4D);
-        this.droppedGemItem = ModItems.RUBY_GEM;
+		this.tasks.addTask(8, new EntityAIWatchClosest(this, EntityPlayer.class, 16.0F));
+		this.tasks.addTask(8, new EntityAIWatchClosest(this, EntityMob.class, 16.0F));
+		this.tasks.addTask(9, new EntityAILookIdle(this));
+		
+		// Apply targetting.
+		this.targetTasks.addTask(1, new EntityAIDiamondHurtByTarget(this));
+		this.targetTasks.addTask(2, new EntityAIDiamondHurtTarget(this));
+		this.targetTasks.addTask(3, new EntityAIHurtByTarget(this, false, new Class[0]));
+		this.targetTasks.addTask(4, new EntityAINearestAttackableTarget<EntityLiving>(this, EntityLiving.class, 10, true, false, new Predicate<EntityLiving>() {
+			@Override
+			public boolean apply(EntityLiving input) {
+				return input != null && IMob.VISIBLE_MOB_SELECTOR.apply(input);
+			}
+		}));
+		
+		// Apply entity attributes.
+		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(80.0D);
+		this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(4.0D);
+		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.4D);
+		this.droppedGemItem = ModItems.RUBY_GEM;
 		this.droppedCrackedGemItem = ModItems.CRACKED_RUBY_GEM;
-        
-        // Register entity data.
-        this.dataManager.register(ANGER, 0);
+		
+		// Register entity data.
+		this.dataManager.register(EntityRuby.ANGER, 0);
+	}
+	
+	@Override
+	protected int generateGemColor() {
+		return 0xEE2331;
+	}
+	@Override
+	public void convertGems(int placement) {
+		this.setGemCut(GemCuts.FACETED.id);
+		switch (placement) {
+			case 0 :
+				this.setGemPlacement(GemPlacements.LEFT_HAND.id);
+				break;
+			case 1 :
+				this.setGemPlacement(GemPlacements.RIGHT_HAND.id);
+				break;
+			case 2 :
+				this.setGemPlacement(GemPlacements.BACK.id);
+				break;
+			case 3 :
+				this.setGemPlacement(GemPlacements.LEFT_EYE.id);
+				break;
+			case 4 :
+				this.setGemPlacement(GemPlacements.RIGHT_EYE.id);
+				break;
+			case 5 :
+				this.setGemPlacement(GemPlacements.FOREHEAD.id);
+				break;
+			case 6 :
+				this.setGemPlacement(GemPlacements.BELLY.id);
+				break;
+		}
 	}
 
-    protected int generateGemColor() {
-    	return 0xEE2331;
-    }
-    public void convertGems(int placement) {
-    	this.setGemCut(GemCuts.FACETED.id);
-    	switch (placement) {
-    	case 0:
-    		this.setGemPlacement(GemPlacements.LEFT_HAND.id);
-    		break;
-    	case 1:
-    		this.setGemPlacement(GemPlacements.RIGHT_HAND.id);
-    		break;
-    	case 2:
-    		this.setGemPlacement(GemPlacements.BACK.id);
-    		break;
-    	case 3:
-    		this.setGemPlacement(GemPlacements.LEFT_EYE.id);
-    		break;
-    	case 4:
-    		this.setGemPlacement(GemPlacements.RIGHT_EYE.id);
-    		break;
-    	case 5:
-    		this.setGemPlacement(GemPlacements.FOREHEAD.id);
-    		break;
-    	case 6:
-    		this.setGemPlacement(GemPlacements.BELLY.id);
-    		break;
-    	}
-    }
-	
 	/*********************************************************
-	 * Methods related to loading.                           *
+	 * Methods related to loading. *
 	 *********************************************************/
+	@Override
 	public void writeEntityToNBT(NBTTagCompound compound) {
-        compound.setInteger("anger", this.getAnger());
-        super.writeEntityToNBT(compound);
-    }
-    public void readEntityFromNBT(NBTTagCompound compound) {
-        this.setAnger(compound.getInteger("anger"));
-        super.readEntityFromNBT(compound);
-    }
-    public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
-    	this.setSpecial(this.rand.nextInt(6));
-        return super.onInitialSpawn(difficulty, livingdata);
-    }
-	
-    /*********************************************************
-	 * Methods related to interaction.                       *
-	 *********************************************************/
-    public void whenDefective() {
-    	this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(20.0D);
-        this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(2.0D);
-        this.setSize(0.7F, 0.9F);
-        this.stepHeight = 0.5F;
-    }
-    public void whenFused() {
-    	//Everything that used to be here was moved to EntityRuby#fuse()
-    	//because it doesn't need to be done 20 times a second
-    	// uhhhh yeah it does ;)
-    	//this.setSize(0.7F * this.getFusionCount(), 1.35F * this.getFusionCount());
-    }
-    public boolean canPickupItem(Item itemIn) {
-        return this.isDefective() && (itemIn instanceof ItemSword || itemIn instanceof ItemTool || itemIn instanceof ItemBow);
-    }
+		compound.setInteger("anger", this.getAnger());
+		super.writeEntityToNBT(compound);
+	}
+	@Override
+	public void readEntityFromNBT(NBTTagCompound compound) {
+		this.setAnger(compound.getInteger("anger"));
+		super.readEntityFromNBT(compound);
+	}
+	@Override
+	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
+		this.setSpecial(this.rand.nextInt(6));
+		return super.onInitialSpawn(difficulty, livingdata);
+	}
 	
 	/*********************************************************
-	 * Methods related to living.                            *
+	 * Methods related to interaction. *
 	 *********************************************************/
+	@Override
+	public void whenDefective() {
+		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(20.0D);
+		this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(2.0D);
+		this.setSize(0.7F, 0.9F);
+		this.stepHeight = 0.5F;
+	}
+	public void whenFused() {
+		// Everything that used to be here was moved to
+		// EntityRuby#fuse()
+		// because it doesn't need to be done 20 times a
+		// second
+		// uhhhh yeah it does ;)
+		// this.setSize(0.7F * this.getFusionCount(), 1.35F
+		// * this.getFusionCount());
+	}
+	public boolean canPickupItem(Item itemIn) {
+		return this.isDefective() && (itemIn instanceof ItemSword || itemIn instanceof ItemTool || itemIn instanceof ItemBow);
+	}
+
+	/*********************************************************
+	 * Methods related to living. *
+	 *********************************************************/
+	@Override
 	public void onLivingUpdate() {
 		if (this.getAnger() > 2) {
 			if (!this.isInWater()) {
 				for (int k = 0; k < 8; ++k) {
-	                this.world.spawnParticle(EnumParticleTypes.FLAME, (double) this.posX - 0.5 + Math.random(), (double) this.posY + Math.random(), (double) this.posZ - 0.5 + Math.random(), 0.0D, 0.0D, 0.0D, new int[0]);
-	            }
+					this.world.spawnParticle(EnumParticleTypes.FLAME, this.posX - 0.5 + Math.random(), this.posY + Math.random(), this.posZ - 0.5 + Math.random(), 0.0D, 0.0D, 0.0D, new int[0]);
+				}
 			}
-		}
-		else if (this.getAnger() > 3) {
+		} else if (this.getAnger() > 3) {
 			if (this.isInWater()) {
 				this.world.setBlockToAir(this.getPosition());
-                this.world.playSound(null, this.getPosition(), SoundEvents.BLOCK_FIRE_EXTINGUISH, SoundCategory.BLOCKS, 0.5F, 2.6F + (this.world.rand.nextFloat() - this.world.rand.nextFloat()) * 0.8F);
-                for (int k = 0; k < 8; ++k) {
-                    this.world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, (double) this.posX - 0.5 + Math.random(), (double) this.posY + Math.random(), (double) this.posZ - 0.5 + Math.random(), 0.0D, 0.0D, 0.0D, new int[0]);
-                }
-			}
-			else if (this.onGround) {
+				this.world.playSound(null, this.getPosition(), SoundEvents.BLOCK_FIRE_EXTINGUISH, SoundCategory.BLOCKS, 0.5F, 2.6F + (this.world.rand.nextFloat() - this.world.rand.nextFloat()) * 0.8F);
+				for (int k = 0; k < 8; ++k) {
+					this.world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, this.posX - 0.5 + Math.random(), this.posY + Math.random(), this.posZ - 0.5 + Math.random(), 0.0D, 0.0D, 0.0D, new int[0]);
+				}
+			} else if (this.onGround) {
 				this.world.setBlockState(this.getPosition(), Blocks.FIRE.getDefaultState());
 			}
-		}
-		else if (this.getAnger() > 4) {
+		} else if (this.getAnger() > 4) {
 			this.addPotionEffect(new PotionEffect(MobEffects.STRENGTH, 60));
 			this.addPotionEffect(new PotionEffect(MobEffects.REGENERATION, 60));
-		}
-		else if (this.getAnger() > 6) {
+		} else if (this.getAnger() > 6) {
 			this.addPotionEffect(new PotionEffect(MobEffects.RESISTANCE, 60, 3));
 		}
 		if (this.world.getBlockState(this.getPosition()).getMaterial() == Material.LAVA) {
@@ -284,21 +289,22 @@ public class EntityRuby extends EntityGem implements IAnimals {
 		if (this.ticksExisted % 10 + this.rand.nextInt(50) == 0) {
 			this.setSpecial(this.rand.nextInt(6));
 		}
-		
+
 		if (this.isFusion()) {
 			this.unfuse();
 		}
 		if (this.fusionTarget != null && this.fusionTarget.isDead) {
 			this.fusionTarget = null;
 		}
-		
+
 		super.onLivingUpdate();
 	}
+	@Override
 	public boolean alternateInteract(EntityPlayer player) {
-    	//this.wantsToFuse = true;
-    	super.alternateInteract(player);
-    	return true;
-    }
+		// this.wantsToFuse = true;
+		super.alternateInteract(player);
+		return true;
+	}
 	@Override
 	public boolean processInteract(EntityPlayer player, EnumHand hand) {
 		if (!this.world.isRemote) {
@@ -310,8 +316,7 @@ public class EntityRuby extends EntityGem implements IAnimals {
 						this.entityDropItem(this.getHeldItemMainhand(), 0.0F);
 						this.setHeldItem(EnumHand.MAIN_HAND, stack);
 						return true;
-					}
-					else if (player.isSneaking() && this.getHeldItemMainhand().getItem() instanceof ItemBucket) {
+					} else if (player.isSneaking() && this.getHeldItemMainhand().getItem() instanceof ItemBucket) {
 						this.entityDropItem(this.getHeldItemMainhand(), 0.0F);
 						this.setHeldItem(EnumHand.MAIN_HAND, ItemStack.EMPTY);
 						return true;
@@ -320,25 +325,19 @@ public class EntityRuby extends EntityGem implements IAnimals {
 			}
 		}
 		return super.processInteract(player, hand);
-    }
-	
-	public boolean canFuseWith(EntityRuby other) {
-		return this.canFuse() && other.canFuse() 
-			&& this.getServitude() == other.getServitude() 
-			&& this.getGemPlacement() != other.getGemPlacement()
-			&& (this.fusionTarget == null || other.fusionTarget == null 
-				|| this.fusionTarget == other.fusionTarget
-				|| this.fusionTarget == other || this == other.fusionTarget);
 	}
-	
+
+	public boolean canFuseWith(EntityRuby other) {
+		return this.canFuse() && other.canFuse() && this.getServitude() == other.getServitude() && this.getGemPlacement() != other.getGemPlacement() && (this.fusionTarget == null || other.fusionTarget == null || this.fusionTarget == other.fusionTarget || this.fusionTarget == other || this == other.fusionTarget);
+	}
+
 	public EntityRuby fuse(EntityRuby other) {
 		EntityRuby ruby = new EntityRuby(this.world);
 		if (this.isFusion()) {
 			for (NBTTagCompound compound : this.fusionMembers) {
 				ruby.fusionMembers.add(compound);
 			}
-		}
-		else {
+		} else {
 			NBTTagCompound primeCompound = new NBTTagCompound();
 			this.writeToNBT(primeCompound);
 			ruby.fusionMembers.add(primeCompound);
@@ -347,8 +346,7 @@ public class EntityRuby extends EntityGem implements IAnimals {
 			for (NBTTagCompound compound : other.fusionMembers) {
 				ruby.fusionMembers.add(compound);
 			}
-		}
-		else {
+		} else {
 			NBTTagCompound otherCompound = new NBTTagCompound();
 			other.writeToNBT(otherCompound);
 			ruby.fusionMembers.add(otherCompound);
@@ -364,48 +362,50 @@ public class EntityRuby extends EntityGem implements IAnimals {
 		ruby.setAnger(this.getAnger() + other.getAnger());
 		ruby.setAttackTarget(this.getAttackTarget());
 		ruby.setRevengeTarget(this.getAttackingEntity());
-		
+
 		ruby.setSkinColor(this.getSkinColor());
 		ruby.setHairColor(this.getHairColor());
 		ruby.setHairStyle(this.getHairStyle());
 		ruby.setHasVisor(this.hasVisor());
-
-        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(80.0D * ruby.getFusionCount());
-        this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(4.0D * ruby.getFusionCount());
-    	ruby.getEntityAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE).setBaseValue(1.0F);
-    	ruby.stepHeight = ruby.getFusionCount();
-    	ruby.setHealth(ruby.getMaxHealth());
-    	ruby.setGemColor(this.getGemColor());
-    	
-    	ItemStack weapon = this.getHeldItem(EnumHand.MAIN_HAND);
-    	if (weapon.getItem() == Items.AIR) {
-    		weapon = other.getHeldItem(EnumHand.MAIN_HAND);
-    	}
-    	ItemStack second = this.getHeldItem(EnumHand.OFF_HAND);
-    	if (second.getItem() == Items.AIR) {
-    		second = other.getHeldItem(EnumHand.OFF_HAND);
-    	}
-    	ruby.setFusionWeapon(weapon);
-    	ruby.setFusionWeapon(second);
-    	
-    	ruby.setSize(0.7F * ruby.getFusionCount(), 1.35F * ruby.getFusionCount());
-     	return ruby;
+		
+		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(80.0D * ruby.getFusionCount());
+		this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(4.0D * ruby.getFusionCount());
+		ruby.getEntityAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE).setBaseValue(1.0F);
+		ruby.stepHeight = ruby.getFusionCount();
+		ruby.setHealth(ruby.getMaxHealth());
+		ruby.setGemColor(this.getGemColor());
+		
+		ItemStack weapon = this.getHeldItem(EnumHand.MAIN_HAND);
+		if (weapon.getItem() == Items.AIR) {
+			weapon = other.getHeldItem(EnumHand.MAIN_HAND);
+		}
+		ItemStack second = this.getHeldItem(EnumHand.OFF_HAND);
+		if (second.getItem() == Items.AIR) {
+			second = other.getHeldItem(EnumHand.OFF_HAND);
+		}
+		ruby.setFusionWeapon(weapon);
+		ruby.setFusionWeapon(second);
+		
+		ruby.setSize(0.7F * ruby.getFusionCount(), 1.35F * ruby.getFusionCount());
+		return ruby;
 	}
-	
+
 	public void setFusionTarget(EntityRuby target) {
 		if (target != this) {
 			this.fusionTarget = target;
 		}
 	}
-	
+
 	public EntityRuby getFusionTarget() {
 		return this.fusionTarget;
 	}
-	
+
+	@Override
 	public void setAttackTarget(@Nullable EntityLivingBase entitylivingbaseIn) {
 		super.setAttackTarget(entitylivingbaseIn);
 	}
-	
+
+	@Override
 	public void unfuse() {
 		for (int i = 0; i < this.fusionMembers.size(); ++i) {
 			EntityRuby ruby = new EntityRuby(this.world);
@@ -419,37 +419,36 @@ public class EntityRuby extends EntityGem implements IAnimals {
 			if (ruby.isFusion()) {
 				ruby.unfuse();
 				this.world.removeEntity(ruby);
-			}
-			else {
+			} else {
 				this.world.spawnEntity(ruby);
 			}
 		}
 		this.world.removeEntity(this);
 	}
-	
+
 	/*********************************************************
-	 * Methods related to combat.                            *
+	 * Methods related to combat. *
 	 *********************************************************/
-	//This is when we get attacked by something
+	// This is when we get attacked by something
 	@Override
 	public boolean attackEntityFrom(DamageSource source, float amount) {
 		if (!this.world.isRemote) {
 			if (source.getTrueSource() instanceof EntityLivingBase && !this.isOwner((EntityLivingBase) source.getTrueSource())) {
 				if (source.isMagicDamage()) {
-					this.setAnger(this.getAnger() + 4 + (int)(amount / 2));
+					this.setAnger(this.getAnger() + 4 + (int) (amount / 2));
+				} else {
+					this.setAnger(this.getAnger() + 1 + (int) (amount / 4));
 				}
-				else {
-					this.setAnger(this.getAnger() + 1 + (int)(amount / 4));
-				}
+			} else if (source.isProjectile()) {
+				this.setAnger(this.getAnger() + 2 + (int) (amount / 3));
 			}
-			else if (source.isProjectile()) {
-				this.setAnger(this.getAnger() + 2 + (int)(amount / 3));
-			}
-			/*if (this.getAnger() > 3) {
-				if (this.getServitude() == EntityGem.SERVE_HUMAN && this.getOwner() != null) {
-	            	this.getOwner().addStat(ModAchievements.IM_AN_ETERNAL_FLAME);
-	            }
-			}*/
+			/*
+			 * if (this.getAnger() > 3) { if
+			 * (this.getServitude() == EntityGem.SERVE_HUMAN
+			 * && this.getOwner() != null) {
+			 * this.getOwner().addStat(ModAchievements.
+			 * IM_AN_ETERNAL_FLAME); } }
+			 */
 			if (this.isDefective() && this.ticksExisted < 20) {
 				this.entityDropItem(this.getHeldItem(EnumHand.MAIN_HAND), 0.0F);
 				this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, ItemStack.EMPTY);
@@ -457,8 +456,8 @@ public class EntityRuby extends EntityGem implements IAnimals {
 		}
 		return super.attackEntityFrom(source, amount);
 	}
-	
-	//This is when we do a melee attack
+
+	// This is when we do a melee attack
 	@Override
 	public boolean attackEntityAsMob(Entity entityIn) {
 		int anger = this.getAnger();
@@ -470,46 +469,46 @@ public class EntityRuby extends EntityGem implements IAnimals {
 		}
 		return super.attackEntityAsMob(entityIn);
 	}
-	
-	//This is when we do a ranged attack
+
+	// This is when we do a ranged attack
 	@Override
 	public void attackEntityWithRangedAttack(EntityLivingBase target, float distanceFactor) {
 		EntityTippedArrow arrow = new EntityTippedArrow(this.world, this);
 		double distanceFromTargetX = target.posX - this.posX;
-        double distanceFromTargetY = target.getEntityBoundingBox().minY + (double)(target.height / 3.0F) - arrow.posY;
-        double distanceFromTargetZ = target.posZ - this.posZ;
-        double distanceFromTargetS = (double) MathHelper.sqrt(distanceFromTargetX * distanceFromTargetX + distanceFromTargetY * distanceFromTargetY);
-        arrow.shoot(distanceFromTargetX, distanceFromTargetY + distanceFromTargetS * 0.20000000298023224D, distanceFromTargetZ, 1.6F, 2.0F);
-        arrow.setDamage((double)(distanceFactor * 2.0F) + this.rand.nextGaussian() * 0.25D + (double)((float)this.world.getDifficulty().getDifficultyId() * 0.11F));
-        
-        // Enchantments.
-        int power = EnchantmentHelper.getMaxEnchantmentLevel(Enchantments.POWER, this);
-        int punch = EnchantmentHelper.getMaxEnchantmentLevel(Enchantments.PUNCH, this);
-        boolean flame = EnchantmentHelper.getMaxEnchantmentLevel(Enchantments.FLAME, this) > 0;
-        int anger = this.getAnger();
-        
-        if (anger > 7) {
+		double distanceFromTargetY = target.getEntityBoundingBox().minY + target.height / 3.0F - arrow.posY;
+		double distanceFromTargetZ = target.posZ - this.posZ;
+		double distanceFromTargetS = MathHelper.sqrt(distanceFromTargetX * distanceFromTargetX + distanceFromTargetY * distanceFromTargetY);
+		arrow.shoot(distanceFromTargetX, distanceFromTargetY + distanceFromTargetS * 0.20000000298023224D, distanceFromTargetZ, 1.6F, 2.0F);
+		arrow.setDamage(distanceFactor * 2.0F + this.rand.nextGaussian() * 0.25D + this.world.getDifficulty().getDifficultyId() * 0.11F);
+		
+		// Enchantments.
+		int power = EnchantmentHelper.getMaxEnchantmentLevel(Enchantments.POWER, this);
+		int punch = EnchantmentHelper.getMaxEnchantmentLevel(Enchantments.PUNCH, this);
+		boolean flame = EnchantmentHelper.getMaxEnchantmentLevel(Enchantments.FLAME, this) > 0;
+		int anger = this.getAnger();
+		
+		if (anger > 7) {
 			anger = 7;
 		}
-        if (power > 0) {
-            arrow.setDamage(arrow.getDamage() + (double) power * 0.5D + 0.5D);
-        }
-        if (punch > 0) {
-            arrow.setKnockbackStrength(punch);
-        }
-        if (flame) {
-            arrow.setFire(100 + (anger * 100 + 40));
-        }
-        else if (this.rand.nextInt(8 - anger) == 1) {
+		if (power > 0) {
+			arrow.setDamage(arrow.getDamage() + power * 0.5D + 0.5D);
+		}
+		if (punch > 0) {
+			arrow.setKnockbackStrength(punch);
+		}
+		if (flame) {
+			arrow.setFire(100 + anger * 100 + 40);
+		} else if (this.rand.nextInt(8 - anger) == 1) {
 			arrow.setFire(anger * 100 + 40);
 		}
-        ItemStack itemstack = this.getHeldItem(EnumHand.OFF_HAND);
-        if (itemstack.getItem() == Items.TIPPED_ARROW) {
-            arrow.setPotionEffect(itemstack);
-        }
-        this.playSound(SoundEvents.ENTITY_ARROW_SHOOT, 1.0F, 1.0F / (this.getRNG().nextFloat() * 0.4F + 0.8F));
-        this.world.spawnEntity(arrow);
-    }
+		ItemStack itemstack = this.getHeldItem(EnumHand.OFF_HAND);
+		if (itemstack.getItem() == Items.TIPPED_ARROW) {
+			arrow.setPotionEffect(itemstack);
+		}
+		this.playSound(SoundEvents.ENTITY_ARROW_SHOOT, 1.0F, 1.0F / (this.getRNG().nextFloat() * 0.4F + 0.8F));
+		this.world.spawnEntity(arrow);
+	}
+	@Override
 	public void jump() {
 		if (this.isDefective() && !this.world.isRemote && this.ticksExisted < 20) {
 			this.entityDropItem(this.getHeldItem(EnumHand.MAIN_HAND), 0.0F);
@@ -517,6 +516,7 @@ public class EntityRuby extends EntityGem implements IAnimals {
 		}
 		super.jump();
 	}
+	@Override
 	public void fall(float distance, float damageMultiplier) {
 		if (this.isDefective() && this.ticksExisted < 20) {
 			this.entityDropItem(this.getHeldItem(EnumHand.MAIN_HAND), 0.0F);
@@ -525,28 +525,29 @@ public class EntityRuby extends EntityGem implements IAnimals {
 		super.fall(distance, damageMultiplier);
 	}
 	public int getAnger() {
-		return this.dataManager.get(ANGER);
+		return this.dataManager.get(EntityRuby.ANGER);
 	}
 	public void setAnger(int anger) {
-		this.dataManager.set(ANGER, anger);
+		this.dataManager.set(EntityRuby.ANGER, anger);
 	}
 	public int getSpecialSkin() {
 		return this.getSpecial();
 	}
-	
+
 	@Override
 	protected int generateSkinColor() {
 		ArrayList<Integer> skinColors = new ArrayList<Integer>();
 		skinColors.add(EntityRuby.SKIN_COLOR_BEGIN);
 		skinColors.add(EntityRuby.SKIN_COLOR_MID);
 		skinColors.add(EntityRuby.SKIN_COLOR_END);
-		return Colors.arbiLerp(skinColors);	}
-	
+		return Colors.arbiLerp(skinColors);
+	}
+
 	@Override
 	protected int generateHairStyle() {
 		return this.rand.nextInt(EntityRuby.NUM_HAIRSTYLES);
 	}
-	
+
 	@Override
 	protected int generateHairColor() {
 		ArrayList<Integer> hairColors = new ArrayList<Integer>();
@@ -554,60 +555,60 @@ public class EntityRuby extends EntityGem implements IAnimals {
 		hairColors.add(EntityRuby.HAIR_COLOR_END);
 		return Colors.arbiLerp(hairColors);
 	}
-	
+
 	@Override
 	public boolean hasInsigniaVariant(GemPlacements placement) {
-		switch(placement) {
-		case BELLY:
-			return true;
-		case CHEST:
-			return true;
-		default:
-			return false;
+		switch (placement) {
+			case BELLY :
+				return true;
+			case CHEST :
+				return true;
+			default :
+				return false;
 		}
 	}
-	
+
 	@Override
 	public boolean hasUniformVariant(GemPlacements placement) {
-		switch(placement) {
-		case BELLY:
-			return true;
-		case CHEST:
-			return true;
-		default:
-			return false;
+		switch (placement) {
+			case BELLY :
+				return true;
+			case CHEST :
+				return true;
+			default :
+				return false;
 		}
 	}
-	
+
 	@Override
 	public boolean hasHairVariant(GemPlacements placement) {
-		switch(placement) {
-		case FOREHEAD:
-			return true;
-		default:
-			return false;
+		switch (placement) {
+			case FOREHEAD :
+				return true;
+			default :
+				return false;
 		}
 	}
-	
-	/*********************************************************
-	 * Methods related to sounds.                            *
-	 *********************************************************/
 
+	/*********************************************************
+	 * Methods related to sounds. *
+	 *********************************************************/
+	
 	@Override
 	protected SoundEvent getAmbientSound() {
 		return ModSounds.RUBY_LIVING;
 	}
-	
+
 	@Override
 	protected SoundEvent getHurtSound(DamageSource source) {
 		return ModSounds.RUBY_HURT;
 	}
-	
+
 	@Override
 	protected SoundEvent getObeySound() {
 		return ModSounds.RUBY_OBEY;
 	}
-	
+
 	@Override
 	protected SoundEvent getDeathSound() {
 		return ModSounds.RUBY_DEATH;

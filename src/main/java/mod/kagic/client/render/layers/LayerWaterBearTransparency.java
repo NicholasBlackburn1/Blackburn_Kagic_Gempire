@@ -11,12 +11,12 @@ import net.minecraft.util.ResourceLocation;
 public class LayerWaterBearTransparency implements LayerRenderer<EntityGem> {
 	private final RenderLivingBase<?> gemRenderer;
 	private final ModelBase gemModel;
-
+	
 	public LayerWaterBearTransparency(RenderLivingBase<?> gemRenderer) {
 		this.gemRenderer = gemRenderer;
 		this.gemModel = gemRenderer.getMainModel();
 	}
-
+	
 	@Override
 	public void doRenderLayer(EntityGem gem, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 		if (!gem.isInvisible()) {
@@ -31,15 +31,15 @@ public class LayerWaterBearTransparency implements LayerRenderer<EntityGem> {
 			GlStateManager.disableNormalize();
 		}
 	}
-
+	
 	public ResourceLocation getTexture(EntityGem gem) {
 		ResourceLocation loc = EntityList.getKey(gem);
 		return new ResourceLocation(loc.getResourceDomain() + ":textures/entities/corrupted/water_bear/transparency_" + gem.getSpecial() + ".png");
 	}
-
+	
 	@Override
 	public boolean shouldCombineTextures() {
 		return true;
 	}
-
+	
 }

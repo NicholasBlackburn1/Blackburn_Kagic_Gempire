@@ -16,16 +16,17 @@ public class PadDataRequestMessage implements IMessage {
 	private int x;
 	private int y;
 	private int z;
-	
-	public PadDataRequestMessage() {}
-	
+
+	public PadDataRequestMessage() {
+	}
+
 	public PadDataRequestMessage(boolean isGalaxy, int x, int y, int z) {
 		this.isGalaxy = isGalaxy;
 		this.x = x;
 		this.y = y;
 		this.z = z;
 	}
-	
+
 	@Override
 	public void fromBytes(ByteBuf buf) {
 		this.isGalaxy = buf.readBoolean();
@@ -33,7 +34,7 @@ public class PadDataRequestMessage implements IMessage {
 		this.y = buf.readInt();
 		this.z = buf.readInt();
 	}
-
+	
 	@Override
 	public void toBytes(ByteBuf buf) {
 		buf.writeBoolean(this.isGalaxy);
@@ -41,14 +42,14 @@ public class PadDataRequestMessage implements IMessage {
 		buf.writeInt(this.y);
 		buf.writeInt(this.z);
 	}
-
+	
 	public static class PadDataRequestMessageHandler implements IMessageHandler<PadDataRequestMessage, IMessage> {
 		@Override
 		public IMessage onMessage(PadDataRequestMessage message, MessageContext ctx) {
-			((WorldServer) ctx.getServerHandler().player.world).addScheduledTask(() -> handle(message, ctx));
+			((WorldServer) ctx.getServerHandler().player.world).addScheduledTask(() -> this.handle(message, ctx));
 			return null;
 		}
-		
+
 		private void handle(PadDataRequestMessage message, MessageContext ctx) {
 			EntityPlayerMP playerEntity = ctx.getServerHandler().player;
 			World world = playerEntity.getEntityWorld();

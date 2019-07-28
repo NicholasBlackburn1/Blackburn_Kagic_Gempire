@@ -18,10 +18,10 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.ResourceLocation;
 
 public class RenderMalachite extends RenderGemBase<EntityMalachite> {
-
+	
 	public RenderMalachite() {
 		super(Minecraft.getMinecraft().getRenderManager(), new ModelMalachite(), 3F);
-		
+
 		this.addLayer(new LayerMalachiteItem(this));
 		this.addLayer(new LayerSkin(this));
 		this.addLayer(new LayerMalachiteMark(this));
@@ -29,7 +29,7 @@ public class RenderMalachite extends RenderGemBase<EntityMalachite> {
 		this.addLayer(new LayerInsignia(this));
 		this.addLayer(new LayerHair(this));
 		this.addLayer(new LayerCrossFusionGemPlacement(this));
-
+		
 		if (KAGIC.isBirthday()) {
 			this.addLayer(new LayerBirthdayHat(this));
 		} else if (KAGIC.isHalloween()) {
@@ -38,12 +38,12 @@ public class RenderMalachite extends RenderGemBase<EntityMalachite> {
 			this.addLayer(new LayerSantaHat(this));
 		}
 	}
-
+	
 	@Override
 	protected void preRenderCallback(EntityMalachite malachite, float partialTickTime) {
 		GlStateManager.scale(4F * malachite.getSizeFactor(), 4F * malachite.getSizeFactor(), 4F * malachite.getSizeFactor());
 	}
-
+	
 	@Override
 	protected ResourceLocation getEntityTexture(EntityMalachite malachite) {
 		return new ResourceLocation("kagic:textures/entities/malachite/malachite.png");

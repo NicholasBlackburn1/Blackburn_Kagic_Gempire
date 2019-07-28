@@ -11,7 +11,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.EnumSkyBlock;
 
 public class EntityAIFindDarkSpots extends EntityAIBase {
-    private final EntityRutile gem;
+	private final EntityRutile gem;
 	private final double movementSpeed;
 	private final int searchRadius;
 	private int currentLight = 8;
@@ -20,7 +20,7 @@ public class EntityAIFindDarkSpots extends EntityAIBase {
 	private double posY;
 	private double posZ;
 	private int delay;
-	
+
 	public EntityAIFindDarkSpots(EntityRutile gemIn, double speedIn, int radius) {
 		this.gem = gemIn;
 		this.movementSpeed = speedIn;
@@ -28,22 +28,21 @@ public class EntityAIFindDarkSpots extends EntityAIBase {
 		this.delay = 0;
 		this.setMutexBits(0);
 	}
-	
+
 	@Override
 	public boolean shouldExecute() {
 		if (!this.gem.getHeldItemMainhand().isEmpty() && Block.getBlockFromItem(this.gem.getHeldItemMainhand().getItem()) == Blocks.TORCH) {
 			if (this.delay > 0) {
 				--this.delay;
 				return false;
-			}
-			else {
+			} else {
 				this.delay = this.gem.getRNG().nextInt(20);
 				return true;
 			}
 		}
 		return false;
 	}
-	
+
 	@Override
 	public void startExecuting() {
 		boolean found = false;
@@ -60,8 +59,7 @@ public class EntityAIFindDarkSpots extends EntityAIBase {
 							found = true;
 							break;
 						}
-					}
-					else if (this.isFallingBlock(tempPos)) {
+					} else if (this.isFallingBlock(tempPos)) {
 						int numberOfBlocks = 0;
 						for (int i = 1; i < 5; ++i) {
 							if (this.isFallingBlock(tempPos.up(i))) {
@@ -83,18 +81,18 @@ public class EntityAIFindDarkSpots extends EntityAIBase {
 			this.gem.getNavigator().tryMoveToXYZ(this.posX, this.posY, this.posZ, this.movementSpeed);
 		}
 	}
-	
+
 	@Override
 	public boolean shouldContinueExecuting() {
 		return !this.gem.getNavigator().noPath();
 	}
-	
+
 	@Override
 	public void resetTask() {
 		this.gem.getNavigator().clearPath();
 		this.placed = false;
 	}
-	
+
 	@Override
 	public void updateTask() {
 		BlockPos pos = new BlockPos(this.posX, this.posY, this.posZ);
@@ -108,7 +106,7 @@ public class EntityAIFindDarkSpots extends EntityAIBase {
 			this.placed = true;
 		}
 	}
-	
+
 	public boolean isFallingBlock(BlockPos pos) {
 		return this.gem.world.getBlockState(pos).getBlock() instanceof BlockFalling;
 	}

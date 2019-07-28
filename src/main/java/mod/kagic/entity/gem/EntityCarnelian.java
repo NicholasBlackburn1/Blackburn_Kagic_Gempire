@@ -46,23 +46,23 @@ public class EntityCarnelian extends EntityQuartzSoldier implements IAnimals {
 	private static final DataParameter<Boolean> CHARGED = EntityDataManager.<Boolean>createKey(EntityCarnelian.class, DataSerializers.BOOLEAN);
 	private int charge_ticks = 0;
 	private int hit_count = 0;
-	
+
 	public static final int SKIN_COLOR_BEGIN = 0xE1764D;
-	
+
 	public static final int SKIN_COLOR_END = 0xC5307D;
-	
+
 	private static final int NUM_HAIRSTYLES = 5;
-	
+
 	public static final int HAIR_COLOR_BEGIN = 0xF24807;
-	
+
 	public static final int HAIR_COLOR_END = 0x4D0043;
-	
+
 	public EntityCarnelian(World worldIn) {
 		super(worldIn);
 		this.nativeColor = 14;
 		this.isImmuneToFire = true;
-
-		//Define valid gem cuts and placements
+		
+		// Define valid gem cuts and placements
 		this.setCutPlacement(GemCuts.FACETED, GemPlacements.BACK_OF_HEAD);
 		this.setCutPlacement(GemCuts.FACETED, GemPlacements.FOREHEAD);
 		this.setCutPlacement(GemCuts.FACETED, GemPlacements.LEFT_EYE);
@@ -80,7 +80,7 @@ public class EntityCarnelian extends EntityQuartzSoldier implements IAnimals {
 		this.setCutPlacement(GemCuts.FACETED, GemPlacements.RIGHT_THIGH);
 		this.setCutPlacement(GemCuts.FACETED, GemPlacements.LEFT_KNEE);
 		this.setCutPlacement(GemCuts.FACETED, GemPlacements.RIGHT_KNEE);
-
+		
 		this.setCutPlacement(GemCuts.CABOCHON, GemPlacements.BACK_OF_HEAD);
 		this.setCutPlacement(GemCuts.CABOCHON, GemPlacements.FOREHEAD);
 		this.setCutPlacement(GemCuts.CABOCHON, GemPlacements.LEFT_EYE);
@@ -98,96 +98,102 @@ public class EntityCarnelian extends EntityQuartzSoldier implements IAnimals {
 		this.setCutPlacement(GemCuts.CABOCHON, GemPlacements.RIGHT_THIGH);
 		this.setCutPlacement(GemCuts.CABOCHON, GemPlacements.LEFT_KNEE);
 		this.setCutPlacement(GemCuts.CABOCHON, GemPlacements.RIGHT_KNEE);
-
+		
 		// Apply entity AI.
-        this.tasks.addTask(2, new EntityAIMoveTowardsTarget(this, 0.414D, 32.0F));
-        this.tasks.addTask(3, new EntityAIMoveTowardsRestriction(this, 1.0D));
-        this.tasks.addTask(5, new EntityAIStandGuard(this, 0.6D));
-        
-        // Apply targetting.
-        this.targetTasks.addTask(4, new EntityAINearestAttackableTarget<EntityLiving>(this, EntityLiving.class, 10, true, false, new Predicate<EntityLiving>() {
-            public boolean apply(EntityLiving input) {
-                return input != null && IMob.VISIBLE_MOB_SELECTOR.apply(input);
-            }
-        }));
-        
-        // Apply entity attributes.
-        this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(12.0D);
-        
-        this.droppedGemItem = ModItems.CARNELIAN_GEM;
+		this.tasks.addTask(2, new EntityAIMoveTowardsTarget(this, 0.414D, 32.0F));
+		this.tasks.addTask(3, new EntityAIMoveTowardsRestriction(this, 1.0D));
+		this.tasks.addTask(5, new EntityAIStandGuard(this, 0.6D));
+		
+		// Apply targetting.
+		this.targetTasks.addTask(4, new EntityAINearestAttackableTarget<EntityLiving>(this, EntityLiving.class, 10, true, false, new Predicate<EntityLiving>() {
+			@Override
+			public boolean apply(EntityLiving input) {
+				return input != null && IMob.VISIBLE_MOB_SELECTOR.apply(input);
+			}
+		}));
+		
+		// Apply entity attributes.
+		this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(12.0D);
+		
+		this.droppedGemItem = ModItems.CARNELIAN_GEM;
 		this.droppedCrackedGemItem = ModItems.CRACKED_CARNELIAN_GEM;
-        
-        // Register entity data.
-        this.dataManager.register(CHARGED, false);
-	}
-
-	protected int generateGemColor() {
-    	return 0xFF2D5D;
-    }
-	public void convertGems(int placement) {
-    	this.setGemCut(GemCuts.FACETED.id);
-    	switch (placement) {
-    	case 0:
-    		this.setGemPlacement(GemPlacements.LEFT_SHOULDER.id);
-    		break;
-    	case 1:
-    		this.setGemPlacement(GemPlacements.RIGHT_SHOULDER.id);
-    		break;
-    	case 2:
-    		this.setGemPlacement(GemPlacements.CHEST.id);
-    		break;
-    	case 3:
-    		this.setGemPlacement(GemPlacements.BELLY.id);
-    		break;
-    	}
-    }
-	
-	/*********************************************************
-	 * Methods related to entity loading.                    *
-	 *********************************************************/
-	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
-		return super.onInitialSpawn(difficulty, livingdata);
-    }
-	
-	public void writeEntityToNBT(NBTTagCompound compound) {
-        super.writeEntityToNBT(compound);
-        compound.setBoolean("charged", this.dataManager.get(CHARGED).booleanValue());
-        compound.setInteger("charge_ticks", this.charge_ticks);
-        compound.setInteger("hit_count", this.hit_count);
-    }
-    public void readEntityFromNBT(NBTTagCompound compound) {
-        super.readEntityFromNBT(compound);
-        this.dataManager.set(CHARGED, compound.getBoolean("charged"));
-        this.charge_ticks = compound.getInteger("charge_ticks");
-        this.hit_count = compound.getInteger("hit_count");
-    }
-	
-    /*********************************************************
-     * Methods related to entity interaction.                *
-     *********************************************************/
-    public boolean isCharged() {
-		return this.dataManager.get(CHARGED);
-    }
-	public void setCharged(boolean charged) {
-		this.dataManager.set(CHARGED, charged);
+		
+		// Register entity data.
+		this.dataManager.register(EntityCarnelian.CHARGED, false);
 	}
 	
 	@Override
+	protected int generateGemColor() {
+		return 0xFF2D5D;
+	}
+	@Override
+	public void convertGems(int placement) {
+		this.setGemCut(GemCuts.FACETED.id);
+		switch (placement) {
+			case 0 :
+				this.setGemPlacement(GemPlacements.LEFT_SHOULDER.id);
+				break;
+			case 1 :
+				this.setGemPlacement(GemPlacements.RIGHT_SHOULDER.id);
+				break;
+			case 2 :
+				this.setGemPlacement(GemPlacements.CHEST.id);
+				break;
+			case 3 :
+				this.setGemPlacement(GemPlacements.BELLY.id);
+				break;
+		}
+	}
+
+	/*********************************************************
+	 * Methods related to entity loading. *
+	 *********************************************************/
+	@Override
+	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
+		return super.onInitialSpawn(difficulty, livingdata);
+	}
+
+	@Override
+	public void writeEntityToNBT(NBTTagCompound compound) {
+		super.writeEntityToNBT(compound);
+		compound.setBoolean("charged", this.dataManager.get(EntityCarnelian.CHARGED).booleanValue());
+		compound.setInteger("charge_ticks", this.charge_ticks);
+		compound.setInteger("hit_count", this.hit_count);
+	}
+	@Override
+	public void readEntityFromNBT(NBTTagCompound compound) {
+		super.readEntityFromNBT(compound);
+		this.dataManager.set(EntityCarnelian.CHARGED, compound.getBoolean("charged"));
+		this.charge_ticks = compound.getInteger("charge_ticks");
+		this.hit_count = compound.getInteger("hit_count");
+	}
+	
+	/*********************************************************
+	 * Methods related to entity interaction. *
+	 *********************************************************/
+	public boolean isCharged() {
+		return this.dataManager.get(EntityCarnelian.CHARGED);
+	}
+	public void setCharged(boolean charged) {
+		this.dataManager.set(EntityCarnelian.CHARGED, charged);
+	}
+
+	@Override
 	public void whenDefective() {
 		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(100.0D);
-        this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(6.0D);
-        this.getEntityAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE).setBaseValue(0.0D);
-        this.setSize(0.82F, 1.52F);
+		this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(6.0D);
+		this.getEntityAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE).setBaseValue(0.0D);
+		this.setSize(0.82F, 1.52F);
 	}
-    
-    /*********************************************************
-     * Methods related to entity combat.                     *
-     *********************************************************/
-    public boolean attackEntityFrom(DamageSource source, float amount) {
+	
+	/*********************************************************
+	 * Methods related to entity combat. *
+	 *********************************************************/
+	@Override
+	public boolean attackEntityFrom(DamageSource source, float amount) {
 		if (source.isExplosion()) {
 			return false;
-		}
-		else {
+		} else {
 			if (source.getTrueSource() instanceof EntityLivingBase && !this.isOwner((EntityLivingBase) source.getTrueSource())) {
 				this.charge_ticks += 20;
 				this.hit_count += 1;
@@ -195,67 +201,70 @@ public class EntityCarnelian extends EntityQuartzSoldier implements IAnimals {
 		}
 		return super.attackEntityFrom(source, amount);
 	}
+	@Override
 	public boolean attackEntityAsMob(Entity entityIn) {
 		if (!this.world.isRemote) {
 			boolean smite = this.rand.nextInt(7) == 1;
 			if (this.isCharged()) {
-				AxisAlignedBB axisalignedbb = (new AxisAlignedBB(this.posX, this.posY, this.posZ, (this.posX + 1), (this.posY + 1), (this.posZ + 1))).expand(12.0, (double) this.world.getHeight(), 12.0);
-	            List<EntityLivingBase> list = this.world.<EntityLivingBase>getEntitiesWithinAABB(EntityLivingBase.class, axisalignedbb);
-	            for (EntityLivingBase entity : list) {
-	            	if (!this.isOwner(entity)) {
-		            	if (smite) {
-		            		boolean shouldAttack = true;
-			            	if (entity instanceof EntityGem) {
-			            		EntityGem gem = (EntityGem) entity;
-			            		if (this.getServitude() == gem.getServitude()) {
-			            			if (this.getServitude() == EntityGem.SERVE_HUMAN && this.getOwner() != null) {
-			            				shouldAttack = !this.isOwnerId(gem.getOwnerId());
-			            			}
-			            			else {
-			            				shouldAttack = false;
-			            			}
-			            		}
-			            	}
-			            	if (shouldAttack && this.world.getGameRules().getBoolean("mobGriefing")) {
-			            		Explosion explosion = new Explosion(this.world, this, entity.posX, entity.posY, entity.posZ, 1, true, true);
-			            		explosion.doExplosionA();
-			            		explosion.doExplosionB(true);
-			            	}
-			            	else {
-			            		entity.addPotionEffect(new PotionEffect(MobEffects.STRENGTH, 80));
-			            	}
-		            	}
-	            	}
-	            }
-	            /*if (this.getServitude() == EntityGem.SERVE_HUMAN) {
-	            	this.getOwner().addStat(ModAchievements.IM_NOT_THE_SHORTEST);
-	            }*/
-			}
-			else {
+				AxisAlignedBB axisalignedbb = new AxisAlignedBB(this.posX, this.posY, this.posZ, this.posX + 1, this.posY + 1, this.posZ + 1).expand(12.0, this.world.getHeight(), 12.0);
+				List<EntityLivingBase> list = this.world.<EntityLivingBase>getEntitiesWithinAABB(EntityLivingBase.class, axisalignedbb);
+				for (EntityLivingBase entity : list) {
+					if (!this.isOwner(entity)) {
+						if (smite) {
+							boolean shouldAttack = true;
+							if (entity instanceof EntityGem) {
+								EntityGem gem = (EntityGem) entity;
+								if (this.getServitude() == gem.getServitude()) {
+									if (this.getServitude() == EntityGem.SERVE_HUMAN && this.getOwner() != null) {
+										shouldAttack = !this.isOwnerId(gem.getOwnerId());
+									} else {
+										shouldAttack = false;
+									}
+								}
+							}
+							if (shouldAttack && this.world.getGameRules().getBoolean("mobGriefing")) {
+								Explosion explosion = new Explosion(this.world, this, entity.posX, entity.posY, entity.posZ, 1, true, true);
+								explosion.doExplosionA();
+								explosion.doExplosionB(true);
+							} else {
+								entity.addPotionEffect(new PotionEffect(MobEffects.STRENGTH, 80));
+							}
+						}
+					}
+				}
+				/*
+				 * if (this.getServitude() ==
+				 * EntityGem.SERVE_HUMAN) {
+				 * this.getOwner().addStat(ModAchievements.
+				 * IM_NOT_THE_SHORTEST); }
+				 */
+			} else {
 				if (smite && this.world.getGameRules().getBoolean("mobGriefing")) {
-            		Explosion explosion = new Explosion(this.world, this, entityIn.posX, entityIn.posY, entityIn.posZ, 1, true, true);
-            		explosion.doExplosionA();
-            		explosion.doExplosionB(true);
+					Explosion explosion = new Explosion(this.world, this, entityIn.posX, entityIn.posY, entityIn.posZ, 1, true, true);
+					explosion.doExplosionA();
+					explosion.doExplosionB(true);
 				}
 			}
 		}
 		return super.attackEntityAsMob(entityIn);
 	}
+	@Override
 	public void attackEntityWithRangedAttack(EntityLivingBase target, float distanceFactor) {
 		if (!this.world.isRemote) {
 			this.attackEntityAsMob(target);
 		}
 		super.attackEntityWithRangedAttack(target, distanceFactor);
 	}
-	
+
 	/*********************************************************
-	 * Methods related to entity living.                     *
+	 * Methods related to entity living. *
 	 *********************************************************/
+	@Override
 	public void onLivingUpdate() {
 		if (this.hit_count > 7) {
 			this.charge_ticks -= 1;
 			this.setCharged(true);
-			
+
 			if (this.charge_ticks < 7) {
 				this.hit_count = 0;
 				this.setCharged(false);
@@ -263,22 +272,25 @@ public class EntityCarnelian extends EntityQuartzSoldier implements IAnimals {
 		}
 		super.onLivingUpdate();
 	}
-	
+
 	/*********************************************************
-	 * Methods related to sound.                             *
+	 * Methods related to sound. *
 	 *********************************************************/
+	@Override
 	protected SoundEvent getHurtSound(DamageSource source) {
 		return ModSounds.CARNELIAN_HURT;
 	}
+	@Override
 	protected SoundEvent getObeySound() {
 		return ModSounds.CARNELIAN_OBEY;
 	}
+	@Override
 	protected SoundEvent getDeathSound() {
 		return ModSounds.CARNELIAN_DEATH;
 	}
-	
+
 	/*********************************************************
-	 * Methods related to rendering.                         *
+	 * Methods related to rendering. *
 	 *********************************************************/
 	@Override
 	protected int generateSkinColor() {
@@ -287,12 +299,12 @@ public class EntityCarnelian extends EntityQuartzSoldier implements IAnimals {
 		skinColors.add(EntityCarnelian.SKIN_COLOR_END);
 		return Colors.arbiLerp(skinColors);
 	}
-	
+
 	@Override
 	protected int generateHairStyle() {
 		return this.rand.nextInt(EntityCarnelian.NUM_HAIRSTYLES);
 	}
-	
+
 	@Override
 	protected int generateHairColor() {
 		ArrayList<Integer> hairColors = new ArrayList<Integer>();
@@ -300,38 +312,40 @@ public class EntityCarnelian extends EntityQuartzSoldier implements IAnimals {
 		hairColors.add(EntityCarnelian.HAIR_COLOR_END);
 		return Colors.arbiLerp(hairColors);
 	}
-
+	
 	@Override
 	public boolean hasUniformVariant(GemPlacements placement) {
-		switch(placement) {
-		case BELLY:
-			return true;
-		default:
-			return false;
+		switch (placement) {
+			case BELLY :
+				return true;
+			default :
+				return false;
 		}
 	}
-	
+
 	@Override
 	public boolean hasCape() {
 		return true;
 	}
-	
+
 	@Override
 	public boolean hasHairVariant(GemPlacements placement) {
-		switch(placement) {
-		case FOREHEAD:
-			return true;
-		default:
-			return false;
+		switch (placement) {
+			case FOREHEAD :
+				return true;
+			default :
+				return false;
 		}
 	}
-	
+
+	@Override
 	@SideOnly(Side.CLIENT)
-    public int getBrightnessForRender() {
-        return isCharged() ? 15728880 : super.getBrightnessForRender();
+	public int getBrightnessForRender() {
+		return this.isCharged() ? 15728880 : super.getBrightnessForRender();
 	}
 	
-    public float getBrightness() {
-        return isCharged() ? 1.0F : super.getBrightness();
-    }
+	@Override
+	public float getBrightness() {
+		return this.isCharged() ? 1.0F : super.getBrightness();
+	}
 }

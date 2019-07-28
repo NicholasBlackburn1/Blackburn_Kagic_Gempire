@@ -15,54 +15,54 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.world.World;
 
 public class EntityCorruptedAmethyst extends EntityCorruptedGem {
-
+	
 	public EntityCorruptedAmethyst(World world) {
 		super(world);
 		this.setSize(1.9F, 2.8F);
-
+		
 		this.setCutPlacement(GemCuts.FACETED, GemPlacements.CHEST);
-
+		
 		// Apply entity attributes.
 		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(80.0D);
 		this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(24.0D);
 		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.4D);
 		this.getEntityAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE).setBaseValue(1.0D);
-		
+
 		this.droppedGemItem = ModItems.CORRUPTED_AMETHYST_GEM;
 		this.droppedCrackedGemItem = ModItems.CRACKED_CORRUPTED_AMETHYST_GEM;
 	}
-
+	
 	/*********************************************************
-	 * Methods related to sounds.							*
+	 * Methods related to sounds. *
 	 *********************************************************/
 	@Override
 	protected SoundEvent getAmbientSound() {
 		return ModSounds.CORRUPTED_QUARTZ_AMBIENT;
 	}
-	
+
 	@Override
 	protected SoundEvent getHurtSound(DamageSource source) {
 		return ModSounds.CORRUPTED_QUARTZ_HURT;
 	}
-	
+
 	@Override
 	protected SoundEvent getDeathSound() {
 		return ModSounds.CORRUPTED_QUARTZ_DEATH;
 	}
-
+	
 	/*********************************************************
-	 * Methods related to rendering.						 *
+	 * Methods related to rendering. *
 	 *********************************************************/
 	@Override
-    protected int generateGemColor() {
-    	return 0xDC64FD;
-    }
-	
+	protected int generateGemColor() {
+		return 0xDC64FD;
+	}
+
 	@Override
 	protected int generateSkinColor() {
 		return Colors.triLerp(EntityAmethyst.SKIN_COLOR_BEGIN, EntityAmethyst.SKIN_COLOR_MID, EntityAmethyst.SKIN_COLOR_END);
 	}
-	
+
 	@Override
 	protected int generateHairColor() {
 		ArrayList<Integer> hairColors = new ArrayList<Integer>();

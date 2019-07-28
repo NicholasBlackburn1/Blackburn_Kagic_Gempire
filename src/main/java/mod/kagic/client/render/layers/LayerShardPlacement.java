@@ -6,11 +6,11 @@ import net.minecraft.entity.EntityList;
 import net.minecraft.util.ResourceLocation;
 
 public class LayerShardPlacement extends LayerGemPlacement {
-
+	
 	public LayerShardPlacement(RenderLivingBase<?> gemRendererIn) {
 		super(gemRendererIn);
 	}
-
+	
 	@Override
 	public ResourceLocation getTexture(EntityGem gem) {
 		ResourceLocation loc = EntityList.getKey(gem);

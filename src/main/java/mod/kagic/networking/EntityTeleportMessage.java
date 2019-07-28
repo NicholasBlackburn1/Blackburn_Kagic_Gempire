@@ -15,16 +15,17 @@ public class EntityTeleportMessage implements IMessage {
 	private double x;
 	private double y;
 	private double z;
-	
-	public EntityTeleportMessage() {}
 
+	public EntityTeleportMessage() {
+	}
+	
 	public EntityTeleportMessage(int entityID, double x, double y, double z) {
 		this.entityID = entityID;
 		this.x = x;
 		this.y = y;
 		this.z = z;
 	}
-		
+	
 	@Override
 	public void fromBytes(ByteBuf buf) {
 		this.entityID = buf.readInt();
@@ -32,7 +33,7 @@ public class EntityTeleportMessage implements IMessage {
 		this.y = buf.readDouble();
 		this.z = buf.readDouble();
 	}
-
+	
 	@Override
 	public void toBytes(ByteBuf buf) {
 		buf.writeInt(this.entityID);
@@ -40,14 +41,14 @@ public class EntityTeleportMessage implements IMessage {
 		buf.writeDouble(this.y);
 		buf.writeDouble(this.z);
 	}
-
+	
 	public static class EntityTeleportMessageHandler implements IMessageHandler<EntityTeleportMessage, IMessage> {
 		@Override
 		public IMessage onMessage(EntityTeleportMessage message, MessageContext ctx) {
-			FMLCommonHandler.instance().getWorldThread(ctx.netHandler).addScheduledTask(() -> handle(message, ctx));
+			FMLCommonHandler.instance().getWorldThread(ctx.netHandler).addScheduledTask(() -> this.handle(message, ctx));
 			return null;
 		}
-		
+
 		private void handle(EntityTeleportMessage message, MessageContext ctx) {
 			SPacketEntityTeleport x;
 			WorldClient world = Minecraft.getMinecraft().world;

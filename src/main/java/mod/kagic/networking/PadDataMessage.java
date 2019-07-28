@@ -24,16 +24,17 @@ public class PadDataMessage implements IMessage {
 	private int x;
 	private int y;
 	private int z;
-	
-	public PadDataMessage() {}
 
+	public PadDataMessage() {
+	}
+	
 	public PadDataMessage(NBTTagCompound padDataCompound, int x, int y, int z) {
 		this.padDataCompound = padDataCompound;
 		this.x = x;
 		this.y = y;
 		this.z = z;
 	}
-	
+
 	@Override
 	public void fromBytes(ByteBuf buf) {
 		int count = buf.readInt();
@@ -50,12 +51,12 @@ public class PadDataMessage implements IMessage {
 		this.y = buf.readInt();
 		this.z = buf.readInt();
 	}
-
+	
 	@Override
 	public void toBytes(ByteBuf buf) {
 		ByteArrayOutputStream padDataStream = new ByteArrayOutputStream();
 		try {
-			CompressedStreamTools.writeCompressed(padDataCompound, padDataStream);
+			CompressedStreamTools.writeCompressed(this.padDataCompound, padDataStream);
 			buf.writeInt(padDataStream.size());
 			buf.writeBytes(padDataStream.toByteArray());
 			buf.writeInt(this.x);
@@ -66,20 +67,20 @@ public class PadDataMessage implements IMessage {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public static class PadDataMessageHandler implements IMessageHandler<PadDataMessage, IMessage> {
 		@Override
 		public IMessage onMessage(PadDataMessage message, MessageContext ctx) {
-			FMLCommonHandler.instance().getWorldThread(ctx.netHandler).addScheduledTask(() -> handle(message, ctx));
+			FMLCommonHandler.instance().getWorldThread(ctx.netHandler).addScheduledTask(() -> this.handle(message, ctx));
 			return null;
 		}
-		
+
 		private LinkedHashMap<GalaxyPadLocation, WarpPadDataEntry> decodeGalaxyData(NBTTagCompound padDataCompound) {
 			LinkedHashMap<GalaxyPadLocation, WarpPadDataEntry> padDataMap = new LinkedHashMap<GalaxyPadLocation, WarpPadDataEntry>();
 			NBTTagList list = padDataCompound.getTagList("pads", Constants.NBT.TAG_COMPOUND);
 			for (int i = 0; i < list.tagCount(); ++i) {
 				NBTTagCompound tc = list.getCompoundTagAt(i);
-				int dim= tc.getInteger("dim");
+				int dim = tc.getInteger("dim");
 				BlockPos pos = new BlockPos(tc.getInteger("x"), tc.getInteger("y"), tc.getInteger("z"));
 				String name = tc.getString("name");
 				boolean valid = tc.getBoolean("valid");
@@ -88,7 +89,7 @@ public class PadDataMessage implements IMessage {
 			}
 			return padDataMap;
 		}
-
+		
 		private LinkedHashMap<BlockPos, WarpPadDataEntry> decodePadData(NBTTagCompound padDataCompound) {
 			LinkedHashMap<BlockPos, WarpPadDataEntry> padDataMap = new LinkedHashMap<BlockPos, WarpPadDataEntry>();
 			NBTTagList list = padDataCompound.getTagList("pads", Constants.NBT.TAG_COMPOUND);
@@ -102,7 +103,7 @@ public class PadDataMessage implements IMessage {
 			}
 			return padDataMap;
 		}
-
+		
 		private void handle(PadDataMessage message, MessageContext ctx) {
 			if (message.padDataCompound.getBoolean("galaxy")) {
 				LinkedHashMap<GalaxyPadLocation, WarpPadDataEntry> padData = this.decodeGalaxyData(message.padDataCompound);

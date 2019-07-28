@@ -15,18 +15,18 @@ public class ModelYellowDiamond extends ModelBiped {
 	private ModelRenderer bipedSkirt;
 	private ModelRenderer bipedRightShoulder;
 	private ModelRenderer bipedLeftShoulder;
-	
+
 	public ModelYellowDiamond() {
 		super(0.0F, 0.0F, 128, 128);
 		// Head.
 		this.bipedHead = new ModelRenderer(this, 0, 0);
 		this.bipedHead.addBox(-5F, -50F, -5F, 10, 12, 10);
 		this.bipedHead.setRotationPoint(0F, 0F, 0F);
-	    // Hair.
+		// Hair.
 		this.bipedHeadwear = new ModelRenderer(this, 40, 0);
 		this.bipedHeadwear.addBox(-5F, -50F, -5F, 10, 12, 10, 1.1F);
 		this.bipedHeadwear.setRotationPoint(0F, 0F, 0F);
-	    // Neck.
+		// Neck.
 		this.bipedNeck = new ModelRenderer(this, 80, 0);
 		this.bipedNeck.addBox(-1F, -38F, -1F, 2, 6, 2);
 		this.bipedNeck.setRotationPoint(0F, 0F, 0F);
@@ -63,6 +63,7 @@ public class ModelYellowDiamond extends ModelBiped {
 		this.bipedLeftLeg.addBox(0F, 0F, -3F, 6, 32, 6);
 		this.bipedLeftLeg.setRotationPoint(0F, 0F, 0F);
 	}
+	@Override
 	public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 		this.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entityIn);
 		this.bipedHead.render(scale);
@@ -77,6 +78,7 @@ public class ModelYellowDiamond extends ModelBiped {
 		this.bipedRightLeg.render(scale);
 		this.bipedLeftLeg.render(scale);
 	}
+	@Override
 	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
 		super.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scaleFactor, entityIn);
 		super.copyModelAngles(this.bipedHead, this.bipedNeck);
@@ -87,19 +89,19 @@ public class ModelYellowDiamond extends ModelBiped {
 		this.bipedHeadwear.rotateAngleX = 0.0F;
 		this.bipedNeck.rotateAngleX = 0.0F;
 	}
+	@Override
 	public void setLivingAnimations(EntityLivingBase entitylivingbaseIn, float p_78086_2_, float p_78086_3_, float partialTickTime) {
-        this.rightArmPose = ModelBiped.ArmPose.EMPTY;
-        this.leftArmPose = ModelBiped.ArmPose.EMPTY;
-        
-        ItemStack itemstack = entitylivingbaseIn.getHeldItem(EnumHand.MAIN_HAND);
-        if (itemstack != null && itemstack.getItem() == Items.BOW && ((EntityGem) entitylivingbaseIn).isSwingingArms()) {
-            if (entitylivingbaseIn.getPrimaryHand() == EnumHandSide.RIGHT) {
-                this.rightArmPose = ModelBiped.ArmPose.BOW_AND_ARROW;
-            }
-            else {
-                this.leftArmPose = ModelBiped.ArmPose.BOW_AND_ARROW;
-            }
-        }
-        super.setLivingAnimations(entitylivingbaseIn, p_78086_2_, p_78086_3_, partialTickTime);
-    }
+		this.rightArmPose = ModelBiped.ArmPose.EMPTY;
+		this.leftArmPose = ModelBiped.ArmPose.EMPTY;
+		
+		ItemStack itemstack = entitylivingbaseIn.getHeldItem(EnumHand.MAIN_HAND);
+		if (itemstack != null && itemstack.getItem() == Items.BOW && ((EntityGem) entitylivingbaseIn).isSwingingArms()) {
+			if (entitylivingbaseIn.getPrimaryHand() == EnumHandSide.RIGHT) {
+				this.rightArmPose = ModelBiped.ArmPose.BOW_AND_ARROW;
+			} else {
+				this.leftArmPose = ModelBiped.ArmPose.BOW_AND_ARROW;
+			}
+		}
+		super.setLivingAnimations(entitylivingbaseIn, p_78086_2_, p_78086_3_, partialTickTime);
+	}
 }

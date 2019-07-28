@@ -10,6 +10,7 @@ public class EntityStrawberry extends EntityPepo {
 	public EntityStrawberry(World worldIn) {
 		super(new ItemStack(ModItems.STRAWBERRY_SLICE), worldIn);
 	}
+	@Override
 	public void onDeath(DamageSource cause) {
 		if (!this.world.isRemote) {
 			int total = this.rand.nextInt(5) + 3;

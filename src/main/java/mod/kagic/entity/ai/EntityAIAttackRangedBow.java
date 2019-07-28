@@ -17,7 +17,7 @@ public class EntityAIAttackRangedBow extends EntityAIBase {
 	private int strafingTime = -1;
 	private boolean strafingBackwards;
 	private boolean strafingClockwise;
-
+	
 	public EntityAIAttackRangedBow(EntityGem gem, double speed, int delay, float maxDistance) {
 		this.gem = gem;
 		this.movementSpeed = speed;
@@ -25,32 +25,32 @@ public class EntityAIAttackRangedBow extends EntityAIBase {
 		this.maxAttackDistance = maxDistance * maxDistance;
 		this.setMutexBits(3);
 	}
-	
+
 	public void setAttackCooldown(int newAttackCooldown) {
 		this.attackCooldown = newAttackCooldown;
 	}
-	
+
 	public boolean isBowInMainhand() {
-		return !this.gem.getHeldItemMainhand().isEmpty() 
-				&& (this.gem.getHeldItemMainhand().getItem() == Items.BOW );
-				//|| CompatTConstruct.isTinkersRangedWeapon(this.gem.getHeldItemMainhand().getItem()));
+		return !this.gem.getHeldItemMainhand().isEmpty() && this.gem.getHeldItemMainhand().getItem() == Items.BOW;
+		// ||
+		// CompatTConstruct.isTinkersRangedWeapon(this.gem.getHeldItemMainhand().getItem()));
 	}
-	
+
 	@Override
 	public boolean shouldExecute() {
 		return this.gem.getAttackTarget() != null && !this.gem.getAttackTarget().isDead && this.isBowInMainhand();
 	}
-	
+
 	@Override
 	public boolean shouldContinueExecuting() {
 		return this.shouldExecute();
 	}
-	
+
 	@Override
 	public void startExecuting() {
 		this.gem.setSwingingArms(true);
 	}
-	
+
 	@Override
 	public void resetTask() {
 		this.gem.getNavigator().clearPath();
@@ -59,7 +59,7 @@ public class EntityAIAttackRangedBow extends EntityAIBase {
 		this.attackTime = -1;
 		this.gem.resetActiveHand();
 	}
-	
+
 	@Override
 	public void updateTask() {
 		EntityLivingBase target = this.gem.getAttackTarget();
@@ -72,45 +72,40 @@ public class EntityAIAttackRangedBow extends EntityAIBase {
 			}
 			if (flag) {
 				++this.seeTime;
-			}
-			else {
+			} else {
 				--this.seeTime;
 			}
-			if (d0 <= (double)this.maxAttackDistance && this.seeTime >= 20) {
+			if (d0 <= this.maxAttackDistance && this.seeTime >= 20) {
 				this.gem.getNavigator().clearPath();
 				++this.strafingTime;
-			}
-			else {
+			} else {
 				this.gem.getNavigator().tryMoveToEntityLiving(target, this.movementSpeed);
 				this.strafingTime = -1;
 			}
 			if (this.strafingTime >= 20) {
-				if ((double)this.gem.getRNG().nextFloat() < 0.3D) {
+				if (this.gem.getRNG().nextFloat() < 0.3D) {
 					this.strafingClockwise = !this.strafingClockwise;
 				}
-				if ((double)this.gem.getRNG().nextFloat() < 0.3D) {
+				if (this.gem.getRNG().nextFloat() < 0.3D) {
 					this.strafingBackwards = !this.strafingBackwards;
 				}
 				this.strafingTime = 0;
 			}
 			if (this.strafingTime > -1) {
-				if (d0 > (double)(this.maxAttackDistance * 0.75F)) {
+				if (d0 > this.maxAttackDistance * 0.75F) {
 					this.strafingBackwards = false;
-				}
-				else if (d0 < (double)(this.maxAttackDistance * 0.25F)) {
+				} else if (d0 < this.maxAttackDistance * 0.25F) {
 					this.strafingBackwards = true;
 				}
 				this.gem.getMoveHelper().strafe(this.strafingBackwards ? -0.5F : 0.5F, this.strafingClockwise ? 0.5F : -0.5F);
 				this.gem.faceEntity(target, 30.0F, 30.0F);
-			}
-			else {
+			} else {
 				this.gem.getLookHelper().setLookPositionWithEntity(target, 30.0F, 30.0F);
 			}
 			if (this.gem.isHandActive()) {
 				if (!flag && this.seeTime < -60) {
 					this.gem.resetActiveHand();
-				}
-				else if (flag) {
+				} else if (flag) {
 					int i = this.gem.getItemInUseMaxCount();
 					if (i >= 20) {
 						this.gem.resetActiveHand();
@@ -118,8 +113,7 @@ public class EntityAIAttackRangedBow extends EntityAIBase {
 						this.attackTime = this.attackCooldown;
 					}
 				}
-			}
-			else if (--this.attackTime <= 0 && this.seeTime >= -60) {
+			} else if (--this.attackTime <= 0 && this.seeTime >= -60) {
 				this.gem.setActiveHand(EnumHand.MAIN_HAND);
 			}
 		}

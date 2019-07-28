@@ -9,7 +9,8 @@ public class SlagDamage extends DamageSource {
 	public SlagDamage() {
 		super("slag");
 	}
+	@Override
 	public ITextComponent getDeathMessage(EntityLivingBase victim) {
-		return new TextComponentTranslation("death.attack.slag", new Object[] { victim.getDisplayName() });
+		return new TextComponentTranslation("death.attack.slag", new Object[]{victim.getDisplayName()});
 	}
 }

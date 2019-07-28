@@ -12,7 +12,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.Item;
 
 public class BlockGiantStrawberry extends Block {
-	//Textures by Peridot#7455
+	// Textures by Peridot#7455
 	public BlockGiantStrawberry() {
 		super(Material.GOURD, MapColor.RED);
 		this.setCreativeTab(ModCreativeTabs.CREATIVE_TAB_OTHER);
@@ -20,17 +20,17 @@ public class BlockGiantStrawberry extends Block {
 		this.setHardness(1.0F);
 		this.setSoundType(SoundType.SLIME);
 	}
-
+	
 	@Override
 	public Item getItemDropped(IBlockState state, Random rand, int fortune) {
 		return ModItems.STRAWBERRY_SLICE;
 	}
-	
+
 	@Override
 	public int quantityDropped(Random random) {
 		return 3 + random.nextInt(5);
 	}
-	
+
 	@Override
 	public int quantityDroppedWithBonus(int fortune, Random random) {
 		return Math.min(9, this.quantityDropped(random) + random.nextInt(1 + fortune));

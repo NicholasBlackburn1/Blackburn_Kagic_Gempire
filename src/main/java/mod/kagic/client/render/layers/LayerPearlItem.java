@@ -2,7 +2,6 @@ package mod.kagic.client.render.layers;
 
 import mod.kagic.client.render.RenderGemBase;
 import mod.kagic.client.render.RenderHoloPearl;
-import mod.kagic.client.render.RenderPearl;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.renderer.GlStateManager;
@@ -17,15 +16,15 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class LayerPearlItem implements LayerRenderer<EntityLivingBase> {
 	protected final RenderGemBase livingEntityRenderer;
-	
+
 	public LayerPearlItem(RenderGemBase renderPearl) {
 		this.livingEntityRenderer = renderPearl;
 	}
-	
+
 	public LayerPearlItem(RenderHoloPearl renderPearl) {
 		this.livingEntityRenderer = renderPearl;
 	}
-
+	
 	@Override
 	public void doRenderLayer(EntityLivingBase entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 		boolean flag = entitylivingbaseIn.getPrimaryHand() == EnumHandSide.RIGHT;
@@ -38,7 +37,7 @@ public class LayerPearlItem implements LayerRenderer<EntityLivingBase> {
 			GlStateManager.popMatrix();
 		}
 	}
-	
+
 	private void renderHeldItem(EntityLivingBase entity, ItemStack stack, ItemCameraTransforms.TransformType camera, EnumHandSide handSide) {
 		if (!stack.isEmpty()) {
 			GlStateManager.pushMatrix();
@@ -49,16 +48,16 @@ public class LayerPearlItem implements LayerRenderer<EntityLivingBase> {
 			GlStateManager.rotate(-90.0F, 1.0F, 0.0F, 0.0F);
 			GlStateManager.rotate(180.0F, 0.0F, 1.0F, 0.0F);
 			boolean flag = handSide == EnumHandSide.LEFT;
-			GlStateManager.translate((float)(flag ? -1 : 1) / 16.0F, 0.125F, -0.7F);
+			GlStateManager.translate((flag ? -1 : 1) / 16.0F, 0.125F, -0.7F);
 			Minecraft.getMinecraft().getItemRenderer().renderItemSide(entity, stack, camera, flag);
 			GlStateManager.popMatrix();
 		}
 	}
-	
+
 	protected void setSide(EnumHandSide side) {
 		((ModelBiped) this.livingEntityRenderer.getMainModel()).postRenderArm(0.04F, side);
 	}
-	
+
 	@Override
 	public boolean shouldCombineTextures() {
 		return false;

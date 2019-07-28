@@ -41,49 +41,49 @@ import net.minecraftforge.fml.relauncher.Side;
 
 @Mod(modid = KAGIC.MODID, version = KAGIC.VERSION, acceptedMinecraftVersions = KAGIC.MCVERSION)
 public class KAGIC {
-    public static final String MODID = "kagic";
-    public static final String VERSION = "@version";
-    public static final String MCVERSION = "@mcversion";
-    public static final boolean DEVELOPER = true;
- 
+	public static final String MODID = "kagic";
+	public static final String VERSION = "@version";
+	public static final String MCVERSION = "@mcversion";
+	public static final boolean DEVELOPER = true;
+	
 	public static Logger logger;
-
-    @Instance
-    public static KAGIC instance;
-    public static SpaceStuff spaceStuff;
-    public static KAGICWorldGenerator worldGen;
-
-    static {
-    	FluidRegistry.enableUniversalBucket();
-    }
-    
-    @SidedProxy(clientSide = "mod.kagic.proxies.ClientProxy", serverSide = "mod.kagic.proxies.ServerProxy")
-    public static CommonProxy proxy;
-    
-    @EventHandler
-    public void preInit(FMLPreInitializationEvent e) {
-    	logger = e.getModLog();
-        //ModBiomes.register();
-        //ModDimensions.register();
-        KAGICSmeltingRecipes.register();
+	
+	@Instance
+	public static KAGIC instance;
+	public static SpaceStuff spaceStuff;
+	public static KAGICWorldGenerator worldGen;
+	
+	static {
+		FluidRegistry.enableUniversalBucket();
+	}
+	
+	@SidedProxy(clientSide = "mod.kagic.proxies.ClientProxy", serverSide = "mod.kagic.proxies.ServerProxy")
+	public static CommonProxy proxy;
+	
+	@EventHandler
+	public void preInit(FMLPreInitializationEvent e) {
+		KAGIC.logger = e.getModLog();
+		// ModBiomes.register();
+		// ModDimensions.register();
+		KAGICSmeltingRecipes.register();
 		KTPacketHandler.registerMessages(KAGIC.MODID);
-		ForgeChunkManager.setForcedChunkLoadingCallback(instance, new KAGICChunkCallback());
+		ForgeChunkManager.setForcedChunkLoadingCallback(KAGIC.instance, new KAGICChunkCallback());
 		LootTables.register();
 		KAGIC.worldGen = new KAGICWorldGenerator();
-    }
-    
-    @EventHandler
-    public void init(FMLInitializationEvent e) {
-    	ModEntities.register();
-    	ModEvents.register();
-    	ModTileEntities.register();
-		NetworkRegistry.INSTANCE.registerGuiHandler(instance, new KTGUIProxy());
+	}
+	
+	@EventHandler
+	public void init(FMLInitializationEvent e) {
+		ModEntities.register();
+		ModEvents.register();
+		ModTileEntities.register();
+		NetworkRegistry.INSTANCE.registerGuiHandler(KAGIC.instance, new KTGUIProxy());
 		if (e.getSide() == Side.CLIENT) {
 			ModTESRs.register();
 			MinecraftForge.EVENT_BUS.register(new Fogger());
 		}
-		GameRegistry.registerWorldGenerator(worldGen, 50);
-		GenEventCanceller genCanceller = new GenEventCanceller(); 
+		GameRegistry.registerWorldGenerator(KAGIC.worldGen, 50);
+		GenEventCanceller genCanceller = new GenEventCanceller();
 		MinecraftForge.EVENT_BUS.register(genCanceller);
 		MinecraftForge.TERRAIN_GEN_BUS.register(genCanceller);
 		MinecraftForge.EVENT_BUS.register(new FusionSpawnHandler());
@@ -92,75 +92,77 @@ public class KAGIC {
 		MinecraftForge.EVENT_BUS.register(new GemPlayerLoot());
 		DispenserBehaviors.register();
 		KAGIC.proxy.registerBlockColors();
-    }
-    
-    @EventHandler
+	}
+	
+	@EventHandler
 	public void serverStarting(FMLServerStartingEvent e) {
-    	/*if (FMLCommonHandler.instance().getSide() == Side.SERVER) {
-	    	try {
-	    		ModMetrics.sendMetrics();
-	    	}
-	    	catch (Exception x) {
-	    		x.printStackTrace();
-	    	}
-    	}*/
-    	e.registerServerCommand(new CommandDestroyGem());
-    	e.registerServerCommand(new CommandMeteorRuby());
+		/*
+		 * if (FMLCommonHandler.instance().getSide() ==
+		 * Side.SERVER) { try { ModMetrics.sendMetrics(); }
+		 * catch (Exception x) { x.printStackTrace(); } }
+		 */
+		e.registerServerCommand(new CommandDestroyGem());
+		e.registerServerCommand(new CommandMeteorRuby());
 		e.registerServerCommand(new CommandSpawnGems());
 		e.registerServerCommand(new CommandScanGems());
 	}
-    
-    //Used for debugging
+	
+	// Used for debugging
 	public void chatInfoMessage(String message) {
-		if (DEVELOPER /*&& FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER*/) {
+		if (KAGIC.DEVELOPER /*
+							 * &&
+							 * FMLCommonHandler.instance().
+							 * getEffectiveSide() ==
+							 * Side.SERVER
+							 */) {
 			PlayerList list = FMLCommonHandler.instance().getMinecraftServerInstance().getPlayerList();
-			logger.info(message);
+			KAGIC.logger.info(message);
 			list.sendMessage(new TextComponentString(message));
 		}
 	}
 	
-    public static boolean isDayToday(int month, int day) {
-    	boolean sameMonth = Calendar.getInstance().get(Calendar.MONTH) == month - 1;
-    	boolean sameDay = Calendar.getInstance().get(Calendar.DAY_OF_MONTH) == day;
-    	return sameMonth && sameDay;
-    }
-    
-    public static boolean isFireworksDay() {
-    	return KAGIC.isDayToday(1, 1) || KAGIC.isDayToday(3, 21) || KAGIC.isDayToday(7, 4);
-    }
-    
-    public static boolean isHalloween() {
-    	for (int day = 25; day <= 31; ++day) {
-    		if (KAGIC.isDayToday(10, day)) {
-    			return true;
-    		}
-    	}
-    	return false;
-    }
-    
-    public static boolean isAprilFools() {
-    	return KAGIC.isDayToday(4, 1);
-    }
-    
-    public static boolean isChristmas() {
-    	for (int day = 24; day <= 31; ++day) {
-    		if (KAGIC.isDayToday(12, day)) {
-    			return true;
-    		}
-    	}
-    	for (int day = 1; day <= 5; ++day) {
-    		if (KAGIC.isDayToday(1, day)) {
-    			return true;
-    		}
-    	}
-    	return false;
-    }
-    
-    public static boolean isBirthday() {
-    	return KAGIC.isDayToday(1, 17) || KAGIC.isDayToday(10, 24) || KAGIC.isDayToday(10, 22);
-    }
-
-    public static boolean isBirthdayTomorrow() {
-    	return KAGIC.isDayToday(1, 16) || KAGIC.isDayToday(10, 23) || KAGIC.isDayToday(10, 21);
-    }
+	public static boolean isDayToday(int month, int day) {
+		boolean sameMonth = Calendar.getInstance().get(Calendar.MONTH) == month - 1;
+		boolean sameDay = Calendar.getInstance().get(Calendar.DAY_OF_MONTH) == day;
+		return sameMonth && sameDay;
+	}
+	
+	public static boolean isFireworksDay() {
+		return KAGIC.isDayToday(1, 1) || KAGIC.isDayToday(3, 21) || KAGIC.isDayToday(7, 4);
+	}
+	
+	public static boolean isHalloween() {
+		for (int day = 25; day <= 31; ++day) {
+			if (KAGIC.isDayToday(10, day)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public static boolean isAprilFools() {
+		return KAGIC.isDayToday(4, 1);
+	}
+	
+	public static boolean isChristmas() {
+		for (int day = 24; day <= 31; ++day) {
+			if (KAGIC.isDayToday(12, day)) {
+				return true;
+			}
+		}
+		for (int day = 1; day <= 5; ++day) {
+			if (KAGIC.isDayToday(1, day)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public static boolean isBirthday() {
+		return KAGIC.isDayToday(1, 17) || KAGIC.isDayToday(10, 24) || KAGIC.isDayToday(10, 22);
+	}
+	
+	public static boolean isBirthdayTomorrow() {
+		return KAGIC.isDayToday(1, 16) || KAGIC.isDayToday(10, 23) || KAGIC.isDayToday(10, 21);
+	}
 }

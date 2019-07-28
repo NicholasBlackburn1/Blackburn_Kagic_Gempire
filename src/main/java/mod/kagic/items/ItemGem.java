@@ -36,34 +36,33 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class ItemGem extends Item {
 	private final String gemName;
 	public boolean isCracked;
-	
+
 	public ItemGem(String name) {
 		this(name, false);
 	}
-	
+
 	public ItemGem(String name, boolean cracked) {
 		this.setUnlocalizedName((cracked ? "cracked_" : "") + name + "_gem");
 		this.setMaxStackSize(1);
 		this.setMaxDamage(60);
 		if (name.contains("corrupted") || name.contains("tongue_monster") || name.contains("water_bear") || name.contains("handbody") || name.contains("footarm") || name.contains("mouthtorso")) {
 			this.setCreativeTab(ModCreativeTabs.CREATIVE_TAB_BAD_GEMS);
-		}
-		else {
+		} else {
 			this.setCreativeTab(ModCreativeTabs.CREATIVE_TAB_GOOD_GEMS);
 		}
 		this.isCracked = cracked;
 		this.gemName = new TextComponentTranslation("entity.kagic." + name + ".name").getUnformattedComponentText();
 	}
-	
+
 	public void setData(EntityGem host, ItemStack stack) {
 		stack.setTagCompound(host.writeToNBT(new NBTTagCompound()));
 		stack.getTagCompound().setString("name", host.getName());
 	}
-	
+
 	public void clearData(ItemStack itemStackIn) {
 		itemStackIn.setTagCompound(new NBTTagCompound());
 	}
-	
+
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
@@ -81,12 +80,11 @@ public class ItemGem extends Item {
 					tooltip.add(name);
 				}
 			}
-		}
-		catch (NullPointerException e) {
+		} catch (NullPointerException e) {
 			tooltip.add(this.gemName);
 		}
 	}
-	
+
 	@Override
 	public EnumActionResult onItemUse(EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
 		if (!worldIn.isRemote) {
@@ -94,28 +92,27 @@ public class ItemGem extends Item {
 			if (stack.getItemDamage() == 0) {
 				if (!this.isCracked) {
 					RayTraceResult raytraceresult = this.rayTrace(worldIn, playerIn, true);
-			        if (raytraceresult != null && raytraceresult.typeOfHit == RayTraceResult.Type.BLOCK) {
-			            BlockPos blockpos = raytraceresult.getBlockPos();
-			            if (worldIn.isBlockModifiable(playerIn, blockpos) && playerIn.canPlayerEdit(blockpos, raytraceresult.sideHit, stack)) {
-			            	boolean spawned = spawnGem(worldIn, playerIn, blockpos, stack);
+					if (raytraceresult != null && raytraceresult.typeOfHit == RayTraceResult.Type.BLOCK) {
+						BlockPos blockpos = raytraceresult.getBlockPos();
+						if (worldIn.isBlockModifiable(playerIn, blockpos) && playerIn.canPlayerEdit(blockpos, raytraceresult.sideHit, stack)) {
+							boolean spawned = this.spawnGem(worldIn, playerIn, blockpos, stack);
 							if (!playerIn.capabilities.isCreativeMode && spawned) {
 								stack.shrink(1);
 							}
-		            	}
-		            }
-		        }
+						}
+					}
+				}
 			}
-	       	return EnumActionResult.SUCCESS;
+			return EnumActionResult.SUCCESS;
 		}
 		return EnumActionResult.PASS;
 	}
-	
+
 	public boolean spawnGem(World worldIn, EntityPlayer playerIn, BlockPos blockpos, ItemStack stack) {
 		if (!worldIn.isRemote) {
 			if (this.isCracked) {
 				return false;
-			}
-			else {
+			} else {
 				EntityGem newGem = new EntityRuby(worldIn);
 				for (String key : ModEntities.GEMS.keySet()) {
 					try {
@@ -123,35 +120,33 @@ public class ItemGem extends Item {
 						if (name.equals(key)) {
 							newGem = (EntityGem) ModEntities.GEMS.get(key).getConstructors()[0].newInstance(worldIn);
 						}
-					}
-					catch (Exception e) {
+					} catch (Exception e) {
 						e.printStackTrace();
 						System.out.println("Error creating gem: " + e.getMessage());
 					}
 				}
-		    	try {
+				try {
 					newGem.readFromNBT(stack.getTagCompound());
 					newGem.setUniqueId(MathHelper.getRandomUUID(worldIn.rand));
-		    	}
-		    	catch (Exception e) {
-		    		Matcher matcher = Pattern.compile("_(\\d+)_").matcher(this.getUnlocalizedName());
+				} catch (Exception e) {
+					Matcher matcher = Pattern.compile("_(\\d+)_").matcher(this.getUnlocalizedName());
 					newGem.setPosition(blockpos.getX() + 0.5, blockpos.getY() + 1.0, blockpos.getZ() + 0.5);
-	            	newGem.onInitialSpawn(worldIn.getDifficultyForLocation(blockpos), null);
-	            	if (matcher.find()) {
-	            		newGem.itemDataToGemData(Integer.parseInt(matcher.group(1)));
-	            	}
-		    		if (playerIn != null && !newGem.isDiamond && !(newGem instanceof EntityShardFusion) && !(newGem instanceof EntityCorruptedGem)) {
-		    			newGem.setOwnerId(EntityPlayer.getUUID(playerIn.getGameProfile()));
-		    			newGem.setLeader(playerIn);
-		        		newGem.setServitude(EntityGem.SERVE_HUMAN);
-		            	newGem.getNavigator().clearPath();
-		            	newGem.setAttackTarget(null);
-		            	newGem.setHealth(newGem.getMaxHealth());
-		            	newGem.playTameEffect();
-		            	newGem.world.setEntityState(newGem, (byte) 7);
-		            	newGem.playObeySound();
-		    		}
-		    	}
+					newGem.onInitialSpawn(worldIn.getDifficultyForLocation(blockpos), null);
+					if (matcher.find()) {
+						newGem.itemDataToGemData(Integer.parseInt(matcher.group(1)));
+					}
+					if (playerIn != null && !newGem.isDiamond && !(newGem instanceof EntityShardFusion) && !(newGem instanceof EntityCorruptedGem)) {
+						newGem.setOwnerId(EntityPlayer.getUUID(playerIn.getGameProfile()));
+						newGem.setLeader(playerIn);
+						newGem.setServitude(EntityGem.SERVE_HUMAN);
+						newGem.getNavigator().clearPath();
+						newGem.setAttackTarget(null);
+						newGem.setHealth(newGem.getMaxHealth());
+						newGem.playTameEffect();
+						newGem.world.setEntityState(newGem, (byte) 7);
+						newGem.playObeySound();
+					}
+				}
 				newGem.setPosition(blockpos.getX() + 0.5, blockpos.getY() + 1.0, blockpos.getZ() + 0.5);
 				newGem.setRestPosition(newGem.getPosition());
 				newGem.setHealth(newGem.getMaxHealth());
@@ -164,7 +159,7 @@ public class ItemGem extends Item {
 		}
 		return false;
 	}
-	
+
 	@Override
 	public boolean onEntityItemUpdate(EntityItem entity) {
 		entity.isDead = false;
@@ -185,8 +180,7 @@ public class ItemGem extends Item {
 					entity.setDead();
 				}
 			}
-		}
-		else if (this.isCracked) { 
+		} else if (this.isCracked) {
 			if (!entity.world.isRemote && entity.world.getBlockState(entity.getPosition()).getBlock() == ModBlocks.ROSE_TEARS) {
 				ItemStack crackedGemStack = entity.getItem();
 				ItemStack healedGemStack = new ItemStack(ModItems.GEM_TABLE.get(crackedGemStack.getItem()));
@@ -197,21 +191,22 @@ public class ItemGem extends Item {
 				entity.setDead();
 			}
 		}
-        return false;
-    }
+		return false;
+	}
 	@Override
 	public void onUpdate(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
 		if (worldIn.getWorldTime() % 20 == 0 && stack.getItemDamage() > 0) {
-			stack.setItemDamage(Math.max(stack.getItemDamage() - (1 * (isSelected ? 2 : 1)), 0));
+			stack.setItemDamage(Math.max(stack.getItemDamage() - 1 * (isSelected ? 2 : 1), 0));
 		}
 	}
-	
+
+	@Override
 	@SideOnly(Side.CLIENT)
-    public boolean hasEffect(ItemStack stack) {
+	public boolean hasEffect(ItemStack stack) {
 		if (stack.getTagCompound() != null) {
 			NBTTagCompound tag = stack.getTagCompound();
 			return tag.getBoolean("primary");
 		}
 		return false;
-    }
+	}
 }

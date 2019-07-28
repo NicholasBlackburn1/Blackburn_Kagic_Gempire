@@ -16,11 +16,11 @@ public class ModelHessonite extends ModelGem {
 	private final ModelRenderer bipedRightLowerLeg;
 	private final ModelRenderer bipedLeftLowerLeg;
 	private final ModelRenderer bipedHips;
-	
+
 	public ModelHessonite() {
 		this(0, false);
 	}
-
+	
 	public ModelHessonite(float modelSize, boolean isArmor) {
 		super(modelSize, 0.0F, 64, isArmor ? 32 : 64, isArmor, -10F);
 		// Head
@@ -34,7 +34,7 @@ public class ModelHessonite extends ModelGem {
 		if (!isArmor && (KAGIC.isHalloween() || KAGIC.isBirthday() || KAGIC.isChristmas())) {
 			this.bipedHead.addChild(this.witchHat);
 		}
-		
+
 		// Hair
 		this.bipedHeadwear = new ModelRenderer(this, 20, 42);
 		this.bipedHeadwear.addBox(-7F, -19F, -3.5F, 14, 14, 8, modelSize);
@@ -60,32 +60,33 @@ public class ModelHessonite extends ModelGem {
 		this.bipedRightLeg = new ModelRenderer(this, 0, 16);
 		this.bipedRightLeg.addBox(0.5F, -2F, -2F, 4, 4, 4, modelSize);
 		this.bipedRightLeg.setRotationPoint(0F, 0F, 0F);
-	  	// Left leg
+		// Left leg
 		this.bipedLeftLeg = new ModelRenderer(this, 0, 16);
 		this.bipedLeftLeg.addBox(-4.5F, -2F, -2F, 4, 4, 4, modelSize);
 		this.bipedLeftLeg.setRotationPoint(0F, 0F, 0F);
-
+		
 		// Right lower leg
 		this.bipedRightLowerLeg = new ModelRenderer(this, 56, 10);
 		this.bipedRightLowerLeg.addBox(1.5F, 2F, -1F, 2, 10, 2, modelSize);
 		this.bipedRightLowerLeg.setRotationPoint(0F, 0F, 0F);
 		this.bipedRightLeg.addChild(this.bipedRightLowerLeg);
-	  	// Left lower leg
+		// Left lower leg
 		this.bipedLeftLowerLeg = new ModelRenderer(this, 56, 10);
 		this.bipedLeftLowerLeg.addBox(-3.5F, 2F, -1F, 2, 10, 2, modelSize);
 		this.bipedLeftLowerLeg.setRotationPoint(0F, 0F, 0F);
 		this.bipedLeftLeg.addChild(this.bipedLeftLowerLeg);
-
+		
 		this.bipedCape = new ModelRenderer(this, 0, 0);
 		this.bipedCape.setTextureSize(64, 64);
 		this.bipedCape.addBox(-15.0F, -4.0F, -1.5f, 30, 20, 1, modelSize);
-		
+
 		this.bipedCapeBack = new ModelRenderer(this, 0, 22);
 		this.bipedCapeBack.setTextureSize(64, 64);
 		this.bipedCapeBack.addBox(-15.0F, -4.0F, -1.525f, 30, 20, 1, modelSize);
 		this.bipedCape.addChild(this.bipedCapeBack);
 	}
-	
+
+	@Override
 	public void setLivingAnimations(EntityLivingBase entitylivingbaseIn, float p_78086_2_, float p_78086_3_, float partialTickTime) {
 		this.rightArmPose = ModelBiped.ArmPose.EMPTY;
 		this.leftArmPose = ModelBiped.ArmPose.EMPTY;
@@ -95,18 +96,16 @@ public class ModelHessonite extends ModelGem {
 			if (itemstack != null && itemstack.getItem() == Items.BOW && gem.isSwingingArms()) {
 				if (entitylivingbaseIn.getPrimaryHand() == EnumHandSide.RIGHT) {
 					this.rightArmPose = ModelBiped.ArmPose.BOW_AND_ARROW;
-				}
-				else {
+				} else {
 					this.leftArmPose = ModelBiped.ArmPose.BOW_AND_ARROW;
 				}
 			}
 		}
 		super.setLivingAnimations(entitylivingbaseIn, p_78086_2_, p_78086_3_, partialTickTime);
 	}
-
+	
 	@Override
-	public void renderCape(float scale)
-	{
+	public void renderCape(float scale) {
 		this.bipedCape.render(scale);
 	}
 }

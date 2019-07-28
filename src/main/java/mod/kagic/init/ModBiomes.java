@@ -18,20 +18,22 @@ public class ModBiomes {
 	public static final Biome KINDERGARTEN = new BiomeKindergarten();
 	public static final Biome FLOATINGPEAKS = new BiomeFloatingPeaks();
 	public static final Biome STRAWBERRYBATTLEFIELD = new BiomeStrawberryBattlefield();
-	
+
 	public static void register(RegistryEvent.Register<Biome> event) {
-		//BiomeManager.addBiome(BiomeType.DESERT, new BiomeManager.BiomeEntry(HOMEWORLD, 0));
-		//BiomeManager.addBiome(BiomeType.WARM, new BiomeManager.BiomeEntry(LION, 0));
-		KAGIC.instance.logger.info("Setting biome weights: Kindergarten = " + ModConfigs.kindergartenWeight + ", Floating Peaks = " + ModConfigs.floatingPeaksWeight);
-		event.getRegistry().register(KINDERGARTEN);
-		BiomeManager.addBiome(BiomeType.DESERT, new BiomeManager.BiomeEntry(KINDERGARTEN, ModConfigs.kindergartenWeight));
-		BiomeDictionary.addTypes(KINDERGARTEN, Type.DEAD, Type.DRY, Type.MESA, Type.SPOOKY, Type.WASTELAND, Type.RARE);
-		event.getRegistry().register(FLOATINGPEAKS);
-		BiomeManager.addBiome(BiomeType.WARM, new BiomeManager.BiomeEntry(FLOATINGPEAKS, ModConfigs.floatingPeaksWeight));
-		BiomeManager.addSpawnBiome(FLOATINGPEAKS);
-		BiomeDictionary.addTypes(FLOATINGPEAKS, Type.MOUNTAIN, Type.SAVANNA, Type.MAGICAL, Type.DRY, Type.RARE);
-		event.getRegistry().register(STRAWBERRYBATTLEFIELD);
-		BiomeManager.addBiome(BiomeType.WARM, new BiomeManager.BiomeEntry(STRAWBERRYBATTLEFIELD, ModConfigs.strawberryBattlefieldWeight));
-		BiomeDictionary.addTypes(STRAWBERRYBATTLEFIELD, Type.HILLS, Type.PLAINS, Type.MAGICAL, Type.LUSH, Type.RARE);
+		// BiomeManager.addBiome(BiomeType.DESERT, new
+		// BiomeManager.BiomeEntry(HOMEWORLD, 0));
+		// BiomeManager.addBiome(BiomeType.WARM, new
+		// BiomeManager.BiomeEntry(LION, 0));
+		KAGIC.logger.info("Setting biome weights: Kindergarten = " + ModConfigs.kindergartenWeight + ", Floating Peaks = " + ModConfigs.floatingPeaksWeight);
+		event.getRegistry().register(ModBiomes.KINDERGARTEN);
+		BiomeManager.addBiome(BiomeType.DESERT, new BiomeManager.BiomeEntry(ModBiomes.KINDERGARTEN, ModConfigs.kindergartenWeight));
+		BiomeDictionary.addTypes(ModBiomes.KINDERGARTEN, Type.DEAD, Type.DRY, Type.MESA, Type.SPOOKY, Type.WASTELAND, Type.RARE);
+		event.getRegistry().register(ModBiomes.FLOATINGPEAKS);
+		BiomeManager.addBiome(BiomeType.WARM, new BiomeManager.BiomeEntry(ModBiomes.FLOATINGPEAKS, ModConfigs.floatingPeaksWeight));
+		BiomeManager.addSpawnBiome(ModBiomes.FLOATINGPEAKS);
+		BiomeDictionary.addTypes(ModBiomes.FLOATINGPEAKS, Type.MOUNTAIN, Type.SAVANNA, Type.MAGICAL, Type.DRY, Type.RARE);
+		event.getRegistry().register(ModBiomes.STRAWBERRYBATTLEFIELD);
+		BiomeManager.addBiome(BiomeType.WARM, new BiomeManager.BiomeEntry(ModBiomes.STRAWBERRYBATTLEFIELD, ModConfigs.strawberryBattlefieldWeight));
+		BiomeDictionary.addTypes(ModBiomes.STRAWBERRYBATTLEFIELD, Type.HILLS, Type.PLAINS, Type.MAGICAL, Type.LUSH, Type.RARE);
 	}
 }

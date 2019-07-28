@@ -22,17 +22,17 @@ import net.minecraft.util.ResourceLocation;
 
 public class RenderCitrine extends RenderGemBase<EntityCitrine> {
 	public RenderCitrine() {
-        super(Minecraft.getMinecraft().getRenderManager(), new ModelQuartz(), 0.5F);
-
+		super(Minecraft.getMinecraft().getRenderManager(), new ModelQuartz(), 0.5F);
+		
 		this.addLayer(new LayerQuartzItem(this));
-        this.addLayer(new LayerSkin(this));
-        this.addLayer(new LayerAmetrineHalf(this));
-        this.addLayer(new LayerUniform(this));
-        this.addLayer(new LayerInsignia(this));
-        this.addLayer(new LayerVisor(this));
-        this.addLayer(new LayerHair(this));
-        this.addLayer(new LayerQuartzCape(this));
-        this.addLayer(new LayerGemPlacement(this));
+		this.addLayer(new LayerSkin(this));
+		this.addLayer(new LayerAmetrineHalf(this));
+		this.addLayer(new LayerUniform(this));
+		this.addLayer(new LayerInsignia(this));
+		this.addLayer(new LayerVisor(this));
+		this.addLayer(new LayerHair(this));
+		this.addLayer(new LayerQuartzCape(this));
+		this.addLayer(new LayerGemPlacement(this));
 		if (KAGIC.isBirthday()) {
 			this.addLayer(new LayerBirthdayHat(this));
 		} else if (KAGIC.isHalloween()) {
@@ -40,7 +40,7 @@ public class RenderCitrine extends RenderGemBase<EntityCitrine> {
 		} else if (KAGIC.isChristmas()) {
 			this.addLayer(new LayerSantaHat(this));
 		}
-
+		
 		LayerBipedArmor citrineArmor = new LayerBipedArmor(this) {
 			@Override
 			protected void initArmor() {
@@ -49,15 +49,15 @@ public class RenderCitrine extends RenderGemBase<EntityCitrine> {
 			}
 		};
 		this.addLayer(citrineArmor);
-    }
-	
+	}
+
 	@Override
 	protected void preRenderCallback(EntityCitrine citrine, float partialTickTime) {
 		if (citrine.isPrimary()) {
 			GlStateManager.scale(1.1F, 1.1F, 1.1F);
 		}
 	}
-	
+
 	@Override
 	protected ResourceLocation getEntityTexture(EntityCitrine entity) {
 		if (entity.isDefective()) {

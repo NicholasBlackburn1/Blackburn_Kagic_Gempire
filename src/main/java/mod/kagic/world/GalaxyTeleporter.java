@@ -8,16 +8,16 @@ public class GalaxyTeleporter extends Teleporter {
 	private double posX;
 	private double posY;
 	private double posZ;
-	
+
 	public GalaxyTeleporter(WorldServer worldIn, double posX, double posY, double posZ) {
 		super(worldIn);
 		this.posX = posX;
 		this.posY = posY;
 		this.posZ = posZ;
 	}
-
+	
 	@Override
 	public void placeInPortal(Entity entity, float rotationYaw) {
-		entity.setPosition(posX, posY, posZ);
+		entity.setPosition(this.posX, this.posY, this.posZ);
 	}
 }

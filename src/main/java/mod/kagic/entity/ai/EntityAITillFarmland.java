@@ -20,36 +20,41 @@ public class EntityAITillFarmland extends EntityAIMoveToBlock {
 		this.gem = gemIn;
 		this.world = gemIn.world;
 	}
+	@Override
 	public boolean shouldExecute() {
 		if (this.gem.isFarmer()) {
-			if (delay > 20 + this.gem.getRNG().nextInt(20)) {
+			if (this.delay > 20 + this.gem.getRNG().nextInt(20)) {
 				this.runDelay = 0;
 				return super.shouldExecute();
-			}
-			else {
+			} else {
 				++this.delay;
 			}
 		}
 		return false;
 	}
+	@Override
 	public boolean shouldContinueExecuting() {
 		return super.shouldContinueExecuting() && this.gem.isFarmer() && !this.gem.getNavigator().noPath();
 	}
+	@Override
 	public void startExecuting() {
 		super.startExecuting();
 	}
+	@Override
 	public void resetTask() {
 		super.resetTask();
 	}
+	@Override
 	public void updateTask() {
 		super.updateTask();
-		this.gem.getLookHelper().setLookPosition((double) this.destinationBlock.getX() + 0.5D, (double)(this.destinationBlock.getY() + 1), (double) this.destinationBlock.getZ() + 0.5D, 10.0F, (float) this.gem.getVerticalFaceSpeed());
+		this.gem.getLookHelper().setLookPosition(this.destinationBlock.getX() + 0.5D, this.destinationBlock.getY() + 1, this.destinationBlock.getZ() + 0.5D, 10.0F, this.gem.getVerticalFaceSpeed());
 		if (this.getIsAboveDestination()) {
-            this.gem.world.setBlockState(this.destinationBlock, Blocks.FARMLAND.getDefaultState().withProperty(BlockFarmland.MOISTURE, 7));
-            this.world.playSound(null, this.gem.getPosition(), SoundEvents.ITEM_HOE_TILL, SoundCategory.BLOCKS, 1.0F, 1.0F);
+			this.gem.world.setBlockState(this.destinationBlock, Blocks.FARMLAND.getDefaultState().withProperty(BlockFarmland.MOISTURE, 7));
+			this.world.playSound(null, this.gem.getPosition(), SoundEvents.ITEM_HOE_TILL, SoundCategory.BLOCKS, 1.0F, 1.0F);
 		}
 	}
-	
+
+	@Override
 	protected boolean shouldMoveTo(World world, BlockPos pos) {
 		Block block = world.getBlockState(pos).getBlock();
 		if ((block == Blocks.DIRT || block == Blocks.GRASS) && this.hasWater(world, pos)) {
@@ -58,11 +63,11 @@ public class EntityAITillFarmland extends EntityAIMoveToBlock {
 		return false;
 	}
 	private boolean hasWater(World worldIn, BlockPos pos) {
-        for (BlockPos.MutableBlockPos blockpos$mutableblockpos : BlockPos.getAllInBoxMutable(pos.add(-4, 0, -4), pos.add(4, 1, 4))) {
-            if (worldIn.getBlockState(blockpos$mutableblockpos).getMaterial() == Material.WATER) {
-                return worldIn.isAirBlock(pos.up());
-            }
-        }
-        return false;
-    }
+		for (BlockPos.MutableBlockPos blockpos$mutableblockpos : BlockPos.getAllInBoxMutable(pos.add(-4, 0, -4), pos.add(4, 1, 4))) {
+			if (worldIn.getBlockState(blockpos$mutableblockpos).getMaterial() == Material.WATER) {
+				return worldIn.isAirBlock(pos.up());
+			}
+		}
+		return false;
+	}
 }

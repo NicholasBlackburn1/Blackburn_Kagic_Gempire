@@ -1,6 +1,5 @@
 package mod.kagic.client.model;
 
-import mod.kagic.init.KAGIC;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 
@@ -8,14 +7,14 @@ public class ModelAgate extends ModelQuartz {
 	private ModelRenderer bipedSideBuns = null;
 	private ModelRenderer bipedTopBun = null;
 	private ModelRenderer bipedBackBun = null;
-
-    public ModelAgate() {
-    	this(0F, false);
-    }
-    
-    public ModelAgate(float modelSize, boolean isArmor) {
+	
+	public ModelAgate() {
+		this(0F, false);
+	}
+	
+	public ModelAgate(float modelSize, boolean isArmor) {
 		super(modelSize, isArmor);
-		
+
 		// Buns.
 		if (!isArmor) {
 			this.bipedSideBuns = new ModelRenderer(this, 0, 56);
@@ -30,9 +29,9 @@ public class ModelAgate extends ModelQuartz {
 			this.bipedBackBun.addBox(-2F, -10F, 5F, 4, 4, 4);
 			this.bipedBackBun.setRotationPoint(0F, 0F, 0F);
 		}
-    }
-    
-    @Override
+	}
+	
+	@Override
 	public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 		this.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entityIn);
 		this.bipedHead.render(scale);
@@ -48,8 +47,8 @@ public class ModelAgate extends ModelQuartz {
 		this.bipedRightLeg.render(scale);
 		this.bipedLeftLeg.render(scale);
 	}
-    
-    @Override
+	
+	@Override
 	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
 		super.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scaleFactor, entityIn);
 		if (this.bipedTopBun != null) {

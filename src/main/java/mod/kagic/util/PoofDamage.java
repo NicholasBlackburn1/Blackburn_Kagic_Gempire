@@ -10,15 +10,16 @@ public class PoofDamage extends DamageSource {
 	public PoofDamage() {
 		super("poof");
 	}
+	@Override
 	public ITextComponent getDeathMessage(EntityLivingBase victim) {
 		EntityLivingBase attacker = victim.getAttackingEntity();
 		if (attacker != null) {
 			ItemStack stack = attacker.getHeldItemMainhand();
 			if (stack != null && stack.hasDisplayName()) {
-				return new TextComponentTranslation("death.attack.poof.item", new Object[] { victim.getDisplayName(), attacker.getDisplayName(), stack.getDisplayName() });
+				return new TextComponentTranslation("death.attack.poof.item", new Object[]{victim.getDisplayName(), attacker.getDisplayName(), stack.getDisplayName()});
 			}
-			return new TextComponentTranslation("death.attack.poof.player", new Object[] { victim.getDisplayName(), attacker.getDisplayName() });
+			return new TextComponentTranslation("death.attack.poof.player", new Object[]{victim.getDisplayName(), attacker.getDisplayName()});
 		}
-		return new TextComponentTranslation("death.attack.poof", new Object[] { victim.getDisplayName() });
+		return new TextComponentTranslation("death.attack.poof", new Object[]{victim.getDisplayName()});
 	}
 }

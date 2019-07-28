@@ -1,7 +1,6 @@
 package mod.kagic.client.model;
 
 import mod.kagic.init.KAGIC;
-import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 
@@ -15,7 +14,7 @@ public class ModelRutile extends ModelGem {
 		if (KAGIC.isHalloween() || KAGIC.isBirthday() || KAGIC.isChristmas()) {
 			this.bipedHead.addChild(this.witchHat);
 		}
-		
+
 		// Hair.
 		this.bipedHeadwear = new ModelRenderer(this, 32, 0);
 		this.bipedHeadwear.addBox(-4F, -10F, -4F, 8, 10, 8, 1.1F);
@@ -24,7 +23,7 @@ public class ModelRutile extends ModelGem {
 		this.bipedBody = new ModelRenderer(this, 8, 18);
 		this.bipedBody.addBox(-3F, 0F, -2F, 6, 12, 4);
 		this.bipedBody.setRotationPoint(0F, 0F, 0F);
-        // Right arm.
+		// Right arm.
 		this.bipedRightArm = new ModelRenderer(this, 0, 18);
 		this.bipedRightArm.addBox(0F, 0F, -1F, 2, 12, 2);
 		this.bipedRightArm.setRotationPoint(0F, 0F, 0F);
@@ -41,6 +40,7 @@ public class ModelRutile extends ModelGem {
 		this.bipedLeftLeg.addBox(-3F, 0F, -1F, 2, 12, 2);
 		this.bipedLeftLeg.setRotationPoint(0F, 12F, 0F);
 	}
+	@Override
 	public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 		this.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entityIn);
 		this.bipedHead.render(scale);

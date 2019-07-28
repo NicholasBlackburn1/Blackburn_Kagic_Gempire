@@ -38,9 +38,9 @@ public class InjectorResult {
 	private final boolean isPrimary;
 	private final ExitHole exitHole;
 	private boolean stale;
-	
+
 	private static final float drainedPercentage = 0.75F;
-	
+
 	public InjectorResult() {
 		this(null, null, 0, false, false, null);
 		this.stale = true;
@@ -75,7 +75,7 @@ public class InjectorResult {
 		return this.exitHole;
 	}
 	public void generate(World world) {
-		if (!this.stale) { 
+		if (!this.stale) {
 			if (this.canCreateSlags()) {
 				int totalSlags = world.rand.nextInt(9) + 1;
 				for (int i = 0; i <= totalSlags; ++i) {
@@ -86,7 +86,7 @@ public class InjectorResult {
 						ChunkPos c = world.getChunkFromBlockCoords(spawn).getPos();
 						failed = !world.isAirBlock(spawn);
 						if (!failed) {
-							
+
 							EntitySlag slag = new EntitySlag(world);
 							slag.setPosition(spawn.getX(), spawn.getY(), spawn.getZ());
 							slag.setVariant(Math.abs((c.x + c.z) % ModEntities.MINERALS.size()));
@@ -95,22 +95,19 @@ public class InjectorResult {
 								world.spawnEntity(slag);
 								slag.onInitialSpawn(world.getDifficultyForLocation(spawn), null);
 							}
-						}
-						else {
+						} else {
 							++attempts;
 						}
 					}
 				}
 				world.destroyBlock(this.position, false);
-			}
-			else {
+			} else {
 				if (this.exitHole != null) {
 					this.exitHole.emerge(world);
 				}
 				if (this.gem.world.rand.nextFloat() < this.defectiveRate) {
 					this.gem.setDefective(true);
-				}
-				else if (this.exitHole.createRockMelt()) {
+				} else if (this.exitHole.createRockMelt()) {
 					this.gem.setPrimary(true);
 				}
 				world.spawnEntity(this.gem);
@@ -118,7 +115,7 @@ public class InjectorResult {
 			}
 		}
 	}
-
+	
 	public static InjectorResult create(World world, BlockPos pos, boolean drain) {
 		HashMap<Class<EntityGem>, Double> resultTable = new HashMap<Class<EntityGem>, Double>();
 		HashMap<Class<EntityGem>, Double> defectivity = new HashMap<Class<EntityGem>, Double>();
@@ -126,10 +123,13 @@ public class InjectorResult {
 		float drainedCount = 0F;
 		float baseMinerals = 0F;
 		boolean drainedChecked = false;
-		
-		// Pre-Injection event, can be used to cancel an injection.
+
+		// Pre-Injection event, can be used to cancel an
+		// injection.
 		PreInjectionEvent e1 = new PreInjectionEvent(world, pos, drain);
-		if (MinecraftForge.EVENT_BUS.post(e1)) return new InjectorResult();
+		if (MinecraftForge.EVENT_BUS.post(e1)) {
+			return new InjectorResult();
+		}
 		for (String gemType : ModEntities.GEMS.keySet()) {
 			Class<EntityGem> gemClass = null;
 			HashMap<IBlockState, Double> yield = null;
@@ -140,9 +140,8 @@ public class InjectorResult {
 				yield = (HashMap<IBlockState, Double>) gemClass.getField((gemType + "_yields").toUpperCase()).get(null);
 				defectivityMultiplier = (double) gemClass.getField((gemType + "_defectivity_multiplier").toUpperCase()).get(null);
 				fieldFound = true;
-			}
-			catch (Exception e) {
-				
+			} catch (Exception e) {
+
 			}
 			if (fieldFound) {
 				try {
@@ -150,17 +149,16 @@ public class InjectorResult {
 					double depthFactor = 1.0;
 					if (world.provider.isSurfaceWorld()) {
 						try {
-							depthFactor = (double) gemClass.getField((gemType + "_depth_threshold").toUpperCase()).get(null); 
+							depthFactor = (double) gemClass.getField((gemType + "_depth_threshold").toUpperCase()).get(null);
 							if (depthFactor > 0) {
 								pressureFactor = depthFactor / pos.getY();
 								depthFactor = Math.min(1.0, pressureFactor);
-							}
-							else {
+							} else {
 								depthFactor = 1.0;
 							}
-						}
-						catch (Exception e) {
-							//System.out.println("depthFactor not used.");
+						} catch (Exception e) {
+							// System.out.println("depthFactor
+							// not used.");
 						}
 					}
 					double defectivityRate = 1.0;
@@ -171,7 +169,9 @@ public class InjectorResult {
 								BlockPos ore = pos.add(x, y, z);
 								IBlockState state = world.getBlockState(ore);
 								CruxCheckEvent e2 = new CruxCheckEvent(world, pos, ore, state, gemClass);
-								if (MinecraftForge.EVENT_BUS.post(e2)) continue;
+								if (MinecraftForge.EVENT_BUS.post(e2)) {
+									continue;
+								}
 								try {
 									if (!resultTable.containsKey(gemClass)) {
 										resultTable.put(gemClass, 0.0);
@@ -180,14 +180,13 @@ public class InjectorResult {
 										double result = yield.get(state);
 										if (result > 1.98) {
 											result *= Math.max(pressureFactor, 1.0);
-										}
-										else {
+										} else {
 											result *= depthFactor;
 										}
 										resultTable.put(gemClass, resultTable.get(gemClass) + result);
 										frictionFactor += 0.0036;
 										defectivityRate -= 0.2;
-										
+
 									} else {
 										ItemStack stack = new ItemStack(state.getBlock(), 1, state.getBlock().getMetaFromState(state));
 										if (!stack.isEmpty()) {
@@ -223,33 +222,32 @@ public class InjectorResult {
 					defectivity.put(gemClass, Math.max(0.0, defectivityRate * defectivityMultiplier));
 					resultTable.put(gemClass, resultTable.get(gemClass));
 					friction.put(gemClass, frictionFactor * pressureFactor);
-				}
-				catch (Exception e) {
+				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		}
 		PostInjectionEvent e3 = new PostInjectionEvent(world, pos, defectivity, resultTable, friction);
-		if (MinecraftForge.EVENT_BUS.post(e3)) return new InjectorResult();
+		if (MinecraftForge.EVENT_BUS.post(e3)) {
+			return new InjectorResult();
+		}
 		boolean canSpawnGem = false;
 		Class<? extends EntityGem> mostLikelyGem = null;
 		double highestYield = 0.0;
 		for (Class<EntityGem> gemClass : resultTable.keySet()) {
 			if (!gemClass.getName().contains("Diamond")) {
 				boolean forget = world.rand.nextBoolean();
-				if (resultTable.get(gemClass) > 0.1 && world.rand.nextInt((int)(resultTable.get(gemClass) * 10) + 1) == 0) {
+				if (resultTable.get(gemClass) > 0.1 && world.rand.nextInt((int) (resultTable.get(gemClass) * 10) + 1) == 0) {
 					highestYield = resultTable.get(gemClass);
 					mostLikelyGem = gemClass;
 					canSpawnGem = true;
-				}
-				else {
+				} else {
 					double result = resultTable.get(gemClass);
 					if (result == highestYield && result > 0) {
 						highestYield = forget ? resultTable.get(gemClass) : highestYield;
 						mostLikelyGem = forget ? gemClass : mostLikelyGem;
 						canSpawnGem = true;
-					}
-					else if (result > highestYield && result > 0) {
+					} else if (result > highestYield && result > 0) {
 						highestYield = resultTable.get(gemClass);
 						mostLikelyGem = gemClass;
 						canSpawnGem = true;
@@ -268,16 +266,17 @@ public class InjectorResult {
 		EntityGem gemSpawned = null;
 		if (canSpawnGem) {
 			try {
-				gemSpawned = (EntityGem)(mostLikelyGem.getConstructors()[0].newInstance(world));
-			}
-			catch (Exception e) {
+				gemSpawned = (EntityGem) mostLikelyGem.getConstructors()[0].newInstance(world);
+			} catch (Exception e) {
 				e.printStackTrace();
 				System.out.println("Error creating gem: " + e.getMessage());
 				canSpawnGem = false;
 			}
 		}
 		GemSpawnEvent e4 = new GemSpawnEvent(world, pos, gemSpawned, mineralSpawned, canSpawnGem, drainedCount, baseMinerals, highestYield);
-		if (MinecraftForge.EVENT_BUS.post(e4)) return new InjectorResult();
+		if (MinecraftForge.EVENT_BUS.post(e4)) {
+			return new InjectorResult();
+		}
 		ExitHole exitHole = null;
 		if (drain && gemSpawned != null) {
 			Double gemFriction = friction.get(gemSpawned.getClass());
@@ -294,32 +293,37 @@ public class InjectorResult {
 					for (int z = -4; z <= 4; ++z) {
 						if (world.rand.nextBoolean()) {
 							BlockPos ore = pos.add(x, y, z);
-							drainBlock(world, ore);
+							InjectorResult.drainBlock(world, ore);
 						}
 					}
 				}
 			}
 		}
-		return new InjectorResult(gemSpawned, pos, mineralSpawned ? 1.0 : (gemSpawned == null ? 0.0 : defectivity.get(gemSpawned.getClass())), !canSpawnGem, canSpawnGem ? friction.get(gemSpawned.getClass()) >= 1.0F : false, exitHole);
+		return new InjectorResult(gemSpawned, pos, mineralSpawned ? 1.0 : gemSpawned == null ? 0.0 : defectivity.get(gemSpawned.getClass()), !canSpawnGem, canSpawnGem
+																																																																																																																																																																																						? friction.get(gemSpawned.getClass()) >= 1.0F
+																																																																																																																																																																																						: false,
+																																																																																																																																																																																						exitHole);
 	}
-	
+
 	public static void drainBlock(World world, BlockPos ore) {
 		IBlockState state = world.getBlockState(ore);
 		Block block = state.getBlock();
-		
+
 		DrainBlockEvent e1 = new DrainBlockEvent(world, ore, state, block);
-		if (MinecraftForge.EVENT_BUS.post(e1)) return;
+		if (MinecraftForge.EVENT_BUS.post(e1)) {
+			return;
+		}
 		if (block instanceof BlockBush) {
 			world.destroyBlock(ore, false);
 			return;
 		} else if (block == Blocks.BEDROCK) {
 			return;
 		}
-		
-		//Soul sand -> sand
-		//Dirt/grass -> coarse dirt
-		//Coarse dirt/sand -> gravel
-		//Stone -> drained stone
+
+		// Soul sand -> sand
+		// Dirt/grass -> coarse dirt
+		// Coarse dirt/sand -> gravel
+		// Stone -> drained stone
 		if (state == Blocks.SOUL_SAND.getDefaultState()) {
 			world.setBlockState(ore, Blocks.SAND.getDefaultState());
 		} else if (state == Blocks.DIRT.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.COARSE_DIRT) || state == Blocks.SAND.getDefaultState()) {
@@ -331,7 +335,9 @@ public class InjectorResult {
 			int[] oreIDs = OreDictionary.getOreIDs(oreItem);
 			String oreName = oreIDs.length != 0 ? OreDictionary.getOreName(oreIDs[0]) : "";
 			if (oreIDs.length != 0 && (oreName.startsWith("ore") || oreName.startsWith("gravel"))) {
-				//KAGIC.instance.chatInfoMessage("Found falling ore of type " + OreDictionary.getOreName(OreDictionary.getOreIDs(oreItem)[0]));
+				// KAGIC.instance.chatInfoMessage("Found
+				// falling ore of type " +
+				// OreDictionary.getOreName(OreDictionary.getOreIDs(oreItem)[0]));
 				world.setBlockState(ore, ModBlocks.DRAINED_GRAVEL.getDefaultState());
 			}
 		} else if ((state.getMaterial() == Material.ROCK || state.getMaterial() == Material.IRON || block instanceof BlockGlowstone) && (state.isFullCube() || block instanceof BlockShulkerBox)) {
@@ -342,7 +348,7 @@ public class InjectorResult {
 				shulker.setCustomName(null);
 				shulker.setLootTable(null, 0);
 			}
-
+			
 			if (ore.getY() % 6 == 0 || ore.getY() % 6 == 1) {
 				world.setBlockState(ore, ModBlocks.DRAINED_BLOCK_2.getDefaultState());
 			} else if (ore.getY() % 5 == 0) {

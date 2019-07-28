@@ -15,7 +15,7 @@ public class ModelMoissanite extends ModelGem {
 	public ModelRenderer bottom2;
 	public ModelRenderer top2;
 	public ModelRenderer top3;
-
+	
 	public ModelMoissanite() {
 		super(0F, 0.0F, 64, 64, false, -4F);
 		this.bottom1 = new ModelRenderer(this, 32, 0);
@@ -24,11 +24,11 @@ public class ModelMoissanite extends ModelGem {
 		this.gem = new ModelRenderer(this, 0, 0);
 		this.gem.setRotationPoint(0.0F, -6.0F, -4.5F);
 		this.gem.addBox(-1.0F, -1.0F, 0.0F, 2, 2, 1, 0.0F);
-		this.setRotateAngle(gem, 0.0F, 0.0F, 0.7853981633974483F);
+		this.setRotateAngle(this.gem, 0.0F, 0.0F, 0.7853981633974483F);
 		this.gem_1 = new ModelRenderer(this, 0, 0);
 		this.gem_1.setRotationPoint(0.0F, -6.0F, 4.5F);
 		this.gem_1.addBox(-1.0F, -1.0F, -1.0F, 2, 2, 1, 0.0F);
-		this.setRotateAngle(gem_1, 0.0F, 0.0F, 0.7853981633974483F);
+		this.setRotateAngle(this.gem_1, 0.0F, 0.0F, 0.7853981633974483F);
 		this.bottom2 = new ModelRenderer(this, 32, 21);
 		this.bottom2.setRotationPoint(0.0F, 5.0F, 0.0F);
 		this.bottom2.addBox(-2.0F, -2.0F, -2.0F, 4, 4, 4, 0.0F);
@@ -47,7 +47,7 @@ public class ModelMoissanite extends ModelGem {
 		this.orbit = new ModelRenderer(this, 0, 33);
 		this.orbit.setRotationPoint(0.0F, 0.0F, 0.0F);
 		this.orbit.addBox(-7.0F, -1.5F, -7.0F, 14, 3, 14, 0.0F);
-		this.setRotateAngle(orbit, 0.0F, -2.4586453172844123F, 0.0F);
+		this.setRotateAngle(this.orbit, 0.0F, -2.4586453172844123F, 0.0F);
 		this.body.addChild(this.bottom1);
 		this.body.addChild(this.gem);
 		this.body.addChild(this.gem_1);
@@ -56,9 +56,9 @@ public class ModelMoissanite extends ModelGem {
 		this.top1.addChild(this.top2);
 		this.top2.addChild(this.top3);
 	}
-
+	
 	@Override
-	public void render(Entity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) { 
+	public void render(Entity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 		this.body.render(scale);
 		GlStateManager.pushMatrix();
 		GlStateManager.translate(this.orbit.offsetX, this.orbit.offsetY, this.orbit.offsetZ);
@@ -70,14 +70,15 @@ public class ModelMoissanite extends ModelGem {
 		this.orbit.render(scale);
 		GlStateManager.popMatrix();
 	}
-
+	
 	@Override
 	public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entity) {
-		
+
 	}
-	
+
 	/**
-	 * This is a helper function from Tabula to set the rotation of model parts
+	 * This is a helper function from Tabula to set the
+	 * rotation of model parts
 	 */
 	public void setRotateAngle(ModelRenderer modelRenderer, float x, float y, float z) {
 		modelRenderer.rotateAngleX = x;

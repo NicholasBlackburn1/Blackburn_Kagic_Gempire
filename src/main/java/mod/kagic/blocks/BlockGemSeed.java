@@ -27,59 +27,68 @@ public class BlockGemSeed extends Block {
 		this.setTickRandomly(true);
 		this.setLightLevel(9.0F);
 	}
-	
+
 	/*********************************************************
-     * Methods related to block activation and interaction.  *
-     *********************************************************/
+	 * Methods related to block activation and interaction.
+	 * *
+	 *********************************************************/
+	@Override
 	public void randomTick(World worldIn, BlockPos pos, IBlockState state, Random random) {
-        super.randomTick(worldIn, pos, state, random);
+		super.randomTick(worldIn, pos, state, random);
 		this.age(worldIn, pos, state, random);
-    }
+	}
 	public void age(World worldIn, BlockPos pos, IBlockState state, Random rand) {
-		if (worldIn.getBlockState(pos).getValue(AGE) < 3) {
-			worldIn.setBlockState(pos, state.cycleProperty(AGE));
-		}
-		else {
+		if (worldIn.getBlockState(pos).getValue(BlockGemSeed.AGE) < 3) {
+			worldIn.setBlockState(pos, state.cycleProperty(BlockGemSeed.AGE));
+		} else {
 			InjectorResult result = InjectorResult.create(worldIn, pos, true);
 			result.generate(worldIn);
 		}
 	}
-	
+
 	/*********************************************************
-	 * Methods related to block destruction and removal.     *
+	 * Methods related to block destruction and removal. *
 	 *********************************************************/
+	@Override
 	public int quantityDropped(Random random) {
 		return 0;
 	}
+
+	/*********************************************************
+	 * Methods related to block states and aging. *
+	 *********************************************************/
+	@Override
+	protected BlockStateContainer createBlockState() {
+		return new BlockStateContainer(this, BlockGemSeed.AGE);
+	}
+	@Override
+	public IBlockState getStateFromMeta(int meta) {
+		return this.getDefaultState().withProperty(BlockGemSeed.AGE, meta);
+	}
+	@Override
+	public int getMetaFromState(IBlockState state) {
+		return state.getValue(BlockGemSeed.AGE);
+	}
 	
 	/*********************************************************
-	 * Methods related to block states and aging.            *
+	 * Methods related to block rendering. *
 	 *********************************************************/
-	protected BlockStateContainer createBlockState() {
-        return new BlockStateContainer(this, AGE);
-	}
-	public IBlockState getStateFromMeta(int meta) {
-		return this.getDefaultState().withProperty(AGE, meta);
-	}
-	public int getMetaFromState(IBlockState state) {
-	    return state.getValue(AGE);
-	}
-
-    /*********************************************************
-     * Methods related to block rendering.                   *
-     *********************************************************/
+	@Override
 	@SideOnly(Side.CLIENT)
-    public BlockRenderLayer getBlockLayer() {
-        return BlockRenderLayer.TRANSLUCENT;
-    }
-    @SideOnly(Side.CLIENT)
-    public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side) {
-        return true;
-    }
-    public boolean isFullCube(IBlockState state) {
-        return false;
-    }
-    public boolean isOpaqueCube(IBlockState state) {
-        return false;
-    }
+	public BlockRenderLayer getBlockLayer() {
+		return BlockRenderLayer.TRANSLUCENT;
+	}
+	@Override
+	@SideOnly(Side.CLIENT)
+	public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side) {
+		return true;
+	}
+	@Override
+	public boolean isFullCube(IBlockState state) {
+		return false;
+	}
+	@Override
+	public boolean isOpaqueCube(IBlockState state) {
+		return false;
+	}
 }

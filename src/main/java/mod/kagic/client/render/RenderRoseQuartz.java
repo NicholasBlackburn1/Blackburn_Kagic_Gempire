@@ -14,13 +14,10 @@ import mod.kagic.client.render.layers.LayerSkin;
 import mod.kagic.client.render.layers.LayerUniform;
 import mod.kagic.client.render.layers.LayerVisor;
 import mod.kagic.client.render.layers.LayerWitchHat;
-import mod.kagic.entity.gem.EntityJasper;
 import mod.kagic.entity.gem.EntityRoseQuartz;
 import mod.kagic.init.KAGIC;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.entity.RenderBiped;
-import net.minecraft.client.renderer.entity.RenderLivingBase;
 import net.minecraft.client.renderer.entity.layers.LayerBipedArmor;
 import net.minecraft.client.renderer.entity.layers.LayerHeldItem;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
@@ -28,22 +25,22 @@ import net.minecraft.util.ResourceLocation;
 
 public class RenderRoseQuartz extends RenderGemBase<EntityRoseQuartz> {
 	public RenderRoseQuartz() {
-        super(Minecraft.getMinecraft().getRenderManager(), new ModelQuartz(), 0.25F);
+		super(Minecraft.getMinecraft().getRenderManager(), new ModelQuartz(), 0.25F);
 		for (Iterator<LayerRenderer<EntityRoseQuartz>> iter = this.layerRenderers.iterator(); iter.hasNext();) {
 			LayerRenderer layer = iter.next();
 			if (layer instanceof LayerHeldItem) {
 				iter.remove();
 			}
 		}
-
+		
 		this.addLayer(new LayerQuartzItem(this));
-        this.addLayer(new LayerSkin(this));
-        this.addLayer(new LayerUniform(this));
-        this.addLayer(new LayerInsignia(this));
-        this.addLayer(new LayerHair(this));
-        this.addLayer(new LayerVisor(this));
-        this.addLayer(new LayerQuartzCape(this));
-        this.addLayer(new LayerGemPlacement(this));
+		this.addLayer(new LayerSkin(this));
+		this.addLayer(new LayerUniform(this));
+		this.addLayer(new LayerInsignia(this));
+		this.addLayer(new LayerHair(this));
+		this.addLayer(new LayerVisor(this));
+		this.addLayer(new LayerQuartzCape(this));
+		this.addLayer(new LayerGemPlacement(this));
 		if (KAGIC.isBirthday()) {
 			this.addLayer(new LayerBirthdayHat(this));
 		} else if (KAGIC.isHalloween()) {
@@ -51,7 +48,7 @@ public class RenderRoseQuartz extends RenderGemBase<EntityRoseQuartz> {
 		} else if (KAGIC.isChristmas()) {
 			this.addLayer(new LayerSantaHat(this));
 		}
-
+		
 		LayerBipedArmor roseQuartzArmor = new LayerBipedArmor(this) {
 			@Override
 			protected void initArmor() {
@@ -60,8 +57,8 @@ public class RenderRoseQuartz extends RenderGemBase<EntityRoseQuartz> {
 			}
 		};
 		this.addLayer(roseQuartzArmor);
-    }
-	
+	}
+
 	@Override
 	protected void preRenderCallback(EntityRoseQuartz roseQuartz, float partialTickTime) {
 		if (roseQuartz.isDefective()) {
@@ -70,7 +67,7 @@ public class RenderRoseQuartz extends RenderGemBase<EntityRoseQuartz> {
 			GlStateManager.scale(1.1F, 1.1F, 1.1F);
 		}
 	}
-	
+
 	@Override
 	protected ResourceLocation getEntityTexture(EntityRoseQuartz entity) {
 		return new ResourceLocation("kagic:textures/entities/rose_quartz/rose_quartz.png");

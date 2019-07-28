@@ -6,7 +6,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 
 public class EntityAIExtinguishFires extends EntityAIBase {
-    private final EntityLapisLazuli gem;
+	private final EntityLapisLazuli gem;
 	private final double movementSpeed;
 	private final int searchRadius;
 	private boolean placed = false;
@@ -14,7 +14,7 @@ public class EntityAIExtinguishFires extends EntityAIBase {
 	private double posY;
 	private double posZ;
 	private int delay;
-	
+
 	public EntityAIExtinguishFires(EntityLapisLazuli gemIn, double speedIn, int radius) {
 		this.gem = gemIn;
 		this.movementSpeed = speedIn;
@@ -22,19 +22,18 @@ public class EntityAIExtinguishFires extends EntityAIBase {
 		this.delay = 0;
 		this.setMutexBits(0);
 	}
-	
+
 	@Override
 	public boolean shouldExecute() {
 		if (this.delay > 0) {
 			--this.delay;
 			return false;
-		}
-		else {
+		} else {
 			this.delay = this.gem.getRNG().nextInt(20);
 			return true;
 		}
 	}
-	
+
 	@Override
 	public void startExecuting() {
 		boolean found = false;
@@ -56,18 +55,18 @@ public class EntityAIExtinguishFires extends EntityAIBase {
 			this.gem.getNavigator().tryMoveToXYZ(this.posX, this.posY, this.posZ, this.movementSpeed);
 		}
 	}
-	
+
 	@Override
 	public boolean shouldContinueExecuting() {
 		return !this.gem.getNavigator().noPath();
 	}
-	
+
 	@Override
 	public void resetTask() {
 		this.gem.getNavigator().clearPath();
 		this.placed = false;
 	}
-	
+
 	@Override
 	public void updateTask() {
 		this.gem.getNavigator().tryMoveToXYZ(this.posX, this.posY, this.posZ, this.movementSpeed);

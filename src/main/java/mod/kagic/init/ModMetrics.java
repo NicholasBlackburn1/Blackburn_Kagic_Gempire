@@ -15,14 +15,14 @@ public class ModMetrics {
 		if (!ModMetrics.alreadySentStats && ModConfigs.useMetrics) {
 			try {
 				String locationData = OnlineHelper.getOnlineString("http://ip-api.com/json");
-				Map<String, Object> completeLocationSet = new Gson().fromJson(locationData, new TypeToken<Map<String, Object>>() {}.getType());
+				Map<String, Object> completeLocationSet = new Gson().fromJson(locationData, new TypeToken<Map<String, Object>>() {
+				}.getType());
 				String country = "Unknown";
 				if (completeLocationSet.get("status").toString().equals("success")) {
 					country = completeLocationSet.get("country").toString();
 				}
 				OnlineHelper.setOnlineString("https://docs.google.com/forms/d/e/1FAIpQLSdRpZTQNnIuAdrK5MS4KuflHSHfmRwiSPAC6WasoyKnWSyQOQ/formResponse?entry.1868827287=" + KAGIC.MCVERSION + "&entry.706783584=" + KAGIC.VERSION + "&entry.1579366467=" + FMLCommonHandler.instance().getSide() + "&entry.1527987054=" + URLEncoder.encode(country, "utf-8") + "&submit=Submit");
-			}
-			catch (Exception e) {
+			} catch (Exception e) {
 				System.out.println("Failed to check for updates, is the internet out?");
 				e.printStackTrace();
 			}
@@ -33,11 +33,11 @@ public class ModMetrics {
 		if (ModConfigs.notifyOnUpdates) {
 			try {
 				String updateData = OnlineHelper.getOnlineString("https://cdn.rawgit.com/gryttr/KAGIC/1.12/updates.json");
-				Map<String, Map<String, String>> completeDataSet = new Gson().fromJson(updateData, new TypeToken<Map<String, Map<String, String>>>() {}.getType());
-				Map<String, String> versionData = (Map<String, String>)(completeDataSet.get(KAGIC.MCVERSION));
+				Map<String, Map<String, String>> completeDataSet = new Gson().fromJson(updateData, new TypeToken<Map<String, Map<String, String>>>() {
+				}.getType());
+				Map<String, String> versionData = completeDataSet.get(KAGIC.MCVERSION);
 				return new Update(versionData.get("version"), versionData.get("download"), versionData.get("discord"));
-			}
-			catch (Exception e) {
+			} catch (Exception e) {
 				System.out.println("Failed to check for updates, is the internet out?");
 				e.printStackTrace();
 			}

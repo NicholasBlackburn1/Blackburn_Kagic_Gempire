@@ -6,7 +6,7 @@ import net.minecraft.block.BlockStairs;
 import net.minecraft.block.SoundType;
 
 public class BlockPinkSandstoneStairs extends BlockStairs {
-
+	
 	public BlockPinkSandstoneStairs(String name) {
 		super(ModBlocks.PINK_SANDSTONE.getDefaultState());
 		this.setSoundType(SoundType.STONE);
@@ -16,5 +16,5 @@ public class BlockPinkSandstoneStairs extends BlockStairs {
 		this.setCreativeTab(ModCreativeTabs.CREATIVE_TAB_OTHER);
 		this.useNeighborBrightness = true;
 	}
-
+	
 }

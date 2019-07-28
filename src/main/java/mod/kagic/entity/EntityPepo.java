@@ -30,58 +30,65 @@ public class EntityPepo extends EntityCreature {
 		super(worldIn);
 		this.dropItem = dropItem;
 		this.setSize(0.5F, 1.5F);
-		
+
 		// Other entity AIs.
 		this.tasks.addTask(2, new EntityAIAttackMelee(this, 1.0D, true));
-        this.tasks.addTask(3, new EntityAIMoveTowardsTarget(this, 0.414D, 32.0F));
-        this.tasks.addTask(4, new EntityAIFollowRose(this, 1.0D));
-        this.tasks.addTask(5, new EntityAIMoveTowardsRestriction(this, 1.0D));
-        this.tasks.addTask(7, new EntityAIWander(this, 0.6D));
-        this.tasks.addTask(8, new EntityAIWatchClosest(this, EntityPlayer.class, 16.0F));
-        this.tasks.addTask(8, new EntityAIWatchClosest(this, EntityMob.class, 16.0F));
-        this.tasks.addTask(9, new EntityAILookIdle(this));
-        
-        // Apply targetting.
-        this.targetTasks.addTask(1, new EntityAIRoseHurtByTarget(this));
-        this.targetTasks.addTask(3, new EntityAIHurtByTarget(this, false, new Class[0]));
-        
-        // Apply entity attributes.
-        this.getAttributeMap().registerAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(2.0D);
-        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(20.0D);
-        this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.6D);
+		this.tasks.addTask(3, new EntityAIMoveTowardsTarget(this, 0.414D, 32.0F));
+		this.tasks.addTask(4, new EntityAIFollowRose(this, 1.0D));
+		this.tasks.addTask(5, new EntityAIMoveTowardsRestriction(this, 1.0D));
+		this.tasks.addTask(7, new EntityAIWander(this, 0.6D));
+		this.tasks.addTask(8, new EntityAIWatchClosest(this, EntityPlayer.class, 16.0F));
+		this.tasks.addTask(8, new EntityAIWatchClosest(this, EntityMob.class, 16.0F));
+		this.tasks.addTask(9, new EntityAILookIdle(this));
+		
+		// Apply targetting.
+		this.targetTasks.addTask(1, new EntityAIRoseHurtByTarget(this));
+		this.targetTasks.addTask(3, new EntityAIHurtByTarget(this, false, new Class[0]));
+		
+		// Apply entity attributes.
+		this.getAttributeMap().registerAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(2.0D);
+		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(20.0D);
+		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.6D);
 	}
+	@Override
 	public boolean canBreatheUnderwater() {
-        return true;
-    }
-    public boolean canDespawn() {
+		return true;
+	}
+	@Override
+	public boolean canDespawn() {
 		return false;
-    }
-    public EntityRoseQuartz getMaster() {
-        return this.master;
-    }
-    public void setMaster(EntityRoseQuartz master) {
-        this.master = master;
-    }
-    public boolean shouldAttackEntity(EntityLivingBase var1, EntityLivingBase var2) {
-        return true;
-    }
-    public boolean attackEntityAsMob(Entity entityIn) {
-        float amount = (float)(this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getAttributeValue());
-        this.swingArm(EnumHand.MAIN_HAND);
-        return entityIn.attackEntityFrom(DamageSource.causeMobDamage(this), amount);
-    }
+	}
+	public EntityRoseQuartz getMaster() {
+		return this.master;
+	}
+	public void setMaster(EntityRoseQuartz master) {
+		this.master = master;
+	}
+	public boolean shouldAttackEntity(EntityLivingBase var1, EntityLivingBase var2) {
+		return true;
+	}
+	@Override
+	public boolean attackEntityAsMob(Entity entityIn) {
+		float amount = (float) this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getAttributeValue();
+		this.swingArm(EnumHand.MAIN_HAND);
+		return entityIn.attackEntityFrom(DamageSource.causeMobDamage(this), amount);
+	}
+	@Override
 	public void onDeath(DamageSource cause) {
 		if (!this.world.isRemote) {
 			this.entityDropItem(this.dropItem, 0.0F);
 		}
 		super.onDeath(cause);
 	}
+	@Override
 	protected SoundEvent getAmbientSound() {
 		return ModSounds.PEPO_LIVING;
 	}
+	@Override
 	protected SoundEvent getHurtSound(DamageSource source) {
 		return ModSounds.PEPO_LIVING;
 	}
+	@Override
 	protected SoundEvent getDeathSound() {
 		return ModSounds.PEPO_LIVING;
 	}

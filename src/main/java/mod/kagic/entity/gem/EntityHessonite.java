@@ -46,17 +46,17 @@ public class EntityHessonite extends EntityGem implements IAnimals {
 	public static final HashMap<IBlockState, Double> HESSONITE_YIELDS = new HashMap<IBlockState, Double>();
 	public static final double HESSONITE_DEFECTIVITY_MULTIPLIER = 1;
 	public static final double HESSONITE_DEPTH_THRESHOLD = 32;
-	
+
 	private static final int SKIN_COLOR_BEGIN = 0xF0A100;
 	private static final int SKIN_COLOR_END = 0xF0A100;
-	
+
 	private static final int NUM_HAIRSTYLES = 1;
-	
+
 	private static final int HAIR_COLOR_BEGIN = 0xF8F299;
 	private static final int HAIR_COLOR_END = 0xF8F299;
-	
-	private static final float ENEMY_WEAPON_DROP_CHANCE = 0.5F;
 
+	private static final float ENEMY_WEAPON_DROP_CHANCE = 0.5F;
+	
 	public EntityHessonite(World world) {
 		super(world);
 		this.nativeColor = 14;
@@ -64,33 +64,34 @@ public class EntityHessonite extends EntityGem implements IAnimals {
 		this.isSoldier = true;
 		this.visorChanceReciprocal = 1;
 		this.canTalk = true;
-		
+
 		this.setCutPlacement(GemCuts.PILLOW, GemPlacements.BACK_OF_HEAD);
 		this.setCutPlacement(GemCuts.PILLOW, GemPlacements.RIGHT_EYE);
 		this.setCutPlacement(GemCuts.PILLOW, GemPlacements.BACK);
 		this.setCutPlacement(GemCuts.PILLOW, GemPlacements.CHEST);
 		this.setCutPlacement(GemCuts.PILLOW, GemPlacements.BELLY);
-
+		
 		// Apply entity AI
 		this.stayAI = new EntityAIStay(this);
 		this.tasks.addTask(1, new EntityAIFollowDiamond(this, 1.0D));
-        this.tasks.addTask(1, new EntityAICommandGems(this, 0.6D));
+		this.tasks.addTask(1, new EntityAICommandGems(this, 0.6D));
 		this.tasks.addTask(2, new EntityAISitStill(this, 1.0D));
 		this.tasks.addTask(3, new EntityAIScareMobs(this));
 		this.tasks.addTask(4, new EntityAIWatchClosest(this, EntityPlayer.class, 16.0F));
 		this.tasks.addTask(4, new EntityAIWatchClosest(this, EntityMob.class, 16.0F));
 		this.tasks.addTask(5, new EntityAILookIdle(this));
-		
+
 		// Apply targeting
 		this.targetTasks.addTask(1, new EntityAIDiamondHurtByTarget(this));
 		this.targetTasks.addTask(2, new EntityAIDiamondHurtTarget(this));
 		this.targetTasks.addTask(3, new EntityAIHurtByTarget(this, false, new Class[0]));
 		this.targetTasks.addTask(4, new EntityAINearestAttackableTarget<EntityLiving>(this, EntityLiving.class, 10, true, false, new Predicate<EntityLiving>() {
+			@Override
 			public boolean apply(EntityLiving input) {
 				return input != null && IMob.VISIBLE_MOB_SELECTOR.apply(input);
 			}
 		}));
-		
+
 		// Apply entity attributes
 		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(100.0D);
 		this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(8.0D);
@@ -99,39 +100,39 @@ public class EntityHessonite extends EntityGem implements IAnimals {
 		this.droppedGemItem = ModItems.HESSONITE_GEM;
 		this.droppedCrackedGemItem = ModItems.CRACKED_HESSONITE_GEM;
 	}
-
+	
 	@Override
 	public void onLivingUpdate() {
 		if (this.world.isRemote && this.isPrimary()) {
 			for (int i = 0; i < 2; ++i) {
-				this.world.spawnParticle(EnumParticleTypes.CRIT, this.posX + (this.rand.nextDouble() - 0.5D) * (double) this.width, this.posY + this.rand.nextDouble() * (double) this.height - 0.25D, this.posZ + (this.rand.nextDouble() - 0.5D) * (double) this.width, (this.rand.nextDouble() - 0.5D) * 2.0D, this.rand.nextDouble(), (this.rand.nextDouble() - 0.5D) * 2.0D);
+				this.world.spawnParticle(EnumParticleTypes.CRIT, this.posX + (this.rand.nextDouble() - 0.5D) * this.width, this.posY + this.rand.nextDouble() * this.height - 0.25D, this.posZ + (this.rand.nextDouble() - 0.5D) * this.width, (this.rand.nextDouble() - 0.5D) * 2.0D, this.rand.nextDouble(), (this.rand.nextDouble() - 0.5D) * 2.0D);
 			}
 		}
 		super.onLivingUpdate();
 	}
-
+	
 	@Override
 	public void whenDefective() {
 		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(50.0D);
 		this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(4.0D);
 		this.setSize(0.72F, 1.61F);
 	}
-
-	// This is for when we attack 
+	
+	// This is for when we attack
 	@Override
 	public boolean attackEntityAsMob(Entity entity) {
 		boolean attacked = super.attackEntityAsMob(entity);
-		
+
 		if (entity instanceof EntityLivingBase) {
 			EntityLivingBase target = (EntityLivingBase) entity;
 			if (attacked && !this.isDefective() && this.rand.nextFloat() < EntityHessonite.ENEMY_WEAPON_DROP_CHANCE) {
 				GemPlayerLoot.dropEntityMainHand(target);
 			}
 		}
-		
+
 		return attacked;
 	}
-	
+
 	// This is for when we get attacked
 	@Override
 	public boolean attackEntityFrom(DamageSource source, float amount) {
@@ -140,9 +141,9 @@ public class EntityHessonite extends EntityGem implements IAnimals {
 		}
 		return super.attackEntityFrom(source, amount);
 	}
-	
+
 	protected boolean teleportToEntity(Entity target) {
-		Vec3d vec3d = new Vec3d(this.posX - target.posX, this.getEntityBoundingBox().minY + (double)(this.height / 2.0F) - target.posY + (double)target.getEyeHeight(), this.posZ - target.posZ);
+		Vec3d vec3d = new Vec3d(this.posX - target.posX, this.getEntityBoundingBox().minY + this.height / 2.0F - target.posY + target.getEyeHeight(), this.posZ - target.posZ);
 		if (vec3d.lengthVector() < 4F) {
 			return false;
 		}
@@ -151,18 +152,18 @@ public class EntityHessonite extends EntityGem implements IAnimals {
 		double d3 = target.posZ + (this.rand.nextDouble() - 0.5D) * 2.0D;
 		return this.teleportTo(d1, d2, d3);
 	}
-	
+
 	private boolean teleportTo(double x, double y, double z) {
 		boolean teleportSucceeded = this.attemptTeleport(x, y, z);
-
+		
 		if (teleportSucceeded) {
-			this.world.playSound((EntityPlayer)null, this.prevPosX, this.prevPosY, this.prevPosZ, ModSounds.HESSONITE_TELEPORT_START, this.getSoundCategory(), 1.0F, 1.0F);
+			this.world.playSound((EntityPlayer) null, this.prevPosX, this.prevPosY, this.prevPosZ, ModSounds.HESSONITE_TELEPORT_START, this.getSoundCategory(), 1.0F, 1.0F);
 			this.playSound(ModSounds.HESSONITE_TELEPORT_END, 1.0F, 1.0F);
 		}
-
+		
 		return teleportSucceeded;
 	}
-	
+
 	@Override
 	protected boolean canEquipItem(ItemStack stack) {
 		Item weapon = stack.getItem();
@@ -172,19 +173,19 @@ public class EntityHessonite extends EntityGem implements IAnimals {
 			return false;
 		}
 	}
-	
+
 	@Override
 	public boolean canPickUpLoot() {
 		return true;
 	}
-	
+
 	@Override
 	public void onItemPickup(Entity item, int quantity) {
 		this.setAttackAI();
 	}
-	
+
 	/*********************************************************
-	 * Methods related to sounds.							*
+	 * Methods related to sounds. *
 	 *********************************************************/
 	@Override
 	protected SoundEvent getAmbientSound() {
@@ -194,24 +195,24 @@ public class EntityHessonite extends EntityGem implements IAnimals {
 			return null;
 		}
 	}
-	
+
 	@Override
 	protected SoundEvent getDeathSound() {
 		return ModSounds.HESSONITE_DEATH;
 	}
-
+	
 	@Override
 	protected SoundEvent getHurtSound(DamageSource source) {
 		return ModSounds.HESSONITE_HURT;
 	}
-	
+
 	@Override
 	protected SoundEvent getObeySound() {
 		return ModSounds.HESSONITE_OBEY;
 	}
-	
+
 	/*********************************************************
-	 * Methods related to rendering.						 *
+	 * Methods related to rendering. *
 	 *********************************************************/
 	@Override
 	protected int generateSkinColor() {
@@ -220,12 +221,12 @@ public class EntityHessonite extends EntityGem implements IAnimals {
 		skinColors.add(EntityHessonite.SKIN_COLOR_END);
 		return Colors.arbiLerp(skinColors);
 	}
-	
+
 	@Override
 	protected int generateHairStyle() {
 		return this.rand.nextInt(EntityHessonite.NUM_HAIRSTYLES);
 	}
-	
+
 	@Override
 	protected int generateHairColor() {
 		ArrayList<Integer> hairColors = new ArrayList<Integer>();
@@ -233,7 +234,7 @@ public class EntityHessonite extends EntityGem implements IAnimals {
 		hairColors.add(EntityHessonite.HAIR_COLOR_END);
 		return Colors.arbiLerp(hairColors);
 	}
-
+	
 	@Override
 	public boolean hasCape() {
 		return true;

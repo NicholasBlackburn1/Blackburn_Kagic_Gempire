@@ -27,13 +27,15 @@ public class ItemTransferContract extends Item {
 		this.setCreativeTab(ModCreativeTabs.CREATIVE_TAB_OTHER);
 		this.setMaxStackSize(1);
 	}
-	
+
+	@Override
 	public void onCreated(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn) {
-        itemStackIn.setTagCompound(new NBTTagCompound());
-        this.setOwner(EntityPlayer.getUUID(playerIn.getGameProfile()), itemStackIn);
-        itemStackIn.setStackDisplayName(new TextComponentTranslation("item.transfer_contract.signedname", playerIn.getName()).getUnformattedComponentText());
-    }
-	
+		itemStackIn.setTagCompound(new NBTTagCompound());
+		this.setOwner(EntityPlayer.getUUID(playerIn.getGameProfile()), itemStackIn);
+		itemStackIn.setStackDisplayName(new TextComponentTranslation("item.transfer_contract.signedname", playerIn.getName()).getUnformattedComponentText());
+	}
+
+	@Override
 	public EnumActionResult onItemUse(EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
 		if (this.getOwner(playerIn.getHeldItem(hand)) == null) {
 			this.setOwner(EntityPlayer.getUUID(playerIn.getGameProfile()), playerIn.getHeldItem(hand));
@@ -41,26 +43,29 @@ public class ItemTransferContract extends Item {
 		}
 		return EnumActionResult.SUCCESS;
 	}
-	
+
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-		tooltip.add("\u00a7a" + (this.getOwner(stack) == null ? new TextComponentTranslation("command.kagic.right_click_to_sign").getUnformattedComponentText() : new TextComponentTranslation("command.kagic.signed").getUnformattedComponentText()));
+		tooltip.add("\u00a7a" + (this.getOwner(stack) == null
+																																																																																																																																																																																						? new TextComponentTranslation("command.kagic.right_click_to_sign").getUnformattedComponentText()
+																																																																																																																																																																																						: new TextComponentTranslation("command.kagic.signed").getUnformattedComponentText()));
 	}
-	
+
 	public UUID getOwner(ItemStack stack) {
-        return (stack.getTagCompound() != null && stack.getTagCompound().hasKey("ownerId")) ? UUID.fromString(stack.getTagCompound().getString("ownerId")) : null;
+		return stack.getTagCompound() != null && stack.getTagCompound().hasKey("ownerId") ? UUID.fromString(stack.getTagCompound().getString("ownerId")) : null;
 	}
-	
+
 	public void setOwner(UUID ownerId, ItemStack stack) {
 		if (stack.getTagCompound() == null) {
 			stack.setTagCompound(new NBTTagCompound());
 		}
 		stack.getTagCompound().setString("ownerId", ownerId.toString());
 	}
-	
+
+	@Override
 	@SideOnly(Side.CLIENT)
-    public boolean hasEffect(ItemStack stack) {
-        return this.getOwner(stack) != null;
-    }
+	public boolean hasEffect(ItemStack stack) {
+		return this.getOwner(stack) != null;
+	}
 }

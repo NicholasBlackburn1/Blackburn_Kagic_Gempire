@@ -9,14 +9,17 @@ import net.minecraft.util.ResourceLocation;
 
 public class RenderRoamingEye extends RenderLivingBase<EntityRoamingEye> {
 	public RenderRoamingEye() {
-        super(Minecraft.getMinecraft().getRenderManager(), new ModelRoamingEye(), 2.0F);
-    }
+		super(Minecraft.getMinecraft().getRenderManager(), new ModelRoamingEye(), 2.0F);
+	}
+	@Override
 	protected void preRenderCallback(EntityRoamingEye entitylivingbaseIn, float partialTickTime) {
-        GlStateManager.scale(4.0F, 4.0F, 4.0F);
-    }
+		GlStateManager.scale(4.0F, 4.0F, 4.0F);
+	}
+	@Override
 	protected boolean canRenderName(EntityRoamingEye entity) {
 		return entity.hasCustomName();
 	}
+	@Override
 	protected ResourceLocation getEntityTexture(EntityRoamingEye entity) {
 		if (entity.isBeingRidden()) {
 			return new ResourceLocation("kagic:textures/entities/roaming_eye/roaming_eye.png");

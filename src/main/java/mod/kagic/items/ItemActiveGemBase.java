@@ -13,8 +13,9 @@ public class ItemActiveGemBase extends Item {
 		this.setCreativeTab(ModCreativeTabs.CREATIVE_TAB_OTHER);
 		this.setMaxStackSize(16);
 	}
+	@Override
 	public void onCreated(ItemStack stack, World worldIn, EntityPlayer playerIn) {
 		super.onCreated(stack, worldIn, playerIn);
-		//playerIn.addStat(ModAchievements.GEM_FORGER);
+		// playerIn.addStat(ModAchievements.GEM_FORGER);
 	}
 }

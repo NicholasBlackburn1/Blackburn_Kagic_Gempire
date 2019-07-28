@@ -12,28 +12,30 @@ import net.minecraft.util.ResourceLocation;
 public class LayerPearlVisor implements LayerRenderer<EntityPearl> {
 	private final RenderLivingBase<?> pearlRenderer;
 	private final ModelBase pearlModel;
-	
+
 	public LayerPearlVisor(RenderLivingBase<?> pearlRendererIn) {
 		this.pearlRenderer = pearlRendererIn;
 		this.pearlModel = pearlRendererIn.getMainModel();
 	}
+	@Override
 	public void doRenderLayer(EntityPearl entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 		if (entitylivingbaseIn.hasVisor()) {
 			float[] afloat = EntitySheep.getDyeRgb(EnumDyeColor.values()[entitylivingbaseIn.getVisorColor()]);
 			GlStateManager.color(afloat[0], afloat[1], afloat[2]);
 			GlStateManager.enableNormalize();
-            GlStateManager.enableBlend();
-            GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
+			GlStateManager.enableBlend();
+			GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
 			this.pearlRenderer.bindTexture(this.getTexture(entitylivingbaseIn));
 			this.pearlModel.setModelAttributes(this.pearlRenderer.getMainModel());
-	        this.pearlModel.render(entitylivingbaseIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
-	        GlStateManager.disableBlend();
-            GlStateManager.disableNormalize();
+			this.pearlModel.render(entitylivingbaseIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
+			GlStateManager.disableBlend();
+			GlStateManager.disableNormalize();
 		}
 	}
 	public ResourceLocation getTexture(EntityPearl pearl) {
 		return new ResourceLocation("kagic:textures/entities/pearl/visor.png");
 	}
+	@Override
 	public boolean shouldCombineTextures() {
 		return true;
 	}

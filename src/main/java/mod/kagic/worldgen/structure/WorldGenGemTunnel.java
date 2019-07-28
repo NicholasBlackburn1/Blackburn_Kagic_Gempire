@@ -12,7 +12,7 @@ public class WorldGenGemTunnel extends WorldGenerator {
 	private int length = 7;
 	private int north = 0;
 	private int east = 0;
-	
+
 	public WorldGenGemTunnel(double height, double width, int north, int east, int length) {
 		this.gemHeight = height;
 		this.gemWidth = width;
@@ -20,86 +20,86 @@ public class WorldGenGemTunnel extends WorldGenerator {
 		this.north = north;
 		this.east = east;
 	}
-	
+
+	@Override
 	public boolean generate(World worldIn, Random rand, BlockPos position) {
-		if (north != 0 && east != 0) {
+		if (this.north != 0 && this.east != 0) {
 			if (rand.nextBoolean()) {
-				north = 0;
-			}
-			else {
-				east = 0;
-			}
-		}
-		if (north > 0) {
-			for (float yad = 0; yad < gemHeight; ++yad) {
-	    		for (float num = position.getZ(); num >= position.getZ() - length; --num) {
-	    			if (gemWidth == 3) {
-	    				worldIn.destroyBlock(new BlockPos(position.getX() - 1, yad + position.getY(), num), false);
-	    				worldIn.destroyBlock(new BlockPos(position.getX(), yad + position.getY(), num), false);
-	    				worldIn.destroyBlock(new BlockPos(position.getX() + 1, yad + position.getY(), num), false);
-	    			}
-	    			if (gemWidth == 2) {
-	    				worldIn.destroyBlock(new BlockPos(position.getX() - 1, yad + position.getY(), num), false);
-	    				worldIn.destroyBlock(new BlockPos(position.getX(), yad + position.getY(), num), false);
-	    			}
-	    			if (gemWidth == 1) {
-	    				worldIn.destroyBlock(new BlockPos(position.getX(), yad + position.getY(), num), false);
-	    			}
-	    		}
+				this.north = 0;
+			} else {
+				this.east = 0;
 			}
 		}
-		if (north < 0) {
-			for (float yad = 0; yad < gemHeight; ++yad) {
-	    		for (float num = position.getZ(); num <= position.getZ() + length; ++num) {
-	    			if (gemWidth == 3) {
-	    				worldIn.destroyBlock(new BlockPos(position.getX() - 1, yad + position.getY(), num), false);
-	    				worldIn.destroyBlock(new BlockPos(position.getX(), yad + position.getY(), num), false);
-	    				worldIn.destroyBlock(new BlockPos(position.getX() + 1, yad + position.getY(), num), false);
-	    			}
-	    			if (gemWidth == 2) {
-	    				worldIn.destroyBlock(new BlockPos(position.getX() - 1, yad + position.getY(), num), false);
-	    				worldIn.destroyBlock(new BlockPos(position.getX(), yad + position.getY(), num), false);
-	    			}
-	    			if (gemWidth == 1) {
-	    				worldIn.destroyBlock(new BlockPos(position.getX(), yad + position.getY(), num), false);
-	    			}
-	    		}
+		if (this.north > 0) {
+			for (float yad = 0; yad < this.gemHeight; ++yad) {
+				for (float num = position.getZ(); num >= position.getZ() - this.length; --num) {
+					if (this.gemWidth == 3) {
+						worldIn.destroyBlock(new BlockPos(position.getX() - 1, yad + position.getY(), num), false);
+						worldIn.destroyBlock(new BlockPos(position.getX(), yad + position.getY(), num), false);
+						worldIn.destroyBlock(new BlockPos(position.getX() + 1, yad + position.getY(), num), false);
+					}
+					if (this.gemWidth == 2) {
+						worldIn.destroyBlock(new BlockPos(position.getX() - 1, yad + position.getY(), num), false);
+						worldIn.destroyBlock(new BlockPos(position.getX(), yad + position.getY(), num), false);
+					}
+					if (this.gemWidth == 1) {
+						worldIn.destroyBlock(new BlockPos(position.getX(), yad + position.getY(), num), false);
+					}
+				}
 			}
 		}
-		if (east < 0) {
-			for (float yad = 0; yad < gemHeight; ++yad) {
-	    		for (float num = position.getX(); num >= position.getX() - length; --num) {
-	    			if (gemWidth == 3) {
-	    				worldIn.destroyBlock(new BlockPos(num, yad + position.getY(), position.getZ() - 1), false);
-		    			worldIn.destroyBlock(new BlockPos(num, yad + position.getY(), position.getZ()), false);
-		    			worldIn.destroyBlock(new BlockPos(num, yad + position.getY(), position.getZ() + 1), false);
-	    			}
-	    			if (gemWidth == 2) {
-	    				worldIn.destroyBlock(new BlockPos(num, yad + position.getY(), position.getZ() - 1), false);
-		    			worldIn.destroyBlock(new BlockPos(num, yad + position.getY(), position.getZ()), false);
-	    			}
-	    			if (gemWidth == 1) {
-		    			worldIn.destroyBlock(new BlockPos(num, yad + position.getY(), position.getZ()), false);
-	    			}
-	    		}
+		if (this.north < 0) {
+			for (float yad = 0; yad < this.gemHeight; ++yad) {
+				for (float num = position.getZ(); num <= position.getZ() + this.length; ++num) {
+					if (this.gemWidth == 3) {
+						worldIn.destroyBlock(new BlockPos(position.getX() - 1, yad + position.getY(), num), false);
+						worldIn.destroyBlock(new BlockPos(position.getX(), yad + position.getY(), num), false);
+						worldIn.destroyBlock(new BlockPos(position.getX() + 1, yad + position.getY(), num), false);
+					}
+					if (this.gemWidth == 2) {
+						worldIn.destroyBlock(new BlockPos(position.getX() - 1, yad + position.getY(), num), false);
+						worldIn.destroyBlock(new BlockPos(position.getX(), yad + position.getY(), num), false);
+					}
+					if (this.gemWidth == 1) {
+						worldIn.destroyBlock(new BlockPos(position.getX(), yad + position.getY(), num), false);
+					}
+				}
 			}
 		}
-		if (east > 0) {
-			for (float yad = 0; yad < gemHeight; ++yad) {
-	    		for (float num = position.getX(); num <= position.getX() + length; ++num) {
-	    			if (gemWidth == 3) {
-	    				worldIn.destroyBlock(new BlockPos(num, yad + position.getY(), position.getZ() - 1), false);
-		    			worldIn.destroyBlock(new BlockPos(num, yad + position.getY(), position.getZ()), false);
-		    			worldIn.destroyBlock(new BlockPos(num, yad + position.getY(), position.getZ() + 1), false);
-	    			}
-	    			if (gemWidth == 2) {
-	    				worldIn.destroyBlock(new BlockPos(num, yad + position.getY(), position.getZ() - 1), false);
-		    			worldIn.destroyBlock(new BlockPos(num, yad + position.getY(), position.getZ()), false);
-	    			}
-	    			if (gemWidth == 1) {
-		    			worldIn.destroyBlock(new BlockPos(num, yad + position.getY(), position.getZ()), false);
-	    			}
-	    		}
+		if (this.east < 0) {
+			for (float yad = 0; yad < this.gemHeight; ++yad) {
+				for (float num = position.getX(); num >= position.getX() - this.length; --num) {
+					if (this.gemWidth == 3) {
+						worldIn.destroyBlock(new BlockPos(num, yad + position.getY(), position.getZ() - 1), false);
+						worldIn.destroyBlock(new BlockPos(num, yad + position.getY(), position.getZ()), false);
+						worldIn.destroyBlock(new BlockPos(num, yad + position.getY(), position.getZ() + 1), false);
+					}
+					if (this.gemWidth == 2) {
+						worldIn.destroyBlock(new BlockPos(num, yad + position.getY(), position.getZ() - 1), false);
+						worldIn.destroyBlock(new BlockPos(num, yad + position.getY(), position.getZ()), false);
+					}
+					if (this.gemWidth == 1) {
+						worldIn.destroyBlock(new BlockPos(num, yad + position.getY(), position.getZ()), false);
+					}
+				}
+			}
+		}
+		if (this.east > 0) {
+			for (float yad = 0; yad < this.gemHeight; ++yad) {
+				for (float num = position.getX(); num <= position.getX() + this.length; ++num) {
+					if (this.gemWidth == 3) {
+						worldIn.destroyBlock(new BlockPos(num, yad + position.getY(), position.getZ() - 1), false);
+						worldIn.destroyBlock(new BlockPos(num, yad + position.getY(), position.getZ()), false);
+						worldIn.destroyBlock(new BlockPos(num, yad + position.getY(), position.getZ() + 1), false);
+					}
+					if (this.gemWidth == 2) {
+						worldIn.destroyBlock(new BlockPos(num, yad + position.getY(), position.getZ() - 1), false);
+						worldIn.destroyBlock(new BlockPos(num, yad + position.getY(), position.getZ()), false);
+					}
+					if (this.gemWidth == 1) {
+						worldIn.destroyBlock(new BlockPos(num, yad + position.getY(), position.getZ()), false);
+					}
+				}
 			}
 		}
 		return true;

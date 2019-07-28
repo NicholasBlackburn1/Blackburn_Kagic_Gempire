@@ -15,11 +15,11 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class LayerRubyFusionItem implements LayerRenderer<EntityRubyFusion> {
 	protected final RenderLivingBase<EntityRubyFusion> livingEntityRenderer;
-	
+
 	public LayerRubyFusionItem(RenderLivingBase<EntityRubyFusion> livingEntityRenderer) {
 		this.livingEntityRenderer = livingEntityRenderer;
 	}
-	
+
 	@Override
 	public void doRenderLayer(EntityRubyFusion rubyFusion, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 		boolean flag = rubyFusion.getPrimaryHand() == EnumHandSide.LEFT;
@@ -32,7 +32,7 @@ public class LayerRubyFusionItem implements LayerRenderer<EntityRubyFusion> {
 			GlStateManager.popMatrix();
 		}
 	}
-	
+
 	private void renderHeldItem(EntityRubyFusion rubyFusion, ItemStack stack, ItemCameraTransforms.TransformType camera, EnumHandSide handSide) {
 		if (!stack.isEmpty()) {
 			GlStateManager.pushMatrix();
@@ -43,7 +43,7 @@ public class LayerRubyFusionItem implements LayerRenderer<EntityRubyFusion> {
 			GlStateManager.rotate(-90.0F, 1.0F, 0.0F, 0.0F);
 			GlStateManager.rotate(180.0F, 0.0F, 1.0F, 0.0F);
 			boolean flag = handSide == EnumHandSide.LEFT;
-			GlStateManager.translate((float)(flag ? -1 : 1) / 16F, 0.125F, -0.5F);
+			GlStateManager.translate((flag ? -1 : 1) / 16F, 0.125F, -0.5F);
 			Minecraft.getMinecraft().getItemRenderer().renderItemSide(rubyFusion, stack, camera, flag);
 			GlStateManager.popMatrix();
 		}
@@ -51,7 +51,7 @@ public class LayerRubyFusionItem implements LayerRenderer<EntityRubyFusion> {
 	protected void setSide(EnumHandSide side) {
 		((ModelBiped) this.livingEntityRenderer.getMainModel()).postRenderArm(0.0625F, side);
 	}
-	
+
 	@Override
 	public boolean shouldCombineTextures() {
 		return false;

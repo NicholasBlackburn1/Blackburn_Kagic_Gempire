@@ -53,30 +53,31 @@ public class EntityZircon extends EntityGem implements INpc {
 		this.setSize(0.6F, 1.9F);
 		this.visorChanceReciprocal = 1;
 		this.seePastDoors();
-		
-		//Define valid gem cuts and placements
+
+		// Define valid gem cuts and placements
 		this.setCutPlacement(GemCuts.PILLOW, GemPlacements.BACK_OF_HEAD);
 		this.setCutPlacement(GemCuts.PILLOW, GemPlacements.FOREHEAD);
 		this.setCutPlacement(GemCuts.PILLOW, GemPlacements.RIGHT_EYE);
 		this.setCutPlacement(GemCuts.PILLOW, GemPlacements.BACK);
 		this.setCutPlacement(GemCuts.PILLOW, GemPlacements.CHEST);
 		this.setCutPlacement(GemCuts.PILLOW, GemPlacements.BELLY);
-
+		
 		// Apply entity AI.
 		this.stayAI = new EntityAIStay(this);
 		this.tasks.addTask(1, new EntityAIAvoidEntity<EntityCreeper>(this, EntityCreeper.class, new Predicate<EntityCreeper>() {
+			@Override
 			public boolean apply(EntityCreeper input) {
-				return ((EntityCreeper) input).getCreeperState() == 1;
+				return input.getCreeperState() == 1;
 			}
 		}, 6.0F, 1.0D, 1.2D));
 		this.tasks.addTask(1, new EntityAIFollowDiamond(this, 1.0D));
-        this.tasks.addTask(1, new EntityAICommandGems(this, 0.6D));
+		this.tasks.addTask(1, new EntityAICommandGems(this, 0.6D));
 		this.tasks.addTask(3, new EntityAIOpenDoor(this, true));
 		this.tasks.addTask(4, new EntityAIWatchClosest(this, EntityPlayer.class, 16.0F));
 		this.tasks.addTask(4, new EntityAIWatchClosest(this, EntityMob.class, 16.0F));
 		this.tasks.addTask(6, new EntityAIStandGuard(this, 0.6D));
 		this.tasks.addTask(7, new EntityAILookIdle(this));
-		
+
 		// Apply entity attributes.
 		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(40.0D);
 		this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(1.0D);
@@ -84,52 +85,53 @@ public class EntityZircon extends EntityGem implements INpc {
 		this.droppedGemItem = ModItems.ZIRCON_GEM;
 		this.droppedCrackedGemItem = ModItems.CRACKED_ZIRCON_GEM;
 	}
-
+	
+	@Override
 	protected int generateGemColor() {
 		switch (this.getInsigniaColor()) {
-    	case 0:
-    		return 0xFFFFFF;
-    	case 1:
-    		return 0xCB7226;
-    	case 2:
-    		return 0xAE48D4;
-    	case 3:
-    		return 0x215493;
-    	case 4:
-    		return 0xFEFE4C;
-    	case 5:
-    		return 0x469300;
-    	case 6:
-    		return 0xE8759B;
-    	case 7:
-    		return 0x939393;
-    	case 8:
-    		return 0x8F8F8F;
-    	case 9:
-    		return 0x6699B3;
-    	case 10:
-    		return 0x7B3BAE;
-    	case 11:
-    		return 0x3B54BA;
-    	case 12:
-    		return 0x4E341B;
-    	case 13:
-    		return 0x4C6519;
-    	case 14:
-    		return 0x963030;
-    	case 15:
-    		return 0x333333;
-    	}
+			case 0 :
+				return 0xFFFFFF;
+			case 1 :
+				return 0xCB7226;
+			case 2 :
+				return 0xAE48D4;
+			case 3 :
+				return 0x215493;
+			case 4 :
+				return 0xFEFE4C;
+			case 5 :
+				return 0x469300;
+			case 6 :
+				return 0xE8759B;
+			case 7 :
+				return 0x939393;
+			case 8 :
+				return 0x8F8F8F;
+			case 9 :
+				return 0x6699B3;
+			case 10 :
+				return 0x7B3BAE;
+			case 11 :
+				return 0x3B54BA;
+			case 12 :
+				return 0x4E341B;
+			case 13 :
+				return 0x4C6519;
+			case 14 :
+				return 0x963030;
+			case 15 :
+				return 0x333333;
+		}
 		return 0x074464;
 	}
-	
+
 	@Override
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
 		int color = this.rand.nextInt(16);
 		this.itemDataToGemData(color);
 		return super.onInitialSpawn(difficulty, livingdata);
 	}
-	
+
 	@Override
 	public void itemDataToGemData(int data) {
 		this.setInsigniaColor(data);
@@ -143,104 +145,104 @@ public class EntityZircon extends EntityGem implements INpc {
 			this.setCustomNameTag(new TextComponentTranslation("entity.kagic.zircon.name").getUnformattedComponentText());
 		}
 	}
-	
+
 	/*********************************************************
-	 * Methods related to death.							 *
+	 * Methods related to death. *
 	 *********************************************************/
 	@Override
 	public void onDeath(DamageSource cause) {
 		switch (this.getInsigniaColor()) {
-		case 0:
-			this.droppedGemItem = ModItems.WHITE_ZIRCON_GEM;
-			this.droppedCrackedGemItem = ModItems.CRACKED_WHITE_ZIRCON_GEM;
-			break;
-		case 1:
-			this.droppedGemItem = ModItems.ORANGE_ZIRCON_GEM;
-			this.droppedCrackedGemItem = ModItems.CRACKED_ORANGE_ZIRCON_GEM;
-			break;
-		case 2:
-			this.droppedGemItem = ModItems.MAGENTA_ZIRCON_GEM;
-			this.droppedCrackedGemItem = ModItems.CRACKED_MAGENTA_ZIRCON_GEM;
-			break;
-		case 3:
-			this.droppedGemItem = ModItems.LIGHT_BLUE_ZIRCON_GEM;
-			this.droppedCrackedGemItem = ModItems.CRACKED_LIGHT_BLUE_ZIRCON_GEM;
-			break;
-		case 4:
-			this.droppedGemItem = ModItems.YELLOW_ZIRCON_GEM;
-			this.droppedCrackedGemItem = ModItems.CRACKED_YELLOW_ZIRCON_GEM;
-			break;
-		case 5:
-			this.droppedGemItem = ModItems.LIME_ZIRCON_GEM;
-			this.droppedCrackedGemItem = ModItems.CRACKED_LIME_ZIRCON_GEM;
-			break;
-		case 6:
-			this.droppedGemItem = ModItems.PINK_ZIRCON_GEM;
-			this.droppedCrackedGemItem = ModItems.CRACKED_PINK_ZIRCON_GEM;
-			break;
-		case 7:
-			this.droppedGemItem = ModItems.GRAY_ZIRCON_GEM;
-			this.droppedCrackedGemItem = ModItems.CRACKED_GRAY_ZIRCON_GEM;
-			break;
-		case 8:
-			this.droppedGemItem = ModItems.LIGHT_GRAY_ZIRCON_GEM;
-			this.droppedCrackedGemItem = ModItems.CRACKED_LIGHT_GRAY_ZIRCON_GEM;
-			break;
-		case 9:
-			this.droppedGemItem = ModItems.CYAN_ZIRCON_GEM;
-			this.droppedCrackedGemItem = ModItems.CRACKED_CYAN_ZIRCON_GEM;
-			break;
-		case 10:
-			this.droppedGemItem = ModItems.PURPLE_ZIRCON_GEM;
-			this.droppedCrackedGemItem = ModItems.CRACKED_PURPLE_ZIRCON_GEM;
-			break;
-		case 11:
-			this.droppedGemItem = ModItems.BLUE_ZIRCON_GEM;
-			this.droppedCrackedGemItem = ModItems.CRACKED_BLUE_ZIRCON_GEM;
-			break;
-		case 12:
-			this.droppedGemItem = ModItems.BROWN_ZIRCON_GEM;
-			this.droppedCrackedGemItem = ModItems.CRACKED_BROWN_ZIRCON_GEM;
-			break;
-		case 13:
-			this.droppedGemItem = ModItems.GREEN_ZIRCON_GEM;
-			this.droppedCrackedGemItem = ModItems.CRACKED_GREEN_ZIRCON_GEM;
-			break;
-		case 14:
-			this.droppedGemItem = ModItems.RED_ZIRCON_GEM;
-			this.droppedCrackedGemItem = ModItems.CRACKED_RED_ZIRCON_GEM;
-			break;
-		case 15:
-			this.droppedGemItem = ModItems.BLACK_ZIRCON_GEM;
-			this.droppedCrackedGemItem = ModItems.CRACKED_BLACK_ZIRCON_GEM;
-			break;
-		default:
-			this.droppedGemItem = ModItems.ZIRCON_GEM;
-			this.droppedCrackedGemItem = ModItems.CRACKED_ZIRCON_GEM;
+			case 0 :
+				this.droppedGemItem = ModItems.WHITE_ZIRCON_GEM;
+				this.droppedCrackedGemItem = ModItems.CRACKED_WHITE_ZIRCON_GEM;
+				break;
+			case 1 :
+				this.droppedGemItem = ModItems.ORANGE_ZIRCON_GEM;
+				this.droppedCrackedGemItem = ModItems.CRACKED_ORANGE_ZIRCON_GEM;
+				break;
+			case 2 :
+				this.droppedGemItem = ModItems.MAGENTA_ZIRCON_GEM;
+				this.droppedCrackedGemItem = ModItems.CRACKED_MAGENTA_ZIRCON_GEM;
+				break;
+			case 3 :
+				this.droppedGemItem = ModItems.LIGHT_BLUE_ZIRCON_GEM;
+				this.droppedCrackedGemItem = ModItems.CRACKED_LIGHT_BLUE_ZIRCON_GEM;
+				break;
+			case 4 :
+				this.droppedGemItem = ModItems.YELLOW_ZIRCON_GEM;
+				this.droppedCrackedGemItem = ModItems.CRACKED_YELLOW_ZIRCON_GEM;
+				break;
+			case 5 :
+				this.droppedGemItem = ModItems.LIME_ZIRCON_GEM;
+				this.droppedCrackedGemItem = ModItems.CRACKED_LIME_ZIRCON_GEM;
+				break;
+			case 6 :
+				this.droppedGemItem = ModItems.PINK_ZIRCON_GEM;
+				this.droppedCrackedGemItem = ModItems.CRACKED_PINK_ZIRCON_GEM;
+				break;
+			case 7 :
+				this.droppedGemItem = ModItems.GRAY_ZIRCON_GEM;
+				this.droppedCrackedGemItem = ModItems.CRACKED_GRAY_ZIRCON_GEM;
+				break;
+			case 8 :
+				this.droppedGemItem = ModItems.LIGHT_GRAY_ZIRCON_GEM;
+				this.droppedCrackedGemItem = ModItems.CRACKED_LIGHT_GRAY_ZIRCON_GEM;
+				break;
+			case 9 :
+				this.droppedGemItem = ModItems.CYAN_ZIRCON_GEM;
+				this.droppedCrackedGemItem = ModItems.CRACKED_CYAN_ZIRCON_GEM;
+				break;
+			case 10 :
+				this.droppedGemItem = ModItems.PURPLE_ZIRCON_GEM;
+				this.droppedCrackedGemItem = ModItems.CRACKED_PURPLE_ZIRCON_GEM;
+				break;
+			case 11 :
+				this.droppedGemItem = ModItems.BLUE_ZIRCON_GEM;
+				this.droppedCrackedGemItem = ModItems.CRACKED_BLUE_ZIRCON_GEM;
+				break;
+			case 12 :
+				this.droppedGemItem = ModItems.BROWN_ZIRCON_GEM;
+				this.droppedCrackedGemItem = ModItems.CRACKED_BROWN_ZIRCON_GEM;
+				break;
+			case 13 :
+				this.droppedGemItem = ModItems.GREEN_ZIRCON_GEM;
+				this.droppedCrackedGemItem = ModItems.CRACKED_GREEN_ZIRCON_GEM;
+				break;
+			case 14 :
+				this.droppedGemItem = ModItems.RED_ZIRCON_GEM;
+				this.droppedCrackedGemItem = ModItems.CRACKED_RED_ZIRCON_GEM;
+				break;
+			case 15 :
+				this.droppedGemItem = ModItems.BLACK_ZIRCON_GEM;
+				this.droppedCrackedGemItem = ModItems.CRACKED_BLACK_ZIRCON_GEM;
+				break;
+			default :
+				this.droppedGemItem = ModItems.ZIRCON_GEM;
+				this.droppedCrackedGemItem = ModItems.CRACKED_ZIRCON_GEM;
 		}
 		super.onDeath(cause);
 	}
-	
+
 	@Override
 	protected int generateHairStyle() {
 		return this.rand.nextInt(EntityZircon.ZIRCON_HAIR_STYLES.size());
 	}
-
+	
 	@Override
 	protected SoundEvent getHurtSound(DamageSource source) {
 		return ModSounds.ZIRCON_HURT;
 	}
-
+	
 	@Override
 	protected SoundEvent getObeySound() {
 		return ModSounds.ZIRCON_OBEY;
 	}
-
+	
 	@Override
 	protected SoundEvent getDeathSound() {
 		return ModSounds.ZIRCON_DEATH;
 	}
-
+	
 	@Override
 	public boolean processInteract(EntityPlayer player, EnumHand hand) {
 		if (!this.world.isRemote && hand == EnumHand.MAIN_HAND) {
@@ -270,25 +272,26 @@ public class EntityZircon extends EntityGem implements INpc {
 		}
 		return super.processInteract(player, hand);
 	}
-
+	
 	@Override
 	public void onLivingUpdate() {
 		super.onLivingUpdate();
 	}
-	
+
 	public String getSpecialSkin() {
 		return "0";
 	}
-	
+
 	private ItemStack getEnchantedItem(ItemStack playerStack) {
 		ItemStack holdingStack = this.getHeldItemMainhand();
 		if (!(holdingStack.getItem() instanceof ItemEnchantedBook)) {
 			return playerStack;
 		}
-		
+
 		Map<Enchantment, Integer> enchantments = EnchantmentHelper.getEnchantments(holdingStack);
 		if (enchantments.isEmpty()) {
-			// I'm not sure if it can ever be the case that an enchanted book has no
+			// I'm not sure if it can ever be the case that
+			// an enchanted book has no
 			// enchantments, but better safe than sorry
 			return playerStack;
 		}
@@ -301,7 +304,7 @@ public class EntityZircon extends EntityGem implements INpc {
 		if (level <= 0) {
 			return playerStack;
 		}
-		
+
 		if (existingEnchantments.containsKey(enchantment)) {
 			existingEnchantments.put(enchantment, existingEnchantments.get(enchantment) + 1);
 		} else {
@@ -312,14 +315,14 @@ public class EntityZircon extends EntityGem implements INpc {
 		}
 		EnchantmentHelper.setEnchantments(existingEnchantments, playerStack);
 		this.playSound(SoundEvents.BLOCK_ENCHANTMENT_TABLE_USE, 1.0F, this.rand.nextFloat() * 0.1F + 0.9F);
-
+		
 		level -= 1;
 		if (level == 0) {
 			enchantments.remove(enchantment);
 		} else {
 			enchantments.put(enchantment, level);
 		}
-		
+
 		if (!enchantments.isEmpty()) {
 			ItemStack newBookStack = new ItemStack(Items.ENCHANTED_BOOK);
 			EnchantmentHelper.setEnchantments(enchantments, newBookStack);
@@ -329,7 +332,7 @@ public class EntityZircon extends EntityGem implements INpc {
 		}
 		return playerStack;
 	}
-	
+
 	@Override
 	protected int generateSkinColor() {
 		int colorIndex = this.getInsigniaColor();
@@ -337,13 +340,14 @@ public class EntityZircon extends EntityGem implements INpc {
 		int colorValue = 0;
 		try {
 			colorValue = ReflectionHelper.getPrivateValue(EnumDyeColor.class, color, "colorValue", "field_193351_w", "w");
-		} catch (Exception e) {}
+		} catch (Exception e) {
+		}
 		return colorValue;
 	}
-	
+
 	@Override
 	public boolean canChangeInsigniaColorByDefault() {
 		return false;
 	}
-
+	
 }

@@ -8,7 +8,7 @@ import net.minecraftforge.fml.client.registry.ClientRegistry;
 
 public class ModTESRs {
 	public static void register() {
-    	ClientRegistry.bindTileEntitySpecialRenderer(TileEntityWarpPadCore.class, new WarpRenderer());
-    	ClientRegistry.bindTileEntitySpecialRenderer(TileEntityMoonGoddessStatue.class, new TileEntityMoonGoddessBeaconRender());
+		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityWarpPadCore.class, new WarpRenderer());
+		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityMoonGoddessStatue.class, new TileEntityMoonGoddessBeaconRender());
 	}
 }

@@ -3,10 +3,10 @@ package mod.kagic.worlddata;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 import java.util.SortedMap;
 import java.util.TreeMap;
-import java.util.Map.Entry;
 
 import mod.kagic.init.KAGIC;
 import net.minecraft.nbt.NBTTagCompound;
@@ -20,23 +20,24 @@ import net.minecraftforge.common.util.Constants;
 public class WorldDataGalaxyPad extends WorldSavedData {
 	private static final String DATA_NAME = KAGIC.MODID + "_galaxypads";
 	private final Map<GalaxyPadLocation, WarpPadDataEntry> galaxyPadData = new LinkedHashMap<GalaxyPadLocation, WarpPadDataEntry>();
-	
+
 	public WorldDataGalaxyPad() {
-		super(DATA_NAME);
+		super(WorldDataGalaxyPad.DATA_NAME);
 	}
-	
+
 	public WorldDataGalaxyPad(String identifier) {
 		super(identifier);
 	}
-	
+
 	public static WorldDataGalaxyPad get(World world) {
 		if (!world.isRemote) {
 			MapStorage storage = world.getMapStorage();
-			WorldDataGalaxyPad instance = (WorldDataGalaxyPad) storage.getOrLoadData(WorldDataGalaxyPad.class, DATA_NAME);
+			WorldDataGalaxyPad instance = (WorldDataGalaxyPad) storage.getOrLoadData(WorldDataGalaxyPad.class, WorldDataGalaxyPad.DATA_NAME);
 			if (instance == null) {
-				//KAGICTech.instance.chatInfoMessage("Data on server was null");
+				// KAGICTech.instance.chatInfoMessage("Data
+				// on server was null");
 				instance = new WorldDataGalaxyPad();
-				storage.setData(DATA_NAME, instance);
+				storage.setData(WorldDataGalaxyPad.DATA_NAME, instance);
 			}
 			return instance;
 		} else {
@@ -44,7 +45,7 @@ public class WorldDataGalaxyPad extends WorldSavedData {
 			return null;
 		}
 	}
-
+	
 	@Override
 	public NBTTagCompound writeToNBT(NBTTagCompound compound) {
 		NBTTagList list = new NBTTagList();
@@ -52,19 +53,19 @@ public class WorldDataGalaxyPad extends WorldSavedData {
 		while (it.hasNext()) {
 			NBTTagCompound tc = new NBTTagCompound();
 			Entry<GalaxyPadLocation, WarpPadDataEntry> pair = it.next();
-			tc.setString("name", ((WarpPadDataEntry)(pair.getValue())).name);
-			tc.setBoolean("valid", ((WarpPadDataEntry)(pair.getValue())).valid);
-			tc.setBoolean("clear", ((WarpPadDataEntry)(pair.getValue())).clear);
-			tc.setInteger("dim", ((GalaxyPadLocation) pair.getKey()).getDimension());
-			tc.setInteger("x", ((GalaxyPadLocation) pair.getKey()).getPos().getX());
-			tc.setInteger("y", ((GalaxyPadLocation) pair.getKey()).getPos().getY());
-			tc.setInteger("z", ((GalaxyPadLocation) pair.getKey()).getPos().getZ());
+			tc.setString("name", pair.getValue().name);
+			tc.setBoolean("valid", pair.getValue().valid);
+			tc.setBoolean("clear", pair.getValue().clear);
+			tc.setInteger("dim", pair.getKey().getDimension());
+			tc.setInteger("x", pair.getKey().getPos().getX());
+			tc.setInteger("y", pair.getKey().getPos().getY());
+			tc.setInteger("z", pair.getKey().getPos().getZ());
 			list.appendTag(tc);
 		}
 		compound.setTag("pads", list);
 		return compound;
 	}
-	
+
 	@Override
 	public void readFromNBT(NBTTagCompound compound) {
 		NBTTagList list = compound.getTagList("pads", Constants.NBT.TAG_COMPOUND);
@@ -78,39 +79,39 @@ public class WorldDataGalaxyPad extends WorldSavedData {
 			this.galaxyPadData.put(new GalaxyPadLocation(dim, pos), new WarpPadDataEntry(name, valid, clear));
 		}
 	}
-	
+
 	public void addGalaxyPadEntry(String name, boolean valid, boolean clear, GalaxyPadLocation gLoc) {
-		//KAGIC.instance.chatInfoMessage("Adding entry");
+		// KAGIC.instance.chatInfoMessage("Adding entry");
 		this.galaxyPadData.put(gLoc, new WarpPadDataEntry(name, valid, clear));
 		this.markDirty();
 	}
-	
+
 	public void removeGalaxyPadEntry(GalaxyPadLocation gpLoc) {
 		if (this.galaxyPadData.containsKey(gpLoc)) {
 			this.galaxyPadData.remove(gpLoc);
 			this.markDirty();
 		}
 	}
-	
+
 	public String getNameFromPos(GalaxyPadLocation gpLoc) {
 		if (this.galaxyPadData.containsKey(gpLoc)) {
-			return this.galaxyPadData.get(gpLoc).name;			
+			return this.galaxyPadData.get(gpLoc).name;
 		} else {
 			KAGIC.instance.chatInfoMessage("Tried getting name of nonexistent GalaxyPadLocation");
 			return null;
 		}
 	}
-	
+
 	public Map<GalaxyPadLocation, WarpPadDataEntry> getGalaxyPadData() {
 		return this.galaxyPadData;
 	}
-	
+
 	public static SortedMap<Double, GalaxyPadLocation> getSortedPositions(Map<GalaxyPadLocation, WarpPadDataEntry> data, BlockPos pos) {
 		SortedMap<Double, GalaxyPadLocation> sortedPoses = new TreeMap<Double, GalaxyPadLocation>();
 		Set<Entry<GalaxyPadLocation, WarpPadDataEntry>> entrySet = data.entrySet();
 		Iterator<Entry<GalaxyPadLocation, WarpPadDataEntry>> it = entrySet.iterator();
 		while (it.hasNext()) {
-			GalaxyPadLocation gLoc = ((GalaxyPadLocation)it.next().getKey());
+			GalaxyPadLocation gLoc = it.next().getKey();
 			BlockPos otherPos = gLoc.getPos();
 			if (otherPos.equals(pos)) {
 				continue;

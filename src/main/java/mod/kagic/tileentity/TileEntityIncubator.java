@@ -20,7 +20,7 @@ import net.minecraft.util.text.TextComponentTranslation;
 
 public class TileEntityIncubator extends TileEntityLockableLoot implements ITickable {
 	private NonNullList<ItemStack> chestContents = NonNullList.<ItemStack>withSize(this.getSizeInventory(), ItemStack.EMPTY);
-	
+
 	@Override
 	public void readFromNBT(NBTTagCompound compound) {
 		super.readFromNBT(compound);
@@ -29,7 +29,7 @@ public class TileEntityIncubator extends TileEntityLockableLoot implements ITick
 			ItemStackHelper.loadAllItems(compound, this.chestContents);
 		}
 	}
-	
+
 	@Override
 	public NBTTagCompound writeToNBT(NBTTagCompound compound) {
 		super.writeToNBT(compound);
@@ -38,7 +38,7 @@ public class TileEntityIncubator extends TileEntityLockableLoot implements ITick
 		}
 		return compound;
 	}
-	
+
 	@Override
 	public void update() {
 		Block block = this.world.getBlockState(this.pos.down()).getBlock();
@@ -55,46 +55,45 @@ public class TileEntityIncubator extends TileEntityLockableLoot implements ITick
 			}
 			if (containsBase) {
 				if (this.world.getBlockState(this.pos.down()).getBlock() == ModBlocks.ANALOG_INJECTOR) {
-					this.world.setBlockState(this.pos.down(), ModBlocks.EQUIPPED_ANALOG_INJECTOR.getDefaultState().withProperty(BlockInjector.FACING, this.world.getBlockState(this.pos.down()).getValue(BlockInjector.FACING)));	
-				}
-				else if (this.world.getBlockState(this.pos.down()).getBlock() == ModBlocks.INJECTOR) {
+					this.world.setBlockState(this.pos.down(), ModBlocks.EQUIPPED_ANALOG_INJECTOR.getDefaultState().withProperty(BlockInjector.FACING, this.world.getBlockState(this.pos.down()).getValue(BlockInjector.FACING)));
+				} else if (this.world.getBlockState(this.pos.down()).getBlock() == ModBlocks.INJECTOR) {
 					this.world.setBlockState(this.pos.down(), ModBlocks.EQUIPPED_INJECTOR.getDefaultState().withProperty(BlockInjector.FACING, this.world.getBlockState(this.pos.down()).getValue(BlockInjector.FACING)));
 				}
 				this.world.playSound(null, this.pos.down(), ModSounds.BLOCK_INJECTOR_CLOSE, SoundCategory.BLOCKS, 0.3F, 1.0F);
 			}
 		}
 	}
-	
+
 	@Override
 	public int getSizeInventory() {
 		return 9;
 	}
-	
+
 	@Override
 	public boolean isEmpty() {
 		return false;
 	}
-	
+
 	@Override
 	public int getInventoryStackLimit() {
 		return 64;
 	}
-	
+
 	@Override
 	public String getName() {
 		return new TextComponentTranslation("tile.incubator.name").getUnformattedText();
 	}
-	
+
 	@Override
 	public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn) {
 		return new Incubator(playerInventory, this);
 	}
-	
+
 	@Override
 	public String getGuiID() {
 		return "kagic:incubator";
 	}
-	
+
 	@Override
 	protected NonNullList<ItemStack> getItems() {
 		return this.chestContents;

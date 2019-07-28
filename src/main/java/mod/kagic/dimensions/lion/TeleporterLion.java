@@ -8,12 +8,14 @@ public class TeleporterLion extends Teleporter {
 	public TeleporterLion(WorldServer worldIn) {
 		super(worldIn);
 	}
+	@Override
 	public void placeInPortal(Entity entityIn, float rotationYaw) {
 		entityIn.setLocationAndAngles(0, 60, 0, entityIn.rotationYaw, 0.0F);
-        entityIn.motionX = 0.0D;
-        entityIn.motionY = 0.0D;
-        entityIn.motionZ = 0.0D;
+		entityIn.motionX = 0.0D;
+		entityIn.motionY = 0.0D;
+		entityIn.motionZ = 0.0D;
 	}
+	@Override
 	public boolean placeInExistingPortal(Entity entityIn, float rotationYaw) {
 		return false;
 	}

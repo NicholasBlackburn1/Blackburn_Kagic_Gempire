@@ -16,25 +16,25 @@ public class ModCreativeTabs extends CreativeTabs {
 	public static final CreativeTabs CREATIVE_TAB_BAD_GEMS = new ModCreativeTabs("bad_gems", 1);
 	public static final CreativeTabs CREATIVE_TAB_OTHER = new ModCreativeTabs("other", 2);
 	private final int id;
-	
+
 	public ModCreativeTabs(String label, int id) {
 		super(CreativeTabs.getNextID(), label);
 		this.id = id;
 	}
-	
+
 	@Override
 	public ItemStack getTabIconItem() {
 		switch (this.id) {
-		case 0:
-			return new ItemStack(ModItems.YELLOW_DIAMOND_GEM);
-		case 1:
-			return new ItemStack(ModItems.CRACKED_YELLOW_DIAMOND_GEM);
-		case 2:
-			return new ItemStack(ModItems.GEM_STAFF);
+			case 0 :
+				return new ItemStack(ModItems.YELLOW_DIAMOND_GEM);
+			case 1 :
+				return new ItemStack(ModItems.CRACKED_YELLOW_DIAMOND_GEM);
+			case 2 :
+				return new ItemStack(ModItems.GEM_STAFF);
 		}
 		return new ItemStack(ModItems.CRACKED_YELLOW_DIAMOND_GEM);
 	}
-	
+
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void displayAllRelevantItems(NonNullList<ItemStack> items) {
@@ -55,24 +55,24 @@ public class ModCreativeTabs extends CreativeTabs {
 		}
 		items.sort(new GemItemStackComparator());
 	}
-
+	
 	class GemItemStackComparator implements Comparator<ItemStack> {
-
+		
 		@Override
 		public int compare(ItemStack arg0, ItemStack arg1) {
 			if (arg0.equals(arg1)) {
 				return 0;
 			}
-			
+
 			Item item0 = arg0.getItem();
 			Item item1 = arg1.getItem();
 			if (item0.equals(item1)) {
 				return 0;
 			}
-			
+
 			String name0 = item0.getUnlocalizedName().substring(5);
 			String name1 = item1.getUnlocalizedName().substring(5);
-			
+
 			if (name0.startsWith("cracked_")) {
 				if (name1.startsWith("cracked_")) {
 					return name0.compareToIgnoreCase(name1);
@@ -84,7 +84,7 @@ public class ModCreativeTabs extends CreativeTabs {
 					}
 				}
 			}
-			
+
 			if (name1.startsWith("cracked_")) {
 				if (name0.startsWith("cracked_")) {
 					return name0.compareToIgnoreCase(name1);
@@ -96,9 +96,9 @@ public class ModCreativeTabs extends CreativeTabs {
 					}
 				}
 			}
-			
+
 			return name0.compareToIgnoreCase(name1);
 		}
-		
+
 	}
 }

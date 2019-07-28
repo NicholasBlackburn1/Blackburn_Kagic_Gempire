@@ -20,47 +20,52 @@ public class EntityPumpkin extends EntityPepo {
 	protected static final DataParameter<Boolean> IS_LIT = EntityDataManager.<Boolean>createKey(EntityPumpkin.class, DataSerializers.BOOLEAN);
 	public EntityPumpkin(World worldIn) {
 		super(new ItemStack(Blocks.PUMPKIN), worldIn);
-        this.dataManager.register(IS_LIT, false);
+		this.dataManager.register(EntityPumpkin.IS_LIT, false);
 	}
+	@Override
 	public void writeEntityToNBT(NBTTagCompound compound) {
-        super.writeEntityToNBT(compound);
-        compound.setBoolean("isLit", this.isLit());
-    }
-    public void readEntityFromNBT(NBTTagCompound compound) {
-        super.readEntityFromNBT(compound);
-        this.setLit(compound.getBoolean("isLit"));
-    }
-    public void onDeath(DamageSource cause) {
-    	if (this.isLit()) {
-    		this.dropItem = new ItemStack(Blocks.LIT_PUMPKIN);
-    	}
-    	super.onDeath(cause);
-    }
-    public boolean processInteract(EntityPlayer player, EnumHand hand) {
+		super.writeEntityToNBT(compound);
+		compound.setBoolean("isLit", this.isLit());
+	}
+	@Override
+	public void readEntityFromNBT(NBTTagCompound compound) {
+		super.readEntityFromNBT(compound);
+		this.setLit(compound.getBoolean("isLit"));
+	}
+	@Override
+	public void onDeath(DamageSource cause) {
+		if (this.isLit()) {
+			this.dropItem = new ItemStack(Blocks.LIT_PUMPKIN);
+		}
+		super.onDeath(cause);
+	}
+	@Override
+	public boolean processInteract(EntityPlayer player, EnumHand hand) {
 		ItemStack stack = player.getHeldItem(hand);
 		if (this.isLit()) {
 			this.setLit(false);
 			this.dropItem(Item.getItemFromBlock(Blocks.TORCH), 1);
-		}
-		else if (stack.getItem() == Item.getItemFromBlock(Blocks.TORCH)) {
+		} else if (stack.getItem() == Item.getItemFromBlock(Blocks.TORCH)) {
 			this.setLit(true);
 			if (!player.capabilities.isCreativeMode) {
 				stack.shrink(1);
 			}
 		}
 		return true;
-    }
+	}
 	public void setLit(boolean isLit) {
-		this.dataManager.set(IS_LIT, isLit);
+		this.dataManager.set(EntityPumpkin.IS_LIT, isLit);
 	}
 	public boolean isLit() {
-		return KAGIC.isHalloween() || this.dataManager.get(IS_LIT);
+		return KAGIC.isHalloween() || this.dataManager.get(EntityPumpkin.IS_LIT);
 	}
+	@Override
 	@SideOnly(Side.CLIENT)
-    public int getBrightnessForRender() {
-        return this.isLit() ? 15728880 : super.getBrightnessForRender();
+	public int getBrightnessForRender() {
+		return this.isLit() ? 15728880 : super.getBrightnessForRender();
 	}
-    public float getBrightness() {
-        return this.isLit() ? 1.0F : super.getBrightness();
-    }
+	@Override
+	public float getBrightness() {
+		return this.isLit() ? 1.0F : super.getBrightness();
+	}
 }

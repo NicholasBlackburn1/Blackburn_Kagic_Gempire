@@ -40,77 +40,85 @@ public class EntitySlag extends EntityMob implements IMob {
 	private BossInfoServer healthBar = new BossInfoServer(new TextComponentTranslation("entity.kagic.slag.super"), BossInfo.Color.GREEN, BossInfo.Overlay.PROGRESS);
 	public int compatIndex = 0;
 	public EntitySlag(World worldIn) {
-        super(worldIn);
-        this.setSize(0.4F, 0.3F);
-        this.healthBar = new BossInfoServer(new TextComponentTranslation("entity.kagic.slag.super"), BossInfo.Color.values()[this.rand.nextInt(BossInfo.Color.values().length)], BossInfo.Overlay.PROGRESS);
-        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(20.0D);
-        this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.2D);
-        this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(4.0D);
-        this.tasks.addTask(0, new EntityAISwimming(this));
-        this.tasks.addTask(1, new EntityAISlagFuse(this, 0.8F));
-        this.tasks.addTask(2, new EntityAISlagHateLight(this, 1.2D, 8));
-        this.tasks.addTask(3, new EntityAILeapAtTarget(this, 0.4F));
-        this.tasks.addTask(3, new EntityAIAttackMelee(this, 1.0D, true));
-        this.tasks.addTask(4, new EntityAISlagEatGems(this, 1.8D));
-        this.tasks.addTask(4, new EntityAIWanderAvoidWater(this, 0.6D));
-        this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, true, new Class[0]));
-        this.targetTasks.addTask(2, new EntityAINearestAttackableTarget<EntityPlayer>(this, EntityPlayer.class, true));
-        this.targetTasks.addTask(3, new EntityAINearestAttackableTarget<EntityGem>(this, EntityGem.class, true));
-        this.dataManager.register(COUNT, 1);
-        this.dataManager.register(VARIANT, 0);
-        this.compatIndex = worldIn.rand.nextInt(4);
-    }
+		super(worldIn);
+		this.setSize(0.4F, 0.3F);
+		this.healthBar = new BossInfoServer(new TextComponentTranslation("entity.kagic.slag.super"), BossInfo.Color.values()[this.rand.nextInt(BossInfo.Color.values().length)], BossInfo.Overlay.PROGRESS);
+		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(20.0D);
+		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.2D);
+		this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(4.0D);
+		this.tasks.addTask(0, new EntityAISwimming(this));
+		this.tasks.addTask(1, new EntityAISlagFuse(this, 0.8F));
+		this.tasks.addTask(2, new EntityAISlagHateLight(this, 1.2D, 8));
+		this.tasks.addTask(3, new EntityAILeapAtTarget(this, 0.4F));
+		this.tasks.addTask(3, new EntityAIAttackMelee(this, 1.0D, true));
+		this.tasks.addTask(4, new EntityAISlagEatGems(this, 1.8D));
+		this.tasks.addTask(4, new EntityAIWanderAvoidWater(this, 0.6D));
+		this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, true, new Class[0]));
+		this.targetTasks.addTask(2, new EntityAINearestAttackableTarget<EntityPlayer>(this, EntityPlayer.class, true));
+		this.targetTasks.addTask(3, new EntityAINearestAttackableTarget<EntityGem>(this, EntityGem.class, true));
+		this.dataManager.register(EntitySlag.COUNT, 1);
+		this.dataManager.register(EntitySlag.VARIANT, 0);
+		this.compatIndex = worldIn.rand.nextInt(4);
+	}
+	@Override
 	public void writeEntityToNBT(NBTTagCompound compound) {
-        super.writeEntityToNBT(compound);
-        compound.setInteger("count", this.dataManager.get(COUNT));
-        compound.setInteger("variant", this.dataManager.get(VARIANT));
+		super.writeEntityToNBT(compound);
+		compound.setInteger("count", this.dataManager.get(EntitySlag.COUNT));
+		compound.setInteger("variant", this.dataManager.get(EntitySlag.VARIANT));
 	}
+	@Override
 	public void readEntityFromNBT(NBTTagCompound compound) {
-        super.readEntityFromNBT(compound);
-        this.dataManager.set(VARIANT, compound.getInteger("variant"));
-        this.setCount(compound.getInteger("count"));
+		super.readEntityFromNBT(compound);
+		this.dataManager.set(EntitySlag.VARIANT, compound.getInteger("variant"));
+		this.setCount(compound.getInteger("count"));
 	}
+	@Override
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
-		ChunkPos c = world.getChunkFromBlockCoords(this.getPosition()).getPos();
+		ChunkPos c = this.world.getChunkFromBlockCoords(this.getPosition()).getPos();
 		this.setVariant(Math.abs((c.x + c.z) % ModEntities.MINERALS.size()));
-        return super.onInitialSpawn(difficulty, livingdata);
-    }
+		return super.onInitialSpawn(difficulty, livingdata);
+	}
+	@Override
 	public void onLivingUpdate() {
 		super.onLivingUpdate();
 		this.setSize(0.4F * this.getCount(), 0.3F * this.getCount());
 	}
+	@Override
 	protected void updateAITasks() {
 		super.updateAITasks();
 		this.healthBar.setPercent(this.getHealth() / this.getMaxHealth());
 	}
 	public void setVariant(int variant) {
-		this.dataManager.set(VARIANT, variant);
+		this.dataManager.set(EntitySlag.VARIANT, variant);
 	}
 	public int getVariant() {
-		return this.dataManager.get(VARIANT);
+		return this.dataManager.get(EntitySlag.VARIANT);
 	}
 	public int getCount() {
-		return this.dataManager.get(COUNT);
+		return this.dataManager.get(EntitySlag.COUNT);
 	}
 	public void setCount(int count) {
 		this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(30.0D * count);
 		this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(4.0D * count);
 		this.setSize(0.4F * count, 0.3F * count);
-		this.dataManager.set(COUNT, count);
+		this.dataManager.set(EntitySlag.COUNT, count);
 	}
+	@Override
 	protected boolean canTriggerWalking() {
-        return false;
+		return false;
 	}
+	@Override
 	public void fall(float distance, float damageMultiplier) {
 		return;
 	}
+	@Override
 	public boolean attackEntityFrom(DamageSource source, float amount) {
 		if (!this.world.isRemote && source == DamageSource.IN_WALL) {
 			AxisAlignedBB bounds = this.getEntityBoundingBox();
 			for (double x = bounds.minX; x < bounds.maxX; ++x) {
 				for (double y = bounds.minY; y < bounds.maxY; ++y) {
 					for (double z = bounds.minZ; z < bounds.maxZ; ++z) {
-						if (this.world.getBlockState(new BlockPos(x, y, z)).getBlockHardness(world, new BlockPos(x, y, z)) > -1) {
+						if (this.world.getBlockState(new BlockPos(x, y, z)).getBlockHardness(this.world, new BlockPos(x, y, z)) > -1) {
 							this.world.destroyBlock(new BlockPos(x, y, z), true);
 						}
 					}
@@ -120,6 +128,7 @@ public class EntitySlag extends EntityMob implements IMob {
 		}
 		return super.attackEntityFrom(source, amount);
 	}
+	@Override
 	public void onDeath(DamageSource cause) {
 		if (!this.world.isRemote) {
 			for (int i = 0; i < this.getCount(); ++i) {
@@ -128,17 +137,20 @@ public class EntitySlag extends EntityMob implements IMob {
 		}
 		super.onDeath(cause);
 	}
+	@Override
 	public void addTrackingPlayer(EntityPlayerMP player) {
-        super.addTrackingPlayer(player);
-        if (this.getCount() > 3) {
-        	this.healthBar.addPlayer(player);
-        }
-    }
-    public void removeTrackingPlayer(EntityPlayerMP player) {
-        super.removeTrackingPlayer(player);
-        this.healthBar.removePlayer(player);
-    }
-    protected SoundEvent getAmbientSound() {
+		super.addTrackingPlayer(player);
+		if (this.getCount() > 3) {
+			this.healthBar.addPlayer(player);
+		}
+	}
+	@Override
+	public void removeTrackingPlayer(EntityPlayerMP player) {
+		super.removeTrackingPlayer(player);
+		this.healthBar.removePlayer(player);
+	}
+	@Override
+	protected SoundEvent getAmbientSound() {
 		return ModSounds.SLAG_LIVING;
 	}
 	public boolean canFuse() {
