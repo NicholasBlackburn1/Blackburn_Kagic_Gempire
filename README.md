@@ -1,7 +1,6 @@
 # KAGIC
-*The Steven Universe mod that adamantly denies it is a Steven Universe mod.* KAGIC adds machines that inject an essence into the ground that engenders magical beings called "gems" by transmuting the blocks around. These gems appear in a variety of ways and can be commanded to do a variety of tasks based on these blocks, called "cruxes."
-
-**This repository houses the first version of KAGIC, which is deprecated and after the release of its rewrite, KAGIC Era 2, will be archived and used for archival purposes only. Thanks for your support.**
+Kagic is a Steven universe themed Minecraft mod! This github is a repository for the mod. A download link can be found below
+**This repository houses the first version of KAGIC, which is deprecated and after the release of its rewrite, Kagic:Redux
 
 ## Issues
 1. **Ensure you are using the most recent version of KAGIC.**
