@@ -1,14 +1,14 @@
 [
     {
-        "modid": "kagic",
-        "name": "KAGIC",
-        "description": "KAGIC is a Steven Universe mod that adds machines that let you harvest your very own gem servants from the ground!",
+        "modid": "kagic:redux",
+        "name": "KAGIC:redux",
+        "description": "KAGIC is a Steven Universe mod that adds machines items and entities that let you harvest your very own gem servants from the ground!",
         "version": "${version}",
         "mcversion": "1.12.2",
-        "url": "https://minecraft.curseforge.com/projects/kagic",
+        "url": "https://www.dropbox.com/s/i5st2qguakayrwb/kagic-X11p13.jar?dl=0",
         "updateUrl": "",
-        "authorList": ["Akrivus", "HeimrArnadalr"],
-        "credits": "ง7\"Steven Universe\" and all related characters and elements are trademarks of Cartoon Network.งf",
+        "authorList": ["Hekapoo", "Taitiansworks"],
+        "credits": "ยง7\"Steven Universe\" and all related characters and elements are trademarks of Cartoon Network.ยงf",
         "logoFile": "logo.png",
         "screenshots": [],
         "dependencies": []
