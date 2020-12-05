@@ -7,6 +7,7 @@ import org.apache.logging.log4j.Logger;
 import mod.kagic.chunk.KAGICChunkCallback;
 import mod.kagic.client.gui.KTGUIProxy;
 import mod.kagic.command.CommandDestroyGem;
+import mod.kagic.command.CommandGetBiomePos;
 import mod.kagic.command.CommandMeteorRuby;
 import mod.kagic.command.CommandScanGems;
 import mod.kagic.command.CommandSpawnGems;
@@ -103,6 +104,7 @@ public class KAGIC {
 		 * catch (Exception x) { x.printStackTrace(); } }
 		 */
 		e.registerServerCommand(new CommandDestroyGem());
+		e.registerServerCommand(new CommandGetBiomePos());
 		e.registerServerCommand(new CommandMeteorRuby());
 		e.registerServerCommand(new CommandSpawnGems());
 		e.registerServerCommand(new CommandScanGems());

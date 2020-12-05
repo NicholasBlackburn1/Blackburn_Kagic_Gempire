@@ -28,7 +28,7 @@ public class BiomeFloatingPeaks extends Biome {
 
 	static {
 		BiomeFloatingPeaks.PROPERTIES.setBaseHeight(0.4F);
-		BiomeFloatingPeaks.PROPERTIES.setHeightVariation(0.05F);
+		BiomeFloatingPeaks.PROPERTIES.setHeightVariation(0.85F);
 		BiomeFloatingPeaks.PROPERTIES.setTemperature(0.9F);
 		BiomeFloatingPeaks.PROPERTIES.setRainfall(0.5F);
 		BiomeFloatingPeaks.PROPERTIES.setWaterColor(0xEAFFFC);
