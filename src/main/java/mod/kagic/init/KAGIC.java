@@ -63,8 +63,8 @@ public class KAGIC {
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent e) {
 		KAGIC.logger = e.getModLog();
-		//WModBiomes.register();
-		// ModDimensions.register();
+		//ModBiomes.register();
+		ModDimensions.register();
 		KAGICSmeltingRecipes.register();
 		KTPacketHandler.registerMessages(KAGIC.MODID);
 		ForgeChunkManager.setForcedChunkLoadingCallback(KAGIC.instance, new KAGICChunkCallback());
