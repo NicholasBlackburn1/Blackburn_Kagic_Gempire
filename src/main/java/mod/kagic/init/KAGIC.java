@@ -42,7 +42,7 @@ import net.minecraftforge.fml.relauncher.Side;
 
 @Mod(modid = KAGIC.MODID, version = KAGIC.VERSION, acceptedMinecraftVersions = KAGIC.MCVERSION)
 public class KAGIC {
-	public static final String MODID = "kagic";
+	public static final String MODID = "ndbkagic";
 	public static final String VERSION = "@version";
 	public static final String MCVERSION = "@mcversion";
 	public static final boolean DEVELOPER = true;
