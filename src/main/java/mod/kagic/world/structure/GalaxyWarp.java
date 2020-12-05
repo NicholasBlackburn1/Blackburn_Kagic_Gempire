@@ -18,6 +18,7 @@ public class GalaxyWarp extends SunkenRuinStructure {
 		this.chestTables.put(new BlockPos(28, 55, 30), LootTables.GALAXY_WARP);
 		
 		this.allowedBiomeTypes.add(Type.OCEAN);
+		this.allowedBiomeTypes.add(Type.BEACH);
 	}
 	
 	@Override
