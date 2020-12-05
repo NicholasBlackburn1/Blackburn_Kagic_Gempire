@@ -63,7 +63,7 @@ public class KAGIC {
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent e) {
 		KAGIC.logger = e.getModLog();
-		// ModBiomes.register();
+		//WModBiomes.register();
 		// ModDimensions.register();
 		KAGICSmeltingRecipes.register();
 		KTPacketHandler.registerMessages(KAGIC.MODID);
@@ -109,15 +109,10 @@ public class KAGIC {
 	
 	// Used for debugging
 	public void chatInfoMessage(String message) {
-		if (KAGIC.DEVELOPER /*
-							 * &&
-							 * FMLCommonHandler.instance().
-							 * getEffectiveSide() ==
-							 * Side.SERVER
-							 */) {
-			PlayerList list = FMLCommonHandler.instance().getMinecraftServerInstance().getPlayerList();
+		if (KAGIC.DEVELOPER) {
+			
 			KAGIC.logger.info(message);
-			list.sendMessage(new TextComponentString(message));
+			
 		}
 	}
 	
@@ -159,7 +154,7 @@ public class KAGIC {
 	}
 	
 	public static boolean isBirthday() {
-		return KAGIC.isDayToday(1, 17) || KAGIC.isDayToday(10, 24) || KAGIC.isDayToday(10, 22);
+		return KAGIC.isDayToday(1, 17) || KAGIC.isDayToday(10, 24) || KAGIC.isDayToday(10, 22) || KAGIC.isDayToday(12, 06);
 	}
 	
 	public static boolean isBirthdayTomorrow() {

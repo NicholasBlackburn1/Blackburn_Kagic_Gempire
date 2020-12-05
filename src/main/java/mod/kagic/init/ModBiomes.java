@@ -11,7 +11,15 @@ import net.minecraftforge.common.BiomeDictionary.Type;
 import net.minecraftforge.common.BiomeManager;
 import net.minecraftforge.common.BiomeManager.BiomeType;
 import net.minecraftforge.event.RegistryEvent;
-
+/** 
+ * this class regesters new bioms to mc 
+ * @param Biomes homeworld,
+ * LION
+ * ,KINDERGARTEN
+ * ,FLOATINGPEAKS
+ * ,STRAWBERRYBATTLEFIELD
+ * 
+ */
 public class ModBiomes {
 	public static final Biome HOMEWORLD = new BiomeHomeworld();
 	public static final Biome LION = new BiomeLion();
@@ -19,11 +27,11 @@ public class ModBiomes {
 	public static final Biome FLOATINGPEAKS = new BiomeFloatingPeaks();
 	public static final Biome STRAWBERRYBATTLEFIELD = new BiomeStrawberryBattlefield();
 
+	// Registers all Biomes
 	public static void register(RegistryEvent.Register<Biome> event) {
-		// BiomeManager.addBiome(BiomeType.DESERT, new
-		// BiomeManager.BiomeEntry(HOMEWORLD, 0));
-		// BiomeManager.addBiome(BiomeType.WARM, new
-		// BiomeManager.BiomeEntry(LION, 0));
+		BiomeManager.addBiome(BiomeType.DESERT, new BiomeManager.BiomeEntry(HOMEWORLD, 0));
+		BiomeManager.addBiome(BiomeType.WARM, new BiomeManager.BiomeEntry(LION, 0));
+		
 		KAGIC.logger.info("Setting biome weights: Kindergarten = " + ModConfigs.kindergartenWeight + ", Floating Peaks = " + ModConfigs.floatingPeaksWeight);
 		event.getRegistry().register(ModBiomes.KINDERGARTEN);
 		BiomeManager.addBiome(BiomeType.DESERT, new BiomeManager.BiomeEntry(ModBiomes.KINDERGARTEN, ModConfigs.kindergartenWeight));

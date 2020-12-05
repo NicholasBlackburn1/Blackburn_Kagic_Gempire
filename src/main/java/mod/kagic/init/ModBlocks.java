@@ -38,6 +38,10 @@ import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.oredict.OreDictionary;
 
+/**
+ * this class is for Registering blocks for the mod 
+ * 
+ */
 public class ModBlocks {
 	public static final Material DRAINED = new Material(MapColor.PURPLE) {
 		@Override
@@ -54,27 +58,33 @@ public class ModBlocks {
 	public static final BlockGemSeed GEM_SEED = new BlockGemSeed();
 	public static final ItemBlock GEM_SEED_BLOCK = new ItemBlock(ModBlocks.GEM_SEED);
 	public static final BlockGemDrill GEM_DRILL = new BlockGemDrill();
+
 	public static final BlockInjector INJECTOR = new BlockInjector(false, false);
 	public static final BlockInjector EQUIPPED_INJECTOR = new BlockInjector(true, false);
 	public static final BlockInjector ANALOG_INJECTOR = new BlockInjector(false, true);
 	public static final BlockInjector EQUIPPED_ANALOG_INJECTOR = new BlockInjector(true, true);
 	public static final BlockIncubator INCUBATOR = new BlockIncubator();
+
 	public static final BlockVarying DRAINED_BLOCK = new BlockVarying("drained_block", 1, 40, 1);
 	public static final BlockVarying DRAINED_BLOCK_2 = new BlockVarying("drained_block_2", 1, 40, 1);
 	public static final BlockVarying DRAINED_BANDS = new BlockVarying("drained_bands", 1, 40, 1);
 	public static final BlockVarying SMOOTH_CARBONITE = new BlockVarying("smooth_carbonite", 2, 80, 1);
+
 	public static final BlockVarying CHISELED_CARBONITE = new BlockVarying("chiseled_carbonite", 2, 80, 1);
 	public static final BlockDrainedGravel DRAINED_GRAVEL = new BlockDrainedGravel("drained_gravel");
 	public static final BlockRockMelt ROCK_MELT = new BlockRockMelt(true);
 	public static final BlockRockMelt RUTILE_TRAIL = new BlockRockMelt(false);
+
 	public static final BlockWarpPadCore WARP_PAD_CORE = new BlockWarpPadCore();
 	public static final BlockGalaxyPadCore GALAXY_PAD_CORE = new BlockGalaxyPadCore();
+
 	public static final BlockPinkSandstone PINK_SANDSTONE = new BlockPinkSandstone();
 	public static final BlockPinkSandstoneStairs PINK_SANDSTONE_STAIRS = new BlockPinkSandstoneStairs("pink_sandstone_stairs");
 	public static final BlockPinkSandstoneStairs WAVY_PINK_SANDSTONE_STAIRS = new BlockPinkSandstoneStairs("wavy_pink_sandstone_stairs");
 	public static final BlockPinkSandstoneSlab PINK_SANDSTONE_SLAB = new BlockPinkSandstoneSlab();
 	public static final BlockPinkSandstoneDoubleSlab PINK_SANDSTONE_DOUBLE_SLAB = new BlockPinkSandstoneDoubleSlab();
 	public static final BlockGiantStrawberry GIANT_STRAWBERRY = new BlockGiantStrawberry();
+
 	public static final BlockGiantStrawberryStem GIANT_STRAWBERRY_STEM = new BlockGiantStrawberryStem(ModBlocks.GIANT_STRAWBERRY);
 	public static final BlockMoonGoddessStatue MOON_GODDESS_STATUE = new BlockMoonGoddessStatue();
 	public static final BlockMoonBlessedStone MOON_BLESSED_STONE = new BlockMoonBlessedStone("moon_blessed_stone");
@@ -116,17 +126,18 @@ public class ModBlocks {
 		KAGIC.proxy.registerStateMappers();
 		// KAGIC.proxy.registerBlockColors();
 	}
-
+	// Registers block
 	public static void registerBlock(Block block, ResourceLocation location, RegistryEvent.Register<Block> event) {
 		block.setRegistryName(location);
 		event.getRegistry().register(block);
 	}
 
+	// registers fluid
 	public static void registerFluid(Fluid fluid) {
 		FluidRegistry.registerFluid(fluid);
 		FluidRegistry.addBucketForFluid(fluid);
 	}
-
+	//Registers Block Item
 	public static void registerBlockItems(RegistryEvent.Register<Item> event) {
 		ModBlocks.registerBlockItem(ModBlocks.GEM_SEED, new ResourceLocation("kagic:gem_seed"), event);
 		ModBlocks.registerBlockItem(ModBlocks.GEM_DRILL, new ResourceLocation("kagic:gem_drill"), event);
@@ -180,7 +191,7 @@ public class ModBlocks {
 			ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(item.getRegistryName(), "inventory"));
 		}
 	}
-
+	
 	public static void registerPinkSandstoneItems(RegistryEvent.Register<Item> event) {
 		ItemMultiTexture item = (ItemMultiTexture) new ItemMultiTexture(ModBlocks.PINK_SANDSTONE, ModBlocks.PINK_SANDSTONE, new ItemMultiTexture.Mapper() {
 			@Override
