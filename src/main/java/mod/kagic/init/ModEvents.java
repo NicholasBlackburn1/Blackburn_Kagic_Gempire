@@ -61,7 +61,7 @@ public class ModEvents {
 	public void onPlayerLoggedIn(PlayerLoggedInEvent e) {
 		if (KAGIC.DEVELOPER) {
 			e.player.sendMessage(
-					new TextComponentString("You are playing KAGIC-Blackburn " + KAGIC.VERSION + " Please Enjoy"));
+					new TextComponentString("§6 You are playing KAGIC-Blackburn " + KAGIC.VERSION + " Please Enjoy"));
 					
 					KAGIC.logger.info("in Player innteract Fucntion need to execute the advancement");
 					ModTriggers.PLACE_CLOUD_SAPLING.trigger(e.player);
