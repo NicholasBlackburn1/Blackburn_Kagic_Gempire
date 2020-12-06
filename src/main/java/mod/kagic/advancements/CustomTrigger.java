@@ -12,6 +12,7 @@ import com.google.common.collect.Sets;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
 
+import mod.kagic.init.KAGIC;
 import net.minecraft.advancements.ICriterionTrigger;
 import net.minecraft.advancements.PlayerAdvancements;
 import net.minecraft.advancements.critereon.AbstractCriterionInstance;
@@ -125,7 +126,9 @@ public class CustomTrigger implements ICriterionTrigger<CustomTrigger.Instance>
 
         if (tameanimaltrigger$listeners != null)
         {
+            KAGIC.logger.warn("starting to run achivement");
             tameanimaltrigger$listeners.trigger((EntityPlayerMP) player);
+            KAGIC.logger.warn("ran acievement");
         }
     }
 
