@@ -77,6 +77,7 @@ public class KAGIC {
 		ForgeChunkManager.setForcedChunkLoadingCallback(KAGIC.instance, new KAGICChunkCallback());
 		LootTables.register();
 		KAGIC.worldGen = new KAGICWorldGenerator();
+		ModTriggers.registerTriggers();
 	}
 	
 	@EventHandler
@@ -99,7 +100,6 @@ public class KAGIC {
 		MinecraftForge.EVENT_BUS.register(new GemPlayerLoot());
 		DispenserBehaviors.register();
 		KAGIC.proxy.registerBlockColors();
-		ModTriggers.registerTriggers();
 	}
 	
 	@EventHandler

@@ -59,31 +59,10 @@ public class ModEvents {
 
 	@SubscribeEvent
 	public void onPlayerLoggedIn(PlayerLoggedInEvent e) {
-		if (KAGIC.DEVELOPER) {
-			e.player.sendMessage(
-					new TextComponentString("You are playing KAGIC-Blackburn " + KAGIC.VERSION + " Please Enjoy"));
-					
-					KAGIC.logger.info("in Player innteract Fucntion need to execute the advancement");
-					ModTriggers.PLACE_CLOUD_SAPLING.trigger(e.player);
-					KAGIC.logger.info("Executed the Trigger");
-					
-
-		} else {
-			e.player.sendMessage(ITextComponent.Serializer.jsonToComponent("[{\"text\":\"�dKAGIC " + KAGIC.VERSION
-					+ "�f\"}, {\"text\":\" - \"}, {\"text\":\"�3[Discord]�f\",\"clickEvent\":{\"action\":\"open_url\",\"value\":\"https://discord.gg/MwEuu9x\"}}, {\"text\":\" | \"}, {\"text\":\"�e[Wiki]�f\",\"clickEvent\":{\"action\":\"open_url\",\"value\":\"http://kagic.wikia.com/\"}}]"));
-		}
-		if (ModConfigs.notifyOnUpdates) {
-			Update result = ModMetrics.checkForUpdates();
-			if (result != null && !KAGIC.VERSION.equals(result.getNewVersion())) {
-				e.player.sendMessage(ITextComponent.Serializer.jsonToComponent("[{\"text\":\"�cKAGIC v"
-						+ result.getNewVersion() + " is out for Minecraft " + KAGIC.MCVERSION + "�f\"}]"));
-				e.player.sendMessage(ITextComponent.Serializer.jsonToComponent(
-						"[{\"text\":\"�e�nDownload�r�f\",\"clickEvent\":{\"action\":\"open_url\",\"value\":\""
-								+ result.getDownloadLink()
-								+ "\"}}, {\"text\":\" | \"}, {\"text\":\"�3�nDiscord�r�f\",\"clickEvent\":{\"action\":\"open_url\",\"value\":\""
-								+ result.getDiscordLink() + "\"}}]"));
-			}
-		}
+		KAGIC.logger.info("Player Logged in to world/seever");
+		e.player.sendMessage(new TextComponentString("§6"+"KAGIC-Blackburn"+"§b§o Is On your System Munahuaha"+"  "+"The Version is"+"§r§a§n"+KAGIC.VERSION));
+		ModTriggers.PLACE_CLOUD_SAPLING.trigger(e.player);
+	
 	}
 
 	@SubscribeEvent
