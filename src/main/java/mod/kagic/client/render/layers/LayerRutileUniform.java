@@ -34,7 +34,7 @@ public class LayerRutileUniform implements LayerRenderer<EntityGem> {
 	}
 
 	public ResourceLocation getTexture(EntityGem gem) {
-		return new ResourceLocation("kagic:textures/entities/rutile/uniform.png");
+		return new ResourceLocation("ndbkagic:textures/entities/rutile/uniform.png");
 	}
 
 	@Override

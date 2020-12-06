@@ -1,0 +1,8 @@
+{
+    "forge_marker":1,
+    "variants": {
+        "inventory": { "model": "ndbkagic:half_slab_pink_sandstone" },
+        "half=bottom,variant=pink_sandstone": { "model": "ndbkagic:half_slab_pink_sandstone" },
+        "half=top,variant=pink_sandstone": { "model": "ndbkagic:upper_slab_pink_sandstone" }
+    }
+}

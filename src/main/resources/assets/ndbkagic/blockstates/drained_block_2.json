@@ -1,0 +1,23 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+    	"model": "minecraft:cube",
+        "textures": {
+            "north": "ndbkagic:blocks/drained_block_2_side",
+            "south": "ndbkagic:blocks/drained_block_2_side",
+            "east": "ndbkagic:blocks/drained_block_2_side",
+            "west": "ndbkagic:blocks/drained_block_2_side",
+            "up": "ndbkagic:blocks/drained_block_2_top",
+            "down": "ndbkagic:blocks/drained_block_2_top",
+            "particle": "ndbkagic:blocks/drained_block_2_top"
+        }
+    },
+    "variants": {
+        "normal": {
+            "model": "minecraft:cube"
+        },
+        "inventory": {
+            "model": "minecraft:cube"
+        }
+    }
+}

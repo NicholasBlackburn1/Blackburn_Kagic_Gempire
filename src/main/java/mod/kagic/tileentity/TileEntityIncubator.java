@@ -91,7 +91,7 @@ public class TileEntityIncubator extends TileEntityLockableLoot implements ITick
 
 	@Override
 	public String getGuiID() {
-		return "kagic:incubator";
+		return "ndbkagic:incubator";
 	}
 
 	@Override

@@ -44,6 +44,6 @@ public class RenderSapphire extends RenderGemBase<EntitySapphire> {
 
 	@Override
 	protected ResourceLocation getEntityTexture(EntitySapphire entity) {
-		return new ResourceLocation("kagic:textures/entities/sapphire/sapphire.png");
+		return new ResourceLocation("ndbkagic:textures/entities/sapphire/sapphire.png");
 	}
 }

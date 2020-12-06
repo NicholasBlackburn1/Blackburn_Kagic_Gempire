@@ -35,7 +35,7 @@ public class LayerRutileInsignia implements LayerRenderer<EntityRutile> {
 	}
 
 	public ResourceLocation getTexture(EntityGem gem) {
-		return new ResourceLocation("kagic:textures/entities/rutile/insignia.png");
+		return new ResourceLocation("ndbkagic:textures/entities/rutile/insignia.png");
 	}
 
 	@Override

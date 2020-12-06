@@ -15,9 +15,9 @@ public class RenderPumpkin extends RenderLivingBase<EntityPumpkin> {
 	@Override
 	protected ResourceLocation getEntityTexture(EntityPumpkin entity) {
 		if (entity.isLit()) {
-			return new ResourceLocation("kagic:textures/entities/pepo/pumpkin_lit.png");
+			return new ResourceLocation("ndbkagic:textures/entities/pepo/pumpkin_lit.png");
 		} else {
-			return new ResourceLocation("kagic:textures/entities/pepo/pumpkin.png");
+			return new ResourceLocation("ndbkagic:textures/entities/pepo/pumpkin.png");
 		}
 	}
 }

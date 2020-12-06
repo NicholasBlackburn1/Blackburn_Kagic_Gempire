@@ -32,7 +32,7 @@ public class LayerRutileSkin implements LayerRenderer<EntityRutile> {
 	}
 	
 	public ResourceLocation getTexture(EntityRutile gem) {
-		return new ResourceLocation("kagic:textures/entities/rutile/skin.png");
+		return new ResourceLocation("ndbkagic:textures/entities/rutile/skin.png");
 	}
 
 	@Override

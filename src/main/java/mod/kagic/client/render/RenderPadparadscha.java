@@ -12,6 +12,6 @@ public class RenderPadparadscha extends RenderGemBase<EntityPadparadscha> {
 	
 	@Override
 	protected ResourceLocation getEntityTexture(EntityPadparadscha entity) {
-		return new ResourceLocation("kagic:textures/entities/sapphire/sapphire.png");
+		return new ResourceLocation("ndbkagic:textures/entities/sapphire/sapphire.png");
 	}
 }

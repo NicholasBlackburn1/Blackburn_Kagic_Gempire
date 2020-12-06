@@ -46,6 +46,6 @@ public class RenderLapisLazuli extends RenderGemBase<EntityLapisLazuli> {
 
 	@Override
 	protected ResourceLocation getEntityTexture(EntityLapisLazuli entity) {
-		return new ResourceLocation("kagic:textures/entities/lapis_lazuli/lapis_lazuli.png");
+		return new ResourceLocation("ndbkagic:textures/entities/lapis_lazuli/lapis_lazuli.png");
 	}
 }

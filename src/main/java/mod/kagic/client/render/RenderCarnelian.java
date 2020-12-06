@@ -70,6 +70,6 @@ public class RenderCarnelian extends RenderGemBase<EntityCarnelian> {
 
 	@Override
 	protected ResourceLocation getEntityTexture(EntityCarnelian entity) {
-		return new ResourceLocation("kagic:textures/entities/carnelian/carnelian.png");
+		return new ResourceLocation("ndbkagic:textures/entities/carnelian/carnelian.png");
 	}
 }

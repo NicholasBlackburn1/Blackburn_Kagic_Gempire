@@ -33,6 +33,6 @@ public class RenderCorruptedRoseQuartz extends RenderLiving<EntityCorruptedRoseQ
 
 	@Override
 	protected ResourceLocation getEntityTexture(EntityCorruptedRoseQuartz rose) {
-		return new ResourceLocation("kagic:textures/entities/corrupted/rose_quartz/rose_quartz.png");
+		return new ResourceLocation("ndbkagic:textures/entities/corrupted/rose_quartz/rose_quartz.png");
 	}
 }

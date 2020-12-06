@@ -1,0 +1,18 @@
+{
+  "result": {
+    "item": "ndbkagic:wavy_pink_sandstone_stairs",
+    "count": 8
+  },
+  "pattern": [
+    "s  ",
+    "ss ",
+    "sss"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "s": {
+      "item": "ndbkagic:pink_sandstone",
+      "data": 3
+    }
+  }
+}

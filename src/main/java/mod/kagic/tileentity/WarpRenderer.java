@@ -13,7 +13,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class WarpRenderer extends TileEntitySpecialRenderer<TileEntityWarpPadCore> {
-	private static final ResourceLocation warpStream = new ResourceLocation("kagic:textures/blocks/warpstream.png");
+	private static final ResourceLocation warpStream = new ResourceLocation("ndbkagic:textures/blocks/warpstream.png");
 	private static final double height = 6;
 
 	private void renderVertex(BufferBuilder renderer, double x, double y, double z, double u, double v) {

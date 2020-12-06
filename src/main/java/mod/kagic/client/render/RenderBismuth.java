@@ -45,6 +45,6 @@ public class RenderBismuth extends RenderGemBase<EntityBismuth> {
 	
 	@Override
 	protected ResourceLocation getEntityTexture(EntityBismuth entity) {
-		return new ResourceLocation("kagic:textures/entities/bismuth/bismuth.png");
+		return new ResourceLocation("ndbkagic:textures/entities/bismuth/bismuth.png");
 	}
 }

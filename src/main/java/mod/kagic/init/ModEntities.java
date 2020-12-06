@@ -362,44 +362,44 @@ public class ModEntities {
 	}
 
 	public static void registerGemAddons() {
-		EntityAgate.AGATE_HAIR_STYLES.add(new ResourceLocation("kagic:textures/entities/agate/hair/holly.png"));
-		EntityAgate.AGATE_HAIR_STYLES.add(new ResourceLocation("kagic:textures/entities/agate/hair/back.png"));
-		EntityAgate.AGATE_HAIR_STYLES.add(new ResourceLocation("kagic:textures/entities/agate/hair/top.png"));
-		EntityAgate.AGATE_HAIR_STYLES.add(new ResourceLocation("kagic:textures/entities/agate/hair/spikes.png"));
-		EntityAgate.AGATE_HAIR_STYLES.add(new ResourceLocation("kagic:textures/entities/agate/hair/axis.png"));
-		EntityAgate.AGATE_BAND_STYLES.add(new ResourceLocation("kagic:textures/entities/agate/band/holly.png"));
-		EntityAgate.AGATE_BAND_STYLES.add(new ResourceLocation("kagic:textures/entities/agate/band/back.png"));
-		EntityAgate.AGATE_BAND_STYLES.add(new ResourceLocation("kagic:textures/entities/agate/band/top.png"));
-		EntityAgate.AGATE_BAND_STYLES.add(new ResourceLocation("kagic:textures/entities/agate/band/spikes.png"));
-		EntityAgate.AGATE_BAND_STYLES.add(new ResourceLocation("kagic:textures/entities/agate/band/axis.png"));
-		EntityPearl.PEARL_HAIR_STYLES.add(new ResourceLocation("kagic:textures/entities/pearl/hair/blue.png"));
-		EntityPearl.PEARL_HAIR_STYLES.add(new ResourceLocation("kagic:textures/entities/pearl/hair/brows.png"));
-		EntityPearl.PEARL_HAIR_STYLES.add(new ResourceLocation("kagic:textures/entities/pearl/hair/curly.png"));
-		EntityPearl.PEARL_HAIR_STYLES.add(new ResourceLocation("kagic:textures/entities/pearl/hair/blue.png"));
-		EntityPearl.PEARL_HAIR_STYLES.add(new ResourceLocation("kagic:textures/entities/pearl/hair/brows.png"));
-		EntityPearl.PEARL_HAIR_STYLES.add(new ResourceLocation("kagic:textures/entities/pearl/hair/curly.png"));
-		EntityPearl.PEARL_HAIR_STYLES.add(new ResourceLocation("kagic:textures/entities/pearl/hair/messy.png"));
-		EntityPearl.PEARL_HAIR_STYLES.add(new ResourceLocation("kagic:textures/entities/pearl/hair/mop.png"));
-		EntityPearl.PEARL_HAIR_STYLES.add(new ResourceLocation("kagic:textures/entities/pearl/hair/sides.png"));
-		EntityPearl.PEARL_HAIR_STYLES.add(new ResourceLocation("kagic:textures/entities/pearl/hair/swoop.png"));
-		EntityPearl.PEARL_HAIR_STYLES.add(new ResourceLocation("kagic:textures/entities/pearl/hair/yellow.png"));
-		EntityPearl.PEARL_DRESS_STYLES.add(new ResourceLocation("kagic:textures/entities/pearl/dress/dumpy.png"));
-		EntityPearl.PEARL_DRESS_STYLES.add(new ResourceLocation("kagic:textures/entities/pearl/dress/flower.png"));
-		EntityPearl.PEARL_DRESS_STYLES.add(new ResourceLocation("kagic:textures/entities/pearl/dress/hijab.png"));
-		EntityPearl.PEARL_DRESS_STYLES.add(new ResourceLocation("kagic:textures/entities/pearl/dress/jumpsuit.png"));
-		EntityPearl.PEARL_DRESS_STYLES.add(new ResourceLocation("kagic:textures/entities/pearl/dress/leather.png"));
-		EntityPearl.PEARL_DRESS_STYLES.add(new ResourceLocation("kagic:textures/entities/pearl/dress/legacy.png"));
-		EntityPearl.PEARL_DRESS_STYLES.add(new ResourceLocation("kagic:textures/entities/pearl/dress/maid.png"));
-		EntityPearl.PEARL_DRESS_STYLES.add(new ResourceLocation("kagic:textures/entities/pearl/dress/seethrough.png"));
-		EntityPearl.PEARL_DRESS_STYLES.add(new ResourceLocation("kagic:textures/entities/pearl/dress/servant.png"));
-		EntityPearl.PEARL_DRESS_STYLES.add(new ResourceLocation("kagic:textures/entities/pearl/dress/spacesuit.png"));
-		EntityZircon.ZIRCON_HAIR_STYLES.add(new ResourceLocation("kagic:textures/entities/zircon/hair/cowl.png"));
-		EntityZircon.ZIRCON_HAIR_STYLES.add(new ResourceLocation("kagic:textures/entities/zircon/hair/combover.png"));
-		EntityZircon.ZIRCON_HAIR_STYLES.add(new ResourceLocation("kagic:textures/entities/zircon/hair/smooth.png"));
+		EntityAgate.AGATE_HAIR_STYLES.add(new ResourceLocation("ndbkagic:textures/entities/agate/hair/holly.png"));
+		EntityAgate.AGATE_HAIR_STYLES.add(new ResourceLocation("ndbkagic:textures/entities/agate/hair/back.png"));
+		EntityAgate.AGATE_HAIR_STYLES.add(new ResourceLocation("ndbkagic:textures/entities/agate/hair/top.png"));
+		EntityAgate.AGATE_HAIR_STYLES.add(new ResourceLocation("ndbkagic:textures/entities/agate/hair/spikes.png"));
+		EntityAgate.AGATE_HAIR_STYLES.add(new ResourceLocation("ndbkagic:textures/entities/agate/hair/axis.png"));
+		EntityAgate.AGATE_BAND_STYLES.add(new ResourceLocation("ndbkagic:textures/entities/agate/band/holly.png"));
+		EntityAgate.AGATE_BAND_STYLES.add(new ResourceLocation("ndbkagic:textures/entities/agate/band/back.png"));
+		EntityAgate.AGATE_BAND_STYLES.add(new ResourceLocation("ndbkagic:textures/entities/agate/band/top.png"));
+		EntityAgate.AGATE_BAND_STYLES.add(new ResourceLocation("ndbkagic:textures/entities/agate/band/spikes.png"));
+		EntityAgate.AGATE_BAND_STYLES.add(new ResourceLocation("ndbkagic:textures/entities/agate/band/axis.png"));
+		EntityPearl.PEARL_HAIR_STYLES.add(new ResourceLocation("ndbkagic:textures/entities/pearl/hair/blue.png"));
+		EntityPearl.PEARL_HAIR_STYLES.add(new ResourceLocation("ndbkagic:textures/entities/pearl/hair/brows.png"));
+		EntityPearl.PEARL_HAIR_STYLES.add(new ResourceLocation("ndbkagic:textures/entities/pearl/hair/curly.png"));
+		EntityPearl.PEARL_HAIR_STYLES.add(new ResourceLocation("ndbkagic:textures/entities/pearl/hair/blue.png"));
+		EntityPearl.PEARL_HAIR_STYLES.add(new ResourceLocation("ndbkagic:textures/entities/pearl/hair/brows.png"));
+		EntityPearl.PEARL_HAIR_STYLES.add(new ResourceLocation("ndbkagic:textures/entities/pearl/hair/curly.png"));
+		EntityPearl.PEARL_HAIR_STYLES.add(new ResourceLocation("ndbkagic:textures/entities/pearl/hair/messy.png"));
+		EntityPearl.PEARL_HAIR_STYLES.add(new ResourceLocation("ndbkagic:textures/entities/pearl/hair/mop.png"));
+		EntityPearl.PEARL_HAIR_STYLES.add(new ResourceLocation("ndbkagic:textures/entities/pearl/hair/sides.png"));
+		EntityPearl.PEARL_HAIR_STYLES.add(new ResourceLocation("ndbkagic:textures/entities/pearl/hair/swoop.png"));
+		EntityPearl.PEARL_HAIR_STYLES.add(new ResourceLocation("ndbkagic:textures/entities/pearl/hair/yellow.png"));
+		EntityPearl.PEARL_DRESS_STYLES.add(new ResourceLocation("ndbkagic:textures/entities/pearl/dress/dumpy.png"));
+		EntityPearl.PEARL_DRESS_STYLES.add(new ResourceLocation("ndbkagic:textures/entities/pearl/dress/flower.png"));
+		EntityPearl.PEARL_DRESS_STYLES.add(new ResourceLocation("ndbkagic:textures/entities/pearl/dress/hijab.png"));
+		EntityPearl.PEARL_DRESS_STYLES.add(new ResourceLocation("ndbkagic:textures/entities/pearl/dress/jumpsuit.png"));
+		EntityPearl.PEARL_DRESS_STYLES.add(new ResourceLocation("ndbkagic:textures/entities/pearl/dress/leather.png"));
+		EntityPearl.PEARL_DRESS_STYLES.add(new ResourceLocation("ndbkagic:textures/entities/pearl/dress/legacy.png"));
+		EntityPearl.PEARL_DRESS_STYLES.add(new ResourceLocation("ndbkagic:textures/entities/pearl/dress/maid.png"));
+		EntityPearl.PEARL_DRESS_STYLES.add(new ResourceLocation("ndbkagic:textures/entities/pearl/dress/seethrough.png"));
+		EntityPearl.PEARL_DRESS_STYLES.add(new ResourceLocation("ndbkagic:textures/entities/pearl/dress/servant.png"));
+		EntityPearl.PEARL_DRESS_STYLES.add(new ResourceLocation("ndbkagic:textures/entities/pearl/dress/spacesuit.png"));
+		EntityZircon.ZIRCON_HAIR_STYLES.add(new ResourceLocation("ndbkagic:textures/entities/zircon/hair/cowl.png"));
+		EntityZircon.ZIRCON_HAIR_STYLES.add(new ResourceLocation("ndbkagic:textures/entities/zircon/hair/combover.png"));
+		EntityZircon.ZIRCON_HAIR_STYLES.add(new ResourceLocation("ndbkagic:textures/entities/zircon/hair/smooth.png"));
 	}
 	@SuppressWarnings({"unchecked"})
 	public static <T extends EntityGem> void registerGem(String name, Class<T> entity, int back, int fore, boolean mineral) {
-		EntityRegistry.registerModEntity(new ResourceLocation("kagic:kagic." + name), entity, "kagic." + name, ModEntities.currentID, KAGIC.instance, 256, 1, true, back, fore);
+		EntityRegistry.registerModEntity(new ResourceLocation("ndbkagic:kagic." + name), entity, "kagic." + name, ModEntities.currentID, KAGIC.instance, 256, 1, true, back, fore);
 		if (FMLCommonHandler.instance().getSide() == Side.CLIENT) {
 			try {
 				Class<Render<? extends T>> render = (Class<Render<? extends T>>) KAGIC.class.getClassLoader().loadClass("mod.kagic/client/render/" + entity.getName().replaceAll(".+?Entity", "Render"));
@@ -431,7 +431,7 @@ public class ModEntities {
 	// Just like registerGem, but no spawn egg
 	@SuppressWarnings({"unchecked"})
 	public static <T extends EntityGem> void registerDiamond(String name, Class<T> entity) {
-		EntityRegistry.registerModEntity(new ResourceLocation("kagic:kagic." + name), entity, "kagic." + name, ModEntities.currentID, KAGIC.instance, 256, 1, true);
+		EntityRegistry.registerModEntity(new ResourceLocation("ndbkagic:kagic." + name), entity, "kagic." + name, ModEntities.currentID, KAGIC.instance, 256, 1, true);
 		if (FMLCommonHandler.instance().getSide() == Side.CLIENT) {
 			try {
 				Class<Render<? extends T>> render = (Class<Render<? extends T>>) KAGIC.class.getClassLoader().loadClass("mod.kagic/client/render/" + entity.getName().replaceAll(".+?Entity", "Render"));
@@ -501,7 +501,7 @@ public class ModEntities {
 	}
 	@SuppressWarnings({"unchecked"})
 	public static <T extends Entity> void registerMob(String name, Class<T> entity, int back, int fore) {
-		EntityRegistry.registerModEntity(new ResourceLocation("kagic:kagic." + name), entity, "kagic." + name, ModEntities.currentID, KAGIC.instance, 256, 1, true, back, fore);
+		EntityRegistry.registerModEntity(new ResourceLocation("ndbkagic:kagic." + name), entity, "kagic." + name, ModEntities.currentID, KAGIC.instance, 256, 1, true, back, fore);
 		if (FMLCommonHandler.instance().getSide() == Side.CLIENT) {
 			try {
 				Class<Render<? extends T>> render = (Class<Render<? extends T>>) KAGIC.class.getClassLoader().loadClass("mod.kagic/client/render/" + entity.getName().replaceAll(".+?Entity", "Render"));
@@ -527,7 +527,7 @@ public class ModEntities {
 	}
 	@SuppressWarnings({"unchecked"})
 	public static <T extends Entity> void registerEntity(String name, Class<T> entity) {
-		EntityRegistry.registerModEntity(new ResourceLocation("kagic:kagic." + name), entity, "kagic." + name, ModEntities.currentID, KAGIC.instance, 256, 1, true);
+		EntityRegistry.registerModEntity(new ResourceLocation("ndbkagic:kagic." + name), entity, "kagic." + name, ModEntities.currentID, KAGIC.instance, 256, 1, true);
 		if (FMLCommonHandler.instance().getSide() == Side.CLIENT) {
 			try {
 				Class<Render<? extends T>> render = (Class<Render<? extends T>>) KAGIC.class.getClassLoader().loadClass("mod.kagic/client/render/" + entity.getName().replaceAll(".+?Entity", "Render"));
@@ -553,7 +553,7 @@ public class ModEntities {
 	}
 	@SuppressWarnings({"unchecked"})
 	public static <T extends Entity> void registerCustomEntity(String name, Class<T> entity) {
-		EntityRegistry.registerModEntity(new ResourceLocation("kagic:kagic.custom_" + name), entity, "kagic.custom_" + name, ModEntities.currentID, KAGIC.instance, 256, 1, true);
+		EntityRegistry.registerModEntity(new ResourceLocation("ndbkagic:kagic.custom_" + name), entity, "kagic.custom_" + name, ModEntities.currentID, KAGIC.instance, 256, 1, true);
 		if (FMLCommonHandler.instance().getSide() == Side.CLIENT) {
 			try {
 				Class<Render<? extends T>> render = (Class<Render<? extends T>>) KAGIC.class.getClassLoader().loadClass("mod.kagic/client/render/customnpcs/" + entity.getName().replaceAll(".+?Entity", "Render"));

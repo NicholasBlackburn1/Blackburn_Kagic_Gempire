@@ -19,6 +19,6 @@ public class RenderCorruptedMoissanite extends RenderGemBase<EntityCorruptedMois
 
 	@Override
 	protected ResourceLocation getEntityTexture(EntityCorruptedMoissanite moissanite) {
-		return new ResourceLocation("kagic:textures/entities/corrupted/moissanite/moissanite.png");
+		return new ResourceLocation("ndbkagic:textures/entities/corrupted/moissanite/moissanite.png");
 	}
 }

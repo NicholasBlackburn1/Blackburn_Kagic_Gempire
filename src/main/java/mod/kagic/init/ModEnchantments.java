@@ -12,9 +12,9 @@ public class ModEnchantments {
 	public static void registerEnchantments(RegistryEvent.Register<Enchantment> event) {
 		event.getRegistry().register(ModEnchantments.BREAKING_POINT);// ,
 																		// new
-																		// ResourceLocation("kagic:breaking_point"));
+																		// ResourceLocation("ndbkagic:breaking_point"));
 		event.getRegistry().register(ModEnchantments.FAIR_FIGHT);// ,
 																	// new
-																	// ResourceLocation("kagic:fair_fight"));
+																	// ResourceLocation("ndbkagic:fair_fight"));
 	}
 }

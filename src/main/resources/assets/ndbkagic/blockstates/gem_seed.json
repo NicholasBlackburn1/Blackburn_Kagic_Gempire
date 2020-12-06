@@ -1,0 +1,61 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+    	"model": "ndbkagic:gem_seed",
+        "textures": {
+            "seed": "ndbkagic:blocks/gem_seed_0",
+            "glow": "ndbkagic:blocks/gem_glow",
+            "particle": "ndbkagic:blocks/gem_seed_0"
+        }
+    },
+    "variants": {
+        "normal": {
+            "model": "ndbkagic:gem_seed",
+            "textures": {
+            	"seed": "ndbkagic:blocks/gem_seed_0",
+            	"glow": "ndbkagic:blocks/gem_glow",
+            	"particle": "ndbkagic:blocks/gem_seed_0"
+        	}
+        },
+        "inventory": {
+            "model": "ndbkagic:gem_seed",
+            "textures": {
+            	"seed": "ndbkagic:blocks/gem_seed_0",
+            	"glow": "ndbkagic:blocks/gem_glow",
+            	"particle": "ndbkagic:blocks/gem_seed_0"
+        	}
+        },
+        "age=0": {
+            "model": "ndbkagic:gem_seed",
+            "textures": {
+            	"seed": "ndbkagic:blocks/gem_seed_0",
+            	"glow": "ndbkagic:blocks/gem_glow",
+            	"particle": "ndbkagic:blocks/gem_seed_0"
+        	}
+        },
+        "age=1": {
+            "model": "ndbkagic:gem_seed",
+            "textures": {
+            	"seed": "ndbkagic:blocks/gem_seed_1",
+            	"glow": "ndbkagic:blocks/gem_glow",
+            	"particle": "ndbkagic:blocks/gem_seed_1"
+        	}
+        },
+        "age=2": {
+            "model": "ndbkagic:gem_seed",
+            "textures": {
+            	"seed": "ndbkagic:blocks/gem_seed_2",
+            	"glow": "ndbkagic:blocks/gem_glow",
+            	"particle": "ndbkagic:blocks/gem_seed_2"
+        	}
+        },
+        "age=3": {
+            "model": "ndbkagic:gem_seed",
+            "textures": {
+            	"seed": "ndbkagic:blocks/gem_seed_3",
+            	"glow": "ndbkagic:blocks/gem_glow",
+            	"particle": "ndbkagic:blocks/gem_seed_3"
+        	}
+        }
+    }
+}

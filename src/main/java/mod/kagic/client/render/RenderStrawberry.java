@@ -18,6 +18,6 @@ public class RenderStrawberry extends RenderLivingBase<EntityStrawberry> {
 	}
 	@Override
 	protected ResourceLocation getEntityTexture(EntityStrawberry entity) {
-		return new ResourceLocation("kagic:textures/entities/pepo/strawberry.png");
+		return new ResourceLocation("ndbkagic:textures/entities/pepo/strawberry.png");
 	}
 }

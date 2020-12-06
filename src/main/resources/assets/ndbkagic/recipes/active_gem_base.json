@@ -1,0 +1,16 @@
+{
+  "result": {
+    "item": "ndbkagic:active_gem_base"
+  },
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "#": {
+      "item": "ndbkagic:active_gem_shard"
+    }
+  }
+}

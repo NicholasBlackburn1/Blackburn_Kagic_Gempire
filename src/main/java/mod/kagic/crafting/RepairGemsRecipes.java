@@ -75,7 +75,7 @@ public class RepairGemsRecipes implements IRecipe {
 	}
 	@Override
 	public ResourceLocation getRegistryName() {
-		return new ResourceLocation("kagic:repair_gems");
+		return new ResourceLocation("ndbkagic:repair_gems");
 	}
 	@Override
 	public Class<IRecipe> getRegistryType() {

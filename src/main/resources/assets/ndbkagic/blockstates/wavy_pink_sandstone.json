@@ -1,0 +1,7 @@
+{
+    "forge_marker":1,
+    "variants": {
+        "normal": { "model": "ndbkagic:pink_sandstone_wavy" },
+        "inventory": { "model": "ndbkagic:pink_sandstone_wavy" }
+    }
+}

@@ -1,8 +1,0 @@
-{
-    "parent": "block/half_slab",
-    "textures": {
-        "bottom": "kagic:blocks/pink_sandstone_bottom",
-        "top": "kagic:blocks/pink_sandstone_top",
-        "side": "kagic:blocks/pink_sandstone_normal"
-    }
-}

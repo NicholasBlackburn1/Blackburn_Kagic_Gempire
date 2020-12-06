@@ -22,8 +22,8 @@ public class RenderRoamingEye extends RenderLivingBase<EntityRoamingEye> {
 	@Override
 	protected ResourceLocation getEntityTexture(EntityRoamingEye entity) {
 		if (entity.isBeingRidden()) {
-			return new ResourceLocation("kagic:textures/entities/roaming_eye/roaming_eye.png");
+			return new ResourceLocation("ndbkagic:textures/entities/roaming_eye/roaming_eye.png");
 		}
-		return new ResourceLocation("kagic:textures/entities/roaming_eye/roaming_eye_empty.png");
+		return new ResourceLocation("ndbkagic:textures/entities/roaming_eye/roaming_eye_empty.png");
 	}
 }

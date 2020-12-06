@@ -19,6 +19,6 @@ public class RenderYellowDiamond extends RenderLivingBase<EntityYellowDiamond> {
 	}
 	@Override
 	protected ResourceLocation getEntityTexture(EntityYellowDiamond entity) {
-		return new ResourceLocation("kagic:textures/entities/yellow_diamond/yellow_diamond.png");
+		return new ResourceLocation("ndbkagic:textures/entities/yellow_diamond/yellow_diamond.png");
 	}
 }

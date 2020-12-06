@@ -33,6 +33,6 @@ public class RenderCorruptedCarnelian extends RenderLiving<EntityCorruptedCarnel
 
 	@Override
 	protected ResourceLocation getEntityTexture(EntityCorruptedCarnelian carnelian) {
-		return new ResourceLocation("kagic:textures/entities/corrupted/carnelian/carnelian.png");
+		return new ResourceLocation("ndbkagic:textures/entities/corrupted/carnelian/carnelian.png");
 	}
 }

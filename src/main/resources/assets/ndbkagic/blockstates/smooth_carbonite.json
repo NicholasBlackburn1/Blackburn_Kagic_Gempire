@@ -1,0 +1,23 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+    	"model": "minecraft:cube",
+        "textures": {
+            "north": "ndbkagic:blocks/smooth_carbonite",
+            "south": "ndbkagic:blocks/smooth_carbonite",
+            "east": "ndbkagic:blocks/smooth_carbonite",
+            "west": "ndbkagic:blocks/smooth_carbonite",
+            "up": "ndbkagic:blocks/smooth_carbonite",
+            "down": "ndbkagic:blocks/smooth_carbonite",
+            "particle": "ndbkagic:blocks/smooth_carbonite"
+        }
+    },
+    "variants": {
+        "normal": {
+            "model": "minecraft:cube"
+        },
+        "inventory": {
+            "model": "minecraft:cube"
+        }
+    }
+}

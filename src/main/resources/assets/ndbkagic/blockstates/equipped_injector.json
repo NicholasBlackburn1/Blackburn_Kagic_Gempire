@@ -1,0 +1,43 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "textures": {
+            "front": "ndbkagic:blocks/injector_equipped_front",
+            "side": "ndbkagic:blocks/injector_equipped_side",
+            "base": "ndbkagic:blocks/injector_base",
+            "top": "ndbkagic:blocks/injector_top",
+            "legs": "ndbkagic:blocks/injector_legs",
+			"metal": "ndbkagic:blocks/injector_metal",
+            "particle": "ndbkagic:blocks/injector_metal"
+        }
+    },
+    "variants": {
+        "facing=down": {
+            "model": "ndbkagic:injector",
+            "y": 90
+        },
+        "facing=up": {
+            "model": "ndbkagic:injector",
+            "y": 90
+        },
+        "facing=east": {
+            "model": "ndbkagic:injector"
+        },
+        "facing=west": {
+            "model": "ndbkagic:injector",
+            "y": 180
+        },
+        "facing=north": {
+            "model": "ndbkagic:injector",
+            "y": 270
+        },
+        "facing=south": {
+            "model": "ndbkagic:injector",
+            "y": 90
+        },
+        "inventory": {
+            "model": "ndbkagic:injector",
+            "y": 90
+        }
+    }
+}

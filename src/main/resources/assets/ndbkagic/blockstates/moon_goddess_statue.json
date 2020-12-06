@@ -1,0 +1,13 @@
+{
+    "forge_marker":1,
+    "variants": {
+        "normal": { "model": "ndbkagic:moon_goddess_statue" },
+        "inventory": { "model": "ndbkagic:moon_goddess_statue" },
+        "facing": {
+            "north": { "model": "ndbkagic:moon_goddess_statue", "y": 180 },
+            "south": {"model": "ndbkagic:moon_goddess_statue" },
+            "west": {"model": "ndbkagic:moon_goddess_statue", "y": 90},
+            "east": {"model": "ndbkagic:moon_goddess_statue", "y": 270}
+        }
+    }
+}

@@ -19,6 +19,6 @@ public class RenderSlag extends RenderLivingBase<EntitySlag> {
 	}
 	@Override
 	protected ResourceLocation getEntityTexture(EntitySlag entity) {
-		return new ResourceLocation("kagic:textures/entities/slag/slag.png");
+		return new ResourceLocation("ndbkagic:textures/entities/slag/slag.png");
 	}
 }

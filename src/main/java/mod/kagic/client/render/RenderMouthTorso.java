@@ -16,6 +16,6 @@ public class RenderMouthTorso extends RenderLivingBase<EntityMouthTorso> {
 	
 	@Override
 	protected ResourceLocation getEntityTexture(EntityMouthTorso entity) {
-		return new ResourceLocation("kagic:textures/entities/shardfusions/mouthtorso/mouthtorso.png");
+		return new ResourceLocation("ndbkagic:textures/entities/shardfusions/mouthtorso/mouthtorso.png");
 	}
 }

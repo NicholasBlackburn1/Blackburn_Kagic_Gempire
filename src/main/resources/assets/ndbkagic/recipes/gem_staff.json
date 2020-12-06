@@ -1,0 +1,19 @@
+{
+  "result": {
+    "item": "ndbkagic:gem_staff"
+  },
+  "pattern": [
+    "  d",
+    " b ",
+    "b  "
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "b": {
+      "item": "minecraft:blaze_rod"
+    },
+    "d": {
+      "item": "minecraft:diamond"
+    }
+  }
+}

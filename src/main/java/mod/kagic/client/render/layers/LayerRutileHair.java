@@ -30,7 +30,7 @@ public class LayerRutileHair implements LayerRenderer<EntityGem> {
 	}
 
 	public ResourceLocation getHairStyle(EntityGem gem, int hairstyle) {
-		return new ResourceLocation("kagic:textures/entities/rutile/hair_" + gem.getHairStyle() + ".png");
+		return new ResourceLocation("ndbkagic:textures/entities/rutile/hair_" + gem.getHairStyle() + ".png");
 	}
 	@Override
 	public boolean shouldCombineTextures() {

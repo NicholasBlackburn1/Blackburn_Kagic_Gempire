@@ -56,6 +56,6 @@ public class RenderTopaz extends RenderGemBase<EntityTopaz> {
 
 	@Override
 	protected ResourceLocation getEntityTexture(EntityTopaz entity) {
-		return new ResourceLocation("kagic:textures/entities/topaz/topaz.png");
+		return new ResourceLocation("ndbkagic:textures/entities/topaz/topaz.png");
 	}
 }

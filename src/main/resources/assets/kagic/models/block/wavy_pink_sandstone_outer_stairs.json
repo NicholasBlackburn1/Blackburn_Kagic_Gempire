@@ -1,8 +1,0 @@
-{
-    "parent": "block/outer_stairs",
-    "textures": {
-        "bottom": "kagic:blocks/pink_sandstone_bottom",
-        "top": "kagic:blocks/pink_sandstone_top",
-        "side": "kagic:blocks/pink_sandstone_wavy"
-    }
-}

@@ -21,9 +21,9 @@ public class RenderCorruptedWatermelonTourmaline extends RenderGemBase<EntityCor
 	@Override
 	protected ResourceLocation getEntityTexture(EntityCorruptedWatermelonTourmaline tourmaline) {
 		if (tourmaline.isAttacking()) {
-			return new ResourceLocation("kagic:textures/entities/corrupted/watermelon_tourmaline/watermelon_tourmaline_attack.png");
+			return new ResourceLocation("ndbkagic:textures/entities/corrupted/watermelon_tourmaline/watermelon_tourmaline_attack.png");
 		} else {
-			return new ResourceLocation("kagic:textures/entities/corrupted/watermelon_tourmaline/watermelon_tourmaline.png");
+			return new ResourceLocation("ndbkagic:textures/entities/corrupted/watermelon_tourmaline/watermelon_tourmaline.png");
 		}
 	}
 }

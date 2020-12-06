@@ -47,6 +47,6 @@ public class RenderRubyFusion extends RenderGemBase<EntityRubyFusion> {
 
 	@Override
 	protected ResourceLocation getEntityTexture(EntityRubyFusion entity) {
-		return new ResourceLocation("kagic:textures/entities/ruby/ruby.png");
+		return new ResourceLocation("ndbkagic:textures/entities/ruby/ruby.png");
 	}
 }
