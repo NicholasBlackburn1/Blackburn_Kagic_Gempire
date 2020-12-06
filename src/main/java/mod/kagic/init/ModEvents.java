@@ -293,7 +293,7 @@ public class ModEvents {
 	@SubscribeEvent
 	public void onPlayerEnteredBiome(PlayerInteractEvent e){
 
-		e.getEntityPlayer().playSound(ModSounds.WARP_PAD, 1.0f, 1.0f);
+		e.getEntityPlayer().playSound(ModSounds.WARP_PAD, 1.0f, 0.0f);
 
 	}
 	
