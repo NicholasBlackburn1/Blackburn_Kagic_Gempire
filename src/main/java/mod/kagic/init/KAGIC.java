@@ -1,9 +1,12 @@
 package mod.kagic.init;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.Calendar;
 
 import org.apache.logging.log4j.Logger;
 
+import mod.kagic.advancements.ModTriggers;
 import mod.kagic.chunk.KAGICChunkCallback;
 import mod.kagic.client.gui.KTGUIProxy;
 import mod.kagic.command.CommandDestroyGem;
@@ -23,6 +26,7 @@ import mod.kagic.world.Fogger;
 import mod.kagic.world.GenEventCanceller;
 import mod.kagic.world.KAGICWorldGenerator;
 import mod.kagic.world.structure.LootTables;
+import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.server.management.PlayerList;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.common.ForgeChunkManager;
@@ -39,6 +43,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import net.minecraftforge.fml.relauncher.Side;
 
 @Mod(modid = KAGIC.MODID, version = KAGIC.VERSION, acceptedMinecraftVersions = KAGIC.MCVERSION)
@@ -76,6 +81,7 @@ public class KAGIC {
 	
 	@EventHandler
 	public void init(FMLInitializationEvent e) {
+		ModTriggers.registerTriggers();
 		ModEntities.register();
 		ModEvents.register();
 		ModTileEntities.register();

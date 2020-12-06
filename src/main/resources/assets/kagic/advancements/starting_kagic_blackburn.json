@@ -1,0 +1,20 @@
+{
+    "display": {
+        "icon": {
+            "item": "minecraft:diamond"
+        },
+        "title": {
+            "translate": "advancements.starting_kagic_blackburn.title"
+        },
+        "description": {
+            "translate": "advancement.starting_kagic_blackburn.description"
+        }
+    },
+
+    "parent": "minecraft:husbandry/root",
+    "criteria": {
+        "starting_kagic_blackburn": {
+            "trigger": "starting_kagic_blackburn"
+        }
+    }
+}

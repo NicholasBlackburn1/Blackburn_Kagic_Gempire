@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.google.common.base.Predicate;
 
+import mod.kagic.advancements.ModTriggers;
 import mod.kagic.entity.EntityGem;
 import mod.kagic.entity.ai.EntityAIFollowTopaz;
 import mod.kagic.entity.gem.EntityAgate;
@@ -23,6 +24,7 @@ import net.minecraft.entity.monster.EntityGolem;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.Item;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.SoundCategory;
@@ -58,6 +60,7 @@ public class ModEvents {
 		if (KAGIC.DEVELOPER) {
 			e.player.sendMessage(
 					new TextComponentString("You are playing KAGIC-Blackburn " + KAGIC.VERSION + " Please Enjoy"));
+					ModTriggers.STARTING_KAGIC_BLAKCBURN.trigger((EntityPlayerMP)e.player);
 
 		} else {
 			e.player.sendMessage(ITextComponent.Serializer.jsonToComponent("[{\"text\":\"�dKAGIC " + KAGIC.VERSION
