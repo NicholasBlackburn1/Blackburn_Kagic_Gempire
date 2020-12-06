@@ -1,0 +1,7 @@
+{
+    "parent": "block/cube_column",
+    "textures": {
+        "end": "ndbkagic:blocks/pink_sandstone_top",
+        "side": "ndbkagic:blocks/pink_sandstone_smooth"
+    }
+}

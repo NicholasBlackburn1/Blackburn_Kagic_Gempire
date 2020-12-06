@@ -1,0 +1,6 @@
+{
+    "parent": "item/handheld",
+    "textures": {
+        "layer0": "ndbkagic:items/commander_staff"
+    }
+}
