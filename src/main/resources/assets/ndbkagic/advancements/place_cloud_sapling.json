@@ -4,17 +4,17 @@
             "item": "minecraft:diamond"
         },
         "title": {
-            "translate": "advancements.starting.title"
+            "translate": "advancements.place_cloud_sapling.title"
         },
         "description": {
-            "translate": "advancement.starting.description"
+            "translate": "advancement.place_cloud_sapling.description"
         }
     },
 
     "parent": "minecraft:husbandry/root",
     "criteria": {
-        "starting": {
-            "trigger": "starting"
+        "place_cloud_sapling": {
+            "trigger": "place_cloud_sapling"
         }
     }
 }
