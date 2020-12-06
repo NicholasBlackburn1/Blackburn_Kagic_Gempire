@@ -8,7 +8,8 @@
         },
         "description": {
             "translate": "advancement.place_cloud_sapling.description"
-        }
+        },
+        "frame":"challenge"
     },
 
     "parent": "minecraft:husbandry/root",
