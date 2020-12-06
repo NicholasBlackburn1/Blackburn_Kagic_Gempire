@@ -725,3 +725,6 @@ kagic.general.ruindimensions=Ruin dimensions:
 
 advancements.place_cloud_sapling.title= Well Hello
 advancements.place_cloud_sapling.description= Kagic Blackburn Started
+
+advancements.straw_berry.title= Gem BattleField
+advancement.straw_berry.description= Visit a Gem BattleField Located in the StrawBerryField

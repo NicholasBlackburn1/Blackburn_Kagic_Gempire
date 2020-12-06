@@ -64,7 +64,7 @@ public class ModEvents {
 					new TextComponentString("§6 You are playing KAGIC-Blackburn " + KAGIC.VERSION + " Please Enjoy"));
 					
 					KAGIC.logger.info("in Player innteract Fucntion need to execute the advancement");
-					ModTriggers.PLACE_CLOUD_SAPLING.trigger(e.player);
+					ModTriggers.MOD_START.trigger(e.player);
 					KAGIC.logger.info("Executed the Trigger");
 					
 
@@ -288,6 +288,13 @@ public class ModEvents {
 	@SubscribeEvent
 	public void onPLayerInteract(PlayerInteractEvent e){
 	
+	}
+
+	@SubscribeEvent
+	public void onPlayerEnteredBiome(PlayerInteractEvent e){
+
+		e.getEntityPlayer().playSound(ModSounds.WARP_PAD, 1.0f, 0.0f);
+
 	}
 	
 }

@@ -16,13 +16,13 @@ public class ModTriggers
 
     {
        
-        public static final CustomTrigger PLACE_CLOUD_SAPLING = new CustomTrigger("place_cloud_sapling");
-    
+        public static final CustomTrigger MOD_START = new CustomTrigger("place_cloud_sapling");
+        public static final CustomTrigger BATTLE_FIELD = new CustomTrigger("straw_berry");
         /*
          * This array just makes it convenient to register all the criteria.
          */
         public static final CustomTrigger[] TRIGGER_ARRAY = new CustomTrigger[] {
-                PLACE_CLOUD_SAPLING
+            MOD_START,BATTLE_FIELD
                 };
     
     
