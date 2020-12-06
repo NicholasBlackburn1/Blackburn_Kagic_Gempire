@@ -15,6 +15,7 @@ import com.google.gson.JsonObject;
 import net.minecraft.advancements.ICriterionTrigger;
 import net.minecraft.advancements.PlayerAdvancements;
 import net.minecraft.advancements.critereon.AbstractCriterionInstance;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.ResourceLocation;
 
@@ -115,15 +116,16 @@ public class CustomTrigger implements ICriterionTrigger<CustomTrigger.Instance>
     /**
      * Trigger.
      *
-     * @param parPlayer the player
+     * @param player the player
      */
-    public void trigger(EntityPlayerMP parPlayer)
+    public void trigger(EntityPlayer player)
     {
-        CustomTrigger.Listeners tameanimaltrigger$listeners = listeners.get(parPlayer.getAdvancements());
+        CustomTrigger.Listeners tameanimaltrigger$listeners = listeners.get(
+                ((EntityPlayerMP) player).getAdvancements());
 
         if (tameanimaltrigger$listeners != null)
         {
-            tameanimaltrigger$listeners.trigger(parPlayer);
+            tameanimaltrigger$listeners.trigger((EntityPlayerMP) player);
         }
     }
 

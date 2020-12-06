@@ -4,17 +4,17 @@
             "item": "minecraft:diamond"
         },
         "title": {
-            "translate": "advancements.starting_kagic_blackburn.title"
+            "translate": "advancements.starting.title"
         },
         "description": {
-            "translate": "advancement.starting_kagic_blackburn.description"
+            "translate": "advancement.starting.description"
         }
     },
 
     "parent": "minecraft:husbandry/root",
     "criteria": {
-        "starting_kagic_blackburn": {
-            "trigger": "starting_kagic_blackburn"
+        "starting": {
+            "trigger": "starting"
         }
     }
 }

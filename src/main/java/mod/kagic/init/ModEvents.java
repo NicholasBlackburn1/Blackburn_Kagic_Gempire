@@ -3,6 +3,8 @@ package mod.kagic.init;
 import java.io.IOException;
 import java.util.List;
 
+import javax.swing.text.html.parser.Entity;
+
 import com.google.common.base.Predicate;
 
 import mod.kagic.advancements.ModTriggers;
@@ -60,7 +62,11 @@ public class ModEvents {
 		if (KAGIC.DEVELOPER) {
 			e.player.sendMessage(
 					new TextComponentString("You are playing KAGIC-Blackburn " + KAGIC.VERSION + " Please Enjoy"));
-					ModTriggers.STARTING_KAGIC_BLAKCBURN.trigger((EntityPlayerMP)e.player);
+					
+					KAGIC.logger.info("in Player innteract Fucntion need to execute the advancement");
+					ModTriggers.PLACE_CLOUD_SAPLING.trigger(e.player);
+					KAGIC.logger.info("Executed the Trigger");
+					
 
 		} else {
 			e.player.sendMessage(ITextComponent.Serializer.jsonToComponent("[{\"text\":\"�dKAGIC " + KAGIC.VERSION
@@ -275,7 +281,13 @@ public class ModEvents {
 	public void onWorldSave(WorldEvent.Save e) {
 		if (!e.getWorld().isRemote) {
 			KAGIC.spaceStuff.save();
+			
 		}
+	}
+
+	@SubscribeEvent
+	public void onPLayerInteract(PlayerInteractEvent e){
+	
 	}
 	
 }

@@ -81,7 +81,6 @@ public class KAGIC {
 	
 	@EventHandler
 	public void init(FMLInitializationEvent e) {
-		ModTriggers.registerTriggers();
 		ModEntities.register();
 		ModEvents.register();
 		ModTileEntities.register();
@@ -100,6 +99,7 @@ public class KAGIC {
 		MinecraftForge.EVENT_BUS.register(new GemPlayerLoot());
 		DispenserBehaviors.register();
 		KAGIC.proxy.registerBlockColors();
+		ModTriggers.registerTriggers();
 	}
 	
 	@EventHandler

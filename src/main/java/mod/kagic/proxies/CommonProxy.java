@@ -37,25 +37,8 @@ import net.minecraftforge.registries.IForgeRegistry;
 @Mod.EventBusSubscriber
 public class CommonProxy {
 
-	@SubscribeEvent
-	public static void registerAdvancements(){
-		Method method = ReflectionHelper.findMethod(CriteriaTriggers.class, "register", "func_192118_a", ICriterionTrigger.class);
+	
 
-        method.setAccessible(true);
-
-        for (int i=0; i < ModTriggers.TRIGGER_ARRAY.length; i++)
-        {
-            try
-            {
-                method.invoke(null, ModTriggers.TRIGGER_ARRAY[i]);
-            }
-            catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e)
-            {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-        } 
-	}
 	@SubscribeEvent
 	public static void registerBlocks(RegistryEvent.Register<Block> event) {
 		ModBlocks.registerBlocks(event);
