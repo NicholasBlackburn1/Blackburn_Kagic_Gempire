@@ -1,0 +1,8 @@
+{
+    "parent": "block/cube_bottom_top",
+    "textures": {
+        "top": "ndbkagic:blocks/giant_strawberry_top",
+        "bottom": "ndbkagic:blocks/giant_strawberry_bottom",
+        "side": "ndbkagic:blocks/giant_strawberry_side"
+    }
+}
