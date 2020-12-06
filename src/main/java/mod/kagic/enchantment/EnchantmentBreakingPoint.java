@@ -8,7 +8,7 @@ import net.minecraft.util.ResourceLocation;
 public class EnchantmentBreakingPoint extends Enchantment {
 	public EnchantmentBreakingPoint() {
 		super(Rarity.RARE, EnumEnchantmentType.WEAPON, new EntityEquipmentSlot[]{EntityEquipmentSlot.HEAD, EntityEquipmentSlot.CHEST, EntityEquipmentSlot.LEGS, EntityEquipmentSlot.FEET});
-		this.setRegistryName(new ResourceLocation("kagic:breaking_point"));
+		this.setRegistryName(new ResourceLocation("ndbkagic:breaking_point"));
 		this.setName("breaking_point.name");
 	}
 	@Override

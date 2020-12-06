@@ -41,6 +41,6 @@ public class RenderOpal extends RenderGemBase<EntityOpal> {
 	
 	@Override
 	protected ResourceLocation getEntityTexture(EntityOpal entity) {
-		return new ResourceLocation("kagic:textures/entities/opal/opal.png");
+		return new ResourceLocation("ndbkagic:textures/entities/opal/opal.png");
 	}
 }

@@ -51,6 +51,6 @@ public class RenderHessonite extends RenderGemBase<EntityHessonite> {
 	
 	@Override
 	protected ResourceLocation getEntityTexture(EntityHessonite entity) {
-		return new ResourceLocation("kagic:textures/entities/hessonite/hessonite.png");
+		return new ResourceLocation("ndbkagic:textures/entities/hessonite/hessonite.png");
 	}
 }

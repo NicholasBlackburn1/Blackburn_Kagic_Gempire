@@ -18,7 +18,7 @@ public class LayerSlagVariants implements LayerRenderer<EntitySlag> {
 	public void doRenderLayer(EntitySlag slag, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
 		String[] placements = Integer.toString(slag.getVariant()).split("");
 		for (String placement : placements) {
-			this.slagRenderer.bindTexture(new ResourceLocation("kagic:textures/entities/slag/slag_" + placement + ".png"));
+			this.slagRenderer.bindTexture(new ResourceLocation("ndbkagic:textures/entities/slag/slag_" + placement + ".png"));
 			this.slagModel.setModelAttributes(this.slagRenderer.getMainModel());
 			this.slagModel.render(slag, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
 			GlStateManager.disableBlend();

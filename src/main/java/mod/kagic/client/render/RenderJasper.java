@@ -74,6 +74,6 @@ public class RenderJasper extends RenderGemBase<EntityJasper> {
 	
 	@Override
 	protected ResourceLocation getEntityTexture(EntityJasper entity) {
-		return new ResourceLocation("kagic:textures/entities/jasper/" + entity.getSpecialSkin() + "jasper.png");
+		return new ResourceLocation("ndbkagic:textures/entities/jasper/" + entity.getSpecialSkin() + "jasper.png");
 	}
 }

@@ -18,6 +18,6 @@ public class RenderMelon extends RenderLivingBase<EntityMelon> {
 	}
 	@Override
 	protected ResourceLocation getEntityTexture(EntityMelon entity) {
-		return new ResourceLocation("kagic:textures/entities/pepo/melon.png");
+		return new ResourceLocation("ndbkagic:textures/entities/pepo/melon.png");
 	}
 }

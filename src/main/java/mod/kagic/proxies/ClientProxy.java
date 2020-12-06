@@ -44,9 +44,9 @@ public class ClientProxy extends CommonProxy {
 	 * registerItems(RegistryEvent.Register<Item> event) {
 	 * ModelLoader.registerItemVariants(Item.
 	 * getItemFromBlock(ModBlocks.PINK_SANDSTONE), new
-	 * ResourceLocation("kagic:pink_sandstone"), new
-	 * ResourceLocation("kagic:chiseled_pink_sandstone"),
-	 * new ResourceLocation("kagic:smooth_pink_sandstone"));
+	 * ResourceLocation("ndbkagic:pink_sandstone"), new
+	 * ResourceLocation("ndbkagic:chiseled_pink_sandstone"),
+	 * new ResourceLocation("ndbkagic:smooth_pink_sandstone"));
 	 * }
 	 */
 	

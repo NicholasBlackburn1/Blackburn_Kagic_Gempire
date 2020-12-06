@@ -40,6 +40,6 @@ public class RenderHoloPearl extends RenderGemBase<EntityHoloPearl> {
 
 	@Override
 	protected ResourceLocation getEntityTexture(EntityHoloPearl entity) {
-		return new ResourceLocation("kagic:textures/entities/pearl/pearl_0.png");
+		return new ResourceLocation("ndbkagic:textures/entities/pearl/pearl_0.png");
 	}
 }

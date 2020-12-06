@@ -43,6 +43,6 @@ public class RenderAquamarine extends RenderGemBase<EntityAquamarine> {
 
 	@Override
 	protected ResourceLocation getEntityTexture(EntityAquamarine entity) {
-		return new ResourceLocation("kagic:textures/entities/aquamarine/aquamarine.png");
+		return new ResourceLocation("ndbkagic:textures/entities/aquamarine/aquamarine.png");
 	}
 }

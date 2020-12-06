@@ -70,6 +70,6 @@ public class RenderRoseQuartz extends RenderGemBase<EntityRoseQuartz> {
 
 	@Override
 	protected ResourceLocation getEntityTexture(EntityRoseQuartz entity) {
-		return new ResourceLocation("kagic:textures/entities/rose_quartz/rose_quartz.png");
+		return new ResourceLocation("ndbkagic:textures/entities/rose_quartz/rose_quartz.png");
 	}
 }

@@ -60,6 +60,6 @@ public class RenderAmethyst extends RenderGemBase<EntityAmethyst> {
 
 	@Override
 	protected ResourceLocation getEntityTexture(EntityAmethyst entity) {
-		return new ResourceLocation("kagic:textures/entities/amethyst/amethyst.png");
+		return new ResourceLocation("ndbkagic:textures/entities/amethyst/amethyst.png");
 	}
 }

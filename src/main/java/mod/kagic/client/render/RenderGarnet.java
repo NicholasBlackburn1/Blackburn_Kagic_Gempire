@@ -45,6 +45,6 @@ public class RenderGarnet extends RenderGemBase<EntityGarnet> {
 	
 	@Override
 	protected ResourceLocation getEntityTexture(EntityGarnet entity) {
-		return new ResourceLocation("kagic:textures/entities/garnet/garnet.png");
+		return new ResourceLocation("ndbkagic:textures/entities/garnet/garnet.png");
 	}
 }

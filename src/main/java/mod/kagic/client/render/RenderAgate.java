@@ -80,11 +80,11 @@ public class RenderAgate extends RenderGemBase<EntityAgate> {
 	@Override
 	protected ResourceLocation getEntityTexture(EntityAgate entity) {
 		if (entity.getGemPlacement() == GemPlacements.BELLY) {
-			return new ResourceLocation("kagic:textures/entities/agate/agate_belly.png");
+			return new ResourceLocation("ndbkagic:textures/entities/agate/agate_belly.png");
 		} else if (entity.isHolly()) {
-			return new ResourceLocation("kagic:textures/entities/agate/holly_blue_agate.png");
+			return new ResourceLocation("ndbkagic:textures/entities/agate/holly_blue_agate.png");
 		} else {
-			return new ResourceLocation("kagic:textures/entities/agate/agate.png");
+			return new ResourceLocation("ndbkagic:textures/entities/agate/agate.png");
 		}
 	}
 }

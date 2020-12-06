@@ -23,7 +23,7 @@ import net.minecraftforge.client.event.RenderBlockOverlayEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class Fogger {
-	private static final ResourceLocation RES_UNDERTEARS_OVERLAY = new ResourceLocation("kagic:textures/blocks/rose_tears_overlay.png");
+	private static final ResourceLocation RES_UNDERTEARS_OVERLAY = new ResourceLocation("ndbkagic:textures/blocks/rose_tears_overlay.png");
 	private static final int FADE_TICKS = 60;
 	private int fadeTicksLeft = 0;
 	private float fogColor1;

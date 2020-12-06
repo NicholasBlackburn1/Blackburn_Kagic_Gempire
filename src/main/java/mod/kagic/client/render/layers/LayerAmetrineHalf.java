@@ -49,7 +49,7 @@ public class LayerAmetrineHalf implements LayerRenderer<EntityCitrine> {
 	}
 	
 	public ResourceLocation getTexture(EntityCitrine gem) {
-		return new ResourceLocation("kagic:textures/entities/citrine/half.png");
+		return new ResourceLocation("ndbkagic:textures/entities/citrine/half.png");
 	}
 
 	@Override

@@ -42,6 +42,6 @@ public class RenderRhodonite extends RenderGemBase<EntityRhodonite> {
 	
 	@Override
 	protected ResourceLocation getEntityTexture(EntityRhodonite entity) {
-		return new ResourceLocation("kagic:textures/entities/rhodonite/rhodonite.png");
+		return new ResourceLocation("ndbkagic:textures/entities/rhodonite/rhodonite.png");
 	}
 }

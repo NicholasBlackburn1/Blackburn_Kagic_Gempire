@@ -37,6 +37,6 @@ public class RenderPeridot extends RenderGemBase<EntityPeridot> {
 	
 	@Override
 	protected ResourceLocation getEntityTexture(EntityPeridot entity) {
-		return new ResourceLocation("kagic:textures/entities/peridot/peridot.png");
+		return new ResourceLocation("ndbkagic:textures/entities/peridot/peridot.png");
 	}
 }

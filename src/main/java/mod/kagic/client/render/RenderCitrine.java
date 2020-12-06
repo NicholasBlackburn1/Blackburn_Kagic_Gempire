@@ -61,8 +61,8 @@ public class RenderCitrine extends RenderGemBase<EntityCitrine> {
 	@Override
 	protected ResourceLocation getEntityTexture(EntityCitrine entity) {
 		if (entity.isDefective()) {
-			return new ResourceLocation("kagic:textures/entities/citrine/ametrine_" + entity.getSpecial() + ".png");
+			return new ResourceLocation("ndbkagic:textures/entities/citrine/ametrine_" + entity.getSpecial() + ".png");
 		}
-		return new ResourceLocation("kagic:textures/entities/citrine/citrine.png");
+		return new ResourceLocation("ndbkagic:textures/entities/citrine/citrine.png");
 	}
 }

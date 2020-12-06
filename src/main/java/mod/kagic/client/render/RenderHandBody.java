@@ -16,6 +16,6 @@ public class RenderHandBody extends RenderLivingBase<EntityHandBody> {
 	
 	@Override
 	protected ResourceLocation getEntityTexture(EntityHandBody entity) {
-		return new ResourceLocation("kagic:textures/entities/shardfusions/handbody/handbody.png");
+		return new ResourceLocation("ndbkagic:textures/entities/shardfusions/handbody/handbody.png");
 	}
 }

@@ -28,7 +28,7 @@ public class LayerRutileVisor implements LayerRenderer<EntityRutile> {
 		}
 	}
 	public ResourceLocation getTexture(EntityGem gem) {
-		return new ResourceLocation("kagic:textures/entities/rutile/visor.png");
+		return new ResourceLocation("ndbkagic:textures/entities/rutile/visor.png");
 	}
 	@Override
 	public boolean shouldCombineTextures() {

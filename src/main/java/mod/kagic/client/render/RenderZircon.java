@@ -49,6 +49,6 @@ public class RenderZircon extends RenderGemBase<EntityZircon> {
 
 	@Override
 	protected ResourceLocation getEntityTexture(EntityZircon entity) {
-		return new ResourceLocation("kagic:textures/entities/zircon/zircon_" + entity.getSpecialSkin() + ".png");
+		return new ResourceLocation("ndbkagic:textures/entities/zircon/zircon_" + entity.getSpecialSkin() + ".png");
 	}
 }

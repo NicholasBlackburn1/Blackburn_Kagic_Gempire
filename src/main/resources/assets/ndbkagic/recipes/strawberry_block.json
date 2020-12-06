@@ -1,0 +1,16 @@
+{
+  "result": {
+    "item": "ndbkagic:giant_strawberry_block"
+  },
+  "pattern": [
+    "sss",
+    "sss",
+    "sss"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "s": {
+      "item": "ndbkagic:strawberry_slice"
+    }
+  }
+}

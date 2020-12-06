@@ -1,0 +1,23 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+    	"model": "minecraft:cube",
+        "textures": {
+            "north": "ndbkagic:blocks/moon_blessed_stone",
+            "south": "ndbkagic:blocks/moon_blessed_stone",
+            "east": "ndbkagic:blocks/moon_blessed_stone",
+            "west": "ndbkagic:blocks/moon_blessed_stone",
+            "up": "ndbkagic:blocks/moon_blessed_stone",
+            "down": "ndbkagic:blocks/moon_blessed_stone",
+            "particle": "ndbkagic:blocks/moon_blessed_stone"
+        }
+    },
+    "variants": {
+        "normal": {
+            "model": "minecraft:cube"
+        },
+        "inventory": {
+            "model": "minecraft:cube"
+        }
+    }
+}

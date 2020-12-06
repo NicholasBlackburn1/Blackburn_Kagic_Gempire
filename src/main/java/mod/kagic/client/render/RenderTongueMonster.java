@@ -30,6 +30,6 @@ public class RenderTongueMonster extends RenderGemBase<EntityTongueMonster> {
 
 	@Override
 	protected ResourceLocation getEntityTexture(EntityTongueMonster tongueMonster) {
-		return new ResourceLocation("kagic:textures/entities/corrupted/tongue_monster/tongue_monster.png");
+		return new ResourceLocation("ndbkagic:textures/entities/corrupted/tongue_monster/tongue_monster.png");
 	}
 }

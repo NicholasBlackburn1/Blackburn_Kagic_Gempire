@@ -1,0 +1,19 @@
+{
+  "result": {
+    "item": "ndbkagic:warp_whistle"
+  },
+  "pattern": [
+    "  q",
+    " q ",
+    "n  "
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "q": {
+      "item": "minecraft:quartz"
+    },
+    "n": {
+      "item": "minecraft:noteblock"
+    }
+  }
+}

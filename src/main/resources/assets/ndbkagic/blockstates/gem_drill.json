@@ -1,0 +1,17 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+        "textures": {
+            "all": "ndbkagic:blocks/gem_drill",
+            "particle": "ndbkagic:blocks/gem_drill"
+        }
+    },
+    "variants": {
+        "normal": {
+            "model": "ndbkagic:gem_drill"
+        },
+        "inventory": {
+            "model": "ndbkagic:gem_drill"
+        }
+    }
+}

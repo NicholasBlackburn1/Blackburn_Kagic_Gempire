@@ -8,7 +8,7 @@ import net.minecraft.util.ResourceLocation;
 public class EnchantmentFairFight extends Enchantment {
 	public EnchantmentFairFight() {
 		super(Rarity.UNCOMMON, EnumEnchantmentType.WEAPON, new EntityEquipmentSlot[]{EntityEquipmentSlot.HEAD, EntityEquipmentSlot.CHEST, EntityEquipmentSlot.LEGS, EntityEquipmentSlot.FEET});
-		this.setRegistryName(new ResourceLocation("kagic:fair_fight"));
+		this.setRegistryName(new ResourceLocation("ndbkagic:fair_fight"));
 		this.setName("fair_fight.name");
 	}
 	@Override

@@ -53,6 +53,6 @@ public class RenderPearl extends RenderGemBase<EntityPearl> {
 
 	@Override
 	protected ResourceLocation getEntityTexture(EntityPearl entity) {
-		return new ResourceLocation("kagic:textures/entities/pearl/pearl" + entity.getSpecialSkin() + ".png");
+		return new ResourceLocation("ndbkagic:textures/entities/pearl/pearl" + entity.getSpecialSkin() + ".png");
 	}
 }

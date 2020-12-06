@@ -21,6 +21,6 @@ public class RenderCorruptedWaterBear extends RenderGemBase<EntityCorruptedWater
 
 	@Override
 	protected ResourceLocation getEntityTexture(EntityCorruptedWaterBear waterBear) {
-		return new ResourceLocation("kagic:textures/entities/corrupted/water_bear/water_bear_" + waterBear.getSpecial() + ".png");
+		return new ResourceLocation("ndbkagic:textures/entities/corrupted/water_bear/water_bear_" + waterBear.getSpecial() + ".png");
 	}
 }

@@ -1,0 +1,6 @@
+{
+    "variants": {
+        "normal": { "model": "ndbkagic:giant_strawberry" },
+        "inventory": { "model": "ndbkagic:giant_strawberry" }
+    }
+}

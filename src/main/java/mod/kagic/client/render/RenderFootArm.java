@@ -16,6 +16,6 @@ public class RenderFootArm extends RenderLivingBase<EntityFootArm> {
 	
 	@Override
 	protected ResourceLocation getEntityTexture(EntityFootArm entity) {
-		return new ResourceLocation("kagic:textures/entities/shardfusions/footarm/footarm.png");
+		return new ResourceLocation("ndbkagic:textures/entities/shardfusions/footarm/footarm.png");
 	}
 }

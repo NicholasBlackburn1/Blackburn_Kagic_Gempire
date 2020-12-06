@@ -19,6 +19,6 @@ public class RenderBlueDiamond extends RenderLivingBase<EntityBlueDiamond> {
 	}
 	@Override
 	protected ResourceLocation getEntityTexture(EntityBlueDiamond entity) {
-		return new ResourceLocation("kagic:textures/entities/blue_diamond/blue_diamond_" + (entity.isHooded() ? "hooded" : "unhooded") + ".png");
+		return new ResourceLocation("ndbkagic:textures/entities/blue_diamond/blue_diamond_" + (entity.isHooded() ? "hooded" : "unhooded") + ".png");
 	}
 }

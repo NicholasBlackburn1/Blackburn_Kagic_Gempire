@@ -33,7 +33,7 @@ public class LayerPearlVisor implements LayerRenderer<EntityPearl> {
 		}
 	}
 	public ResourceLocation getTexture(EntityPearl pearl) {
-		return new ResourceLocation("kagic:textures/entities/pearl/visor.png");
+		return new ResourceLocation("ndbkagic:textures/entities/pearl/visor.png");
 	}
 	@Override
 	public boolean shouldCombineTextures() {

@@ -443,10 +443,10 @@ public class ModItems {
 
 	public static void registerItem(Item item, RegistryEvent.Register<Item> event, String oredictName) {
 		// GameRegistry.register(item, new
-		// ResourceLocation("kagic:" +
+		// ResourceLocation("ndbkagic:" +
 		// item.getUnlocalizedName().replaceFirst("item\\.|tile\\.",
 		// "")));
-		item.setRegistryName(new ResourceLocation("kagic:" + item.getUnlocalizedName().replaceFirst("item\\.|tile\\.", "")));
+		item.setRegistryName(new ResourceLocation("ndbkagic:" + item.getUnlocalizedName().replaceFirst("item\\.|tile\\.", "")));
 		event.getRegistry().register(item);
 
 		if (!oredictName.isEmpty()) {

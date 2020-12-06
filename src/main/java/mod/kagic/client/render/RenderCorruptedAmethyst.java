@@ -33,6 +33,6 @@ public class RenderCorruptedAmethyst extends RenderLiving<EntityCorruptedAmethys
 
 	@Override
 	protected ResourceLocation getEntityTexture(EntityCorruptedAmethyst amethyst) {
-		return new ResourceLocation("kagic:textures/entities/corrupted/amethyst/amethyst.png");
+		return new ResourceLocation("ndbkagic:textures/entities/corrupted/amethyst/amethyst.png");
 	}
 }

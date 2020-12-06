@@ -14,6 +14,6 @@ public class RenderCactus extends RenderLivingBase<EntityCactus> {
 	}
 	@Override
 	protected ResourceLocation getEntityTexture(EntityCactus entity) {
-		return new ResourceLocation("kagic:textures/entities/pepo/cactus.png");
+		return new ResourceLocation("ndbkagic:textures/entities/pepo/cactus.png");
 	}
 }

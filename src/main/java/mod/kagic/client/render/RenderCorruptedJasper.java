@@ -31,6 +31,6 @@ public class RenderCorruptedJasper extends RenderLiving<EntityCorruptedJasper> {
 
 	@Override
 	protected ResourceLocation getEntityTexture(EntityCorruptedJasper jasper) {
-		return new ResourceLocation("kagic:textures/entities/corrupted/jasper/" + jasper.getSpecialSkin() + "jasper.png");
+		return new ResourceLocation("ndbkagic:textures/entities/corrupted/jasper/" + jasper.getSpecialSkin() + "jasper.png");
 	}
 }

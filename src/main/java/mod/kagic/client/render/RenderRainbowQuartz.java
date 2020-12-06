@@ -42,6 +42,6 @@ public class RenderRainbowQuartz extends RenderGemBase<EntityRainbowQuartz> {
 	
 	@Override
 	protected ResourceLocation getEntityTexture(EntityRainbowQuartz rainbowQuartz) {
-		return new ResourceLocation("kagic:textures/entities/rainbow_quartz/rainbow_quartz.png");
+		return new ResourceLocation("ndbkagic:textures/entities/rainbow_quartz/rainbow_quartz.png");
 	}
 }

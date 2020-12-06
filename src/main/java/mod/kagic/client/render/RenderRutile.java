@@ -44,7 +44,7 @@ public class RenderRutile extends RenderGemBase<EntityRutile> {
 	
 	@Override
 	protected ResourceLocation getEntityTexture(EntityRutile entity) {
-		return new ResourceLocation("kagic:textures/entities/rutile/rutile.png");
+		return new ResourceLocation("ndbkagic:textures/entities/rutile/rutile.png");
 	}
 
 	public ModelGem getModel(boolean defective) {

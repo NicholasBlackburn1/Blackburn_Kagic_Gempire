@@ -46,6 +46,6 @@ public class RenderMalachite extends RenderGemBase<EntityMalachite> {
 	
 	@Override
 	protected ResourceLocation getEntityTexture(EntityMalachite malachite) {
-		return new ResourceLocation("kagic:textures/entities/malachite/malachite.png");
+		return new ResourceLocation("ndbkagic:textures/entities/malachite/malachite.png");
 	}
 }

@@ -1,0 +1,11 @@
+{
+  "result": {
+    "item": "ndbkagic:strawberry_seeds"
+  },
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "ndbkagic:strawberry_slice"
+    }
+  ]
+}

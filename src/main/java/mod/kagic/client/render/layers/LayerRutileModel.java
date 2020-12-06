@@ -24,7 +24,7 @@ public class LayerRutileModel implements LayerRenderer<EntityRutile> {
 	}
 	
 	public ResourceLocation getTexture(EntityGem gem) {
-		return new ResourceLocation("kagic:textures/entities/rutile/rutile.png");
+		return new ResourceLocation("ndbkagic:textures/entities/rutile/rutile.png");
 	}
 
 	@Override
