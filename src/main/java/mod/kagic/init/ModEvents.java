@@ -2,6 +2,7 @@ package mod.kagic.init;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Timer;
 
 import javax.swing.text.html.parser.Entity;
 
@@ -59,6 +60,11 @@ public class ModEvents {
 
 	@SubscribeEvent
 	public void onPlayerLoggedIn(PlayerLoggedInEvent e) {
+		int starting_sec = 1000;
+		Timer timer;
+
+		
+		
 		if (KAGIC.DEVELOPER) {
 			e.player.sendMessage(
 					new TextComponentString("§6 You are playing KAGIC-Blackburn " + KAGIC.VERSION + " Please Enjoy"));

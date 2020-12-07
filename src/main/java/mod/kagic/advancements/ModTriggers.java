@@ -23,11 +23,13 @@ public class ModTriggers
         public static final CustomTrigger COMMUNICATION_HUB = new CustomTrigger("communication_hub");
         public static final CustomTrigger KINDERGARDEN = new CustomTrigger("kindergarden");
         public static final CustomTrigger MOON_GODAS = new CustomTrigger("moon_godas");
+       
+        
         /*
          * This array just makes it convenient to register all the criteria.
          */
         public static final CustomTrigger[] TRIGGER_ARRAY = new CustomTrigger[] {
-            MOD_START,BATTLE_FIELD
+            MOD_START,BATTLE_FIELD,GALAXY_WARP,DESERT_TEMPLE,COMMUNICATION_HUB,KINDERGARDEN,MOON_GODAS
                 };
     
     

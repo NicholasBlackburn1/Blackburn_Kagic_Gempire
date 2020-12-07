@@ -723,8 +723,24 @@ kagic.general.floatingpeaksweight=Floating Peaks biome weight:
 kagic.general.strawberrybattlefieldweight=Strawberry Battlefield biome weight:
 kagic.general.ruindimensions=Ruin dimensions:
 
-advancements.mod_start.title= Well Hello
-advancements.mod_start.description= Kagic Blackburn Started
+advancements.mod_start.title=Well Hello
+advancement.mod_start.description= Kagic Blackburn Started
 
-advancements.straw_berry.title= Gem BattleField
+advancements.straw_berry.title=Gem BattleField
 advancement.straw_berry.description= Visit a Gem BattleField Located in the StrawBerryField
+
+advancements.galaxy_warp.title=Whole Galaxy
+advancement.galaxy_warp.description= Visit The Galaxy Warp
+
+advancements.desert_temple.title=A little bit Sandy
+advancement.desert_temple.description= Find The desertTemple 
+
+advancements.communication_hub.title=I here Static
+advancement.communication_hub.description= Find The Communication Hub
+
+
+advancements.kindergarden.title=Back to kindergarden
+advancement.kindergarden.description= Find The kindergarden ruins
+
+advancements.moon_godas.title=§bDo you See the Sea Spire
+advancement.moon_godas.description=Find The Sea Spire and Collect the Moon Goddess statue

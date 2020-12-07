@@ -1,0 +1,21 @@
+{
+    "display": {
+        "icon": {
+            "item": "minecraft:redstone_torch"
+        },
+        "title": {
+            "translate": "advancements.communication_hub.title"
+        },
+        "description": {
+            "translate": "advancement.communication_hub.description"
+        },
+        "frame":"challenge"
+    },
+
+    "parent": "minecraft:husbandry/root",
+    "criteria": {
+        "place_cloud_sapling": {
+            "trigger": "communication_hub"
+        }
+    }
+}

@@ -1,0 +1,21 @@
+{
+    "display": {
+        "icon": {
+            "item": "minecraft:sand"
+        },
+        "title": {
+            "translate": "advancements.moon_godas.title"
+        },
+        "description": {
+            "translate": "advancement.moon_godas.description"
+        },
+        "frame":"challenge"
+    },
+
+    "parent": "minecraft:husbandry/root",
+    "criteria": {
+        "place_cloud_sapling": {
+            "trigger": "moon_godas"
+        }
+    }
+}
