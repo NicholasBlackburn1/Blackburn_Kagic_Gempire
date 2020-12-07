@@ -723,8 +723,8 @@ kagic.general.floatingpeaksweight=Floating Peaks biome weight:
 kagic.general.strawberrybattlefieldweight=Strawberry Battlefield biome weight:
 kagic.general.ruindimensions=Ruin dimensions:
 
-advancements.place_cloud_sapling.title= Well Hello
-advancements.place_cloud_sapling.description= Kagic Blackburn Started
+advancements.mod_start.title= Well Hello
+advancements.mod_start.description= Kagic Blackburn Started
 
 advancements.straw_berry.title= Gem BattleField
 advancement.straw_berry.description= Visit a Gem BattleField Located in the StrawBerryField

@@ -16,8 +16,13 @@ public class ModTriggers
 
     {
        
-        public static final CustomTrigger MOD_START = new CustomTrigger("place_cloud_sapling");
+        public static final CustomTrigger MOD_START = new CustomTrigger("mod_start");
         public static final CustomTrigger BATTLE_FIELD = new CustomTrigger("straw_berry");
+        public static final CustomTrigger GALAXY_WARP = new CustomTrigger("galaxy_warp");
+        public static final CustomTrigger DESERT_TEMPLE = new CustomTrigger("desert_temple");
+        public static final CustomTrigger COMMUNICATION_HUB = new CustomTrigger("communication_hub");
+        public static final CustomTrigger KINDERGARDEN = new CustomTrigger("kindergarden");
+        public static final CustomTrigger MOON_GODAS = new CustomTrigger("moon_godas");
         /*
          * This array just makes it convenient to register all the criteria.
          */
