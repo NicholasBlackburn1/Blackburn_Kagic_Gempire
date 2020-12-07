@@ -18,7 +18,9 @@ import mod.kagic.entity.gem.EntityRuby;
 import mod.kagic.entity.gem.EntityRutile;
 import mod.kagic.entity.gem.EntitySapphire;
 import mod.kagic.init.ModMetrics.Update;
+
 import mod.kagic.server.SpaceStuff;
+
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.ai.EntityAIAvoidEntity;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
@@ -35,6 +37,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.world.biome.Biome;
 import net.minecraft.world.storage.loot.LootEntry;
 import net.minecraft.world.storage.loot.LootEntryItem;
 import net.minecraft.world.storage.loot.LootPool;
@@ -47,49 +50,34 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.LootTableLoadEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
+import net.minecraftforge.event.entity.player.PlayerDestroyItemEvent;
+import net.minecraftforge.event.entity.player.PlayerDropsEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
+import net.minecraftforge.fml.common.gameevent.TickEvent.PlayerTickEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 
 public class ModEvents {
 	public static void register() {
 		MinecraftForge.EVENT_BUS.register(new ModEvents());
 	}
-
+	
 	@SubscribeEvent
 	public void onPlayerLoggedIn(PlayerLoggedInEvent e) {
-		int starting_sec = 1000;
-		Timer timer;
 
+		e.player.sendMessage(
+			new TextComponentString("§6 You are playing KAGIC-Blackburn " + KAGIC.VERSION + " Please Enjoy"));
+			KAGIC.logger.info("in Player innteract Fucntion need to execute the advancement");
+			ModTriggers.MOD_START.trigger(e.player);
+			KAGIC.logger.info("Executed the Trigger");
+	
+	
 		
+			
 		
-		if (KAGIC.DEVELOPER) {
-			e.player.sendMessage(
-					new TextComponentString("§6 You are playing KAGIC-Blackburn " + KAGIC.VERSION + " Please Enjoy"));
-					
-					KAGIC.logger.info("in Player innteract Fucntion need to execute the advancement");
-					ModTriggers.MOD_START.trigger(e.player);
-					KAGIC.logger.info("Executed the Trigger");
-					
-
-		} else {
-			e.player.sendMessage(ITextComponent.Serializer.jsonToComponent("[{\"text\":\"�dKAGIC " + KAGIC.VERSION
-					+ "�f\"}, {\"text\":\" - \"}, {\"text\":\"�3[Discord]�f\",\"clickEvent\":{\"action\":\"open_url\",\"value\":\"https://discord.gg/MwEuu9x\"}}, {\"text\":\" | \"}, {\"text\":\"�e[Wiki]�f\",\"clickEvent\":{\"action\":\"open_url\",\"value\":\"http://kagic.wikia.com/\"}}]"));
-		}
-		if (ModConfigs.notifyOnUpdates) {
-			Update result = ModMetrics.checkForUpdates();
-			if (result != null && !KAGIC.VERSION.equals(result.getNewVersion())) {
-				e.player.sendMessage(ITextComponent.Serializer.jsonToComponent("[{\"text\":\"�cKAGIC v"
-						+ result.getNewVersion() + " is out for Minecraft " + KAGIC.MCVERSION + "�f\"}]"));
-				e.player.sendMessage(ITextComponent.Serializer.jsonToComponent(
-						"[{\"text\":\"�e�nDownload�r�f\",\"clickEvent\":{\"action\":\"open_url\",\"value\":\""
-								+ result.getDownloadLink()
-								+ "\"}}, {\"text\":\" | \"}, {\"text\":\"�3�nDiscord�r�f\",\"clickEvent\":{\"action\":\"open_url\",\"value\":\""
-								+ result.getDiscordLink() + "\"}}]"));
-			}
-		}
 	}
 
 	@SubscribeEvent
@@ -151,7 +139,7 @@ public class ModEvents {
 	public void onWorldTick(TickEvent.WorldTickEvent event) {
 		MinecraftServer server = event.world.getMinecraftServer();
 		if (ModConfigs.spawnMeteorRubies && server.getCurrentPlayerCount() > 0) {
-			EntityPlayer player = server.getPlayerList().getPlayers().get(event.world.rand.nextInt(server.getCurrentPlayerCount()));
+			EntityPlayerMP player = server.getPlayerList().getPlayers().get(event.world.rand.nextInt(server.getCurrentPlayerCount()));
 			if (!player.world.isRemote) {
 				if (player.dimension == 0 && !player.world.isDaytime()) {
 					if (player.world.getTotalWorldTime() - SpaceStuff.get().getLastRubyImpactTime() >= 24000  && player.world.rand.nextInt(12000) == 0) {
@@ -167,6 +155,20 @@ public class ModEvents {
 						player.world.playSound(player, player.getPosition(), ModSounds.RUBY_EXPLODE, SoundCategory.NEUTRAL, 10.0F, 1.0F);
 						SpaceStuff.get().setLastRubyImpactTime(player.world.getTotalWorldTime());
 					}
+					KAGIC.logger.warn(player.getServerWorld().getBiome(player.getPosition()).getBiomeName());
+
+					switch (player.getServerWorld().getBiome(player.getPosition()).getBiomeName()) {
+						case "Gem Battlefield":
+							ModTriggers.BATTLE_FIELD.trigger(player);
+							break;
+
+						case "Floating Peaks":
+							ModTriggers.HEAVEN_BEATLE.trigger(player);
+							break;
+					
+					}
+					
+					
 				}
 			}
 		}
@@ -291,16 +293,14 @@ public class ModEvents {
 		}
 	}
 
+	// Handles Achivements for biomes being entered
 	@SubscribeEvent
-	public void onPLayerInteract(PlayerInteractEvent e){
-	
+	public void onPlayerBiome(PlayerInteractEvent e){
+		KAGIC.logger.warn(e.getWorld().getBiome(e.getEntityPlayer().getPosition()).getBiomeName());
+
+		if(e.getWorld().getBiome(e.getEntityPlayer().getPosition()).getBiomeName() == "Gem Battlefield"){
+			
+		}
 	}
 
-	@SubscribeEvent
-	public void onPlayerEnteredBiome(PlayerInteractEvent e){
-
-		e.getEntityPlayer().playSound(ModSounds.WARP_PAD, 1.0f, 0.0f);
-
-	}
-	
-}
+}	

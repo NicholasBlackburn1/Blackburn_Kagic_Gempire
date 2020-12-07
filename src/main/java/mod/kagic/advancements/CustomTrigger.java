@@ -116,16 +116,16 @@ public class CustomTrigger implements ICriterionTrigger<CustomTrigger.Instance>
     /**
      * Trigger.
      *
-     * @param player the player
+     * @param entityPlayer the player
      */
-    public void trigger(EntityPlayer player)
+    public void trigger(EntityPlayer entityPlayer)
     {
         CustomTrigger.Listeners tameanimaltrigger$listeners = listeners.get(
-                ((EntityPlayerMP) player).getAdvancements());
+                ((EntityPlayerMP) entityPlayer).getAdvancements());
 
         if (tameanimaltrigger$listeners != null)
         {
-            tameanimaltrigger$listeners.trigger((EntityPlayerMP) player);
+            tameanimaltrigger$listeners.trigger((EntityPlayerMP) entityPlayer);
         }
     }
 
