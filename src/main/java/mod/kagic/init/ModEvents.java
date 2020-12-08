@@ -161,11 +161,9 @@ public class ModEvents {
 						case "Gem Battlefield":
 							ModTriggers.BATTLE_FIELD.trigger(player);
 							break;
-
-						case "Floating Peaks":
-							ModTriggers.HEAVEN_BEATLE.trigger(player);
-							break;
 					
+						default:
+							break;
 					}
 					
 					
@@ -294,13 +292,5 @@ public class ModEvents {
 	}
 
 	// Handles Achivements for biomes being entered
-	@SubscribeEvent
-	public void onPlayerBiome(PlayerInteractEvent e){
-		KAGIC.logger.warn(e.getWorld().getBiome(e.getEntityPlayer().getPosition()).getBiomeName());
-
-		if(e.getWorld().getBiome(e.getEntityPlayer().getPosition()).getBiomeName() == "Gem Battlefield"){
-			
-		}
-	}
 
 }	
