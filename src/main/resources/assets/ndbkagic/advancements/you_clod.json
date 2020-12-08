@@ -1,0 +1,21 @@
+{
+    "display": {
+        "icon": {
+            "item": "kagic:peridot_gem"
+        },
+        "title": {
+            "translate": "advancements.you_clod.title"
+        },
+        "description": {
+            "translate": "advancement.you_clod.description"
+        },
+        "frame":"challenge"
+    },
+
+    "parent": "minecraft:husbandry/root",
+    "criteria": {
+        "place_cloud_sapling": {
+            "trigger": "you_clod"
+        }
+    }
+}

@@ -1,0 +1,21 @@
+{
+    "display": {
+        "icon": {
+            "item": "kagic:ruby_gem"
+        },
+        "title": {
+            "translate": "advancements.off_colors.title"
+        },
+        "description": {
+            "translate": "advancement.off_colors.description"
+        },
+        "frame":"challenge"
+    },
+
+    "parent": "minecraft:husbandry/root",
+    "criteria": {
+        "place_cloud_sapling": {
+            "trigger": "off_colors"
+        }
+    }
+}
