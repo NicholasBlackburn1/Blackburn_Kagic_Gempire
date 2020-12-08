@@ -300,11 +300,11 @@ public class ModEvents {
 					ModTriggers.HEAVEN_BEATLE.trigger(player);
 					break;
 			
-				case "Kinder Garden":
-					ModTriggers.HEAVEN_BEATLE.trigger(player);
+				case "Kindergarten":
+					ModTriggers.KINDERGARDEN.trigger(player);
 					break;
 				default:
-					KAGIC.logger.info(biome);
+					//KAGIC.logger.info(biome);
 					break;
 			}
 		}
