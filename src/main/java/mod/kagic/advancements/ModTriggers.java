@@ -17,6 +17,7 @@ public class ModTriggers
     {
        
         public static final CustomTrigger MOD_START = new CustomTrigger("mod_start");
+        //Location advancdements 
         public static final CustomTrigger BATTLE_FIELD = new CustomTrigger("straw_berry");
         public static final CustomTrigger GALAXY_WARP = new CustomTrigger("galaxy_warp");
         public static final CustomTrigger DESERT_TEMPLE = new CustomTrigger("desert_temple");
@@ -24,7 +25,9 @@ public class ModTriggers
         public static final CustomTrigger KINDERGARDEN = new CustomTrigger("kindergarden");
         public static final CustomTrigger MOON_GODAS = new CustomTrigger("moon_godas");
         public static final CustomTrigger HEAVEN_BEATLE = new CustomTrigger("heaven_beatle");
+        //Fusion Advancements
         public static final CustomTrigger STRONGER_TOGETHER =new CustomTrigger("stronger_together");
+        public static final CustomTrigger GIANT_WOMEN =new CustomTrigger("giant_women");
 
         
        
@@ -33,7 +36,7 @@ public class ModTriggers
          * This array just makes it convenient to register all the criteria.
          */
         public static final CustomTrigger[] TRIGGER_ARRAY = new CustomTrigger[] {
-            MOD_START,BATTLE_FIELD,GALAXY_WARP,DESERT_TEMPLE,COMMUNICATION_HUB,KINDERGARDEN,MOON_GODAS, HEAVEN_BEATLE,STRONGER_TOGETHER
+            MOD_START,BATTLE_FIELD,GALAXY_WARP,DESERT_TEMPLE,COMMUNICATION_HUB,KINDERGARDEN,MOON_GODAS, HEAVEN_BEATLE,STRONGER_TOGETHER,GIANT_WOMEN
                 };
     
     
