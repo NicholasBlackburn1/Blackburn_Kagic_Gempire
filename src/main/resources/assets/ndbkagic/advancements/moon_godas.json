@@ -1,7 +1,7 @@
 {
     "display": {
         "icon": {
-            "item": "minecraft:sand"
+            "item": "kagic:moon_goddes_statue"
         },
         "title": {
             "translate": "advancements.moon_godas.title"
