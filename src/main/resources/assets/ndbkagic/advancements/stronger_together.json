@@ -1,0 +1,21 @@
+{
+    "display": {
+        "icon": {
+            "item": "kagic:ruby_gem"
+        },
+        "title": {
+            "translate": "advancements.stronger_together.title"
+        },
+        "description": {
+            "translate": "advancement.stronger_together.description"
+        },
+        "frame":"challenge"
+    },
+
+    "parent": "minecraft:husbandry/root",
+    "criteria": {
+        "place_cloud_sapling": {
+            "trigger": "stronger_together"
+        }
+    }
+}
