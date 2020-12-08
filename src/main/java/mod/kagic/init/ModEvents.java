@@ -20,7 +20,8 @@ import mod.kagic.entity.gem.EntitySapphire;
 import mod.kagic.init.ModMetrics.Update;
 
 import mod.kagic.server.SpaceStuff;
-
+import net.minecraft.advancements.critereon.PlayerHurtEntityTrigger;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.ai.EntityAIAvoidEntity;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
@@ -49,7 +50,9 @@ import net.minecraft.world.storage.loot.functions.SetCount;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.LootTableLoadEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
+import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
+import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.player.PlayerDestroyItemEvent;
 import net.minecraftforge.event.entity.player.PlayerDropsEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
@@ -155,16 +158,7 @@ public class ModEvents {
 						player.world.playSound(player, player.getPosition(), ModSounds.RUBY_EXPLODE, SoundCategory.NEUTRAL, 10.0F, 1.0F);
 						SpaceStuff.get().setLastRubyImpactTime(player.world.getTotalWorldTime());
 					}
-					KAGIC.logger.warn(player.getServerWorld().getBiome(player.getPosition()).getBiomeName());
-
-					switch (player.getServerWorld().getBiome(player.getPosition()).getBiomeName()) {
-						case "Gem Battlefield":
-							ModTriggers.BATTLE_FIELD.trigger(player);
-							break;
 					
-						default:
-							break;
-					}
 					
 					
 				}
@@ -290,7 +284,32 @@ public class ModEvents {
 			
 		}
 	}
+	@SubscribeEvent
+	public void onPlayerAttack(LivingUpdateEvent e){
+		EntityLivingBase theEntity = e.getEntityLiving();
+		EntityPlayerMP player;
+		if(theEntity instanceof EntityPlayerMP){
+			player = (EntityPlayerMP) theEntity;
+			String biome = theEntity.getEntityWorld().getBiome(theEntity.getPosition()).getBiomeName();
+			switch (biome) {
+				case "Gem Battlefield":
+					ModTriggers.BATTLE_FIELD.trigger(player);
+					break;
+				
+				case "Floating Peaks":
+					ModTriggers.HEAVEN_BEATLE.trigger(player);
+					break;
+			
+				case "Kinder Garden":
+					ModTriggers.HEAVEN_BEATLE.trigger(player);
+					break;
+				default:
+					KAGIC.logger.info(biome);
+					break;
+			}
+		}
 
-	// Handles Achivements for biomes being entered
+	}
 
+	
 }	

@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import com.google.common.base.Predicate;
 
+import mod.kagic.advancements.ModTriggers;
 import mod.kagic.entity.EntityGem;
 import mod.kagic.entity.EntitySlag;
 import mod.kagic.entity.ai.EntityAIAlignGems;
@@ -35,6 +36,7 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.inventory.IInventory;
@@ -290,7 +292,7 @@ public class EntityPeridot extends EntityGem implements IInventoryChangedListene
 								player.sendMessage(new TextComponentString("<" + this.getName() + "> " + new TextComponentTranslation("command.kagic.peridot_harvest").getUnformattedComponentText()));
 							}
 							// player.addStat(ModAchievements.HELLO_CORN);
-							this.openGUI(player);
+							this.openGUI( player);
 							this.playObeySound();
 							return true;
 						} else {
@@ -362,9 +364,11 @@ public class EntityPeridot extends EntityGem implements IInventoryChangedListene
 	public void onInventoryChanged(IInventory inventory) {
 		this.setItemStackToSlot(EntityEquipmentSlot.OFFHAND, this.gemStorage.getStackInSlot(0));
 	}
-
+	
 	public void openGUI(EntityPlayer playerEntity) {
+
 		if (!this.world.isRemote && this.isTamed()) {
+			
 			if (this.isFarmer()) {
 				if (playerEntity.isSneaking()) {
 					this.gemStorage.setCustomName(new TextComponentTranslation("command.kagic.peridot_seeds", this.getName()).getUnformattedComponentText());
