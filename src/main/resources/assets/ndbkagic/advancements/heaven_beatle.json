@@ -1,0 +1,21 @@
+{
+    "display": {
+        "icon": {
+            "item": "minecraft:stick"
+        },
+        "title": {
+            "translate": "advancements.heaven_beatle.title"
+        },
+        "description": {
+            "translate": "advancement.heaven_beatle.description"
+        },
+        "frame":"challenge"
+    },
+
+    "parent": "minecraft:husbandry/root",
+    "criteria": {
+        "place_cloud_sapling": {
+            "trigger": "heaven_beatle"
+        }
+    }
+}

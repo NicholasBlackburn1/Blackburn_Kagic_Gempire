@@ -1,0 +1,21 @@
+{
+    "display": {
+        "icon": {
+            "item": "kagic:pearl_0_gem"
+        },
+        "title": {
+            "translate": "advancements.giant_women.title"
+        },
+        "description": {
+            "translate": "advancement.giant_women.description"
+        },
+        "frame":"challenge"
+    },
+
+    "parent": "minecraft:husbandry/root",
+    "criteria": {
+        "": {
+            "trigger": "giant_women"
+        }
+    }
+}

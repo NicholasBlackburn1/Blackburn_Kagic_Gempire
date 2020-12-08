@@ -1,12 +1,16 @@
 package mod.kagic.init;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.Calendar;
 
 import org.apache.logging.log4j.Logger;
 
+import mod.kagic.advancements.ModTriggers;
 import mod.kagic.chunk.KAGICChunkCallback;
 import mod.kagic.client.gui.KTGUIProxy;
 import mod.kagic.command.CommandDestroyGem;
+import mod.kagic.command.CommandGetBiomePos;
 import mod.kagic.command.CommandMeteorRuby;
 import mod.kagic.command.CommandScanGems;
 import mod.kagic.command.CommandSpawnGems;
@@ -22,10 +26,12 @@ import mod.kagic.world.Fogger;
 import mod.kagic.world.GenEventCanceller;
 import mod.kagic.world.KAGICWorldGenerator;
 import mod.kagic.world.structure.LootTables;
+import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.server.management.PlayerList;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.common.ForgeChunkManager;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.RegistryEvent.Register;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.Mod;
@@ -37,11 +43,12 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import net.minecraftforge.fml.relauncher.Side;
 
 @Mod(modid = KAGIC.MODID, version = KAGIC.VERSION, acceptedMinecraftVersions = KAGIC.MCVERSION)
 public class KAGIC {
-	public static final String MODID = "kagic";
+	public static final String MODID = "ndbkagic";
 	public static final String VERSION = "@version";
 	public static final String MCVERSION = "@mcversion";
 	public static final boolean DEVELOPER = true;
@@ -92,6 +99,7 @@ public class KAGIC {
 		MinecraftForge.EVENT_BUS.register(new GemPlayerLoot());
 		DispenserBehaviors.register();
 		KAGIC.proxy.registerBlockColors();
+		ModTriggers.registerTriggers();
 	}
 	
 	@EventHandler
@@ -102,6 +110,7 @@ public class KAGIC {
 		 * catch (Exception x) { x.printStackTrace(); } }
 		 */
 		e.registerServerCommand(new CommandDestroyGem());
+		e.registerServerCommand(new CommandGetBiomePos());
 		e.registerServerCommand(new CommandMeteorRuby());
 		e.registerServerCommand(new CommandSpawnGems());
 		e.registerServerCommand(new CommandScanGems());
@@ -158,6 +167,6 @@ public class KAGIC {
 	}
 	
 	public static boolean isBirthdayTomorrow() {
-		return KAGIC.isDayToday(1, 16) || KAGIC.isDayToday(10, 23) || KAGIC.isDayToday(10, 21);
+		return KAGIC.isDayToday(1, 16) || KAGIC.isDayToday(10, 23) || KAGIC.isDayToday(10, 21) || KAGIC.isDayToday(12, 05);
 	}
 }

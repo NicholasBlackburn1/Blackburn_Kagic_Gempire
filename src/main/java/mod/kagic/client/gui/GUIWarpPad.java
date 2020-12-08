@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import org.lwjgl.input.Keyboard;
 
+import mod.kagic.init.KAGIC;
 import mod.kagic.networking.KTPacketHandler;
 import mod.kagic.networking.TENameMessage;
 import mod.kagic.tileentity.TileEntityWarpPadCore;
@@ -19,8 +20,7 @@ public class GUIWarpPad extends GuiScreen {
 	private GuiButton doneButton;
 
 	GUIWarpPad(TileEntityWarpPadCore tePad) {
-		// KAGICTech.instance.chatInfoMessage("Created Warp
-		// Pad GUI!");
+		KAGIC.instance.logger.info("Created WarpPad GUI!");
 		this.tilePad = tePad;
 	}
 

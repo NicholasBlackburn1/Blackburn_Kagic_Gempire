@@ -1,7 +1,10 @@
 package mod.kagic.proxies;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.LinkedHashMap;
 
+import mod.kagic.advancements.ModTriggers;
 import mod.kagic.crafting.RepairGemsRecipes;
 import mod.kagic.init.KAGIC;
 import mod.kagic.init.ModBiomes;
@@ -11,6 +14,8 @@ import mod.kagic.init.ModItems;
 import mod.kagic.init.ModSounds;
 import mod.kagic.worlddata.GalaxyPadLocation;
 import mod.kagic.worlddata.WarpPadDataEntry;
+import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.advancements.ICriterionTrigger;
 import net.minecraft.block.Block;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.item.Item;
@@ -23,12 +28,16 @@ import net.minecraftforge.common.config.ConfigManager;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
+import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import net.minecraftforge.registries.IForgeRegistry;
 
 @Mod.EventBusSubscriber
 public class CommonProxy {
+
+	
 
 	@SubscribeEvent
 	public static void registerBlocks(RegistryEvent.Register<Block> event) {

@@ -23,7 +23,7 @@ Click [here](https://discord.gg/MwEuu9x) to join us!
 
 ### Setup
 1. Install the above prerequisites.
-2. Run command: `git clone https://github.com/kagic/KAGIC.git`
+2. Run command: `git clone this repo's link
 3.  repository folder, run: `.\gradlew setupDecompWorkspace`
 4. Run `.\gradlew eclipse` or `.\gradlew idea` depending on your IDE.
 5. Amalgam is now installed.
@@ -44,7 +44,3 @@ Click [here](https://discord.gg/MwEuu9x) to join us!
 2. Write code with comments for increased legibility.
 3. Summarize any changes for future pull requests.
 
-## Legal Disclaimer
-"KAGIC" source code and its derivatives, including bytecode and executables, are licensed under an GNU Public License v3 by "The KAGIC Team" ("akrivus", "HeimrArnadalr", "Judacraz", "Lattie", "obsidian29", "Seartisian", "taaffeite", "Tourmaline-Iris"). For more information about the GNU Public License v3, please look [here.](./LICENSE)
-
-"Steven Universe" and all related characters and elements are trademarks of Cartoon Network.

@@ -1,0 +1,21 @@
+{
+    "display": {
+        "icon": {
+            "item": "kagic:drained_block"
+        },
+        "title": {
+            "translate": "advancements.kindergarden.title"
+        },
+        "description": {
+            "translate": "advancement.kindergarden.description"
+        },
+        "frame":"challenge"
+    },
+
+    "parent": "minecraft:husbandry/root",
+    "criteria": {
+        "place_cloud_sapling": {
+            "trigger": "kindergarden"
+        }
+    }
+}

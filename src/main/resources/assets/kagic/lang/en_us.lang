@@ -722,3 +722,41 @@ kagic.general.kindergartenweight=Kindergarten biome weight:
 kagic.general.floatingpeaksweight=Floating Peaks biome weight:
 kagic.general.strawberrybattlefieldweight=Strawberry Battlefield biome weight:
 kagic.general.ruindimensions=Ruin dimensions:
+
+advancements.mod_start.title=Well Hello
+advancement.mod_start.description= Kagic Blackburn Started
+
+advancements.straw_berry.title=Gem BattleField
+advancement.straw_berry.description= Visit a Gem BattleField Located in the StrawBerryField
+
+advancements.galaxy_warp.title=Whole Galaxy
+advancement.galaxy_warp.description= Visit The Galaxy Warp
+
+advancements.desert_temple.title=A little bit Sandy
+advancement.desert_temple.description= Find The desertTemple 
+
+advancements.communication_hub.title=I here Static
+advancement.communication_hub.description= Find The Communication Hub
+
+
+advancements.kindergarden.title=Back to kindergarden
+advancement.kindergarden.description= Find The kindergarden ruins
+
+advancements.moon_godas.title=§bDo you See the Sea Spire
+advancement.moon_godas.description=Find The Sea Spire and Collect the Moon Goddess statue
+
+
+advancements.heaven_beatle.title=Wow! floating Islands
+advancement.heaven_beatle.description=Find the Heaven Beetles in the Floating Peaks
+
+advancements.stronger_together.title=Stronger Then You
+advancement.stronger_together.description=Fuse a Saphire and a Ruby to make Garnet
+
+advancements.giant_women.title=All I Wana Do...
+advancement.giant_women.description=Fuse a Pearl and a Amethyst to make Opal
+
+advancements.off_colors.title=The Off Colors?
+advancement.off_colors.description=Find / Fuse a Pearl and a Ruby 
+
+advancements.you_clod.title=Anger Peridot
+advancement.you_clod.description=Piss Peridot off enough to make her call you a clod

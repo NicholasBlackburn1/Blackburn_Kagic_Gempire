@@ -1,0 +1,21 @@
+{
+    "display": {
+        "icon": {
+            "item": "minecraft:sand"
+        },
+        "title": {
+            "translate": "advancements.desert_temple.title"
+        },
+        "description": {
+            "translate": "advancement.desert_temple.description"
+        },
+        "frame":"challenge"
+    },
+
+    "parent": "minecraft:husbandry/root",
+    "criteria": {
+        "place_cloud_sapling": {
+            "trigger": "desert_temple"
+        }
+    }
+}

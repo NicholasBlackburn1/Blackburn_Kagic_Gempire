@@ -1,0 +1,21 @@
+{
+    "display": {
+        "icon": {
+            "item": "kagic:giant_strawberry_block"
+        },
+        "title": {
+            "translate": "advancements.straw_berry.title"
+        },
+        "description": {
+            "translate": "advancement.straw_berry.description"
+        },
+        "frame":"challenge"
+    },
+
+    "parent": "minecraft:husbandry/root",
+    "criteria": {
+        "place_cloud_sapling": {
+            "trigger": "straw_berry"
+        }
+    }
+}
