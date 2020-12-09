@@ -1683,6 +1683,8 @@ public class EntityGem extends EntityCreature implements IEntityOwnable, IRanged
 
 	@Override
 	public boolean attackEntityAsMob(Entity entityIn) {
+		
+		
 		float f = (float) this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getAttributeValue();
 		int i = 0;
 		if (entityIn instanceof EntityLivingBase) {
@@ -1696,6 +1698,7 @@ public class EntityGem extends EntityCreature implements IEntityOwnable, IRanged
 				((EntityLivingBase) entityIn).knockBack(this, i * 0.5F, MathHelper.sin(this.rotationYaw * 0.017453292F), -MathHelper.cos(this.rotationYaw * 0.017453292F));
 				this.motionX *= 0.6D;
 				this.motionZ *= 0.6D;
+				
 			}
 			int j = EnchantmentHelper.getFireAspectModifier(this);
 			if (j > 0) {
@@ -1703,6 +1706,7 @@ public class EntityGem extends EntityCreature implements IEntityOwnable, IRanged
 			}
 			if (entityIn instanceof EntityPlayer) {
 				EntityPlayer entityplayer = (EntityPlayer) entityIn;
+				
 				ItemStack itemstack = this.getHeldItemMainhand();
 				ItemStack itemstack1 = entityplayer.isHandActive() ? entityplayer.getActiveItemStack() : ItemStack.EMPTY;
 				if (itemstack.getItem() instanceof ItemAxe && itemstack1.getItem() == Items.SHIELD) {
@@ -2135,5 +2139,7 @@ public class EntityGem extends EntityCreature implements IEntityOwnable, IRanged
 	public void readSpawnData(ByteBuf buffer) {
 		this.setSize(buffer.readFloat(), buffer.readFloat());
 	}
+	
+	
 
 }

@@ -1,0 +1,21 @@
+{
+    "display": {
+        "icon": {
+            "item": "kagic:aquamarine_gem"
+        },
+        "title": {
+            "translate": "advancements.reactivate_kindergarden.title"
+        },
+        "description": {
+            "translate": "advancement.reactivate_kindergarden.description"
+        },
+        "frame":"challenge"
+    },
+
+    "parent": "minecraft:husbandry/root",
+    "criteria": {
+        "place_cloud_sapling": {
+            "trigger": "reactivate_kindergarden"
+        }
+    }
+}

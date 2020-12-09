@@ -318,23 +318,7 @@ public class ModEvents {
 		}
 
 	}
-	@SubscribeEvent
-	public void onPlayerHitPeridot(LivingDamageEvent  event){
-	
-		EntityLivingBase living = event.getEntityLiving();
-		EntityPlayerMP player;
-		
-		if( event.getEntityLiving().getAttackingEntity() instanceof EntityPlayerMP ){
-			player = (EntityPlayerMP) event.getEntityLiving().getAttackingEntity();
-			
-			KAGIC.logger.info(player.getName()+ "is attacking an enitity"+ living.getName());
-			
-			if(living.getName() == "entityPeridot"){
-			ModTriggers.YOU_CLOD.trigger(player);
-				}
-			}
-			
-		}
+
 	
 
 		

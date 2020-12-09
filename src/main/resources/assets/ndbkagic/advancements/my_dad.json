@@ -1,0 +1,21 @@
+{
+    "display": {
+        "icon": {
+            "item": "kagic:aquamarine_gem"
+        },
+        "title": {
+            "translate": "advancements.my_dad.title"
+        },
+        "description": {
+            "translate": "advancement.my_dad.description"
+        },
+        "frame":"challenge"
+    },
+
+    "parent": "minecraft:husbandry/root",
+    "criteria": {
+        "place_cloud_sapling": {
+            "trigger": "my_dad"
+        }
+    }
+}
