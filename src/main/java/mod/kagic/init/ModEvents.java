@@ -21,6 +21,8 @@ import mod.kagic.init.ModMetrics.Update;
 
 import mod.kagic.server.SpaceStuff;
 import net.minecraft.advancements.critereon.PlayerHurtEntityTrigger;
+import net.minecraft.entity.EntityCreature;
+import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.ai.EntityAIAvoidEntity;
@@ -49,6 +51,7 @@ import net.minecraft.world.storage.loot.functions.LootFunction;
 import net.minecraft.world.storage.loot.functions.SetCount;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.LootTableLoadEvent;
+import net.minecraftforge.event.entity.EntityEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
@@ -57,6 +60,7 @@ import net.minecraftforge.event.entity.player.PlayerDestroyItemEvent;
 import net.minecraftforge.event.entity.player.PlayerDropsEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent.EntityInteract;
 import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
@@ -284,8 +288,12 @@ public class ModEvents {
 			
 		}
 	}
+	/**
+	 * Whenever player enters a biome Send the Acivement based on that biome
+	 * @param e
+	 */
 	@SubscribeEvent
-	public void onPlayerAttack(LivingUpdateEvent e){
+	public void onPlayerWalkInBiome(LivingUpdateEvent e){
 		EntityLivingBase theEntity = e.getEntityLiving();
 		EntityPlayerMP player;
 		if(theEntity instanceof EntityPlayerMP){
@@ -310,6 +318,28 @@ public class ModEvents {
 		}
 
 	}
+	@SubscribeEvent
+	public void onPlayerHitPeridot(LivingDamageEvent  event){
+	
+		EntityLivingBase living = event.getEntityLiving();
+		EntityPlayerMP player;
+		
+		if( event.getEntityLiving().getAttackingEntity() instanceof EntityPlayerMP ){
+			player = (EntityPlayerMP) event.getEntityLiving().getAttackingEntity();
+			
+			KAGIC.logger.info(player.getName()+ "is attacking an enitity"+ living.getName());
+			
+			if(living.getName() == "entityPeridot"){
+			ModTriggers.YOU_CLOD.trigger(player);
+				}
+			}
+			
+		}
+	
+
+		
+		
+}
 
 	
-}	
+

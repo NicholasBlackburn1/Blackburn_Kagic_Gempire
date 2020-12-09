@@ -101,6 +101,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.oredict.DyeUtils;
 
 public class EntityGem extends EntityCreature implements IEntityOwnable, IRangedAttackMob, IEntityAdditionalSpawnData {
+
 	protected static final DataParameter<Optional<UUID>> OWNER_UNIQUE_ID = EntityDataManager.<Optional<UUID>>createKey(EntityGem.class, DataSerializers.OPTIONAL_UNIQUE_ID);
 	protected static final DataParameter<Optional<UUID>> GEUUID = EntityDataManager.<Optional<UUID>>createKey(EntityGem.class, DataSerializers.OPTIONAL_UNIQUE_ID);
 	protected static final DataParameter<String> SPECIFIC_NAME = EntityDataManager.<String>createKey(EntityGem.class, DataSerializers.STRING);
@@ -2134,4 +2135,5 @@ public class EntityGem extends EntityCreature implements IEntityOwnable, IRanged
 	public void readSpawnData(ByteBuf buffer) {
 		this.setSize(buffer.readFloat(), buffer.readFloat());
 	}
+
 }
