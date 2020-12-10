@@ -62,6 +62,7 @@ public class CommonProxy {
 
 	@SubscribeEvent
 	public static void registerBiomes(RegistryEvent.Register<Biome> event) {
+		
 		ModBiomes.register(event);
 	}
 

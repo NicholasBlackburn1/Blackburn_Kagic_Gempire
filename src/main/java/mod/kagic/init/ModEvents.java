@@ -1,8 +1,10 @@
 package mod.kagic.init;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Timer;
+import java.util.function.Consumer;
 
 import javax.swing.text.html.parser.Entity;
 
@@ -35,6 +37,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.Item;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
@@ -68,8 +71,12 @@ import net.minecraftforge.fml.common.gameevent.TickEvent.PlayerTickEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 
 public class ModEvents {
+	
+
+
 	public static void register() {
 		MinecraftForge.EVENT_BUS.register(new ModEvents());
+	
 	}
 	
 	@SubscribeEvent
@@ -298,22 +305,21 @@ public class ModEvents {
 		EntityPlayerMP player;
 		if(theEntity instanceof EntityPlayerMP){
 			player = (EntityPlayerMP) theEntity;
-			String biome = theEntity.getEntityWorld().getBiome(theEntity.getPosition()).getBiomeName();
-			switch (biome) {
-				case "Gem Battlefield":
+			
+			
+			switch (player.getEntityWorld().getBiome(theEntity.getPosition()).getRegistryName().toString()) {
+				case "ndbkagic:strawberry_battlefield":
 					ModTriggers.BATTLE_FIELD.trigger(player);
 					break;
 				
-				case "Floating Peaks":
+				case "ndbkagic:floatingpeaks":
 					ModTriggers.HEAVEN_BEATLE.trigger(player);
 					break;
 			
-				case "Kindergarten":
+				case "ndbkagic:kindergarten":
 					ModTriggers.KINDERGARDEN.trigger(player);
 					break;
-				default:
-					//KAGIC.logger.info(biome);
-					break;
+			
 			}
 		}
 
