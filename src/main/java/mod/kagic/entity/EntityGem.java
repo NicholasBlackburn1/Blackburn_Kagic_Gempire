@@ -13,6 +13,7 @@ import com.google.common.base.Optional;
 import com.google.common.base.Predicate;
 
 import io.netty.buffer.ByteBuf;
+import mod.kagic.advancements.ModTriggers;
 import mod.kagic.entity.ai.EntityAIAttackRangedBow;
 import mod.kagic.entity.ai.EntityAIFightWars;
 import mod.kagic.entity.ai.EntityAIPredictFights;
@@ -62,6 +63,7 @@ import net.minecraft.entity.ai.EntityAITarget;
 import net.minecraft.entity.item.EntityFireworkRocket;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.entity.projectile.EntityTippedArrow;
 import net.minecraft.init.Enchantments;
 import net.minecraft.init.Items;
@@ -897,7 +899,8 @@ public class EntityGem extends EntityCreature implements IEntityOwnable, IRanged
 						}
 					}
 				} else if (this.isSoldier) {
-					return super.processInteract(player, hand) || this.setAttackWeapon(player, hand, stack);
+					return super.processInteract(player, hand) || this.setAttackWeapon((EntityPlayerMP) player, hand,
+							stack);
 				}
 			} else {
 				ItemStack stack = player.getHeldItemOffhand();
@@ -937,8 +940,9 @@ public class EntityGem extends EntityCreature implements IEntityOwnable, IRanged
 		return false;
 	}
 
-	public boolean setAttackWeapon(EntityPlayer player, EnumHand hand, ItemStack stack) {
+	public boolean setAttackWeapon(EntityPlayerMP player, EnumHand hand, ItemStack stack) {
 		if (this.isFusion()) {
+			ModTriggers.GIANT_WOMEN.trigger(player);
 			return false;
 		}
 		if (this.isTamed()) {
@@ -1530,6 +1534,7 @@ public class EntityGem extends EntityCreature implements IEntityOwnable, IRanged
 	}
 
 	public boolean canFuse() {
+		
 		return (this.isFusion() || !this.isFusion() && this.ticksExisted > 40) && !this.isDefective() && this.getFusionCount() < 10;
 	}
 
@@ -1538,6 +1543,7 @@ public class EntityGem extends EntityCreature implements IEntityOwnable, IRanged
 	}
 
 	public boolean isFusion() {
+		
 		return this.getFusionCount() > 1;
 	}
 	/**

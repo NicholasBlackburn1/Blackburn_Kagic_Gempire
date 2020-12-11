@@ -2,12 +2,17 @@ package mod.kagic.entity.gem.fusion;
 
 import java.util.ArrayList;
 
+import mod.kagic.advancements.ModTriggers;
 import mod.kagic.entity.EntityFusionGem;
 import mod.kagic.entity.EntityGem;
 import mod.kagic.entity.gem.EntitySapphire;
 import mod.kagic.init.ModSounds;
 import mod.kagic.util.Colors;
+import net.minecraft.client.entity.EntityOtherPlayerMP;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.world.World;
@@ -39,6 +44,7 @@ public class EntityGarnet extends EntityFusionGem {
 	// === Methods for managing
 	// fusion==========================================
 	// =========================================================================
+
 
 	@Override
 	public boolean addGem(EntityGem gem) {

@@ -315,13 +315,11 @@ public class ModEvents {
 				case "ndbkagic:kindergarten":
 					ModTriggers.KINDERGARDEN.trigger(player);
 					break;
-			
 			}
 		}
 
 
 	}
-	
 
 	
 

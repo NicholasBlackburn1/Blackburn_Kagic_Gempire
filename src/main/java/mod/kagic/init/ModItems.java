@@ -104,7 +104,6 @@ public class ModItems {
 	public static final ItemGem AGATE_GEM = new ItemGem("agate");
 	public static final ItemGem AQUAMARINE_GEM = new ItemGem("aquamarine");
 	public static final ItemGem HESSONITE_GEM = new ItemGem("hessonite");
-	
 	public static final ItemGem WHITE_SAPPHIRE_GEM = new ItemGem("sapphire_0");
 	public static final ItemGem ORANGE_SAPPHIRE_GEM = new ItemGem("sapphire_1");
 	public static final ItemGem YELLOW_SAPPHIRE_GEM = new ItemGem("sapphire_4");
@@ -121,6 +120,10 @@ public class ModItems {
 
 	public static final ItemGem CITRINE_GEM = new ItemGem("citrine");
 	public static final ItemGem AMETRINE_GEM = new ItemGem("citrine_1");
+
+
+	public static final ItemGem EMERALD_GEM = new ItemGem("emearld");
+	public static final ItemGem CRACKED_EMERALD_GEM = new ItemGem("emearld",true);
 
 	public static final ItemGem WHITE_ZIRCON_GEM = new ItemGem("zircon_0");
 	public static final ItemGem ORANGE_ZIRCON_GEM = new ItemGem("zircon_1");
