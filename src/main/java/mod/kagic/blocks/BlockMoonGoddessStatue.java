@@ -1,5 +1,8 @@
 package mod.kagic.blocks;
 
+import java.util.List;
+
+import mod.kagic.advancements.ModTriggers;
 import mod.kagic.init.ModCreativeTabs;
 import mod.kagic.tileentity.TileEntityMoonGoddessStatue;
 import net.minecraft.block.Block;
@@ -10,11 +13,13 @@ import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumFacing.AxisDirection;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -25,10 +30,14 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class BlockMoonGoddessStatue extends Block implements ITileEntityProvider {
 	public static final PropertyDirection FACING = PropertyDirection.create("facing");
-	protected static final AxisAlignedBB MOON_GODDESS_STATUE_AABB_NORTH = new AxisAlignedBB(0.3125D, 0.0D, 0.375D, 0.6875D, 0.9375D, 0.6875D);
-	protected static final AxisAlignedBB MOON_GODDESS_STATUE_AABB_SOUTH = new AxisAlignedBB(0.3125D, 0.0D, 0.3125D, 0.6875D, 0.9375D, 0.625D);
-	protected static final AxisAlignedBB MOON_GODDESS_STATUE_AABB_EAST = new AxisAlignedBB(0.3125D, 0.0D, 0.3125D, 0.625D, 0.9375D, 0.6875D);
-	protected static final AxisAlignedBB MOON_GODDESS_STATUE_AABB_WEST = new AxisAlignedBB(0.375D, 0.0D, 0.3125D, 0.6875D, 0.9375D, 0.6875D);
+	protected static final AxisAlignedBB MOON_GODDESS_STATUE_AABB_NORTH = new AxisAlignedBB(0.3125D, 0.0D, 0.375D,
+			0.6875D, 0.9375D, 0.6875D);
+	protected static final AxisAlignedBB MOON_GODDESS_STATUE_AABB_SOUTH = new AxisAlignedBB(0.3125D, 0.0D, 0.3125D,
+			0.6875D, 0.9375D, 0.625D);
+	protected static final AxisAlignedBB MOON_GODDESS_STATUE_AABB_EAST = new AxisAlignedBB(0.3125D, 0.0D, 0.3125D,
+			0.625D, 0.9375D, 0.6875D);
+	protected static final AxisAlignedBB MOON_GODDESS_STATUE_AABB_WEST = new AxisAlignedBB(0.375D, 0.0D, 0.3125D,
+			0.6875D, 0.9375D, 0.6875D);
 
 	public BlockMoonGoddessStatue() {
 		super(Material.CIRCUITS, MapColor.DIAMOND);
@@ -37,21 +46,25 @@ public class BlockMoonGoddessStatue extends Block implements ITileEntityProvider
 		this.setResistance(4);
 		this.setHardness(0.8f);
 
-		this.setDefaultState(this.blockState.getBaseState().withProperty(BlockMoonGoddessStatue.FACING, EnumFacing.NORTH));
+		this.setDefaultState(
+				this.blockState.getBaseState().withProperty(BlockMoonGoddessStatue.FACING, EnumFacing.NORTH));
 
 		this.setCreativeTab(ModCreativeTabs.CREATIVE_TAB_OTHER);
 	}
-	
+
 	@Override
 	public TileEntity createNewTileEntity(World worldIn, int meta) {
 		return new TileEntityMoonGoddessStatue();
 	}
-	
+
 	@Override
 	public int getLightValue(IBlockState state, IBlockAccess world, BlockPos pos) {
 		TileEntity te = world.getTileEntity(pos);
+		
 		if (te instanceof TileEntityMoonGoddessStatue) {
+			
 			if (((TileEntityMoonGoddessStatue) te).isFullMoon()) {
+				
 				return ((TileEntityMoonGoddessStatue) te).getLightLevelForNightStage();
 			}
 		}
@@ -73,6 +86,12 @@ public class BlockMoonGoddessStatue extends Block implements ITileEntityProvider
 	public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
 		EnumFacing facing = EnumFacing.getHorizontal(MathHelper.floor(placer.rotationYaw * 4.0F / 360.0F + 0.5D) & 3).getOpposite();
 		world.setBlockState(pos, state.withProperty(BlockMoonGoddessStatue.FACING, facing), 3);
+		if(placer instanceof EntityPlayerMP){
+			EntityPlayerMP player = (EntityPlayerMP) placer;
+
+			ModTriggers.MOON_GODAS.trigger(player);
+		}
+
 	}
 	
 	@Override

@@ -87,10 +87,6 @@ public class ModEvents {
 			KAGIC.logger.info("in Player innteract Fucntion need to execute the advancement");
 			ModTriggers.MOD_START.trigger(e.player);
 			KAGIC.logger.info("Executed the Trigger");
-	
-	
-		
-			
 		
 	}
 
@@ -325,6 +321,7 @@ public class ModEvents {
 
 
 	}
+	
 
 	
 
