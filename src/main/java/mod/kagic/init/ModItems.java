@@ -123,7 +123,7 @@ public class ModItems {
 
 
 	public static final ItemGem EMERALD_GEM = new ItemGem("emerald");
-	public static final ItemGem CRACKED_EMERALD_GEM = new ItemGem("emearld",true);
+	public static final ItemGem CRACKED_EMERALD_GEM = new ItemGem("emerald",true);
 
 	public static final ItemGem WHITE_ZIRCON_GEM = new ItemGem("zircon_0");
 	public static final ItemGem ORANGE_ZIRCON_GEM = new ItemGem("zircon_1");

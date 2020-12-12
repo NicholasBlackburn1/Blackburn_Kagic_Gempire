@@ -183,15 +183,15 @@ public class EntityEmerald extends EntityQuartzSoldier implements IAnimals {
 		*  Allows Emerald To move 
 		* attacks mobs 
 		* Follow's the Diamonds/ Fusions 
-		* Scares Mobs With here fiears Glare
+		* Scares Mobs With her fiears Glare
 		*/
 
-		this.tasks.addTask(2, new EntityAIMoveTowardsTarget(this, 0.414D, 40.0F));
+		this.tasks.addTask(2, new EntityAIMoveTowardsTarget(this, 0.414D, 4.0F));
 		
-		this.tasks.addTask(3, new EntityAIFollowDiamond(this, 40.50f));
+		this.tasks.addTask(3, new EntityAIFollowDiamond(this, 4.50f));
 		this.tasks.addTask(5, new EntityAIMoveTowardsRestriction(this, 3.0D));
 		this.tasks.addTask(6, new EntityAIScareMobs(this));
-		this.tasks.addTask(7, new EntityAIAlignGems(this, 50.30f));
+		this.tasks.addTask(7, new EntityAIAlignGems(this, 10.30f));
 		
 
 		// Apply targetting.
@@ -313,7 +313,7 @@ public class EntityEmerald extends EntityQuartzSoldier implements IAnimals {
 		} else if (data == 1) {
 			this.nativeColor = 9;
 		}
-		this.setCustomNameTag(new TextComponentTranslation(String.format("§aEmerald", data))
+		this.setCustomNameTag(new TextComponentTranslation(String.format("entity.kagic.emerald.name"))
 				.getUnformattedComponentText());
 		this.setSpecial(data);
 		this.setMark1(this.generateMark1());
@@ -437,10 +437,10 @@ public class EntityEmerald extends EntityQuartzSoldier implements IAnimals {
 						}
 					}
 				}
-				/*
-				 * if (this.getServitude() == EntityGem.SERVE_HUMAN) {
-				 * this.getOwner().addStat(ModAchievements. FIGHTING_IS_MY_LIFE); }
-				 */
+				if (this.getServitude() == EntityGem.SERVE_HUMAN) {
+					
+				}
+				 
 			} else {
 				if (entityIn.attackEntityFrom(DamageSource.causeMobDamage(this), 10 + this.rand.nextInt(15))) {
 					entityIn.motionY += 0.4D;
@@ -462,6 +462,7 @@ public class EntityEmerald extends EntityQuartzSoldier implements IAnimals {
 		if (this.hit_count > 12) {
 			this.charge_ticks -= 1;
 			this.addPotionEffect(new PotionEffect(MobEffects.FIRE_RESISTANCE, 80));
+			this.addPotionEffect(new PotionEffect(MobEffects.RESISTANCE, 80));
 			this.setCharged(true);
 
 			if (this.charge_ticks < 1) {
@@ -473,7 +474,9 @@ public class EntityEmerald extends EntityQuartzSoldier implements IAnimals {
 				&& this.getHealth() < this.getMaxHealth()) {
 			this.heal(1.0F);
 			this.regenTicks = 0;
+			
 		}
+		this.addPotionEffect(new PotionEffect(MobEffects.GLOWING, 80));
 		super.onLivingUpdate();
 	}
 

@@ -37,12 +37,15 @@ public class ModTriggers
 
         //Gem Drill Advancements 
         public static final CustomTrigger REACTIVATE_KINDERGARED = new CustomTrigger("reactivate_kindergarden");
+
+        //aristocrat Advancements
+        public static final CustomTrigger ARISTORCA_BULLY = new CustomTrigger("aristocrat_bully");
         /*
          * This array just makes it convenient to register all the criteria.
          */
         public static final CustomTrigger[] TRIGGER_ARRAY = new CustomTrigger[] {
             MOD_START,BATTLE_FIELD,GALAXY_WARP,DESERT_TEMPLE,COMMUNICATION_HUB,KINDERGARDEN,MOON_GODAS, HEAVEN_BEATLE,STRONGER_TOGETHER,GIANT_WOMEN, OFF_COLORS, YOU_CLOD,ARE_YOU_MY_DAD,
-            REACTIVATE_KINDERGARED
+            REACTIVATE_KINDERGARED,ARISTORCA_BULLY
                 };
     
     
