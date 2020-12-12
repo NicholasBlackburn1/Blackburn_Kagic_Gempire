@@ -26,11 +26,19 @@ import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.EntityAIAvoidEntity;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.ai.EntityAIBreakDoor;
+import net.minecraft.entity.ai.EntityAILookIdle;
 import net.minecraft.entity.ai.EntityAIMoveTowardsRestriction;
 import net.minecraft.entity.ai.EntityAIMoveTowardsTarget;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
+import net.minecraft.entity.ai.EntityAIOpenDoor;
+import net.minecraft.entity.ai.EntityAIRestrictOpenDoor;
+import net.minecraft.entity.ai.EntityAIWatchClosest;
+import net.minecraft.entity.monster.EntityCreeper;
+import net.minecraft.entity.monster.EntityMob;
+import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.passive.IAnimals;
 import net.minecraft.entity.player.EntityPlayer;
@@ -186,27 +194,42 @@ public class EntityEmerald extends EntityQuartzSoldier implements IAnimals {
 		* Scares Mobs With her fiears Glare
 		*/
 
-		this.tasks.addTask(2, new EntityAIMoveTowardsTarget(this, 0.414D, 4.0F));
-		
-		this.tasks.addTask(3, new EntityAIFollowDiamond(this, 4.50f));
-		this.tasks.addTask(5, new EntityAIMoveTowardsRestriction(this, 3.0D));
-		this.tasks.addTask(6, new EntityAIScareMobs(this));
-		this.tasks.addTask(7, new EntityAIAlignGems(this, 10.30f));
+		this.tasks.addTask(1, new EntityAIFollowDiamond(this, 1.0D));
+
+		this.tasks.addTask(1, new EntityAICommandGems(this, 1.6D));
+		this.tasks.addTask(1, new EntityAICommandGems(this, 1.6D));
+
+		this.tasks.addTask(3, new EntityAIRestrictOpenDoor(this));
+		this.tasks.addTask(3, new EntityAIOpenDoor(this, true));
+
+		this.tasks.addTask(4, new EntityAIWatchClosest(this, EntityPlayer.class, 16.0F));
+		this.tasks.addTask(4, new EntityAIWatchClosest(this, EntityMob.class, 16.0F));
+
+		this.tasks.addTask(6, new EntityAIStandGuard(this, 0.2D));
+		this.tasks.addTask(7, new EntityAILookIdle(this));
 		
 
-		// Apply targetting.
-		this.targetTasks.addTask(4, new EntityAINearestAttackableTarget<EntityLiving>(this, EntityLiving.class, 10,
-				true, false, new Predicate<EntityLiving>() {
-					@Override
-					public boolean apply(EntityLiving input) {
-						return input != null && IMob.VISIBLE_MOB_SELECTOR.apply(input);
-					}
-				}));
+		this.tasks.addTask(1, new EntityAIAvoidEntity<EntityCreeper>(this, EntityCreeper.class, new Predicate<EntityCreeper>() {
+			@Override
+			public boolean apply(EntityCreeper input) {
+				return input.getCreeperState() == 1;
+			}
+		}, 6.0F, 1.0D, 1.2D));
+		
+		this.tasks.addTask(1, new EntityAIAvoidEntity<EntityZombie>(this, EntityZombie.class, new Predicate<EntityZombie>() {
+
+			@Override
+			public boolean apply(EntityZombie input) {
+				return true;
+			}
+		}, 6.0F, 1.0D, 1.2D));
+		
+
 
 		// Apply entity attributes.
 
 		// Weak Hit damage but, Its Aristocratic so damage is weak but then they can command other gems
-		this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(5.0D);
+		this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(0.1D);
 
 		this.droppedGemItem = ModItems.EMERALD_GEM;
 		this.droppedCrackedGemItem = ModItems.CRACKED_EMERALD_GEM;
@@ -233,7 +256,7 @@ public class EntityEmerald extends EntityQuartzSoldier implements IAnimals {
 
 	@Override
 	public void convertGems(int placement) {
-		this.setGemCut(GemCuts.TINY.id);
+		this.setGemCut(GemCuts.DIAMOND.id);
 		switch (placement) {
 			case 0:
 				this.setGemPlacement(GemPlacements.NOSE.id);
