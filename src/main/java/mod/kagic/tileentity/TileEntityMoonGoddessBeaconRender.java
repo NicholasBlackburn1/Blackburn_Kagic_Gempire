@@ -10,7 +10,7 @@ import net.minecraft.util.math.MathHelper;
 
 public class TileEntityMoonGoddessBeaconRender extends TileEntitySpecialRenderer<TileEntityMoonGoddessStatue> {
 	public static final ResourceLocation TEXTURE_BEACON_BEAM = new ResourceLocation("textures/entity/beacon_beam.png");
-	public static final float[] COLORS = new float[]{1F, 1F, 1F};
+	public static final float[] COLORS = new float[]{255F, 1F, 1F};
 	
 	@Override
 	public void render(TileEntityMoonGoddessStatue statue, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {

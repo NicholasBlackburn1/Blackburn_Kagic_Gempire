@@ -31,6 +31,8 @@ public class TileEntityMoonGoddessStatue extends TileEntity implements ITickable
 
 		if (this.isActive()) {
 			this.addPotionEffects();
+			
+			
 		}
 	}
 	

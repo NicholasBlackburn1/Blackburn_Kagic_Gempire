@@ -13,6 +13,7 @@ import com.google.common.base.Optional;
 import com.google.common.base.Predicate;
 
 import io.netty.buffer.ByteBuf;
+import mod.kagic.advancements.ModTriggers;
 import mod.kagic.entity.ai.EntityAIAttackRangedBow;
 import mod.kagic.entity.ai.EntityAIFightWars;
 import mod.kagic.entity.ai.EntityAIPredictFights;
@@ -62,6 +63,7 @@ import net.minecraft.entity.ai.EntityAITarget;
 import net.minecraft.entity.item.EntityFireworkRocket;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.entity.projectile.EntityTippedArrow;
 import net.minecraft.init.Enchantments;
 import net.minecraft.init.Items;
@@ -101,6 +103,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.oredict.DyeUtils;
 
 public class EntityGem extends EntityCreature implements IEntityOwnable, IRangedAttackMob, IEntityAdditionalSpawnData {
+
 	protected static final DataParameter<Optional<UUID>> OWNER_UNIQUE_ID = EntityDataManager.<Optional<UUID>>createKey(EntityGem.class, DataSerializers.OPTIONAL_UNIQUE_ID);
 	protected static final DataParameter<Optional<UUID>> GEUUID = EntityDataManager.<Optional<UUID>>createKey(EntityGem.class, DataSerializers.OPTIONAL_UNIQUE_ID);
 	protected static final DataParameter<String> SPECIFIC_NAME = EntityDataManager.<String>createKey(EntityGem.class, DataSerializers.STRING);
@@ -896,7 +899,8 @@ public class EntityGem extends EntityCreature implements IEntityOwnable, IRanged
 						}
 					}
 				} else if (this.isSoldier) {
-					return super.processInteract(player, hand) || this.setAttackWeapon(player, hand, stack);
+					return super.processInteract(player, hand) || this.setAttackWeapon((EntityPlayerMP) player, hand,
+							stack);
 				}
 			} else {
 				ItemStack stack = player.getHeldItemOffhand();
@@ -936,8 +940,9 @@ public class EntityGem extends EntityCreature implements IEntityOwnable, IRanged
 		return false;
 	}
 
-	public boolean setAttackWeapon(EntityPlayer player, EnumHand hand, ItemStack stack) {
+	public boolean setAttackWeapon(EntityPlayerMP player, EnumHand hand, ItemStack stack) {
 		if (this.isFusion()) {
+			ModTriggers.GIANT_WOMEN.trigger(player);
 			return false;
 		}
 		if (this.isTamed()) {
@@ -1529,6 +1534,7 @@ public class EntityGem extends EntityCreature implements IEntityOwnable, IRanged
 	}
 
 	public boolean canFuse() {
+		
 		return (this.isFusion() || !this.isFusion() && this.ticksExisted > 40) && !this.isDefective() && this.getFusionCount() < 10;
 	}
 
@@ -1537,6 +1543,7 @@ public class EntityGem extends EntityCreature implements IEntityOwnable, IRanged
 	}
 
 	public boolean isFusion() {
+		
 		return this.getFusionCount() > 1;
 	}
 	/**
@@ -1682,6 +1689,8 @@ public class EntityGem extends EntityCreature implements IEntityOwnable, IRanged
 
 	@Override
 	public boolean attackEntityAsMob(Entity entityIn) {
+		
+		
 		float f = (float) this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getAttributeValue();
 		int i = 0;
 		if (entityIn instanceof EntityLivingBase) {
@@ -1695,6 +1704,7 @@ public class EntityGem extends EntityCreature implements IEntityOwnable, IRanged
 				((EntityLivingBase) entityIn).knockBack(this, i * 0.5F, MathHelper.sin(this.rotationYaw * 0.017453292F), -MathHelper.cos(this.rotationYaw * 0.017453292F));
 				this.motionX *= 0.6D;
 				this.motionZ *= 0.6D;
+				
 			}
 			int j = EnchantmentHelper.getFireAspectModifier(this);
 			if (j > 0) {
@@ -1702,6 +1712,7 @@ public class EntityGem extends EntityCreature implements IEntityOwnable, IRanged
 			}
 			if (entityIn instanceof EntityPlayer) {
 				EntityPlayer entityplayer = (EntityPlayer) entityIn;
+				
 				ItemStack itemstack = this.getHeldItemMainhand();
 				ItemStack itemstack1 = entityplayer.isHandActive() ? entityplayer.getActiveItemStack() : ItemStack.EMPTY;
 				if (itemstack.getItem() instanceof ItemAxe && itemstack1.getItem() == Items.SHIELD) {
@@ -2134,4 +2145,7 @@ public class EntityGem extends EntityCreature implements IEntityOwnable, IRanged
 	public void readSpawnData(ByteBuf buffer) {
 		this.setSize(buffer.readFloat(), buffer.readFloat());
 	}
+	
+	
+
 }

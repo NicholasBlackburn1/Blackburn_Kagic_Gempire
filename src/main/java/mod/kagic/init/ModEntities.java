@@ -17,6 +17,7 @@ import mod.kagic.entity.gem.EntityAquamarine;
 import mod.kagic.entity.gem.EntityBismuth;
 import mod.kagic.entity.gem.EntityBlueDiamond;
 import mod.kagic.entity.gem.EntityCarnelian;
+import mod.kagic.entity.gem.EntityEmerald;
 import mod.kagic.entity.gem.EntityHessonite;
 import mod.kagic.entity.gem.EntityHoloPearl;
 import mod.kagic.entity.gem.EntityJasper;
@@ -107,6 +108,7 @@ public class ModEntities {
 		ModEntities.registerGem("rutile", EntityRutile.class, 0xD2508C, 0x23020D, false);
 		ModEntities.registerGem("zircon", EntityZircon.class, 0x458FBE, 0x57C7CF, false);
 		ModEntities.registerGem("hessonite", EntityHessonite.class, 0xBE331C, 0xEDCC41, false);
+		ModEntities.registerGem("emerald", EntityEmerald.class, 0x057c09, 0x057c09, true);
 		ModEntities.registerDiamond("yellow_diamond", EntityYellowDiamond.class);
 		ModEntities.registerDiamond("blue_diamond", EntityBlueDiamond.class);
 
@@ -577,4 +579,6 @@ public class ModEntities {
 		}
 		++ModEntities.currentID;
 	}
+
+
 }

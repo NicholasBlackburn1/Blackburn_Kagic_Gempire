@@ -14,6 +14,7 @@ import mod.kagic.entity.ai.EntityAIFollowDiamond;
 import mod.kagic.entity.ai.EntityAIHarvestFarmland;
 import mod.kagic.entity.ai.EntityAIPickUpItems;
 import mod.kagic.entity.ai.EntityAIStay;
+import mod.kagic.init.KAGIC;
 import mod.kagic.init.ModItems;
 import mod.kagic.init.ModSounds;
 import mod.kagic.util.Colors;
@@ -60,6 +61,8 @@ import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IPlantable;
+import net.minecraftforge.event.entity.living.LivingDamageEvent;
+import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.items.wrapper.InvWrapper;
 
 public class EntityPeridot extends EntityGem implements IInventoryChangedListener, INpc {
@@ -443,7 +446,12 @@ public class EntityPeridot extends EntityGem implements IInventoryChangedListene
 	}
 	@Override
 	public boolean attackEntityAsMob(Entity entityIn) {
-		if (this.isTraitor() && entityIn instanceof EntityPlayer) {
+		EntityPlayer player = (EntityPlayer) entityIn;
+		KAGIC.logger.info("i got hit by"+player.getName());
+		ModTriggers.YOU_CLOD.trigger(player);
+
+		if (entityIn instanceof EntityPlayer) {
+			
 			this.sayClod();
 			return false;
 		} else {
@@ -506,4 +514,6 @@ public class EntityPeridot extends EntityGem implements IInventoryChangedListene
 		hairColors.add(EntityPeridot.HAIR_COLOR_END);
 		return Colors.arbiLerp(hairColors);
 	}
+
+	
 }

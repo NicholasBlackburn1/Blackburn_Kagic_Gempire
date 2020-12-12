@@ -1,0 +1,21 @@
+{
+    "display": {
+        "icon": {
+            "item": "minecraft:redstone_torch"
+        },
+        "title": {
+            "translate": "advancements.aristocrat_bully.title"
+        },
+        "description": {
+            "translate": "advancement.aristocrat_bully.description"
+        },
+        "frame":"challenge"
+    },
+
+    "parent": "minecraft:husbandry/root",
+    "criteria": {
+        "place_cloud_sapling": {
+            "trigger": "aristocrat_bully"
+        }
+    }
+}

@@ -12,7 +12,7 @@ public class ModConfigs {
 	public static int meteorRubyRate = 10;
 	public static boolean instructInjectors = true;
 	public static boolean canRebel = false;
-	public static boolean displayNames = false;
+	public static boolean displayNames = true;
 	public static int kindergartenWeight = 1;
 	public static int floatingPeaksWeight = 1;
 	public static int strawberryBattlefieldWeight = 1;

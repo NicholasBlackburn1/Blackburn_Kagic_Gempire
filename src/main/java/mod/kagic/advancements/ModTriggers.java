@@ -25,21 +25,27 @@ public class ModTriggers
         public static final CustomTrigger KINDERGARDEN = new CustomTrigger("kindergarden");
         public static final CustomTrigger MOON_GODAS = new CustomTrigger("moon_godas");
         public static final CustomTrigger HEAVEN_BEATLE = new CustomTrigger("heaven_beatle");
-
+        
         //Fusion Advancements
         public static final CustomTrigger STRONGER_TOGETHER = new CustomTrigger("stronger_together");
         public static final CustomTrigger GIANT_WOMEN = new CustomTrigger("giant_women");
         public static final CustomTrigger OFF_COLORS = new CustomTrigger("off_colors");
 
-        //Gem Asalt Advacements
+        //Gem  Advacements
         public static final CustomTrigger YOU_CLOD = new CustomTrigger("you_clod");
-        
-        
+        public static final CustomTrigger ARE_YOU_MY_DAD = new CustomTrigger("my_dad");
+
+        //Gem Drill Advancements 
+        public static final CustomTrigger REACTIVATE_KINDERGARED = new CustomTrigger("reactivate_kindergarden");
+
+        //aristocrat Advancements
+        public static final CustomTrigger ARISTORCA_BULLY = new CustomTrigger("aristocrat_bully");
         /*
          * This array just makes it convenient to register all the criteria.
          */
         public static final CustomTrigger[] TRIGGER_ARRAY = new CustomTrigger[] {
-            MOD_START,BATTLE_FIELD,GALAXY_WARP,DESERT_TEMPLE,COMMUNICATION_HUB,KINDERGARDEN,MOON_GODAS, HEAVEN_BEATLE,STRONGER_TOGETHER,GIANT_WOMEN, OFF_COLORS, YOU_CLOD
+            MOD_START,BATTLE_FIELD,GALAXY_WARP,DESERT_TEMPLE,COMMUNICATION_HUB,KINDERGARDEN,MOON_GODAS, HEAVEN_BEATLE,STRONGER_TOGETHER,GIANT_WOMEN, OFF_COLORS, YOU_CLOD,ARE_YOU_MY_DAD,
+            REACTIVATE_KINDERGARED,ARISTORCA_BULLY
                 };
     
     

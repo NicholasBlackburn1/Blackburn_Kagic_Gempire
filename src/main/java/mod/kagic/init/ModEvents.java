@@ -1,8 +1,10 @@
 package mod.kagic.init;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Timer;
+import java.util.function.Consumer;
 
 import javax.swing.text.html.parser.Entity;
 
@@ -21,6 +23,8 @@ import mod.kagic.init.ModMetrics.Update;
 
 import mod.kagic.server.SpaceStuff;
 import net.minecraft.advancements.critereon.PlayerHurtEntityTrigger;
+import net.minecraft.entity.EntityCreature;
+import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.ai.EntityAIAvoidEntity;
@@ -33,6 +37,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.Item;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
@@ -49,6 +54,7 @@ import net.minecraft.world.storage.loot.functions.LootFunction;
 import net.minecraft.world.storage.loot.functions.SetCount;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.LootTableLoadEvent;
+import net.minecraftforge.event.entity.EntityEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
@@ -57,6 +63,7 @@ import net.minecraftforge.event.entity.player.PlayerDestroyItemEvent;
 import net.minecraftforge.event.entity.player.PlayerDropsEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent.EntityInteract;
 import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
@@ -64,8 +71,12 @@ import net.minecraftforge.fml.common.gameevent.TickEvent.PlayerTickEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 
 public class ModEvents {
+	
+
+
 	public static void register() {
 		MinecraftForge.EVENT_BUS.register(new ModEvents());
+	
 	}
 	
 	@SubscribeEvent
@@ -76,10 +87,6 @@ public class ModEvents {
 			KAGIC.logger.info("in Player innteract Fucntion need to execute the advancement");
 			ModTriggers.MOD_START.trigger(e.player);
 			KAGIC.logger.info("Executed the Trigger");
-	
-	
-		
-			
 		
 	}
 
@@ -284,32 +291,41 @@ public class ModEvents {
 			
 		}
 	}
+	/**
+	 * Whenever player enters a biome Send the Acivement based on that biome
+	 * @param e
+	 */
 	@SubscribeEvent
-	public void onPlayerAttack(LivingUpdateEvent e){
+	public void onPlayerWalkInBiome(LivingUpdateEvent e){
 		EntityLivingBase theEntity = e.getEntityLiving();
 		EntityPlayerMP player;
 		if(theEntity instanceof EntityPlayerMP){
 			player = (EntityPlayerMP) theEntity;
-			String biome = theEntity.getEntityWorld().getBiome(theEntity.getPosition()).getBiomeName();
-			switch (biome) {
-				case "Gem Battlefield":
+			
+			
+			switch (player.getEntityWorld().getBiome(theEntity.getPosition()).getRegistryName().toString()) {
+				case "ndbkagic:strawberry_battlefield":
 					ModTriggers.BATTLE_FIELD.trigger(player);
 					break;
 				
-				case "Floating Peaks":
+				case "ndbkagic:floatingpeaks":
 					ModTriggers.HEAVEN_BEATLE.trigger(player);
 					break;
 			
-				case "Kindergarten":
+				case "ndbkagic:kindergarten":
 					ModTriggers.KINDERGARDEN.trigger(player);
-					break;
-				default:
-					//KAGIC.logger.info(biome);
 					break;
 			}
 		}
 
+
 	}
 
 	
-}	
+
+		
+		
+}
+
+	
+

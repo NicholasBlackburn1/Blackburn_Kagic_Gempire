@@ -10,6 +10,7 @@ import mod.kagic.world.structure.ControlRoom;
 import mod.kagic.world.structure.DesertWarpPad;
 import mod.kagic.world.structure.GalaxyWarp;
 import mod.kagic.world.structure.GiantWeapon;
+import mod.kagic.world.structure.LunarSeaSpire;
 import mod.kagic.world.structure.MaskIsland;
 import mod.kagic.world.structure.PyramidTemple;
 import mod.kagic.world.structure.RoseFountain;
@@ -42,6 +43,7 @@ public class KAGICWorldGenerator implements IWorldGenerator {
 		this.ruins.add(new PyramidTemple("pyramid_temple"));
 		this.ruins.add(new MaskIsland("mask_island"));
 		this.ruins.add(new SeaShrine("sea_shrine"));
+		this.ruins.add(new LunarSeaSpire("lunar_sea_spire"));
 		this.ruins.add(new AncientSkyArena("large_arena"));
 		this.ruinDimensions.add(0);
 		for (String dimS : ModConfigs.ruinDimensions.split(",")) {
