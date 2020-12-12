@@ -1,5 +1,19 @@
 # KAGIC Blackburn an Fork of Kagic becoming its own thing
 *The Steven Universe mod that adamantly denies it is a Steven Universe mod.* KAGIC adds machines that inject an essence into the ground that engenders magical beings called "gems" by transmuting the blocks around. These gems appear in a variety of ways and can be commanded to do a variety of tasks based on these blocks, called "cruxes."
+## Whats new
+1. added over 12 new and Fun Advancements
+2. added biome detection to fire some advancemets
+3. added a new Gem Emerald 
+4. Emerald can follow her superiors and scare a way mobs with her evil glare Don't mess with Emerald she hits like a truck.
+
+
+## TODOs:
+1. Finish Emerald's model and texture
+2. get item texures for Emerald's Gems
+3. Finish Linking Advancemets to structures that the player entered 
+4. get custom sounds for emerald 
+
+
 
 
 ## Issues
