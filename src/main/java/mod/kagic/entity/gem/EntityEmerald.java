@@ -8,6 +8,7 @@ import java.util.Map;
 
 import com.google.common.base.Predicate;
 
+import mod.kagic.advancements.ModTriggers;
 import mod.kagic.entity.EntityGem;
 import mod.kagic.entity.ai.EntityAIAlignGems;
 import mod.kagic.entity.ai.EntityAICommandGems;
@@ -395,22 +396,6 @@ public class EntityEmerald extends EntityQuartzSoldier implements IAnimals {
 		switch (this.getSpecial()) {
 			case 0:
 				return "";
-			case 1:
-				return "ocean_";
-			case 2:
-				return "biggs_";
-			case 3:
-				return "green_";
-			case 4:
-				return "bruneau_";
-			case 5:
-				return "purple_";
-			case 6:
-				return "flame_";
-			case 7:
-				return "picture_";
-			case 8:
-				return "candy_cane_";
 		}
 		return null;
 	}
@@ -510,9 +495,17 @@ public class EntityEmerald extends EntityQuartzSoldier implements IAnimals {
 	 *********************************************************/
 	@Override
 	public void onDeath(DamageSource cause) {
+		if (!this.world.isRemote) {
+			if (cause.getTrueSource() instanceof EntityPlayer) {
+				EntityPlayer player = (EntityPlayer)cause.getTrueSource();
+			ModTriggers.ARISTORCA_BULLY.trigger(player);
+			}
+		}
 		switch (this.getSpecial()) {
 			case 0:
 				if (this.isPrimary()) {
+					
+					
 					this.droppedGemItem = ModItems.EMERALD_GEM;
 					this.droppedCrackedGemItem = ModItems.CRACKED_EMERALD_GEM;
 				}
