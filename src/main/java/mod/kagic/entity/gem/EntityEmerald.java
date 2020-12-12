@@ -192,7 +192,7 @@ public class EntityEmerald extends EntityQuartzSoldier implements IAnimals {
 		this.tasks.addTask(5, new EntityAIMoveTowardsRestriction(this, 3.0D));
 		this.tasks.addTask(6, new EntityAIScareMobs(this));
 		this.tasks.addTask(7, new EntityAIAlignGems(this, 50.30f));
-		};
+		
 
 		// Apply targetting.
 		this.targetTasks.addTask(4, new EntityAINearestAttackableTarget<EntityLiving>(this, EntityLiving.class, 10,
@@ -204,7 +204,9 @@ public class EntityEmerald extends EntityQuartzSoldier implements IAnimals {
 				}));
 
 		// Apply entity attributes.
-		this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(160.0D);
+
+		// Weak Hit damage but, Its Aristocratic so damage is weak but then they can command other gems
+		this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(5.0D);
 
 		this.droppedGemItem = ModItems.EMERALD_GEM;
 		this.droppedCrackedGemItem = ModItems.CRACKED_EMERALD_GEM;
@@ -483,48 +485,14 @@ public class EntityEmerald extends EntityQuartzSoldier implements IAnimals {
 		switch (this.getSpecial()) {
 			case 0:
 				if (this.isPrimary()) {
-					this.droppedGemItem = ModItems.JASPER_GEM;
-					this.droppedCrackedGemItem = ModItems.CRACKED_JASPER_GEM;
-				} else {
-					this.droppedGemItem = ModItems.NOREENA_JASPER_GEM;
-					this.droppedCrackedGemItem = ModItems.CRACKED_NOREENA_JASPER_GEM;
+					this.droppedGemItem = ModItems.EMERALD_GEM;
+					this.droppedCrackedGemItem = ModItems.CRACKED_EMERALD_GEM;
 				}
 				break;
-			case 1:
-				this.droppedGemItem = ModItems.OCEAN_JASPER_GEM;
-				this.droppedCrackedGemItem = ModItems.CRACKED_OCEAN_JASPER_GEM;
-				break;
-			case 2:
-				this.droppedGemItem = ModItems.BIGGS_JASPER_GEM;
-				this.droppedCrackedGemItem = ModItems.CRACKED_BIGGS_JASPER_GEM;
-				break;
-			case 3:
-				this.droppedGemItem = ModItems.GREEN_JASPER_GEM;
-				this.droppedCrackedGemItem = ModItems.CRACKED_GREEN_JASPER_GEM;
-				break;
-			case 4:
-				this.droppedGemItem = ModItems.BRUNEAU_JASPER_GEM;
-				this.droppedCrackedGemItem = ModItems.CRACKED_BRUNEAU_JASPER_GEM;
-				break;
-			case 5:
-				this.droppedGemItem = ModItems.PURPLE_JASPER_GEM;
-				this.droppedCrackedGemItem = ModItems.CRACKED_PURPLE_JASPER_GEM;
-				break;
-			case 6:
-				this.droppedGemItem = ModItems.FLAME_JASPER_GEM;
-				this.droppedCrackedGemItem = ModItems.CRACKED_FLAME_JASPER_GEM;
-				break;
-			case 7:
-				this.droppedGemItem = ModItems.PICTURE_JASPER_GEM;
-				this.droppedCrackedGemItem = ModItems.CRACKED_PICTURE_JASPER_GEM;
-				break;
-			case 8:
-				this.droppedGemItem = ModItems.CANDY_CANE_JASPER_GEM;
-				this.droppedCrackedGemItem = ModItems.CRACKED_CANDY_CANE_JASPER_GEM;
-				break;
+			
 			default:
-				this.droppedGemItem = ModItems.JASPER_GEM;
-				this.droppedCrackedGemItem = ModItems.CRACKED_JASPER_GEM;
+				this.droppedGemItem = ModItems.EMERALD_GEM;
+				this.droppedCrackedGemItem = ModItems.CRACKED_EMERALD_GEM;
 				break;
 		}
 		super.onDeath(cause);
@@ -535,17 +503,17 @@ public class EntityEmerald extends EntityQuartzSoldier implements IAnimals {
 	 *********************************************************/
 	@Override
 	protected SoundEvent getHurtSound(DamageSource source) {
-		return ModSounds.JASPER_HURT;
+		return ModSounds.BLUE_DIAMOND_HURT;
 	}
 
 	@Override
 	protected SoundEvent getObeySound() {
-		return ModSounds.JASPER_OBEY;
+		return ModSounds.ROSE_QUARTZ_OBEY;
 	}
 
 	@Override
 	protected SoundEvent getDeathSound() {
-		return ModSounds.JASPER_DEATH;
+		return ModSounds.YELLOW_DIAMOND_DEATH;
 	}
 
 	/*********************************************************
