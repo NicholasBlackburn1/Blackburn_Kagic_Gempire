@@ -1,13 +1,13 @@
 {
     "display": {
         "icon": {
-            "item": "kagic:emerald_gem"
+            "item": "kagic:blue_diamond_gem"
         },
         "title": {
-            "translate": "advancements.aristocrat_bully.title"
+            "translate": "advancements.blue_diamond_authority.title"
         },
         "description": {
-            "translate": "advancement.aristocrat_bully.description"
+            "translate": "advancement.blue_diamond_authority.description"
         },
         "frame":"challenge"
     },
@@ -15,7 +15,7 @@
     "parent": "minecraft:husbandry/root",
     "criteria": {
         "place_cloud_sapling": {
-            "trigger": "aristocrat_bully"
+            "trigger": "blue_diamond_authority"
         }
     }
 }

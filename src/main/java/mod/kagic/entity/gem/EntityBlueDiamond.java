@@ -6,6 +6,7 @@ import javax.annotation.Nullable;
 
 import com.google.common.base.Predicate;
 
+import mod.kagic.advancements.ModTriggers;
 import mod.kagic.entity.EntityGem;
 import mod.kagic.entity.ai.EntityAIAlignGems;
 import mod.kagic.entity.ai.EntityAIDiamondHurtByTarget;
@@ -219,6 +220,7 @@ public class EntityBlueDiamond extends EntityGem {
 			if (cause.getTrueSource() instanceof EntityPlayer) {
 				List<EntityGem> list = this.world.<EntityGem>getEntitiesWithinAABB(EntityGem.class, this.getEntityBoundingBox().grow(24.0D, 8.0D, 24.0D));
 				EntityPlayer player = (EntityPlayer) cause.getTrueSource();
+				ModTriggers.BLUE_DIAMOND_AUTHORITY.trigger(player);
 				for (EntityGem gem : list) {
 					if (gem.getServitude() == EntityGem.SERVE_BLUE_DIAMOND && !gem.equals(this)) {
 						gem.setOwnerId(player.getUniqueID());
@@ -230,6 +232,7 @@ public class EntityBlueDiamond extends EntityGem {
 						gem.playTameEffect();
 						gem.world.setEntityState(gem, (byte) 7);
 						gem.playObeySound();
+						
 					}
 				}
 			}

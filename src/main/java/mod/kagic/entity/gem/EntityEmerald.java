@@ -194,10 +194,11 @@ public class EntityEmerald extends EntityQuartzSoldier implements IAnimals {
 		* Scares Mobs With her fiears Glare
 		*/
 
-		this.tasks.addTask(1, new EntityAIFollowDiamond(this, 1.0D));
+		this.tasks.addTask(1, new EntityAIFollowDiamond(this, 10.0D));
+		this.tasks.addTask(1, new EntityAICommandGems(this, 30.6D));
 
-		this.tasks.addTask(1, new EntityAICommandGems(this, 1.6D));
-		this.tasks.addTask(1, new EntityAICommandGems(this, 1.6D));
+		this.tasks.addTask(2, new EntityAICommandGems(this, 32.0D));
+		this.tasks.addTask(2, new EntityAIAlignGems(this, 100.0D));
 
 		this.tasks.addTask(3, new EntityAIRestrictOpenDoor(this));
 		this.tasks.addTask(3, new EntityAIOpenDoor(this, true));
@@ -241,6 +242,7 @@ public class EntityEmerald extends EntityQuartzSoldier implements IAnimals {
 		this.dataManager.register(EntityEmerald.MARK_1, 0);
 		this.dataManager.register(EntityEmerald.MARK_2_COLOR, 0);
 		this.dataManager.register(EntityEmerald.MARK_2, 0);
+		this.setServitude(EntityGem.SERVE_BLUE_DIAMOND);
 	}
 
 	@Override
