@@ -194,6 +194,7 @@ public class EntityEmerald extends EntityQuartzSoldier implements IAnimals {
 
 		this.droppedGemItem = ModItems.EMERALD_GEM;
 		this.droppedCrackedGemItem = ModItems.CRACKED_EMERALD_GEM;
+		this.droppedCrackedGemItem = ModItems.CRACKED_EMERALD_GEM;
 
 		// Register entity data.
 		this.dataManager.register(EntityEmerald.CHARGED, false);

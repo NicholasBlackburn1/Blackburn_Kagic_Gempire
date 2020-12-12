@@ -24,6 +24,7 @@ entity.kagic.sapphire_13.name=Green Sapphire
 entity.kagic.sapphire_15.name=Black Sapphire
 entity.kagic.sapphire_16.name=Padparadscha
 entity.kagic.opal.name=Opal
+kagic:kagic.emerald.name=Emerald
 entity.kagic.opal.name.plural=Opals
 entity.kagic.emeral.name=Emerald
 entity.kagic.peridot.name=Peridot
