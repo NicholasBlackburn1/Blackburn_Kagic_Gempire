@@ -9,7 +9,11 @@ import java.util.Map;
 import com.google.common.base.Predicate;
 
 import mod.kagic.entity.EntityGem;
+import mod.kagic.entity.ai.EntityAIAlignGems;
+import mod.kagic.entity.ai.EntityAICommandGems;
+import mod.kagic.entity.ai.EntityAIFollowDiamond;
 import mod.kagic.entity.ai.EntityAIProtectionFuse;
+import mod.kagic.entity.ai.EntityAIScareMobs;
 import mod.kagic.entity.ai.EntityAIStandGuard;
 import mod.kagic.entity.gem.fusion.EntityMalachite;
 import mod.kagic.init.KAGIC;
@@ -22,6 +26,8 @@ import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.EntityAIBase;
+import net.minecraft.entity.ai.EntityAIBreakDoor;
 import net.minecraft.entity.ai.EntityAIMoveTowardsRestriction;
 import net.minecraft.entity.ai.EntityAIMoveTowardsTarget;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
@@ -37,6 +43,7 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
+import net.minecraft.util.datafix.fixes.EntityId;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.DifficultyInstance;
@@ -170,15 +177,22 @@ public class EntityEmerald extends EntityQuartzSoldier implements IAnimals {
 
 
 		/*
-		TODO: Add fusion when i create a custom Fusion Mob
-		*this.tasks.addTask(3, new EntityAIProtectionFuse(this, EntityBlueDiamond.class, EntityMalachite.class, 16D));
-		*Apply entity AI.
+		* TODO: Add fusion when i create a custom Fusion Mob
+		* this.tasks.addTask(3, new EntityAIProtectionFuse(this, EntityBlueDiamond.class, EntityMalachite.class, 16D));
+		* Apply entity AI.
+		*  Allows Emerald To move 
+		* attacks mobs 
+		* Follow's the Diamonds/ Fusions 
+		* Scares Mobs With here fiears Glare
 		*/
+
 		this.tasks.addTask(2, new EntityAIMoveTowardsTarget(this, 0.414D, 40.0F));
 		
-		
-		this.tasks.addTask(3, new EntityAIMoveTowardsRestriction(this, 3.0D));
-		this.tasks.addTask(5, new EntityAIStandGuard(this, 0.6D));
+		this.tasks.addTask(3, new EntityAIFollowDiamond(this, 40.50f));
+		this.tasks.addTask(5, new EntityAIMoveTowardsRestriction(this, 3.0D));
+		this.tasks.addTask(6, new EntityAIScareMobs(this));
+		this.tasks.addTask(7, new EntityAIAlignGems(this, 50.30f));
+		};
 
 		// Apply targetting.
 		this.targetTasks.addTask(4, new EntityAINearestAttackableTarget<EntityLiving>(this, EntityLiving.class, 10,
