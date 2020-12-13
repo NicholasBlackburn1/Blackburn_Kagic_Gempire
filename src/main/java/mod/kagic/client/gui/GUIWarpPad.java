@@ -78,6 +78,8 @@ public class GUIWarpPad extends GuiScreen {
 	@Override
 	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
 		this.drawDefaultBackground();
+		
+		this.drawTexturedModalRect(0, 0, 1920, 1080, this.width, this.height);
 		this.nameTextField.drawTextBox();
 		this.drawCenteredString(this.fontRenderer, "Enter Warp Pad Name", this.width / 2, this.height / 2 - 30, 16777215);
 		super.drawScreen(mouseX, mouseY, partialTicks);

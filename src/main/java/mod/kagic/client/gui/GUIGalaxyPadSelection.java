@@ -5,6 +5,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.SortedMap;
 
+import mod.kagic.init.KAGIC;
 import mod.kagic.tileentity.TileEntityWarpPadCore;
 import mod.kagic.worlddata.GalaxyPadLocation;
 import mod.kagic.worlddata.WarpPadDataEntry;
@@ -12,7 +13,9 @@ import mod.kagic.worlddata.WorldDataGalaxyPad;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 
 public class GUIGalaxyPadSelection extends GuiScreen {
