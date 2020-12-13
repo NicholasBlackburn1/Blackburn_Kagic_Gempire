@@ -1,0 +1,21 @@
+{
+    "display": {
+        "icon": {
+            "item": "kagic:white_diamond_gem"
+        },
+        "title": {
+            "translate": "advancements.white_diamond_authority.title"
+        },
+        "description": {
+            "translate": "advancement.white_diamond_authority.description"
+        },
+        "frame":"challenge"
+    },
+
+    "parent": "minecraft:husbandry/root",
+    "criteria": {
+        "place_cloud_sapling": {
+            "trigger": "white_diamond_authority"
+        }
+    }
+}
