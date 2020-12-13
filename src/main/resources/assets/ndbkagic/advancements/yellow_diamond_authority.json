@@ -1,0 +1,21 @@
+{
+    "display": {
+        "icon": {
+            "item": "kagic:yellow_diamond_gem"
+        },
+        "title": {
+            "translate": "advancements.yellow_diamond_authority.title"
+        },
+        "description": {
+            "translate": "advancement.yellow_diamond_authority.description"
+        },
+        "frame":"challenge"
+    },
+
+    "parent": "minecraft:husbandry/root",
+    "criteria": {
+        "place_cloud_sapling": {
+            "trigger": "yellow_diamond_authority"
+        }
+    }
+}

@@ -3,16 +3,20 @@ package mod.kagic.client.gui;
 import java.io.IOException;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Random;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
+import mod.kagic.init.KAGIC;
 import mod.kagic.tileentity.TileEntityWarpPadCore;
 import mod.kagic.worlddata.WarpPadDataEntry;
 import mod.kagic.worlddata.WorldDataWarpPad;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 
 public class GUIWarpPadSelection extends GuiScreen {
@@ -41,6 +45,7 @@ public class GUIWarpPadSelection extends GuiScreen {
 		}
 	}
 
+	
 	@Override
 	public boolean doesGuiPauseGame() {
 		return false;
@@ -100,7 +105,11 @@ public class GUIWarpPadSelection extends GuiScreen {
 	
 	@Override
 	public void drawScreen(int mouseX, int mouseY, float partialTicks) {
-		this.drawDefaultBackground();
+		ResourceLocation location = new ResourceLocation(KAGIC.MODID, "gui/Background/" + "background" + ".png");
+		
+		mc.renderEngine.bindTexture(location); 
+		//this.drawGradientRect(0, 0, this.width, this.height);
+		super.drawScreen(mouseX, mouseY, partialTicks);
 		this.padList.drawScreen(mouseX, mouseY, partialTicks);
 		this.drawCenteredString(this.fontRenderer, this.screenTitle, this.width / 2, 10, 16777215);
 		super.drawScreen(mouseX, mouseY, partialTicks);

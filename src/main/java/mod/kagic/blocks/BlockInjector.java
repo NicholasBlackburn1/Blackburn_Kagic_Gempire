@@ -2,6 +2,7 @@ package mod.kagic.blocks;
 
 import java.util.Random;
 
+import mod.kagic.advancements.ModTriggers;
 import mod.kagic.event.InjectionEvent;
 import mod.kagic.init.ModBlocks;
 import mod.kagic.init.ModCreativeTabs;
@@ -134,6 +135,8 @@ public class BlockInjector extends Block {
 					worldIn.setBlockState(pos, unequippedState.withProperty(BlockInjector.FACING, worldIn.getBlockState(pos).getValue(BlockInjector.FACING)));
 					EntityItem activatedBase = new EntityItem(worldIn, pos.getX(), pos.getY() + 1, pos.getZ(), new ItemStack(ModItems.ACTIVATED_GEM_BASE));
 					worldIn.spawnEntity(activatedBase);
+					ModTriggers.REACTIVATE_KINDERGARED.trigger(playerIn);
+					
 				} else if (!this.isEquipped) {
 					if (heldItem.getItem() == ModItems.ACTIVATED_GEM_BASE) {
 						worldIn.setBlockState(pos, equippedState.withProperty(BlockInjector.FACING, worldIn.getBlockState(pos).getValue(BlockInjector.FACING)));
@@ -142,6 +145,7 @@ public class BlockInjector extends Block {
 							heldItem.splitStack(1);
 						}
 						Injector.onGemBasePlacement(worldIn, pos);
+						ModTriggers.REACTIVATE_KINDERGARED.trigger(playerIn);
 					}
 				}
 				if (heldItem.getItem() instanceof ItemBlock) {
