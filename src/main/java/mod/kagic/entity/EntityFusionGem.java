@@ -216,6 +216,7 @@ public class EntityFusionGem extends EntityGem {
 			this.setPrimeCount(this.getPrimeCount() + 1);
 		}
 
+		
 		this.setFusionCount(this.getFusionCount() + 1);
 		this.setFusionPlacements(this.generateFusionPlacements());
 		this.setFusionTypes(this.generateFusionTypes());

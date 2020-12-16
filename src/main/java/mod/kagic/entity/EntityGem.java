@@ -941,8 +941,20 @@ public class EntityGem extends EntityCreature implements IEntityOwnable, IRanged
 	}
 
 	public boolean setAttackWeapon(EntityPlayerMP player, EnumHand hand, ItemStack stack) {
+		// Right clickes Fusion
 		if (this.isFusion()) {
-			ModTriggers.GIANT_WOMEN.trigger(player);
+			// Triggers when Rhodinite is clicked
+			if(this.isFusion() && this.getName().equals("Rhodonite") || this.getName().equals("Rhodonites")){
+				KAGIC.logger.info(this.getName()+" is nere a "+player.getName());
+				ModTriggers.OFF_COLORS.trigger(player);
+			}
+
+			if(this.isFusion() && this.getName().equals("Opal") || this.getName().equals("Opals")){
+				KAGIC.logger.info(this.getName()+" is nere a "+player.getName());
+				ModTriggers.GIANT_WOMEN.trigger(player);
+			}
+		
+	
 			return false;
 		}
 		if (this.isTamed()) {

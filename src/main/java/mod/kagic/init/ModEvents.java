@@ -303,7 +303,7 @@ public class ModEvents {
 			player = (EntityPlayerMP) theEntity;
 			
 			
-			switch (player.getEntityWorld().getBiome(theEntity.getPosition()).getRegistryName().toString()) {
+			switch (player.getServer().getEntityWorld().getBiome(theEntity.getPosition()).getRegistryName().toString()) {
 				case "ndbkagic:strawberry_battlefield":
 					ModTriggers.BATTLE_FIELD.trigger(player);
 					break;
@@ -318,6 +318,7 @@ public class ModEvents {
 				
 				
 			}
+			
 		}
 
 

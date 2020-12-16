@@ -31,7 +31,7 @@ public class EntityRhodonite extends EntityFusionGem {
 		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.4D);
 		this.getEntityAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE).setBaseValue(2.0D);
 	}
-	
+
 	// =========================================================================
 	// === Methods for managing
 	// fusion==========================================
