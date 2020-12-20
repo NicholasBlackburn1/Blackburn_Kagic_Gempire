@@ -295,6 +295,7 @@ public class ModEvents {
 	 * Whenever player enters a biome Send the Acivement based on that biome
 	 * @param e
 	 */
+	
 	@SubscribeEvent
 	public void onPlayerWalkInBiome(LivingUpdateEvent e){
 		EntityLivingBase theEntity = e.getEntityLiving();
@@ -302,20 +303,28 @@ public class ModEvents {
 		if(theEntity instanceof EntityPlayerMP){
 			player = (EntityPlayerMP) theEntity;
 			
-			
+	
+		
 			switch (player.getServer().getEntityWorld().getBiome(theEntity.getPosition()).getRegistryName().toString()) {
 				case "ndbkagic:strawberry_battlefield":
 					ModTriggers.BATTLE_FIELD.trigger(player);
+					KAGIC.logger.info(player.getName()+"entered battlefield");
+				
 					break;
 				
 				case "ndbkagic:floatingpeaks":
 					ModTriggers.HEAVEN_BEATLE.trigger(player);
+					KAGIC.logger.info(player.getName()+"entered floating peaks");
 					break;
 			
 				case "ndbkagic:kindergarten":
 					ModTriggers.KINDERGARDEN.trigger(player);
+					KAGIC.logger.info(player.getName()+"entered kindergarden");
 					break;
+				default:
+					return;
 				
+
 				
 			}
 			

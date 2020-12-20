@@ -24,6 +24,7 @@ public class GiantWeapon extends RuinStructure {
 		this.structures.add("/assets/kagic/structures/giant_weapons/vertical_sword_2.schematic");
 
 		this.allowedBiomes.add(ModBiomes.STRAWBERRYBATTLEFIELD);
+		
 	}
 	
 	@Override
