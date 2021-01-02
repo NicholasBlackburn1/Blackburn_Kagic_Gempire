@@ -299,17 +299,16 @@ public class ModEvents {
 	@SubscribeEvent
 	public void onPlayerWalkInBiome(LivingUpdateEvent e){
 
-		if(e.getEntity() instanceof EntityPlayer){
-			EntityPlayer player = (EntityPlayer) e.getEntity();
+		if(e.getEntity() instanceof EntityPlayerMP){
+			EntityPlayerMP player = (EntityPlayerMP) e.getEntity();
 			long systemtime = player.getServer().getCurrentTimeMillis();
 			
 
 		if(systemtime % 20 == 0){
 			
-			KAGIC.logger.info("got biome" + player.getEntityWorld().getBiome(player.getPosition()).toString());
+			//KAGIC.logger.info(player.getEntityWorld().getBiome(player.getPosition()).getRegistryName().toString());
 	
-			switch (player.getEntityWorld().getBiome(player.getPosition()).toString()) {
-
+			switch (player.getEntityWorld().getBiome(player.getPosition()).getRegistryName().toString()) {
 				case "ndbkagic:strawberry_battlefield":
 					KAGIC.logger.info("Ran at" + systemtime);
 					ModTriggers.BATTLE_FIELD.trigger(player);
@@ -318,11 +317,13 @@ public class ModEvents {
 					break;
 				
 				case "ndbkagic:floatingpeaks":
+					KAGIC.logger.info("Ran at" + systemtime);
 					ModTriggers.HEAVEN_BEATLE.trigger(player);
 					KAGIC.logger.info(player.getName()+"entered floating peaks");
 					break;
 			
 				case "ndbkagic:kindergarten":
+					KAGIC.logger.info("Ran at" + systemtime);
 					ModTriggers.KINDERGARDEN.trigger(player);
 					KAGIC.logger.info(player.getName()+"entered kindergarden");
 					break;
