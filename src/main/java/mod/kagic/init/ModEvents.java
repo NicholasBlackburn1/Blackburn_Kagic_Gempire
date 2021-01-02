@@ -298,15 +298,20 @@ public class ModEvents {
 	
 	@SubscribeEvent
 	public void onPlayerWalkInBiome(LivingUpdateEvent e){
-		EntityLivingBase theEntity = e.getEntityLiving();
-		EntityPlayerMP player;
-		if(theEntity instanceof EntityPlayerMP){
-			player = (EntityPlayerMP) theEntity;
+
+		if(e.getEntity() instanceof EntityPlayer){
+			EntityPlayer player = (EntityPlayer) e.getEntity();
+			long systemtime = player.getServer().getCurrentTimeMillis();
 			
+
+		if(systemtime % 20 == 0){
+			
+			KAGIC.logger.info("got biome" + player.getEntityWorld().getBiome(player.getPosition()).toString());
 	
-		
-			switch (player.getServer().getEntityWorld().getBiome(theEntity.getPosition()).getRegistryName().toString()) {
+			switch (player.getEntityWorld().getBiome(player.getPosition()).toString()) {
+
 				case "ndbkagic:strawberry_battlefield":
+					KAGIC.logger.info("Ran at" + systemtime);
 					ModTriggers.BATTLE_FIELD.trigger(player);
 					KAGIC.logger.info(player.getName()+"entered battlefield");
 				
@@ -327,17 +332,19 @@ public class ModEvents {
 
 				
 			}
-			
 		}
-
+			
+	
+		
 
 	}
-
+} 
 	
 
-		
-		
 }
+		
+		
+
 
 	
 
