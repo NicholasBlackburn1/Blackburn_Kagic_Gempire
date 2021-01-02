@@ -1,13 +1,13 @@
 {
     "display": {
         "icon": {
-            "item": "minecraft:diamond"
+            "item": "kagic:aquamarine_gem"
         },
         "title": {
-            "translate": "advancements.mod_start.title"
+            "translate": "advancements.warp_master.title"
         },
         "description": {
-            "translate": "advancement.mod_start.description"
+            "translate": "advancement.warp_master.description"
         },
         "frame":"challenge"
     },
@@ -15,7 +15,7 @@
     "parent": "ndbkagic:root",
     "criteria": {
         "place_cloud_sapling": {
-            "trigger": "mod_start"
+            "trigger": "my_dad"
         }
     }
 }

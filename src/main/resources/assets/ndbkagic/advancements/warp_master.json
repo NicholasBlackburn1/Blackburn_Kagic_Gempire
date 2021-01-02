@@ -4,15 +4,15 @@
             "item": "kagic:aquamarine_gem"
         },
         "title": {
-            "translate": "advancements.my_dad.title"
+            "translate": "advancements.warp_master.title"
         },
         "description": {
-            "translate": "advancement.my_dad.description"
+            "translate": "advancement.warp_master.description"
         },
         "frame":"challenge"
     },
 
-    "parent": "ndbkagic:root",
+    "parent": "minecraft:kagic/root",
     "criteria": {
         "place_cloud_sapling": {
             "trigger": "my_dad"

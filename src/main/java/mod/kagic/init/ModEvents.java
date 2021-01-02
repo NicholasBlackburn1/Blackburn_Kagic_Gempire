@@ -174,7 +174,7 @@ public class ModEvents {
 	}
 	/*
 	 * @SubscribeEvent public void onPlayerTick(TickEvent.PlayerTickEvent event) {
-	 * if (event.player.posY > 480 && !event.player.world.isRemote) {
+	 if (event.player.posY > 480 && !event.player.world.isRemote) {
 	 * event.player.world.getMinecraftServer().
 	 * getPlayerList().transferPlayerToDimension(( EntityPlayerMP) event.player, 2,
 	 * new TeleporterHomeworld(event.player.world.

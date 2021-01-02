@@ -785,5 +785,6 @@ advancement.yellow_diamond_authority.description= OverThrow Yellow Diamond's Aut
 advancements.white_diamond_authority.title=Shattered White Dimond?
 advancement.white_diamond_authority.description= OverThrow White Diamond's Authority by Poofing her and Destroying the Evidence 
 
-
+advancement.kagic.root.title=Blackburn Kagic 
+advancement.kagic.root.description=This Displays All Blackburn Kagic advancements
 
