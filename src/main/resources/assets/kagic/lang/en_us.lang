@@ -788,3 +788,6 @@ advancement.white_diamond_authority.description= OverThrow White Diamond's Autho
 advancement.kagic.root.title=Blackburn Kagic 
 advancement.kagic.root.description=This Displays All Blackburn Kagic advancements
 
+
+advancements.warp_master.title=Warp Master
+advancements.warp_master.description=Setup and use a WarpPad to Teleport Across the world!

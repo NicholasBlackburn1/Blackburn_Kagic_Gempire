@@ -26,6 +26,7 @@ import net.minecraft.advancements.critereon.PlayerHurtEntityTrigger;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.ai.EntityAIAvoidEntity;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
@@ -43,6 +44,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.world.DimensionType;
+import net.minecraft.world.WorldServer;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.storage.loot.LootEntry;
 import net.minecraft.world.storage.loot.LootEntryItem;
@@ -71,23 +74,21 @@ import net.minecraftforge.fml.common.gameevent.TickEvent.PlayerTickEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 
 public class ModEvents {
-	
-
 
 	public static void register() {
 		MinecraftForge.EVENT_BUS.register(new ModEvents());
-	
+
 	}
-	
+
 	@SubscribeEvent
 	public void onPlayerLoggedIn(PlayerLoggedInEvent e) {
 
 		e.player.sendMessage(
-			new TextComponentString("§6 You are playing KAGIC-Blackburn " + KAGIC.VERSION + " Please Enjoy"));
-			KAGIC.logger.info("in Player innteract Fucntion need to execute the advancement");
-			ModTriggers.MOD_START.trigger(e.player);
-			KAGIC.logger.info("Executed the Trigger");
-		
+				new TextComponentString("§6 You are playing KAGIC-Blackburn " + KAGIC.VERSION + " Please Enjoy"));
+		KAGIC.logger.info("in Player innteract Fucntion need to execute the advancement");
+		ModTriggers.MOD_START.trigger(e.player);
+		KAGIC.logger.info("Executed the Trigger");
+
 	}
 
 	@SubscribeEvent
@@ -149,10 +150,12 @@ public class ModEvents {
 	public void onWorldTick(TickEvent.WorldTickEvent event) {
 		MinecraftServer server = event.world.getMinecraftServer();
 		if (ModConfigs.spawnMeteorRubies && server.getCurrentPlayerCount() > 0) {
-			EntityPlayerMP player = server.getPlayerList().getPlayers().get(event.world.rand.nextInt(server.getCurrentPlayerCount()));
+			EntityPlayerMP player = server.getPlayerList().getPlayers()
+					.get(event.world.rand.nextInt(server.getCurrentPlayerCount()));
 			if (!player.world.isRemote) {
 				if (player.dimension == 0 && !player.world.isDaytime()) {
-					if (player.world.getTotalWorldTime() - SpaceStuff.get().getLastRubyImpactTime() >= 24000  && player.world.rand.nextInt(12000) == 0) {
+					if (player.world.getTotalWorldTime() - SpaceStuff.get().getLastRubyImpactTime() >= 24000
+							&& player.world.rand.nextInt(12000) == 0) {
 						EntityRuby ruby = new EntityRuby(player.world);
 						double xdev = player.world.rand.nextInt(128) - 64;
 						double newX = player.posX + Math.abs(xdev) < 16 ? 128 : xdev;
@@ -161,20 +164,20 @@ public class ModEvents {
 						ruby.setPosition(newX, 256, newZ);
 						ruby.isSpaceBorn = true;
 						player.world.spawnEntity(ruby);
-						ruby.onInitialSpawn(ruby.world.getDifficultyForLocation(new BlockPos(ruby)), (IEntityLivingData) null);
-						player.world.playSound(player, player.getPosition(), ModSounds.RUBY_EXPLODE, SoundCategory.NEUTRAL, 10.0F, 1.0F);
+						ruby.onInitialSpawn(ruby.world.getDifficultyForLocation(new BlockPos(ruby)),
+								(IEntityLivingData) null);
+						player.world.playSound(player, player.getPosition(), ModSounds.RUBY_EXPLODE,
+								SoundCategory.NEUTRAL, 10.0F, 1.0F);
 						SpaceStuff.get().setLastRubyImpactTime(player.world.getTotalWorldTime());
 					}
-					
-					
-					
+
 				}
 			}
 		}
 	}
 	/*
 	 * @SubscribeEvent public void onPlayerTick(TickEvent.PlayerTickEvent event) {
-	 if (event.player.posY > 480 && !event.player.world.isRemote) {
+	 * if (event.player.posY > 480 && !event.player.world.isRemote) {
 	 * event.player.world.getMinecraftServer().
 	 * getPlayerList().transferPlayerToDimension(( EntityPlayerMP) event.player, 2,
 	 * new TeleporterHomeworld(event.player.world.
@@ -288,64 +291,68 @@ public class ModEvents {
 	public void onWorldSave(WorldEvent.Save e) {
 		if (!e.getWorld().isRemote) {
 			KAGIC.spaceStuff.save();
-			
+
 		}
 	}
+
 	/**
 	 * Whenever player enters a biome Send the Acivement based on that biome
+	 * 
 	 * @param e
 	 */
-	
-	@SubscribeEvent
-	public void onPlayerWalkInBiome(LivingUpdateEvent e){
 
-		if(e.getEntity() instanceof EntityPlayerMP){
+	@SubscribeEvent
+	public void onPlayerWalkInBiome(LivingUpdateEvent e) {
+
+		if (e.getEntity() instanceof EntityPlayerMP) {
 			EntityPlayerMP player = (EntityPlayerMP) e.getEntity();
 			long systemtime = player.getServer().getCurrentTimeMillis();
-			
 
-		if(systemtime % 20 == 0){
-			
-			//KAGIC.logger.info(player.getEntityWorld().getBiome(player.getPosition()).getRegistryName().toString());
-	
-			switch (player.getEntityWorld().getBiome(player.getPosition()).getRegistryName().toString()) {
-				case "ndbkagic:strawberry_battlefield":
-					KAGIC.logger.info("Ran at" + systemtime);
-					ModTriggers.BATTLE_FIELD.trigger(player);
-					KAGIC.logger.info(player.getName()+"entered battlefield");
-				
-					break;
-				
-				case "ndbkagic:floatingpeaks":
-					KAGIC.logger.info("Ran at" + systemtime);
-					ModTriggers.HEAVEN_BEATLE.trigger(player);
-					KAGIC.logger.info(player.getName()+"entered floating peaks");
-					break;
-			
-				case "ndbkagic:kindergarten":
-					KAGIC.logger.info("Ran at" + systemtime);
-					ModTriggers.KINDERGARDEN.trigger(player);
-					KAGIC.logger.info(player.getName()+"entered kindergarden");
-					break;
-				default:
-					return;
-				
+			if (systemtime % 20 == 0) {
 
-				
+				// KAGIC.logger.info(player.getEntityWorld().getBiome(player.getPosition()).getRegistryName().toString());
+
+				switch (player.getEntityWorld().getBiome(player.getPosition()).getRegistryName().toString()) {
+					case "ndbkagic:strawberry_battlefield":
+						ModTriggers.BATTLE_FIELD.trigger(player);
+						break;
+
+					case "ndbkagic:floatingpeaks":
+						ModTriggers.HEAVEN_BEATLE.trigger(player);
+						break;
+
+					case "ndbkagic:kindergarten":
+						ModTriggers.KINDERGARDEN.trigger(player);
+						break;
+					default:
+						return;
+
+				}
+			}
+
+		}
+	}
+
+	@SubscribeEvent
+	public void onPlayerWalkInStructure(LivingUpdateEvent e) {
+
+		if (e.getEntity() instanceof EntityPlayerMP) {
+			EntityPlayerMP player = (EntityPlayerMP) e.getEntity();
+			long systemtime = player.getServer().getCurrentTimeMillis();
+
+			if (systemtime % 20 == 0) {
+
+				WorldServer world = (WorldServer) player.getServerWorld();
+
+				if (world.provider.getDimensionType() == DimensionType.OVERWORLD){
+					
+					if(	world.findNearestStructure("lunar_sea_spire", new BlockPos(player.serverPosX, player.serverPosY, player.serverPosZ), false) != null) {
+						KAGIC.logger.info("FOUND STRUCTURE.. "+	"Sea Spire");
+					}
+					
+				}
 			}
 		}
-			
-	
-		
-
 	}
-} 
-	
 
 }
-		
-		
-
-
-	
-

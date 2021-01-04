@@ -1,7 +1,7 @@
 {
     "display": {
         "icon": {
-            "item": "kagic:aquamarine_gem"
+            "item": "kagic:warp_whistle"
         },
         "title": {
             "translate": "advancements.warp_master.title"

@@ -3,6 +3,7 @@ package mod.kagic.client.gui;
 import java.util.Iterator;
 import java.util.SortedMap;
 
+import mod.kagic.advancements.ModTriggers;
 import mod.kagic.networking.GalaxySignalMessage;
 import mod.kagic.networking.KTPacketHandler;
 import mod.kagic.worlddata.GalaxyPadLocation;
@@ -77,6 +78,7 @@ public class GUIGalaxyPadList extends GuiListExtended {
 		public boolean mousePressed(int slotIndex, int mouseX, int mouseY, int mouseEvent, int relativeX, int relativeY) {
 			if (this.padButton.mousePressed(GUIGalaxyPadList.this.mc, mouseX, mouseY)) {
 				KTPacketHandler.INSTANCE.sendToServer(new GalaxySignalMessage(this.sourcePos, this.padPos));
+				ModTriggers.WARP_MASTER.trigger(Minecraft.getMinecraft().player);
 				Minecraft.getMinecraft().player.closeScreen();
 				return true;
 			}
