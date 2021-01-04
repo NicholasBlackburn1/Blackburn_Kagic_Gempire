@@ -33,9 +33,9 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 
 //TODO: Need to make Texture Working on it && Grabbing pos of Mob
-public class EntityCrystaShrimp extends EntitySilverfish implements IMob {
+public class EntityCrystalShrimp extends EntityMob implements IMob {
     public int compatIndex = 0;
-    public EntityCrystaShrimp(World worldIn) {
+    public EntityCrystalShrimp(World worldIn) {
         
         super(worldIn);
        

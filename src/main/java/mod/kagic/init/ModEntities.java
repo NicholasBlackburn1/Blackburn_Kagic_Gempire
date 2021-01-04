@@ -9,6 +9,7 @@ import java.util.HashMap;
 
 import mod.kagic.entity.EntityCorruptedGem;
 import mod.kagic.entity.EntityCrystaShrimp;
+import mod.kagic.entity.EntityCrystalShrimp;
 import mod.kagic.entity.EntityGem;
 import mod.kagic.entity.EntityLaser;
 import mod.kagic.entity.EntitySlag;
@@ -93,7 +94,7 @@ public class ModEntities {
 	private static int currentID = 0;
 
 	public static void register() {
-		ModEntities.registerEntity("Crystal_Shrimp", EntityCrystaShrimp.class);
+		ModEntities.registerEntity("CrystalShrimp", EntityCrystalShrimp.class);
 		
 		ModEntities.registerGem("ruby", EntityRuby.class, 0xE52C5C, 0x3A0015, true);
 		ModEntities.registerGem("sapphire", EntitySapphire.class, 0xBAF5FD, 0x7298EC, false);
@@ -401,6 +402,7 @@ public class ModEntities {
 		EntityZircon.ZIRCON_HAIR_STYLES.add(new ResourceLocation("kagic:textures/entities/zircon/hair/cowl.png"));
 		EntityZircon.ZIRCON_HAIR_STYLES.add(new ResourceLocation("kagic:textures/entities/zircon/hair/combover.png"));
 		EntityZircon.ZIRCON_HAIR_STYLES.add(new ResourceLocation("kagic:textures/entities/zircon/hair/smooth.png"));
+	
 	}
 	@SuppressWarnings({"unchecked"})
 	public static <T extends EntityGem> void registerGem(String name, Class<T> entity, int back, int fore, boolean mineral) {
@@ -532,6 +534,32 @@ public class ModEntities {
 	}
 	@SuppressWarnings({"unchecked"})
 	public static <T extends Entity> void registerEntity(String name, Class<T> entity) {
+		EntityRegistry.registerModEntity(new ResourceLocation("kagic:kagic." + name), entity, "kagic." + name, ModEntities.currentID, KAGIC.instance, 256, 1, true);
+		if (FMLCommonHandler.instance().getSide() == Side.CLIENT) {
+			try {
+				Class<Render<? extends T>> render = (Class<Render<? extends T>>) KAGIC.class.getClassLoader().loadClass("mod.kagic/client/render/" + entity.getName().replaceAll(".+?Entity", "Render"));
+				if (ModEntities.GENERATE_FACTORIES_INSTEAD_OF_INSTANCES) {
+					IRenderFactory<T> factory = null;
+					try {
+						MethodHandles.Lookup lookup = MethodHandles.lookup();
+						MethodHandle constructor = lookup.findConstructor(render, MethodType.methodType(void.class, String.class));
+						MethodType type = constructor.type().changeReturnType(IRenderFactory.class);
+						factory = (IRenderFactory<T>) LambdaMetafactory.metafactory(lookup, "getInstance", MethodType.methodType(IRenderFactory.class), type, constructor, type).getTarget().invokeExact();
+					} catch (Throwable t) {
+						CrashReport.makeCrashReport(t, "Something went wrong registering an entity.");
+					}
+					RenderingRegistry.registerEntityRenderingHandler(entity, factory);
+				} else {
+					RenderingRegistry.registerEntityRenderingHandler(entity, render.newInstance());
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		++ModEntities.currentID;
+	}
+	@SuppressWarnings({"unchecked"})
+	public static <T extends Entity> void registerCrystalShrimp(String name, Class<T> entity) {
 		EntityRegistry.registerModEntity(new ResourceLocation("kagic:kagic." + name), entity, "kagic." + name, ModEntities.currentID, KAGIC.instance, 256, 1, true);
 		if (FMLCommonHandler.instance().getSide() == Side.CLIENT) {
 			try {

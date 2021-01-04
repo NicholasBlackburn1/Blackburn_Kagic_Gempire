@@ -10,10 +10,11 @@ import mod.kagic.advancements.ModTriggers;
 import mod.kagic.chunk.KAGICChunkCallback;
 import mod.kagic.client.gui.KTGUIProxy;
 import mod.kagic.command.CommandDestroyGem;
-import mod.kagic.command.CommandGetBiomePos;
+
 import mod.kagic.command.CommandMeteorRuby;
 import mod.kagic.command.CommandScanGems;
 import mod.kagic.command.CommandSpawnGems;
+import mod.kagic.command.CommandTestCrash;
 import mod.kagic.crafting.KAGICSmeltingRecipes;
 import mod.kagic.dispenser.DispenserBehaviors;
 import mod.kagic.entity.gem.fusion.FusionSpawnHandler;
@@ -110,7 +111,7 @@ public class KAGIC {
 		 * catch (Exception x) { x.printStackTrace(); } }
 		 */
 		e.registerServerCommand(new CommandDestroyGem());
-		e.registerServerCommand(new CommandGetBiomePos());
+		e.registerServerCommand(new CommandTestCrash());
 		e.registerServerCommand(new CommandMeteorRuby());
 		e.registerServerCommand(new CommandSpawnGems());
 		e.registerServerCommand(new CommandScanGems());
