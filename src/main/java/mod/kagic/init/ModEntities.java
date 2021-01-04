@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import mod.kagic.entity.EntityCorruptedGem;
+import mod.kagic.entity.EntityCrystaShrimp;
 import mod.kagic.entity.EntityGem;
 import mod.kagic.entity.EntityLaser;
 import mod.kagic.entity.EntitySlag;
@@ -92,6 +93,8 @@ public class ModEntities {
 	private static int currentID = 0;
 
 	public static void register() {
+		ModEntities.registerEntity("Crystal_Shrimp", EntityCrystaShrimp.class);
+		
 		ModEntities.registerGem("ruby", EntityRuby.class, 0xE52C5C, 0x3A0015, true);
 		ModEntities.registerGem("sapphire", EntitySapphire.class, 0xBAF5FD, 0x7298EC, false);
 		ModEntities.registerGem("pearl", EntityPearl.class, 0xFCCCB1, 0x92EAD9, true);

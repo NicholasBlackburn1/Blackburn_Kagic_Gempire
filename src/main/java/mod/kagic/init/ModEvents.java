@@ -346,9 +346,11 @@ public class ModEvents {
 
 				if (world.provider.getDimensionType() == DimensionType.OVERWORLD){
 					
-					if(	world.findNearestStructure("lunar_sea_spire", new BlockPos(player.serverPosX, player.serverPosY, player.serverPosZ), false) != null) {
-						KAGIC.logger.info("FOUND STRUCTURE.. "+	"Sea Spire");
+					if(player.getEntityWorld().findNearestStructure("lunar_sea_spire", new BlockPos(player.chunkCoordX, player.chunkCoordY, player.chunkCoordZ), true) !=null){
+						KAGIC.logger.info("SEA SPIREPos is"+new BlockPos(player.chunkCoordX, player.chunkCoordY, player.chunkCoordZ));
+					
 					}
+					KAGIC.logger.info("Pos is"+new BlockPos(player.chunkCoordX, player.chunkCoordY, player.chunkCoordZ));
 					
 				}
 			}
