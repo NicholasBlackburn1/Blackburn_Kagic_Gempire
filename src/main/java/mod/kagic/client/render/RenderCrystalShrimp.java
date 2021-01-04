@@ -1,6 +1,6 @@
 package mod.kagic.client.render;
 
-import mod.kagic.entity.EntityCrystaShrimp;
+
 import mod.kagic.entity.EntityCrystalShrimp;
 import mod.kagic.entity.EntitySlag;
 import net.minecraft.client.Minecraft;

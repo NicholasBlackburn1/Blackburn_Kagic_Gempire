@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import mod.kagic.entity.EntityCorruptedGem;
-import mod.kagic.entity.EntityCrystaShrimp;
+
 import mod.kagic.entity.EntityCrystalShrimp;
 import mod.kagic.entity.EntityGem;
 import mod.kagic.entity.EntityLaser;
