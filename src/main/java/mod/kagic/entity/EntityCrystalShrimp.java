@@ -33,7 +33,7 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 
 //TODO: Need to make Texture Working on it && Grabbing pos of Mob
-public class EntityCrystalShrimp extends EntityMob implements IMob {
+public class EntityCrystalShrimp extends EntityMob {
     public int compatIndex = 0;
     public EntityCrystalShrimp(World worldIn) {
         
@@ -112,7 +112,7 @@ public class EntityCrystalShrimp extends EntityMob implements IMob {
 	}
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return ModSounds.TONGUE_MONSTER_DEATH;
+		return ModSounds.RECORD_LOVE_LIKE_YOU;
 	}
 }
 

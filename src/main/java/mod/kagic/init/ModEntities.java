@@ -94,7 +94,7 @@ public class ModEntities {
 	private static int currentID = 0;
 
 	public static void register() {
-		ModEntities.registerEntity("CrystalShrimp", EntityCrystalShrimp.class);
+		ModEntities.registerMob("CrystalShrimp", EntityCrystalShrimp.class,0xFFFFFF, 0x00FF5D);
 		
 		ModEntities.registerGem("ruby", EntityRuby.class, 0xE52C5C, 0x3A0015, true);
 		ModEntities.registerGem("sapphire", EntitySapphire.class, 0xBAF5FD, 0x7298EC, false);

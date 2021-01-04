@@ -14,9 +14,18 @@ import net.minecraft.entity.monster.EntitySilverfish;
 import net.minecraft.util.ResourceLocation;
 
 public class RenderCrystalShrimp extends RenderLivingBase<EntityCrystalShrimp> {
+	public RenderCrystalShrimp() {
+		super(Minecraft.getMinecraft().getRenderManager(), new ModelSilverfish(), 0.25F);
+		
+	}
 
     public RenderCrystalShrimp(RenderManager renderManagerIn, ModelBase modelBaseIn, float shadowSizeIn) {
         super(Minecraft.getMinecraft().getRenderManager(), new ModelSilverfish(), 0.25F);
+    }
+
+    @Override
+	protected void preRenderCallback(EntityCrystalShrimp entitylivingbaseIn, float partialTickTime) {
+        GlStateManager.scale(1.0F,1.0F,1.0F);
     }
 
 
@@ -25,5 +34,5 @@ public class RenderCrystalShrimp extends RenderLivingBase<EntityCrystalShrimp> {
         // TODO Auto-generated method stub
         return new ResourceLocation("ndbkagic:textures/entities/crystalshrimp/shrimp.png");
     }
-    
+
 }
