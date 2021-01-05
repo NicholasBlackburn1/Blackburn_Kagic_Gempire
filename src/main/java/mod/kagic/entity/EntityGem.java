@@ -54,6 +54,7 @@ import net.minecraft.entity.IEntityOwnable;
 import net.minecraft.entity.IRangedAttackMob;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIAttackMelee;
+import net.minecraft.entity.ai.EntityAIAvoidEntity;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.ai.EntityAIPanic;
@@ -211,6 +212,7 @@ public class EntityGem extends EntityCreature implements IEntityOwnable, IRanged
 		this.stepHeight = 0.6F;
 		this.tasks.addTask(0, new EntityAISwimming(this));
 		this.tasks.addTask(1, new EntityAIRestrictOpenDoor(this));
+		this.tasks.addTask(2, new EntityAIAvoidEntity(this, EntityCrystalShrimp.class, 10.0F, 5.0F, 19.5F));
 		this.dataManager.register(EntityGem.OWNER_UNIQUE_ID, Optional.<UUID>absent());
 		this.dataManager.register(EntityGem.GEUUID, Optional.<UUID>absent());
 		this.dataManager.register(EntityGem.SPECIFIC_NAME, "");

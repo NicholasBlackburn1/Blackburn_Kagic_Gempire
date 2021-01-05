@@ -2,6 +2,7 @@ package mod.kagic.entity;
 
 import javax.swing.text.html.parser.Entity;
 
+import mod.kagic.advancements.ModTriggers;
 import mod.kagic.entity.ai.EntityAISlagEatGems;
 import mod.kagic.entity.ai.EntityAISlagHateLight;
 import mod.kagic.init.KAGIC;
@@ -39,6 +40,7 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
+import net.minecraft.world.storage.loot.properties.EntityOnFire;
 
 //TODO: Need to make Texture Working on it && Grabbing pos of Mob
 public class EntityCrystalShrimp extends EntityMob {
@@ -48,9 +50,10 @@ public class EntityCrystalShrimp extends EntityMob {
         super(worldIn);
        
         this.setSize(2.5F, 2.3F);
-        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(25.0D);
-		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.8D);
-		this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(5.0D);
+        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(255.0D);
+		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.4D);
+		this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(500.0D);
+		this.getEntityAttribute(SharedMonsterAttributes.KNOCKBACK_RESISTANCE).setBaseValue(500.0D);	
         this.tasks.addTask(0, new EntityAISwimming(this));
 		this.tasks.addTask(3, new EntityAILeapAtTarget(this, 0.4F));
 		this.tasks.addTask(3, new EntityAIAttackMelee(this, 1.0D, true));
@@ -60,7 +63,8 @@ public class EntityCrystalShrimp extends EntityMob {
         this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, true, new Class[0]));
 		this.targetTasks.addTask(2, new EntityAINearestAttackableTarget<EntityPlayer>(this, EntityPlayer.class, true));
         this.targetTasks.addTask(3, new EntityAINearestAttackableTarget<EntityGem>(this, EntityGem.class, true));
-        this.compatIndex = worldIn.rand.nextInt(10);
+		this.compatIndex = worldIn.rand.nextInt(10);
+		
 
         
     }
@@ -82,6 +86,7 @@ public class EntityCrystalShrimp extends EntityMob {
 	public void fall(float distance, float damageMultiplier) {
 		return;
 	}
+	
 
 	
 	@Override
@@ -93,8 +98,10 @@ public class EntityCrystalShrimp extends EntityMob {
 	
 			player.setHealth(0);
 			player.sendStatusMessage(new TextComponentString("§c"+player.getName()+" "+"Got Pricked to Death by "+" "+this.getName()), false);
-			player.sendStatusMessage(new TextComponentString("§c Never Touch A"+" "+this.getName()), true);
+			player.sendStatusMessage(new TextComponentString("§e Tip: Never Touch A"+" "+this.getName()), false);
+			ModTriggers.GETTING_PRICKED.trigger(player);
 		}
+		
 		if (!this.world.isRemote && source == DamageSource.IN_WALL) {
 			AxisAlignedBB bounds = this.getEntityBoundingBox();
 			for (double x = bounds.minX; x < bounds.maxX; ++x) {
@@ -137,5 +144,7 @@ public class EntityCrystalShrimp extends EntityMob {
 	protected SoundEvent getAmbientSound() {
 		return ModSounds.SLAG_LIVING;
 	}
+	
+	
 }
 
