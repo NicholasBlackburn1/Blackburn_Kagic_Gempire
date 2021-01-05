@@ -1,6 +1,5 @@
 package mod.kagic.client.render;
 
-
 import mod.kagic.client.model.ModelCrystalShrimp;
 import mod.kagic.entity.EntityCrystalShrimp;
 import mod.kagic.entity.EntitySlag;

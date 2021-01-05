@@ -1,9 +1,14 @@
 // Made with Blockbench 3.7.4
 // Exported for Minecraft version 1.12
 // Paste this class into your mod and generate all required imports
+package mod.kagic.client.model;
 
+import net.minecraft.client.model.ModelBase;
+import net.minecraft.client.model.ModelBox;
+import net.minecraft.client.model.ModelRenderer;
+import net.minecraft.entity.Entity;
 
-public class custom_model extends ModelBase {
+public class ModelCrystalShrimp extends ModelBase {
 	private final ModelRenderer bb_main;
 	private final ModelRenderer spike_r1;
 	private final ModelRenderer spike_r2;
@@ -26,7 +31,7 @@ public class custom_model extends ModelBase {
 	private final ModelRenderer cube_r8;
 	private final ModelRenderer cube_r9;
 
-	public custom_model() {
+	public ModelCrystalShrimp() {
 		textureWidth = 64;
 		textureHeight = 32;
 
