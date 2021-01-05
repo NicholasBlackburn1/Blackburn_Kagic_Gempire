@@ -1,7 +1,10 @@
 package mod.kagic.entity;
 
+import javax.swing.text.html.parser.Entity;
+
 import mod.kagic.entity.ai.EntityAISlagEatGems;
 import mod.kagic.entity.ai.EntityAISlagHateLight;
+import mod.kagic.init.KAGIC;
 import mod.kagic.init.ModEntities;
 import mod.kagic.init.ModSounds;
 import net.minecraft.client.audio.Sound;
@@ -15,6 +18,7 @@ import net.minecraft.entity.ai.EntityAILeapAtTarget;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAIWanderAvoidWater;
+import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.monster.EntitySilverfish;
 import net.minecraft.entity.monster.IMob;
@@ -23,12 +27,16 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.World;
 
@@ -40,13 +48,14 @@ public class EntityCrystalShrimp extends EntityMob {
         super(worldIn);
        
         this.setSize(2.5F, 2.3F);
-        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(20.0D);
+        this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(25.0D);
 		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.8D);
 		this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(5.0D);
         this.tasks.addTask(0, new EntityAISwimming(this));
 		this.tasks.addTask(3, new EntityAILeapAtTarget(this, 0.4F));
 		this.tasks.addTask(3, new EntityAIAttackMelee(this, 1.0D, true));
-        this.tasks.addTask(4, new EntityAIWanderAvoidWater(this, 0.6D));
+		this.tasks.addTask(4, new EntityAIWanderAvoidWater(this, 0.6D));
+		
         
         this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, true, new Class[0]));
 		this.targetTasks.addTask(2, new EntityAINearestAttackableTarget<EntityPlayer>(this, EntityPlayer.class, true));
@@ -73,8 +82,19 @@ public class EntityCrystalShrimp extends EntityMob {
 	public void fall(float distance, float damageMultiplier) {
 		return;
 	}
+
+	
 	@Override
 	public boolean attackEntityFrom(DamageSource source, float amount) {
+
+		// Kills Player For Touching The crystal Shirmp
+		if(source.getTrueSource() instanceof EntityPlayerMP){
+			EntityPlayerMP player = (EntityPlayerMP) source.getTrueSource();
+	
+			player.setHealth(0);
+			player.sendStatusMessage(new TextComponentString("§c"+player.getName()+" "+"Got Pricked to Death by "+" "+this.getName()), false);
+			player.sendStatusMessage(new TextComponentString("§c Never Touch A"+" "+this.getName()), true);
+		}
 		if (!this.world.isRemote && source == DamageSource.IN_WALL) {
 			AxisAlignedBB bounds = this.getEntityBoundingBox();
 			for (double x = bounds.minX; x < bounds.maxX; ++x) {
@@ -90,13 +110,14 @@ public class EntityCrystalShrimp extends EntityMob {
 		}
 		return super.attackEntityFrom(source, amount);
 	}
-	//TODO: add Advancement here
+	
+
+	// TODO: add Advancement here
 	@Override
 	public void onDeath(DamageSource cause) {
 		if (!this.world.isRemote) {
-				if(this.getAttackingEntity() instanceof EntityPlayerMP){
-					
-				}
+
+			
 				this.dropItem(Item.getItemById(3), (int) 0.0F);
 		
 		}

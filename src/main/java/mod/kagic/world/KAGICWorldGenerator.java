@@ -70,7 +70,7 @@ public class KAGICWorldGenerator implements IWorldGenerator {
 			int z = chunk_Z * 16 + rand.nextInt(16);// + 8;
 			int y = world.getHeight(x, z);
 			generator.generate(world, rand, world.getTopSolidOrLiquidBlock(new BlockPos(x, y, z)));
-			KAGIC.logger.info("got Stuture pos" + x + " " + y + "");
+		
 		}
 	}
 }

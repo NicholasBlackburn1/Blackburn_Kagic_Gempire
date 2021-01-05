@@ -333,6 +333,7 @@ public class ModEvents {
 		}
 	}
 
+	//TODO: Detect Structure that player is in 
 	@SubscribeEvent
 	public void onPlayerWalkInStructure(LivingUpdateEvent e) {
 
@@ -342,19 +343,9 @@ public class ModEvents {
 
 			if (systemtime % 20 == 0) {
 
-				WorldServer world = (WorldServer) player.getServerWorld();
-
-				if (world.provider.getDimensionType() == DimensionType.OVERWORLD){
-					
-					if(player.getEntityWorld().findNearestStructure("lunar_sea_spire", new BlockPos(player.chunkCoordX, player.chunkCoordY, player.chunkCoordZ), true) !=null){
-						KAGIC.logger.info("SEA SPIREPos is"+new BlockPos(player.chunkCoordX, player.chunkCoordY, player.chunkCoordZ));
-					
-					}
-					KAGIC.logger.info("Pos is"+new BlockPos(player.chunkCoordX, player.chunkCoordY, player.chunkCoordZ));
-					
 				}
 			}
 		}
 	}
 
-}
+
