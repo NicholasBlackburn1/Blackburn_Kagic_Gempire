@@ -1,0 +1,21 @@
+{
+    "display": {
+        "icon": {
+            "item": "kagic:giant_strawberry_block"
+        },
+        "title": {
+            "translate": "advancements.getting_pricked.title"
+        },
+        "description": {
+            "translate": "advancement.getting_pricked.description"
+        },
+        "frame":"challenge"
+    },
+
+    "parent": "ndbkagic:root",
+    "criteria": {
+        "place_cloud_sapling": {
+            "trigger": "getting_pricked"
+        }
+    }
+}
