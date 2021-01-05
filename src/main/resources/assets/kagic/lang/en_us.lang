@@ -791,3 +791,5 @@ advancement.kagic.root.description=This Displays All Blackburn Kagic advancement
 
 advancements.warp_master.title=Warp Master
 advancements.warp_master.description=Setup and use a WarpPad to Teleport Across the world!
+
+entity.kagic.CrystalShrimp.name=Crystal Shrimp

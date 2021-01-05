@@ -446,12 +446,12 @@ public class EntityPeridot extends EntityGem implements IInventoryChangedListene
 	}
 	@Override
 	public boolean attackEntityAsMob(Entity entityIn) {
-		EntityPlayer player = (EntityPlayer) entityIn;
-		KAGIC.logger.info("i got hit by"+player.getName());
-		ModTriggers.YOU_CLOD.trigger(player);
+		
 
 		if (entityIn instanceof EntityPlayer) {
-			
+			EntityPlayer player = (EntityPlayer) entityIn;
+			KAGIC.logger.info("i got hit by"+player.getName());
+			ModTriggers.YOU_CLOD.trigger(player);
 			this.sayClod();
 			return false;
 		} else {
