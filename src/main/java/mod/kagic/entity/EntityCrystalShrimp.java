@@ -135,7 +135,7 @@ public class EntityCrystalShrimp extends EntityMob {
 	}
 	@Override
 	protected SoundEvent getAmbientSound() {
-		return ModSounds.RECORD_LOVE_LIKE_YOU;
+		return ModSounds.SLAG_LIVING;
 	}
 }
 
