@@ -3,6 +3,7 @@ package mod.kagic.entity;
 import javax.swing.text.html.parser.Entity;
 
 import mod.kagic.advancements.ModTriggers;
+import mod.kagic.entity.ai.EntityAIFindItems;
 import mod.kagic.entity.ai.EntityAISlagEatGems;
 import mod.kagic.entity.ai.EntityAISlagHateLight;
 import mod.kagic.init.KAGIC;
@@ -18,13 +19,17 @@ import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAILeapAtTarget;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.ai.EntityAISwimming;
+import net.minecraft.entity.ai.EntityAITempt;
+import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWanderAvoidWater;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.monster.EntitySilverfish;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -58,8 +63,8 @@ public class EntityCrystalShrimp extends EntityMob {
 		this.tasks.addTask(3, new EntityAILeapAtTarget(this, 0.4F));
 		this.tasks.addTask(3, new EntityAIAttackMelee(this, 1.0D, true));
 		this.tasks.addTask(4, new EntityAIWanderAvoidWater(this, 0.6D));
-		
-        
+		this.tasks.addTask(1, new EntityAIWander(this, 0.5F));
+		this.tasks.addTask(4, new EntityAITempt(this,0.6D,Items.APPLE,false));
         this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, true, new Class[0]));
 		this.targetTasks.addTask(2, new EntityAINearestAttackableTarget<EntityPlayer>(this, EntityPlayer.class, true));
         this.targetTasks.addTask(3, new EntityAINearestAttackableTarget<EntityGem>(this, EntityGem.class, true));
@@ -143,6 +148,12 @@ public class EntityCrystalShrimp extends EntityMob {
 	@Override
 	protected SoundEvent getAmbientSound() {
 		return ModSounds.SLAG_LIVING;
+	}
+
+
+
+	public SoundEvent playObeySound() {
+		return ModSounds.SLAG_EAT;
 	}
 	
 	
