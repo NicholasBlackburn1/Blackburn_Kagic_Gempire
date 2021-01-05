@@ -94,7 +94,9 @@ public class EntityCrystalShrimp extends EntityMob {
 	@Override
 	public void onDeath(DamageSource cause) {
 		if (!this.world.isRemote) {
-		
+				if(this.getAttackingEntity() instanceof EntityPlayerMP){
+					
+				}
 				this.dropItem(Item.getItemById(3), (int) 0.0F);
 		
 		}

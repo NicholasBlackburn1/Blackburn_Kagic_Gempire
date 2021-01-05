@@ -1,6 +1,7 @@
 package mod.kagic.client.render;
 
 
+import mod.kagic.client.model.ModelCrystalShrimp;
 import mod.kagic.entity.EntityCrystalShrimp;
 import mod.kagic.entity.EntitySlag;
 import net.minecraft.client.Minecraft;
@@ -15,12 +16,12 @@ import net.minecraft.util.ResourceLocation;
 
 public class RenderCrystalShrimp extends RenderLivingBase<EntityCrystalShrimp> {
 	public RenderCrystalShrimp() {
-		super(Minecraft.getMinecraft().getRenderManager(), new ModelSilverfish(), 0.25F);
+		super(Minecraft.getMinecraft().getRenderManager(), new ModelCrystalShrimp(), 0.25F);
 		
 	}
 
     public RenderCrystalShrimp(RenderManager renderManagerIn, ModelBase modelBaseIn, float shadowSizeIn) {
-        super(Minecraft.getMinecraft().getRenderManager(), new ModelSilverfish(), 0.25F);
+        super(Minecraft.getMinecraft().getRenderManager(),  new ModelCrystalShrimp(), 0.25F);
     }
 
     @Override
