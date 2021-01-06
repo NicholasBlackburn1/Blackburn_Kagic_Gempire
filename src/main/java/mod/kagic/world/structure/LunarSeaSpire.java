@@ -39,21 +39,15 @@ public class LunarSeaSpire extends SunkenRuinStructure {
 		return false;
 	}
 	
+	//TODO: add Crystal Shrimp to spawn into the Structure 
 	@Override
 	public boolean generate(World world, Random rand, BlockPos pos) {
+		
 	
 		if (rand.nextInt(2000) != 0) {
 			
 			return false;
 		}
-
-		for (int x = 0; x < 4; ++x) {
-			for (int z = 0; z < 3; ++z) {
-				this.entities.put(new BlockPos(pos.getX() + x, 30, pos.getZ() + z), EntityCrystalShrimp.class);
-			}
-		}
-		
-		
 		return super.generate(world, rand, pos);
 	}
 }
