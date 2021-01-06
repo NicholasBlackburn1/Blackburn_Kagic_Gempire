@@ -48,6 +48,7 @@ public class LunarSeaSpire extends SunkenRuinStructure {
 			
 			return false;
 		}
+		
 		return super.generate(world, rand, pos);
 	}
 }
