@@ -56,7 +56,7 @@ public class EntityCrystalShrimp extends EntityMob {
         
         super(worldIn);
        
-        this.setSize(2.5F, 2.3F);
+        this.setSize(1F, 1F);
         this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(255.0D);
 		this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.4D);
 		this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(500.0D);
