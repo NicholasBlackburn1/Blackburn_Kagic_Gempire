@@ -346,6 +346,18 @@ public class ModEvents {
 				}
 			}
 		}
+	
+		
+	
+
+	@SubscribeEvent
+    public void onStrongholdSpawnsCheck(WorldEvent.PotentialSpawns ev) {
+        WorldServer world = (WorldServer) ev.getWorld();
+		
 	}
+}
+            
+        
+    
 
 

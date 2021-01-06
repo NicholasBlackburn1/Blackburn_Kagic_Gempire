@@ -71,6 +71,7 @@ public class EntityCrystalShrimp extends EntityMob {
 		this.targetTasks.addTask(2, new EntityAINearestAttackableTarget<EntityPlayer>(this, EntityPlayer.class, true));
         this.targetTasks.addTask(3, new EntityAINearestAttackableTarget<EntityGem>(this, EntityGem.class, true));
 		this.compatIndex = worldIn.rand.nextInt(10);
+		this.glowing = true;
 		
 
         
@@ -130,10 +131,6 @@ public class EntityCrystalShrimp extends EntityMob {
 	@Override
 	public void onDeath(DamageSource cause) {
 		if (!this.world.isRemote) {
-
-			
-				this.dropItem(Item.getItemById(3), (int) 0.0F);
-		
 		}
 		super.onDeath(cause);
 	}

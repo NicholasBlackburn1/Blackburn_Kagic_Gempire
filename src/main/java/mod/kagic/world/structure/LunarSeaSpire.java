@@ -2,10 +2,14 @@ package mod.kagic.world.structure;
 
 import java.util.Random;
 
+import mod.kagic.entity.EntityCrystalShrimp;
+import mod.kagic.init.KAGIC;
+import mod.kagic.util.CommenFunctions;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraft.world.gen.structure.StructureBoundingBox;
 
 public class LunarSeaSpire extends SunkenRuinStructure {
 
@@ -37,9 +41,18 @@ public class LunarSeaSpire extends SunkenRuinStructure {
 	
 	@Override
 	public boolean generate(World world, Random rand, BlockPos pos) {
+	
 		if (rand.nextInt(2000) != 0) {
+			
 			return false;
 		}
+
+		for (int x = 0; x < 4; ++x) {
+			for (int z = 0; z < 3; ++z) {
+				this.entities.put(new BlockPos(pos.getX() + x, 30, pos.getZ() + z), EntityCrystalShrimp.class);
+			}
+		}
+		
 		
 		return super.generate(world, rand, pos);
 	}

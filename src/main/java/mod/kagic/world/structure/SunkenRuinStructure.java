@@ -5,6 +5,7 @@ import java.util.Random;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraft.world.gen.structure.StructureBoundingBox;
 
 public class SunkenRuinStructure extends RuinStructure {
 	protected int depth;
@@ -41,6 +42,9 @@ public class SunkenRuinStructure extends RuinStructure {
 
 	@Override
 	public boolean generate(World world, Random rand, BlockPos pos) {
+		
 		return super.generate(world, rand, new BlockPos(pos.getX(), world.getSeaLevel() - this.depth, pos.getZ()));
 	}
+
+	
 }
