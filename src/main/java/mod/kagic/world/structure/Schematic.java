@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
+import mod.kagic.entity.EntityCrystalShrimp;
 import mod.kagic.init.KAGIC;
 import mod.kagic.init.ModBlocks;
 import mod.kagic.tileentity.TileEntityGalaxyPadCore;
@@ -138,6 +139,7 @@ public class Schematic {
 					world.setBlockState(pos.add(tePos), ModBlocks.WARP_PAD_CORE.getDefaultState());
 				
 				} else if(te instanceof TileEntityMoonGoddessStatue){
+					
 					world.setBlockState(pos.add(tePos), ModBlocks.MOON_GODDESS_STATUE.getDefaultState());
 				}
 					else if (te instanceof TileEntityLockableLoot) {
@@ -164,9 +166,12 @@ public class Schematic {
 				double z = nbtPos.getDoubleAt(2);
 				BlockPos ePos = Schematic.getRotatedPos(new BlockPos(x, y, z), structure.getWidth(), structure.getLength(), rotation);
 				Entity e = EntityList.createEntityFromNBT((NBTTagCompound) nbt, world);
-				if (e != null) {
+				if(e instanceof EntityCrystalShrimp){
+					KAGIC.logger.info("Spawing shrimp..");
 					e.setLocationAndAngles(pos.getX() + ePos.getX() + 0.5, pos.getY() + ePos.getY(), pos.getZ() + ePos.getZ() + 0.5, e.rotationYaw, e.rotationPitch);
 					world.spawnEntity(e);
+				}else{
+					KAGIC.logger.info("Error cannot Spawn entits");
 				}
 			}
 		}
