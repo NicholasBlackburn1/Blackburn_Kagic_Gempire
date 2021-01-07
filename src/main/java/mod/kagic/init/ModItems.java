@@ -11,6 +11,7 @@ import mod.kagic.items.ItemGemStaff;
 import mod.kagic.items.ItemInactiveGemBase;
 import mod.kagic.items.ItemJointContract;
 import mod.kagic.items.ItemLiberationContract;
+import mod.kagic.items.ItemObsidiansSword;
 import mod.kagic.items.ItemPeaceTreaty;
 import mod.kagic.items.ItemTimeGlass;
 import mod.kagic.items.ItemTransferContract;
@@ -287,7 +288,15 @@ public class ModItems {
 	public static final ItemGem CORRUPTED_WATERMELON_TOURMALINE_GEM = new ItemGem("corrupted_watermelon_tourmaline");
 	public static final ItemGem CRACKED_CORRUPTED_WATERMELON_TOURMALINE_GEM = new ItemGem("corrupted_watermelon_tourmaline", true);
 	
+
+	// Start of Defining Weapons  
+	public static final ItemObsidiansSword OBSIDIANS_SWORD = new ItemObsidiansSword();
 	public static void registerItems(RegistryEvent.Register<Item> event) {
+		// Registers Weapon Items here
+		ModItems.registerItem(OBSIDIANS_SWORD, event);
+
+
+		// Registers The Gem Items
 		ModItems.registerGem(ModItems.RUBY_GEM, ModItems.CRACKED_RUBY_GEM, event);
 		ModItems.registerGem(ModItems.WHITE_PEARL_GEM, ModItems.CRACKED_WHITE_PEARL_GEM, event);
 		ModItems.registerGem(ModItems.ORANGE_PEARL_GEM, ModItems.CRACKED_ORANGE_PEARL_GEM, event);

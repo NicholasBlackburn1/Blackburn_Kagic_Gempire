@@ -790,8 +790,9 @@ advancement.kagic.root.description=This Displays All Blackburn Kagic advancement
 
 
 advancements.warp_master.title=Warp Master
-advancements.warp_master.description=Setup and use a WarpPad to Teleport Across the world!
+advancement.warp_master.description=Setup and use a WarpPad to Teleport Across the world!
 
 entity.kagic.CrystalShrimp.name=Crystal Shrimp
+
 advancements.getting_pricked.title=Getting Pricked is not Really Fun.
 advancement.getting_pricked.description=Get Pricked by a Crystal Shrimp and die due to the Deadly nature of there Spikes
