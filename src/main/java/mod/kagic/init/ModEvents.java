@@ -61,6 +61,7 @@ import net.minecraft.world.storage.loot.functions.LootFunction;
 import net.minecraft.world.storage.loot.functions.SetCount;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
+import net.minecraftforge.client.event.GuiScreenEvent.InitGuiEvent;
 import net.minecraftforge.client.model.IModel;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.client.model.obj.OBJLoader;
@@ -100,9 +101,11 @@ public class ModEvents {
 
         if (mc.gameSettings.showDebugInfo && event.getLeft() != null) {
 			event.getLeft().add("[Blackburn Kagic] Engine: " + KAGIC.VERSION);
+			event.getLeft().add("[Blackburn Kagic] DevMode: "+ KAGIC.DEVELOPER);
 			event.getLeft().add("[Blackburn Kagic] Message:" +   message);
         }
-    }
+	}
+
 
 	@SubscribeEvent
 	public void onPlayerLoggedIn(PlayerLoggedInEvent e) {
