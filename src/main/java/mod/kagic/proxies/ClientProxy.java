@@ -15,9 +15,12 @@ import net.minecraft.client.renderer.color.IBlockColor;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.ColorizerFoliage;
 import net.minecraft.world.biome.BiomeColorHelper;
+import net.minecraftforge.client.event.ModelBakeEvent;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 @Mod.EventBusSubscriber(Side.CLIENT)
 public class ClientProxy extends CommonProxy {
@@ -58,5 +61,10 @@ public class ClientProxy extends CommonProxy {
 	@Override
 	public void openGalaxyPadSelectionGUI(LinkedHashMap<GalaxyPadLocation, WarpPadDataEntry> padData, int x, int y, int z) {
 		Minecraft.getMinecraft().displayGuiScreen(new GUIGalaxyPadSelection(padData, x, y, z));
+	}
+	@SubscribeEvent
+	
+    @SideOnly(Side.CLIENT)
+    public void onModelBakeEvent(ModelBakeEvent event){
 	}
 }

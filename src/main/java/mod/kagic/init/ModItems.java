@@ -5,6 +5,7 @@ import java.util.HashMap;
 import mod.kagic.items.ItemActiveGemBase;
 import mod.kagic.items.ItemActiveGemShard;
 import mod.kagic.items.ItemAutonomyContract;
+import mod.kagic.items.ItemBagelSandwitch;
 import mod.kagic.items.ItemCommanderStaff;
 import mod.kagic.items.ItemGem;
 import mod.kagic.items.ItemGemStaff;
@@ -291,11 +292,16 @@ public class ModItems {
 
 	// Start of Defining Weapons  
 	public static final ItemObsidiansSword OBSIDIANS_SWORD = new ItemObsidiansSword();
+
+	// Start of Defining Food items
+	public static final ItemBagelSandwitch BAGEL_SANDWITCH = new ItemBagelSandwitch(64, 1000, false);
 	public static void registerItems(RegistryEvent.Register<Item> event) {
 		// Registers Weapon Items here
-		ModItems.registerItem(OBSIDIANS_SWORD, event);
+		ModItems.registerItemndb(OBSIDIANS_SWORD, event);
 
-
+		// Register food here 
+		ModItems.registerItemndb(BAGEL_SANDWITCH, event);
+		
 		// Registers The Gem Items
 		ModItems.registerGem(ModItems.RUBY_GEM, ModItems.CRACKED_RUBY_GEM, event);
 		ModItems.registerGem(ModItems.WHITE_PEARL_GEM, ModItems.CRACKED_WHITE_PEARL_GEM, event);
@@ -457,12 +463,35 @@ public class ModItems {
 		ModItems.registerItem(item, event, "");
 	}
 
+	// My custom item loading / register
+	public static void registerItemndb(Item item, RegistryEvent.Register<Item> event) {
+		ModItems.registerItemndb(item, event, "");
+	}
+
+	
 	public static void registerItem(Item item, RegistryEvent.Register<Item> event, String oredictName) {
 		// GameRegistry.register(item, new
 		// ResourceLocation("kagic:" +
 		// item.getUnlocalizedName().replaceFirst("item\\.|tile\\.",
 		// "")));
 		item.setRegistryName(new ResourceLocation("kagic:" + item.getUnlocalizedName().replaceFirst("item\\.|tile\\.", "")));
+		event.getRegistry().register(item);
+
+		if (!oredictName.isEmpty()) {
+			OreDictionary.registerOre(oredictName, item);
+		}
+	
+		if (FMLCommonHandler.instance().getSide() == Side.CLIENT) {
+			ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(item.getRegistryName(), "inventory"));
+		}
+	}
+
+	public static void registerItemndb(Item item, RegistryEvent.Register<Item> event, String oredictName) {
+		// GameRegistry.register(item, new
+		// ResourceLocation("kagic:" +
+		// item.getUnlocalizedName().replaceFirst("item\\.|tile\\.",
+		// "")));
+		item.setRegistryName(new ResourceLocation("ndbkagic:" + item.getUnlocalizedName().replaceFirst("item\\.|tile\\.", "")));
 		event.getRegistry().register(item);
 
 		if (!oredictName.isEmpty()) {

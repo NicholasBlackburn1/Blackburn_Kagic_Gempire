@@ -1,6 +1,7 @@
 {
-    "parent": "item/generated",
-    "textures": {
-        "layer0": "kagic:items/obsidian_sword_model_quad"
-    }
+    "forge_marker": 1,
+    "model": "kagic:obsidian_sword_model_quad.obj",
+    "flip-v": true 
+    
+
 }

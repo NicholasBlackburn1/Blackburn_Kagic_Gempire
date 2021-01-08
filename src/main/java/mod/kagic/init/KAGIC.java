@@ -9,6 +9,7 @@ import org.apache.logging.log4j.Logger;
 import mod.kagic.advancements.ModTriggers;
 import mod.kagic.chunk.KAGICChunkCallback;
 import mod.kagic.client.gui.KTGUIProxy;
+import mod.kagic.client.render.OBJLoaderKB;
 import mod.kagic.command.CommandDestroyGem;
 
 import mod.kagic.command.CommandMeteorRuby;
@@ -30,6 +31,7 @@ import mod.kagic.world.structure.LootTables;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.server.management.PlayerList;
 import net.minecraft.util.text.TextComponentString;
+import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.client.model.obj.OBJLoader;
 import net.minecraftforge.common.ForgeChunkManager;
 import net.minecraftforge.common.MinecraftForge;
@@ -79,7 +81,8 @@ public class KAGIC {
 		ForgeChunkManager.setForcedChunkLoadingCallback(KAGIC.instance, new KAGICChunkCallback());
 		LootTables.register();
 		KAGIC.worldGen = new KAGICWorldGenerator();
-		OBJLoader.INSTANCE.addDomain(MODID);
+		ModelLoaderRegistry.registerLoader(OBJLoaderKB.instance);
+        OBJLoaderKB.instance.addDomain(MODID);
 	}
 	
 	@EventHandler
