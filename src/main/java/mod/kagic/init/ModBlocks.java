@@ -1,6 +1,6 @@
 package mod.kagic.init;
 
-import mod.kagic.blocks.BlockCrystalGemStatue;
+
 import mod.kagic.blocks.BlockDrainedGravel;
 import mod.kagic.blocks.BlockGalaxyPadCore;
 import mod.kagic.blocks.BlockGemDrill;
@@ -93,7 +93,7 @@ public class ModBlocks {
 	public static final Fluid FLUID_ROSE_TEARS = new Fluid("rose_tears", new ResourceLocation("kagic:blocks/rose_tears_still"), new ResourceLocation("kagic:blocks/rose_tears_flowing"));
 	public static BlockRoseTears ROSE_TEARS;
 
-	public static BlockCrystalGemStatue crystalGemStatue = new BlockCrystalGemStatue();
+
 
 	public static void registerBlocks(RegistryEvent.Register<Block> event) {
 		

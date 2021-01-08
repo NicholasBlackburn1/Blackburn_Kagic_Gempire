@@ -42,8 +42,15 @@ public class ItemObsidiansSword extends Item {
 		this.setUnlocalizedName("obsidians_sword");
 		this.setCreativeTab(ModCreativeTabs.CREATIVE_TAB_OTHER);
 		this.setMaxStackSize(1);
-		this.bFull3D = true;
 	}
+
+	 
+    @SideOnly(Side.CLIENT)
+    public void initModel() {
+        ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(getRegistryName(), "inventory"));
+    }
+
+
 	
 
 

@@ -445,7 +445,7 @@ public class ModItems {
 		OreDictionary.registerOre("cropStrawberry", ModItems.STRAWBERRY_SLICE);
 		ModItems.registerItem(ModItems.STRAWBERRY_SEEDS, event, "seedGiantStrawberry");
 		ModItems.registerItem(ModItems.TIME_GLASS, event);
-		ModItems.registerItemndb(ModBlocks.crystalGemStatue, event);
+		
 	}
 	public static void registerGem(ItemGem normal, ItemGem broken, RegistryEvent.Register<Item> event) {
 		ModItems.GEM_TABLE.put(normal, broken);
