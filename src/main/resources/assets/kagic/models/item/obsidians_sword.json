@@ -1,0 +1,8 @@
+{
+    "model": "kagic:obsidian_sword_model_quad.obj",
+    "display": {
+        "firstperson": {
+        "scale": [ 0.375, 0.375, 0.375 ]
+        }
+    }
+}

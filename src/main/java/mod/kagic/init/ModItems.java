@@ -468,7 +468,7 @@ public class ModItems {
 		if (!oredictName.isEmpty()) {
 			OreDictionary.registerOre(oredictName, item);
 		}
-
+	
 		if (FMLCommonHandler.instance().getSide() == Side.CLIENT) {
 			ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(item.getRegistryName(), "inventory"));
 		}

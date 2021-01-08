@@ -9,6 +9,7 @@ import java.util.function.Consumer;
 import javax.swing.text.html.parser.Entity;
 
 import com.google.common.base.Predicate;
+import com.google.common.collect.ImmutableMap;
 
 import mod.kagic.advancements.ModTriggers;
 import mod.kagic.entity.EntityGem;
@@ -23,6 +24,7 @@ import mod.kagic.init.ModMetrics.Update;
 
 import mod.kagic.server.SpaceStuff;
 import net.minecraft.advancements.critereon.PlayerHurtEntityTrigger;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
@@ -55,6 +57,11 @@ import net.minecraft.world.storage.loot.RandomValueRange;
 import net.minecraft.world.storage.loot.conditions.LootCondition;
 import net.minecraft.world.storage.loot.functions.LootFunction;
 import net.minecraft.world.storage.loot.functions.SetCount;
+import net.minecraftforge.client.event.ModelRegistryEvent;
+import net.minecraftforge.client.model.IModel;
+import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.client.model.obj.OBJLoader;
+import net.minecraftforge.client.model.obj.OBJModel;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.LootTableLoadEvent;
 import net.minecraftforge.event.entity.EntityEvent;
@@ -80,6 +87,8 @@ public class ModEvents {
 
 	}
 
+
+
 	@SubscribeEvent
 	public void onPlayerLoggedIn(PlayerLoggedInEvent e) {
 
@@ -90,6 +99,7 @@ public class ModEvents {
 		KAGIC.logger.info("Executed the Trigger");
 
 	}
+
 
 	@SubscribeEvent
 	public void onEntitySpawn(EntityJoinWorldEvent e) {
