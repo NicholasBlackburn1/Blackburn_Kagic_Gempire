@@ -20,6 +20,7 @@ public class ItemGemStaff extends Item {
 		this.setUnlocalizedName("gem_staff");
 		this.setCreativeTab(ModCreativeTabs.CREATIVE_TAB_OTHER);
 		this.setMaxStackSize(1);
+		
 	}
 	@Override
 	public void onCreated(ItemStack stack, World worldIn, EntityPlayer playerIn) {

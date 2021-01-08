@@ -15,8 +15,8 @@ public class ItemBagelSandwitch extends ItemFood{
         super(amount, saturation, isWolfFood);
         this.setUnlocalizedName("bagel_sandwitch");
 		this.setCreativeTab(ModCreativeTabs.CREATIVE_TAB_OTHER);
-		this.setMaxStackSize(64);
-    };
+		this.setMaxStackSize(255);
+    }
         
     @Override
     public void onFoodEaten(ItemStack stack, World worldIn, EntityPlayer player)

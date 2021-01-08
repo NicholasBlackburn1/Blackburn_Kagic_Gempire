@@ -4,6 +4,7 @@ import java.util.List;
 
 import mod.kagic.entity.EntityCrystalShrimp;
 import mod.kagic.entity.EntityGem;
+import mod.kagic.init.ModItems;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.passive.EntitySheep;
@@ -29,7 +30,7 @@ public class EntityAIGoToItem extends EntityAIBase {
 		double maxDistance = Double.MAX_VALUE;
 		for (EntityItem item : list) {
 			double newDistance = this.gem.getDistanceSq(item);
-			if (newDistance <= maxDistance &&  this.gem.canEntityBeSeen(item) && !item.isDead && item.getItem().getItem() == Items.APPLE){
+			if (newDistance <= maxDistance &&  this.gem.canEntityBeSeen(item) && !item.isDead && item.getItem().getItem() == ModItems.BAGEL_SANDWITCH){
                 if (this.world.isRemote){
                 
                 }

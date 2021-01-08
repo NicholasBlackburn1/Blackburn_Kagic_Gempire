@@ -24,14 +24,18 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemSeeds;
+import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.oredict.OreDictionary;
+import net.minecraftforge.common.util.EnumHelper;
 
 public class ModItems {
+	public static ToolMaterial  obsidianMaterial = EnumHelper.addToolMaterial("obsidian", 3, 7680, 5.0F, 2020F, 8);
+	
 	public static final HashMap<ItemGem, ItemGem> GEM_TABLE = new HashMap<ItemGem, ItemGem>();
 	
 	public static final ItemActiveGemShard ACTIVATED_GEM_SHARD = new ItemActiveGemShard();

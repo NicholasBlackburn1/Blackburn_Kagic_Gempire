@@ -4,8 +4,10 @@
       "custom": { "flip-v": true },
       "model": "ndbkagic:obsidian_sword_model_quad.obj"
     },
+    
+    
     "variants": {
-      "normal": [{}],
-      "inventory": [{}]
+      "normal": [{"model": "ndbkagic:obsidian_sword_model_quad.obj"}],
+      "inventory": [{"model": "ndbkagic:obsidian_sword_model_quad.obj"}]
     }
-  }
+}

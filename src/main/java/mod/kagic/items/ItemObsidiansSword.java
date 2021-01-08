@@ -35,20 +35,30 @@ import net.minecraftforge.common.model.IModelState;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class ItemObsidiansSword extends Item {
+public class ItemObsidiansSword extends ItemSword{
 
+	
 	public ItemObsidiansSword() {
-		super();
+		super(ModItems.obsidianMaterial);
 		this.setUnlocalizedName("obsidians_sword");
 		this.setCreativeTab(ModCreativeTabs.CREATIVE_TAB_OTHER);
 		this.setMaxStackSize(1);
+		
+		
+		
 	}
+	
+
 
 	 
     @SideOnly(Side.CLIENT)
     public void initModel() {
         ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(getRegistryName(), "inventory"));
-    }
+	}
+
+
+	
+	
 
 
 	

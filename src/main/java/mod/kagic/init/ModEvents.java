@@ -12,6 +12,7 @@ import com.google.common.base.Predicate;
 import com.google.common.collect.ImmutableMap;
 
 import mod.kagic.advancements.ModTriggers;
+import mod.kagic.engin.InfoEngine;
 import mod.kagic.entity.EntityGem;
 import mod.kagic.entity.ai.EntityAIFollowTopaz;
 import mod.kagic.entity.gem.EntityAgate;
@@ -24,6 +25,7 @@ import mod.kagic.init.ModMetrics.Update;
 
 import mod.kagic.server.SpaceStuff;
 import net.minecraft.advancements.critereon.PlayerHurtEntityTrigger;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.EntityLiving;
@@ -58,6 +60,7 @@ import net.minecraft.world.storage.loot.conditions.LootCondition;
 import net.minecraft.world.storage.loot.functions.LootFunction;
 import net.minecraft.world.storage.loot.functions.SetCount;
 import net.minecraftforge.client.event.ModelRegistryEvent;
+import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.model.IModel;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.client.model.obj.OBJLoader;
@@ -78,16 +81,28 @@ import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.PlayerTickEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 
 public class ModEvents {
-
+	private String message ;
 	public static void register() {
 		MinecraftForge.EVENT_BUS.register(new ModEvents());
 
 	}
 
+	@SubscribeEvent
+    @SideOnly(Side.CLIENT)
+    public void onOverlayRendered (RenderGameOverlayEvent.Text event) {
 
+        final Minecraft mc = Minecraft.getMinecraft();
+
+        if (mc.gameSettings.showDebugInfo && event.getLeft() != null) {
+			event.getLeft().add("[Blackburn Kagic] Engine: " + KAGIC.VERSION);
+			event.getLeft().add("[Blackburn Kagic] Message:" +   message);
+        }
+    }
 
 	@SubscribeEvent
 	public void onPlayerLoggedIn(PlayerLoggedInEvent e) {
@@ -97,6 +112,7 @@ public class ModEvents {
 		KAGIC.logger.info("in Player innteract Fucntion need to execute the advancement");
 		ModTriggers.MOD_START.trigger(e.player);
 		KAGIC.logger.info("Executed the Trigger");
+		message =("Test Hello" + " "+ e.player.getName()+" "+ "just joined the World ;}");
 
 	}
 

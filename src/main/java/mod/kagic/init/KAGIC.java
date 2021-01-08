@@ -18,6 +18,7 @@ import mod.kagic.command.CommandSpawnGems;
 
 import mod.kagic.crafting.KAGICSmeltingRecipes;
 import mod.kagic.dispenser.DispenserBehaviors;
+import mod.kagic.engin.InfoEngine;
 import mod.kagic.entity.gem.fusion.FusionSpawnHandler;
 import mod.kagic.networking.KTPacketHandler;
 import mod.kagic.proxies.CommonProxy;
@@ -63,6 +64,8 @@ public class KAGIC {
 	public static KAGIC instance;
 	public static SpaceStuff spaceStuff;
 	public static KAGICWorldGenerator worldGen;
+	public static InfoEngine engine;
+	
 	
 	static {
 		FluidRegistry.enableUniversalBucket();
@@ -70,6 +73,7 @@ public class KAGIC {
 	
 	@SidedProxy(clientSide = "mod.kagic.proxies.ClientProxy", serverSide = "mod.kagic.proxies.ServerProxy")
 	public static CommonProxy proxy;
+
 	
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent e) {

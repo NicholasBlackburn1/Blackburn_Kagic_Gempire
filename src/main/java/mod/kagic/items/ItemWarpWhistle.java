@@ -31,9 +31,6 @@ public class ItemWarpWhistle extends Item {
 		ItemStack stack = playerIn.getHeldItem(hand);
 		if (world.isRemote) {
 			TileEntityWarpPadCore te = TileEntityWarpPadCore.getEntityPad(playerIn);// getPlayerPadTE(world,
-			if(te.isValidPad()){
-				//ModTriggers.WARP_MASTER.trigger(playerIn);
-			}
 			
 			if (te != null && te.validateWarpPad() && !te.isWarping()) {
 				
@@ -56,3 +53,4 @@ public class ItemWarpWhistle extends Item {
 		return new ActionResult<>(EnumActionResult.SUCCESS, stack);
 	}
 }
+
