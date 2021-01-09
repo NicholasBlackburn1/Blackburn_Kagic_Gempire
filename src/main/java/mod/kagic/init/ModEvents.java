@@ -87,10 +87,19 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 
 public class ModEvents {
+	private int gems;
 	private String message ;
 	public static void register() {
 		MinecraftForge.EVENT_BUS.register(new ModEvents());
 
+	}
+	@SubscribeEvent
+	public void getGemCount(LivingUpdateEvent event){
+		if(event.getEntityLiving() instanceof EntityGem){
+			EntityGem gem = (EntityGem) event.getEntityLiving();
+
+			this.gems = gem.spawnedGems.size();
+		}
 	}
 
 	@SubscribeEvent
@@ -100,9 +109,13 @@ public class ModEvents {
         final Minecraft mc = Minecraft.getMinecraft();
 
         if (mc.gameSettings.showDebugInfo && event.getLeft() != null) {
+			event.getLeft().add("");
 			event.getLeft().add("[Blackburn Kagic] Engine: " + KAGIC.VERSION);
 			event.getLeft().add("[Blackburn Kagic] DevMode: "+ KAGIC.DEVELOPER);
 			event.getLeft().add("[Blackburn Kagic] Message:" +   message);
+			event.getLeft().add("");
+			event.getLeft().add("[Blackburn Kagic] Gem Count:" +  gems );
+
         }
 	}
 
