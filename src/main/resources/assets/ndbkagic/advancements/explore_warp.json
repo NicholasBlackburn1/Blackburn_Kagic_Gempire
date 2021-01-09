@@ -1,0 +1,21 @@
+{
+    "display": {
+        "icon": {
+            "item": "kagic:warp_whistle"
+        },
+        "title": {
+            "translate": "advancements.warp_master.title"
+        },
+        "description": {
+            "translate": "advancement.warp_master.description"
+        },
+        "frame":"challenge"
+    },
+
+    "parent": "ndbkagic:root",
+    "criteria": {
+        "place_cloud_sapling": {
+            "trigger": "my_dad"
+        }
+    }
+}

@@ -4,9 +4,11 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
+import mod.kagic.entity.EntityCrystalShrimp;
 import mod.kagic.init.KAGIC;
 import mod.kagic.init.ModBlocks;
 import mod.kagic.tileentity.TileEntityGalaxyPadCore;
+import mod.kagic.tileentity.TileEntityMoonGoddessStatue;
 import mod.kagic.tileentity.TileEntityWarpPadCore;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
@@ -19,6 +21,8 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityLockableLoot;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Mirror;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -133,7 +137,12 @@ public class Schematic {
 					world.setBlockState(pos.add(tePos), ModBlocks.GALAXY_PAD_CORE.getDefaultState());
 				} else if (te instanceof TileEntityWarpPadCore) {
 					world.setBlockState(pos.add(tePos), ModBlocks.WARP_PAD_CORE.getDefaultState());
-				} else if (te instanceof TileEntityLockableLoot) {
+				
+				} else if(te instanceof TileEntityMoonGoddessStatue){
+					
+					world.setBlockState(pos.add(tePos), ModBlocks.MOON_GODDESS_STATUE.getDefaultState());
+				}
+					else if (te instanceof TileEntityLockableLoot) {
 					KAGIC.instance.chatInfoMessage("Found chest at unrotated pos " + x + ", " + y + ", " + z);
 					structure.chests.add((TileEntityLockableLoot) te);
 				} else {
@@ -157,9 +166,12 @@ public class Schematic {
 				double z = nbtPos.getDoubleAt(2);
 				BlockPos ePos = Schematic.getRotatedPos(new BlockPos(x, y, z), structure.getWidth(), structure.getLength(), rotation);
 				Entity e = EntityList.createEntityFromNBT((NBTTagCompound) nbt, world);
-				if (e != null) {
+				if(e instanceof EntityCrystalShrimp){
+					KAGIC.logger.info("Spawing shrimp..");
 					e.setLocationAndAngles(pos.getX() + ePos.getX() + 0.5, pos.getY() + ePos.getY(), pos.getZ() + ePos.getZ() + 0.5, e.rotationYaw, e.rotationPitch);
 					world.spawnEntity(e);
+				}else{
+					KAGIC.logger.info("Error cannot Spawn entits");
 				}
 			}
 		}

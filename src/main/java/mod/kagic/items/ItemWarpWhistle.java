@@ -1,5 +1,6 @@
 package mod.kagic.items;
 
+import mod.kagic.advancements.ModTriggers;
 import mod.kagic.init.KAGIC;
 import mod.kagic.init.ModCreativeTabs;
 import mod.kagic.networking.KTPacketHandler;
@@ -7,6 +8,7 @@ import mod.kagic.networking.PadDataRequestMessage;
 import mod.kagic.tileentity.TileEntityGalaxyPadCore;
 import mod.kagic.tileentity.TileEntityWarpPadCore;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
@@ -25,13 +27,15 @@ public class ItemWarpWhistle extends Item {
 	
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer playerIn, EnumHand hand) {
+		
 		ItemStack stack = playerIn.getHeldItem(hand);
 		if (world.isRemote) {
 			TileEntityWarpPadCore te = TileEntityWarpPadCore.getEntityPad(playerIn);// getPlayerPadTE(world,
-																					// playerIn);
 			
 			if (te != null && te.validateWarpPad() && !te.isWarping()) {
+				
 				if (te instanceof TileEntityGalaxyPadCore) {
+					
 					KTPacketHandler.INSTANCE.sendToServer(new PadDataRequestMessage(true, te.getPos().getX(), te.getPos().getY(), te.getPos().getZ()));
 				} else {
 					KTPacketHandler.INSTANCE.sendToServer(new PadDataRequestMessage(false, te.getPos().getX(), te.getPos().getY(), te.getPos().getZ()));
@@ -49,3 +53,4 @@ public class ItemWarpWhistle extends Item {
 		return new ActionResult<>(EnumActionResult.SUCCESS, stack);
 	}
 }
+

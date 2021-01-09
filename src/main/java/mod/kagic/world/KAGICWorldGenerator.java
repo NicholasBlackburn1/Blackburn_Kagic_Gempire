@@ -3,6 +3,7 @@ package mod.kagic.world;
 import java.util.ArrayList;
 import java.util.Random;
 
+import mod.kagic.init.KAGIC;
 import mod.kagic.init.ModConfigs;
 import mod.kagic.world.structure.AncientSkyArena;
 import mod.kagic.world.structure.CommunicationHub;
@@ -69,6 +70,7 @@ public class KAGICWorldGenerator implements IWorldGenerator {
 			int z = chunk_Z * 16 + rand.nextInt(16);// + 8;
 			int y = world.getHeight(x, z);
 			generator.generate(world, rand, world.getTopSolidOrLiquidBlock(new BlockPos(x, y, z)));
+		
 		}
 	}
 }

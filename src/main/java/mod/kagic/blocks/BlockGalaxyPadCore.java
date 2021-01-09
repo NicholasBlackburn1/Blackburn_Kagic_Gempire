@@ -1,5 +1,6 @@
 package mod.kagic.blocks;
 
+import mod.kagic.advancements.ModTriggers;
 import mod.kagic.init.KAGIC;
 import mod.kagic.init.ModCreativeTabs;
 import mod.kagic.init.ModItems;
@@ -41,6 +42,7 @@ public class BlockGalaxyPadCore extends Block implements ITileEntityProvider {
 			ItemStack heldItem = playerIn.getHeldItem(hand);
 			
 			if (heldItem.getItem() == ModItems.GEM_STAFF) {
+				
 				TileEntityGalaxyPadCore entityPad = this.getTE(worldIn, pos);
 				if (entityPad.isValidPad()) {
 					playerIn.openGui(KAGIC.instance, 0, worldIn, pos.getX(), pos.getY(), pos.getZ());

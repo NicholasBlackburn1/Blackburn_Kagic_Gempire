@@ -785,5 +785,16 @@ advancement.yellow_diamond_authority.description= OverThrow Yellow Diamond's Aut
 advancements.white_diamond_authority.title=Shattered White Dimond?
 advancement.white_diamond_authority.description= OverThrow White Diamond's Authority by Poofing her and Destroying the Evidence 
 
+advancement.kagic.root.title=Blackburn Kagic 
+advancement.kagic.root.description=This Displays All Blackburn Kagic advancements
 
 
+advancements.warp_master.title=Warp Master
+advancement.warp_master.description=Setup and use a WarpPad to Teleport Across the world!
+
+entity.kagic.CrystalShrimp.name=Crystal Shrimp
+
+advancements.getting_pricked.title=Getting Pricked is not Really Fun.
+advancement.getting_pricked.description=Get Pricked by a Crystal Shrimp and die due to the Deadly nature of there Spikes
+item.rejuvenator.name= Rejuvenator
+item.obsidians_sword.name= Obsidian's Sword

@@ -12,7 +12,7 @@
         "frame":"challenge"
     },
 
-    "parent": "minecraft:husbandry/root",
+    "parent": "ndbkagic:root",
     "criteria": {
         "": {
             "trigger": "giant_women"

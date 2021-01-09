@@ -1,0 +1,14 @@
+{
+    "forge_marker": 1,
+    "defaults": {
+      "custom": { "flip-v": true },
+      "model": "ndbkagic:obsidian_sword_model_quad.obj",
+      "transform": "forge:default-item"
+    },
+    
+    "variants": {
+      "normal": [{"model": "ndbkagic:obsidian_sword_model_quad.obj"},{ "x": -1800}],
+      
+      "inventory": [{"model": "ndbkagic:obsidian_sword_model_quad.obj"}]
+    }
+}

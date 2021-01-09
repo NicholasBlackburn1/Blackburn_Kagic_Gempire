@@ -2,10 +2,14 @@ package mod.kagic.world.structure;
 
 import java.util.Random;
 
+import mod.kagic.entity.EntityCrystalShrimp;
+import mod.kagic.init.KAGIC;
+import mod.kagic.util.CommenFunctions;
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraft.world.gen.structure.StructureBoundingBox;
 
 public class LunarSeaSpire extends SunkenRuinStructure {
 
@@ -35,9 +39,13 @@ public class LunarSeaSpire extends SunkenRuinStructure {
 		return false;
 	}
 	
+	//TODO: add Crystal Shrimp to spawn into the Structure 
 	@Override
 	public boolean generate(World world, Random rand, BlockPos pos) {
+		
+	
 		if (rand.nextInt(2000) != 0) {
+			
 			return false;
 		}
 		

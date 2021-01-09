@@ -12,6 +12,7 @@
 2. get item texures for Emerald's Gems
 3. Finish Linking Advancemets to structures that the player entered 
 4. get custom sounds for emerald 
+5. Add Random Songs based on the advancement 
 
 
 

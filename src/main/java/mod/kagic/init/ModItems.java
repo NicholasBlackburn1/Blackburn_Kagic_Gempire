@@ -5,13 +5,16 @@ import java.util.HashMap;
 import mod.kagic.items.ItemActiveGemBase;
 import mod.kagic.items.ItemActiveGemShard;
 import mod.kagic.items.ItemAutonomyContract;
+import mod.kagic.items.ItemBagelSandwitch;
 import mod.kagic.items.ItemCommanderStaff;
 import mod.kagic.items.ItemGem;
 import mod.kagic.items.ItemGemStaff;
 import mod.kagic.items.ItemInactiveGemBase;
 import mod.kagic.items.ItemJointContract;
 import mod.kagic.items.ItemLiberationContract;
+import mod.kagic.items.ItemObsidiansSword;
 import mod.kagic.items.ItemPeaceTreaty;
+import mod.kagic.items.ItemRejuvenator;
 import mod.kagic.items.ItemTimeGlass;
 import mod.kagic.items.ItemTransferContract;
 import mod.kagic.items.ItemVehicle;
@@ -22,14 +25,18 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemSeeds;
+import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.oredict.OreDictionary;
+import net.minecraftforge.common.util.EnumHelper;
 
 public class ModItems {
+	public static ToolMaterial  obsidianMaterial = EnumHelper.addToolMaterial("obsidian", 3, 7680, 5.0F, 2020F, 8);
+	
 	public static final HashMap<ItemGem, ItemGem> GEM_TABLE = new HashMap<ItemGem, ItemGem>();
 	
 	public static final ItemActiveGemShard ACTIVATED_GEM_SHARD = new ItemActiveGemShard();
@@ -287,7 +294,22 @@ public class ModItems {
 	public static final ItemGem CORRUPTED_WATERMELON_TOURMALINE_GEM = new ItemGem("corrupted_watermelon_tourmaline");
 	public static final ItemGem CRACKED_CORRUPTED_WATERMELON_TOURMALINE_GEM = new ItemGem("corrupted_watermelon_tourmaline", true);
 	
+
+	// Start of Defining Weapons  
+	public static final ItemObsidiansSword OBSIDIANS_SWORD = new ItemObsidiansSword();
+	public static final ItemRejuvenator REJUVENATOR = new ItemRejuvenator();
+
+	// Start of Defining Food items
+	public static final ItemBagelSandwitch BAGEL_SANDWITCH = new ItemBagelSandwitch(64, 1000, false);
 	public static void registerItems(RegistryEvent.Register<Item> event) {
+		// Registers Weapon Items here
+		ModItems.registerItemndb(OBSIDIANS_SWORD, event);
+		ModItems.registerItemndb(REJUVENATOR,event);
+
+		// Register food here 
+		ModItems.registerItemndb(BAGEL_SANDWITCH, event);
+		
+		// Registers The Gem Items
 		ModItems.registerGem(ModItems.RUBY_GEM, ModItems.CRACKED_RUBY_GEM, event);
 		ModItems.registerGem(ModItems.WHITE_PEARL_GEM, ModItems.CRACKED_WHITE_PEARL_GEM, event);
 		ModItems.registerGem(ModItems.ORANGE_PEARL_GEM, ModItems.CRACKED_ORANGE_PEARL_GEM, event);
@@ -430,6 +452,7 @@ public class ModItems {
 		OreDictionary.registerOre("cropStrawberry", ModItems.STRAWBERRY_SLICE);
 		ModItems.registerItem(ModItems.STRAWBERRY_SEEDS, event, "seedGiantStrawberry");
 		ModItems.registerItem(ModItems.TIME_GLASS, event);
+		
 	}
 	public static void registerGem(ItemGem normal, ItemGem broken, RegistryEvent.Register<Item> event) {
 		ModItems.GEM_TABLE.put(normal, broken);
@@ -448,6 +471,12 @@ public class ModItems {
 		ModItems.registerItem(item, event, "");
 	}
 
+	// My custom item loading / register
+	public static void registerItemndb(Item item, RegistryEvent.Register<Item> event) {
+		ModItems.registerItemndb(item, event, "");
+	}
+
+	
 	public static void registerItem(Item item, RegistryEvent.Register<Item> event, String oredictName) {
 		// GameRegistry.register(item, new
 		// ResourceLocation("kagic:" +
@@ -459,7 +488,24 @@ public class ModItems {
 		if (!oredictName.isEmpty()) {
 			OreDictionary.registerOre(oredictName, item);
 		}
+	
+		if (FMLCommonHandler.instance().getSide() == Side.CLIENT) {
+			ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(item.getRegistryName(), "inventory"));
+		}
+	}
 
+	public static void registerItemndb(Item item, RegistryEvent.Register<Item> event, String oredictName) {
+		// GameRegistry.register(item, new
+		// ResourceLocation("kagic:" +
+		// item.getUnlocalizedName().replaceFirst("item\\.|tile\\.",
+		// "")));
+		item.setRegistryName(new ResourceLocation("ndbkagic:" + item.getUnlocalizedName().replaceFirst("item\\.|tile\\.", "")));
+		event.getRegistry().register(item);
+
+		if (!oredictName.isEmpty()) {
+			OreDictionary.registerOre(oredictName, item);
+		}
+	
 		if (FMLCommonHandler.instance().getSide() == Side.CLIENT) {
 			ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(item.getRegistryName(), "inventory"));
 		}
@@ -484,5 +530,6 @@ public class ModItems {
 		if (FMLCommonHandler.instance().getSide() == Side.CLIENT) {
 			ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(item.getRegistryName(), "inventory"));
 		}
+		
 	}
 }

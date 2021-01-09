@@ -9,13 +9,16 @@ import org.apache.logging.log4j.Logger;
 import mod.kagic.advancements.ModTriggers;
 import mod.kagic.chunk.KAGICChunkCallback;
 import mod.kagic.client.gui.KTGUIProxy;
+import mod.kagic.client.render.OBJLoaderKB;
 import mod.kagic.command.CommandDestroyGem;
-import mod.kagic.command.CommandGetBiomePos;
+
 import mod.kagic.command.CommandMeteorRuby;
 import mod.kagic.command.CommandScanGems;
 import mod.kagic.command.CommandSpawnGems;
+
 import mod.kagic.crafting.KAGICSmeltingRecipes;
 import mod.kagic.dispenser.DispenserBehaviors;
+import mod.kagic.engin.InfoEngine;
 import mod.kagic.entity.gem.fusion.FusionSpawnHandler;
 import mod.kagic.networking.KTPacketHandler;
 import mod.kagic.proxies.CommonProxy;
@@ -29,6 +32,8 @@ import mod.kagic.world.structure.LootTables;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.server.management.PlayerList;
 import net.minecraft.util.text.TextComponentString;
+import net.minecraftforge.client.model.ModelLoaderRegistry;
+import net.minecraftforge.client.model.obj.OBJLoader;
 import net.minecraftforge.common.ForgeChunkManager;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent.Register;
@@ -59,6 +64,8 @@ public class KAGIC {
 	public static KAGIC instance;
 	public static SpaceStuff spaceStuff;
 	public static KAGICWorldGenerator worldGen;
+	public static InfoEngine engine;
+	
 	
 	static {
 		FluidRegistry.enableUniversalBucket();
@@ -66,6 +73,7 @@ public class KAGIC {
 	
 	@SidedProxy(clientSide = "mod.kagic.proxies.ClientProxy", serverSide = "mod.kagic.proxies.ServerProxy")
 	public static CommonProxy proxy;
+
 	
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent e) {
@@ -77,6 +85,8 @@ public class KAGIC {
 		ForgeChunkManager.setForcedChunkLoadingCallback(KAGIC.instance, new KAGICChunkCallback());
 		LootTables.register();
 		KAGIC.worldGen = new KAGICWorldGenerator();
+		ModelLoaderRegistry.registerLoader(OBJLoaderKB.instance);
+        OBJLoaderKB.instance.addDomain(MODID);
 	}
 	
 	@EventHandler
@@ -110,7 +120,6 @@ public class KAGIC {
 		 * catch (Exception x) { x.printStackTrace(); } }
 		 */
 		e.registerServerCommand(new CommandDestroyGem());
-		e.registerServerCommand(new CommandGetBiomePos());
 		e.registerServerCommand(new CommandMeteorRuby());
 		e.registerServerCommand(new CommandSpawnGems());
 		e.registerServerCommand(new CommandScanGems());

@@ -9,8 +9,10 @@ import java.util.function.Consumer;
 import javax.swing.text.html.parser.Entity;
 
 import com.google.common.base.Predicate;
+import com.google.common.collect.ImmutableMap;
 
 import mod.kagic.advancements.ModTriggers;
+import mod.kagic.engin.InfoEngine;
 import mod.kagic.entity.EntityGem;
 import mod.kagic.entity.ai.EntityAIFollowTopaz;
 import mod.kagic.entity.gem.EntityAgate;
@@ -23,9 +25,12 @@ import mod.kagic.init.ModMetrics.Update;
 
 import mod.kagic.server.SpaceStuff;
 import net.minecraft.advancements.critereon.PlayerHurtEntityTrigger;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.ai.EntityAIAvoidEntity;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
@@ -43,6 +48,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.world.DimensionType;
+import net.minecraft.world.WorldServer;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.storage.loot.LootEntry;
 import net.minecraft.world.storage.loot.LootEntryItem;
@@ -52,6 +59,13 @@ import net.minecraft.world.storage.loot.RandomValueRange;
 import net.minecraft.world.storage.loot.conditions.LootCondition;
 import net.minecraft.world.storage.loot.functions.LootFunction;
 import net.minecraft.world.storage.loot.functions.SetCount;
+import net.minecraftforge.client.event.ModelRegistryEvent;
+import net.minecraftforge.client.event.RenderGameOverlayEvent;
+import net.minecraftforge.client.event.GuiScreenEvent.InitGuiEvent;
+import net.minecraftforge.client.model.IModel;
+import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.client.model.obj.OBJLoader;
+import net.minecraftforge.client.model.obj.OBJModel;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.LootTableLoadEvent;
 import net.minecraftforge.event.entity.EntityEvent;
@@ -68,27 +82,56 @@ import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.PlayerTickEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 
 public class ModEvents {
-	
-
-
+	private int gems;
+	private String message ;
 	public static void register() {
 		MinecraftForge.EVENT_BUS.register(new ModEvents());
-	
+
 	}
-	
+	@SubscribeEvent
+	public void getGemCount(LivingUpdateEvent event){
+		if(event.getEntityLiving() instanceof EntityGem){
+			EntityGem gem = (EntityGem) event.getEntityLiving();
+
+			this.gems = gem.spawnedGems.size();
+		}
+	}
+
+	@SubscribeEvent
+    @SideOnly(Side.CLIENT)
+    public void onOverlayRendered (RenderGameOverlayEvent.Text event) {
+
+        final Minecraft mc = Minecraft.getMinecraft();
+
+        if (mc.gameSettings.showDebugInfo && event.getLeft() != null) {
+			event.getLeft().add("");
+			event.getLeft().add("[Blackburn Kagic] Engine: " + KAGIC.VERSION);
+			event.getLeft().add("[Blackburn Kagic] DevMode: "+ KAGIC.DEVELOPER);
+			event.getLeft().add("[Blackburn Kagic] Message:" +   message);
+			event.getLeft().add("");
+			event.getLeft().add("[Blackburn Kagic] Gem Count:" +  gems );
+
+        }
+	}
+
+
 	@SubscribeEvent
 	public void onPlayerLoggedIn(PlayerLoggedInEvent e) {
 
 		e.player.sendMessage(
-			new TextComponentString("§6 You are playing KAGIC-Blackburn " + KAGIC.VERSION + " Please Enjoy"));
-			KAGIC.logger.info("in Player innteract Fucntion need to execute the advancement");
-			ModTriggers.MOD_START.trigger(e.player);
-			KAGIC.logger.info("Executed the Trigger");
-		
+				new TextComponentString("§6 You are playing KAGIC-Blackburn " + KAGIC.VERSION + " Please Enjoy"));
+		KAGIC.logger.info("in Player innteract Fucntion need to execute the advancement");
+		ModTriggers.MOD_START.trigger(e.player);
+		KAGIC.logger.info("Executed the Trigger");
+		message =("Test Hello" + " "+ e.player.getName()+" "+ "just joined the World ;}");
+
 	}
+
 
 	@SubscribeEvent
 	public void onEntitySpawn(EntityJoinWorldEvent e) {
@@ -149,10 +192,12 @@ public class ModEvents {
 	public void onWorldTick(TickEvent.WorldTickEvent event) {
 		MinecraftServer server = event.world.getMinecraftServer();
 		if (ModConfigs.spawnMeteorRubies && server.getCurrentPlayerCount() > 0) {
-			EntityPlayerMP player = server.getPlayerList().getPlayers().get(event.world.rand.nextInt(server.getCurrentPlayerCount()));
+			EntityPlayerMP player = server.getPlayerList().getPlayers()
+					.get(event.world.rand.nextInt(server.getCurrentPlayerCount()));
 			if (!player.world.isRemote) {
 				if (player.dimension == 0 && !player.world.isDaytime()) {
-					if (player.world.getTotalWorldTime() - SpaceStuff.get().getLastRubyImpactTime() >= 24000  && player.world.rand.nextInt(12000) == 0) {
+					if (player.world.getTotalWorldTime() - SpaceStuff.get().getLastRubyImpactTime() >= 24000
+							&& player.world.rand.nextInt(12000) == 0) {
 						EntityRuby ruby = new EntityRuby(player.world);
 						double xdev = player.world.rand.nextInt(128) - 64;
 						double newX = player.posX + Math.abs(xdev) < 16 ? 128 : xdev;
@@ -161,13 +206,13 @@ public class ModEvents {
 						ruby.setPosition(newX, 256, newZ);
 						ruby.isSpaceBorn = true;
 						player.world.spawnEntity(ruby);
-						ruby.onInitialSpawn(ruby.world.getDifficultyForLocation(new BlockPos(ruby)), (IEntityLivingData) null);
-						player.world.playSound(player, player.getPosition(), ModSounds.RUBY_EXPLODE, SoundCategory.NEUTRAL, 10.0F, 1.0F);
+						ruby.onInitialSpawn(ruby.world.getDifficultyForLocation(new BlockPos(ruby)),
+								(IEntityLivingData) null);
+						player.world.playSound(player, player.getPosition(), ModSounds.RUBY_EXPLODE,
+								SoundCategory.NEUTRAL, 10.0F, 1.0F);
 						SpaceStuff.get().setLastRubyImpactTime(player.world.getTotalWorldTime());
 					}
-					
-					
-					
+
 				}
 			}
 		}
@@ -288,64 +333,73 @@ public class ModEvents {
 	public void onWorldSave(WorldEvent.Save e) {
 		if (!e.getWorld().isRemote) {
 			KAGIC.spaceStuff.save();
-			
+
 		}
 	}
+
 	/**
 	 * Whenever player enters a biome Send the Acivement based on that biome
+	 * 
 	 * @param e
 	 */
-	
-	@SubscribeEvent
-	public void onPlayerWalkInBiome(LivingUpdateEvent e){
 
-		if(e.getEntity() instanceof EntityPlayerMP){
+	@SubscribeEvent
+	public void onPlayerWalkInBiome(LivingUpdateEvent e) {
+
+		if (e.getEntity() instanceof EntityPlayerMP) {
 			EntityPlayerMP player = (EntityPlayerMP) e.getEntity();
 			long systemtime = player.getServer().getCurrentTimeMillis();
-			
 
-		if(systemtime % 20 == 0){
-			
-			//KAGIC.logger.info(player.getEntityWorld().getBiome(player.getPosition()).getRegistryName().toString());
-	
-			switch (player.getEntityWorld().getBiome(player.getPosition()).getRegistryName().toString()) {
-				case "ndbkagic:strawberry_battlefield":
-					KAGIC.logger.info("Ran at" + systemtime);
-					ModTriggers.BATTLE_FIELD.trigger(player);
-					KAGIC.logger.info(player.getName()+"entered battlefield");
-				
-					break;
-				
-				case "ndbkagic:floatingpeaks":
-					KAGIC.logger.info("Ran at" + systemtime);
-					ModTriggers.HEAVEN_BEATLE.trigger(player);
-					KAGIC.logger.info(player.getName()+"entered floating peaks");
-					break;
-			
-				case "ndbkagic:kindergarten":
-					KAGIC.logger.info("Ran at" + systemtime);
-					ModTriggers.KINDERGARDEN.trigger(player);
-					KAGIC.logger.info(player.getName()+"entered kindergarden");
-					break;
-				default:
-					return;
-				
+			if (systemtime % 20 == 0) {
 
-				
+				// KAGIC.logger.info(player.getEntityWorld().getBiome(player.getPosition()).getRegistryName().toString());
+
+				switch (player.getEntityWorld().getBiome(player.getPosition()).getRegistryName().toString()) {
+					case "ndbkagic:strawberry_battlefield":
+						ModTriggers.BATTLE_FIELD.trigger(player);
+						break;
+
+					case "ndbkagic:floatingpeaks":
+						ModTriggers.HEAVEN_BEATLE.trigger(player);
+						break;
+
+					case "ndbkagic:kindergarten":
+						ModTriggers.KINDERGARDEN.trigger(player);
+						break;
+					default:
+						return;
+
+				}
+			}
+
+		}
+	}
+
+	//TODO: Detect Structure that player is in 
+	@SubscribeEvent
+	public void onPlayerWalkInStructure(LivingUpdateEvent e) {
+
+		if (e.getEntity() instanceof EntityPlayerMP) {
+			EntityPlayerMP player = (EntityPlayerMP) e.getEntity();
+			long systemtime = player.getServer().getCurrentTimeMillis();
+
+			if (systemtime % 20 == 0) {
+
+				}
 			}
 		}
-			
 	
 		
+	
 
+	@SubscribeEvent
+    public void onStrongholdSpawnsCheck(WorldEvent.PotentialSpawns ev) {
+        WorldServer world = (WorldServer) ev.getWorld();
+		
 	}
-} 
-	
-
 }
-		
-		
+            
+        
+    
 
-
-	
 

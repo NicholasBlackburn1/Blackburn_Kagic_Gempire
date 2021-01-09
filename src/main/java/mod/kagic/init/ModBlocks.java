@@ -1,5 +1,6 @@
 package mod.kagic.init;
 
+
 import mod.kagic.blocks.BlockDrainedGravel;
 import mod.kagic.blocks.BlockGalaxyPadCore;
 import mod.kagic.blocks.BlockGemDrill;
@@ -92,7 +93,10 @@ public class ModBlocks {
 	public static final Fluid FLUID_ROSE_TEARS = new Fluid("rose_tears", new ResourceLocation("kagic:blocks/rose_tears_still"), new ResourceLocation("kagic:blocks/rose_tears_flowing"));
 	public static BlockRoseTears ROSE_TEARS;
 
+
+
 	public static void registerBlocks(RegistryEvent.Register<Block> event) {
+		
 		ModBlocks.registerBlock(ModBlocks.GEM_SEED, new ResourceLocation("kagic:gem_seed"), event);
 		ModBlocks.registerBlock(ModBlocks.GEM_DRILL, new ResourceLocation("kagic:gem_drill"), event);
 		ModBlocks.registerBlock(ModBlocks.INJECTOR, new ResourceLocation("kagic:injector"), event);
@@ -131,6 +135,7 @@ public class ModBlocks {
 		block.setRegistryName(location);
 		event.getRegistry().register(block);
 	}
+	
 
 	// registers fluid
 	public static void registerFluid(Fluid fluid) {
@@ -139,6 +144,7 @@ public class ModBlocks {
 	}
 	//Registers Block Item
 	public static void registerBlockItems(RegistryEvent.Register<Item> event) {
+		
 		ModBlocks.registerBlockItem(ModBlocks.GEM_SEED, new ResourceLocation("kagic:gem_seed"), event);
 		ModBlocks.registerBlockItem(ModBlocks.GEM_DRILL, new ResourceLocation("kagic:gem_drill"), event);
 		ModBlocks.registerBlockItem(ModBlocks.INJECTOR, new ResourceLocation("kagic:injector"), event);
@@ -212,4 +218,5 @@ public class ModBlocks {
 			ModelLoader.setCustomModelResourceLocation(item, 3, new ModelResourceLocation("kagic:wavy_pink_sandstone", "inventory"));
 		}
 	}
+	
 }

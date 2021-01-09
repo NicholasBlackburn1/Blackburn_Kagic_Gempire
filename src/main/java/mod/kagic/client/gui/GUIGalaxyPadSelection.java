@@ -5,6 +5,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.SortedMap;
 
+import mod.kagic.advancements.ModTriggers;
 import mod.kagic.init.KAGIC;
 import mod.kagic.tileentity.TileEntityWarpPadCore;
 import mod.kagic.worlddata.GalaxyPadLocation;
@@ -70,7 +71,9 @@ public class GUIGalaxyPadSelection extends GuiScreen {
 			Minecraft.getMinecraft().player.closeScreen();
 		} else {
 			this.padList.actionPerformed(button);
+			
 			super.actionPerformed(button);
+
 		}
 	}
 	

@@ -3,6 +3,7 @@ package mod.kagic.entity;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -54,6 +55,7 @@ import net.minecraft.entity.IEntityOwnable;
 import net.minecraft.entity.IRangedAttackMob;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIAttackMelee;
+import net.minecraft.entity.ai.EntityAIAvoidEntity;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.ai.EntityAIPanic;
@@ -101,31 +103,55 @@ import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.oredict.DyeUtils;
+import scala.collection.generic.BitOperations.Int;
 
 public class EntityGem extends EntityCreature implements IEntityOwnable, IRangedAttackMob, IEntityAdditionalSpawnData {
+	private int count;
+	public static LinkedList<EntityGem> spawnedGems = new LinkedList<>();
+	private String message;
+	protected static final DataParameter<Optional<UUID>> OWNER_UNIQUE_ID = EntityDataManager
+			.<Optional<UUID>>createKey(EntityGem.class, DataSerializers.OPTIONAL_UNIQUE_ID);
+	protected static final DataParameter<Optional<UUID>> GEUUID = EntityDataManager
+			.<Optional<UUID>>createKey(EntityGem.class, DataSerializers.OPTIONAL_UNIQUE_ID);
+	protected static final DataParameter<Integer> GEM_COUNT = EntityDataManager.<Integer>createKey(EntityGem.class,
+			DataSerializers.VARINT);
+	protected static final DataParameter<String> SPECIFIC_NAME = EntityDataManager.<String>createKey(EntityGem.class,
+			DataSerializers.STRING);
+	protected static final DataParameter<Boolean> SELECTED = EntityDataManager.<Boolean>createKey(EntityGem.class,
+			DataSerializers.BOOLEAN);
+	protected static final DataParameter<Boolean> SWINGING_ARMS = EntityDataManager.<Boolean>createKey(EntityGem.class,
+			DataSerializers.BOOLEAN);
 
-	protected static final DataParameter<Optional<UUID>> OWNER_UNIQUE_ID = EntityDataManager.<Optional<UUID>>createKey(EntityGem.class, DataSerializers.OPTIONAL_UNIQUE_ID);
-	protected static final DataParameter<Optional<UUID>> GEUUID = EntityDataManager.<Optional<UUID>>createKey(EntityGem.class, DataSerializers.OPTIONAL_UNIQUE_ID);
-	protected static final DataParameter<String> SPECIFIC_NAME = EntityDataManager.<String>createKey(EntityGem.class, DataSerializers.STRING);
-	protected static final DataParameter<Boolean> SELECTED = EntityDataManager.<Boolean>createKey(EntityGem.class, DataSerializers.BOOLEAN);
-	protected static final DataParameter<Boolean> SWINGING_ARMS = EntityDataManager.<Boolean>createKey(EntityGem.class, DataSerializers.BOOLEAN);
+	protected static final DataParameter<Integer> INSIGNIA_COLOR = EntityDataManager.<Integer>createKey(EntityGem.class,
+			DataSerializers.VARINT);
+	protected static final DataParameter<Integer> UNIFORM_COLOR = EntityDataManager.<Integer>createKey(EntityGem.class,
+			DataSerializers.VARINT);
+	protected static final DataParameter<Integer> SKIN_COLOR = EntityDataManager.<Integer>createKey(EntityGem.class,
+			DataSerializers.VARINT);
+	protected static final DataParameter<Integer> HAIR_COLOR = EntityDataManager.<Integer>createKey(EntityGem.class,
+			DataSerializers.VARINT);
+	protected static final DataParameter<Integer> GEM_COLOR = EntityDataManager.<Integer>createKey(EntityGem.class,
+			DataSerializers.VARINT);
+	protected static final DataParameter<Integer> HAIR = EntityDataManager.<Integer>createKey(EntityGem.class,
+			DataSerializers.VARINT);
+	protected static final DataParameter<Integer> GEM_CUT = EntityDataManager.<Integer>createKey(EntityGem.class,
+			DataSerializers.VARINT);
+	protected static final DataParameter<Integer> GEM_PLACEMENT = EntityDataManager.<Integer>createKey(EntityGem.class,
+			DataSerializers.VARINT);
+	protected static final DataParameter<Boolean> VISOR = EntityDataManager.<Boolean>createKey(EntityGem.class,
+			DataSerializers.BOOLEAN);
 
-	protected static final DataParameter<Integer> INSIGNIA_COLOR = EntityDataManager.<Integer>createKey(EntityGem.class, DataSerializers.VARINT);
-	protected static final DataParameter<Integer> UNIFORM_COLOR = EntityDataManager.<Integer>createKey(EntityGem.class, DataSerializers.VARINT);
-	protected static final DataParameter<Integer> SKIN_COLOR = EntityDataManager.<Integer>createKey(EntityGem.class, DataSerializers.VARINT);
-	protected static final DataParameter<Integer> HAIR_COLOR = EntityDataManager.<Integer>createKey(EntityGem.class, DataSerializers.VARINT);
-	protected static final DataParameter<Integer> GEM_COLOR = EntityDataManager.<Integer>createKey(EntityGem.class, DataSerializers.VARINT);
-	protected static final DataParameter<Integer> HAIR = EntityDataManager.<Integer>createKey(EntityGem.class, DataSerializers.VARINT);
-	protected static final DataParameter<Integer> GEM_CUT = EntityDataManager.<Integer>createKey(EntityGem.class, DataSerializers.VARINT);
-	protected static final DataParameter<Integer> GEM_PLACEMENT = EntityDataManager.<Integer>createKey(EntityGem.class, DataSerializers.VARINT);
-	protected static final DataParameter<Boolean> VISOR = EntityDataManager.<Boolean>createKey(EntityGem.class, DataSerializers.BOOLEAN);
+	protected static final DataParameter<Integer> FUSION_COUNT = EntityDataManager.<Integer>createKey(EntityGem.class,
+			DataSerializers.VARINT);
+	protected static final DataParameter<String> FUSION_PLACEMENTS = EntityDataManager
+			.<String>createKey(EntityGem.class, DataSerializers.STRING);
 
-	protected static final DataParameter<Integer> FUSION_COUNT = EntityDataManager.<Integer>createKey(EntityGem.class, DataSerializers.VARINT);
-	protected static final DataParameter<String> FUSION_PLACEMENTS = EntityDataManager.<String>createKey(EntityGem.class, DataSerializers.STRING);
-
-	protected static final DataParameter<Boolean> DEFECTIVE = EntityDataManager.<Boolean>createKey(EntityGem.class, DataSerializers.BOOLEAN);
-	protected static final DataParameter<Boolean> PRIMARY = EntityDataManager.<Boolean>createKey(EntityGem.class, DataSerializers.BOOLEAN);
-	protected static final DataParameter<Integer> SPECIAL = EntityDataManager.<Integer>createKey(EntityGem.class, DataSerializers.VARINT);
+	protected static final DataParameter<Boolean> DEFECTIVE = EntityDataManager.<Boolean>createKey(EntityGem.class,
+			DataSerializers.BOOLEAN);
+	protected static final DataParameter<Boolean> PRIMARY = EntityDataManager.<Boolean>createKey(EntityGem.class,
+			DataSerializers.BOOLEAN);
+	protected static final DataParameter<Integer> SPECIAL = EntityDataManager.<Integer>createKey(EntityGem.class,
+			DataSerializers.VARINT);
 
 	public static final int SERVE_NONE = 0;
 	public static final int SERVE_HUMAN = 1;
@@ -136,26 +162,30 @@ public class EntityGem extends EntityCreature implements IEntityOwnable, IRanged
 	public static final int SERVE_ITSELF = 6;
 	public static final int SERVE_HOSTILE = 7;
 
+	
+
 	private final EntityAIBase rangedAttack = new EntityAIAttackRangedBow(this, 0.6D, 20, 16.0F);
 	private final EntityAIBase meleeAttack = new EntityAIAttackMelee(this, 1.2D, true);
-	private final EntityAITarget diamondAttackAI = new EntityAINearestAttackableTarget<EntityLivingBase>(this, EntityLivingBase.class, 10, true, false, new Predicate<EntityLivingBase>() {
-		@Override
-		public boolean apply(EntityLivingBase input) {
-			if (input instanceof EntityGem) {
-				return ((EntityGem) input).getServitude() == EntityGem.SERVE_HUMAN;
-			}
-			return input != null && input instanceof EntityPlayer;
-		}
-	});
-	private final EntityAITarget rebelAttackAI = new EntityAINearestAttackableTarget<EntityLivingBase>(this, EntityLivingBase.class, 10, true, false, new Predicate<EntityLivingBase>() {
-		@Override
-		public boolean apply(EntityLivingBase input) {
-			if (input instanceof EntityGem) {
-				return ((EntityGem) input).isTamed() || ((EntityGem) input).isDiamond;
-			}
-			return input != null && input instanceof EntityPlayer;
-		}
-	});
+	private final EntityAITarget diamondAttackAI = new EntityAINearestAttackableTarget<EntityLivingBase>(this,
+			EntityLivingBase.class, 10, true, false, new Predicate<EntityLivingBase>() {
+				@Override
+				public boolean apply(EntityLivingBase input) {
+					if (input instanceof EntityGem) {
+						return ((EntityGem) input).getServitude() == EntityGem.SERVE_HUMAN;
+					}
+					return input != null && input instanceof EntityPlayer;
+				}
+			});
+	private final EntityAITarget rebelAttackAI = new EntityAINearestAttackableTarget<EntityLivingBase>(this,
+			EntityLivingBase.class, 10, true, false, new Predicate<EntityLivingBase>() {
+				@Override
+				public boolean apply(EntityLivingBase input) {
+					if (input instanceof EntityGem) {
+						return ((EntityGem) input).isTamed() || ((EntityGem) input).isDiamond;
+					}
+					return input != null && input instanceof EntityPlayer;
+				}
+			});
 	private final EntityAITarget warDeclarationAI = new EntityAIFightWars(this);
 	protected EntityAIStay stayAI;
 
@@ -167,7 +197,7 @@ public class EntityGem extends EntityCreature implements IEntityOwnable, IRanged
 	public boolean followingGem = false;
 	private UUID leader = null;
 	private BlockPos restPosition;
-	
+
 	public ItemGem droppedGemItem;
 	public ItemGem droppedCrackedGemItem;
 	public int fallbackServitude = -1;
@@ -184,7 +214,7 @@ public class EntityGem extends EntityCreature implements IEntityOwnable, IRanged
 	public boolean isSitting;
 	public boolean canTalk;
 	public boolean killsPlayers;
-	
+
 	public double prevChasingPosX;
 	public double prevChasingPosY;
 	public double prevChasingPosZ;
@@ -211,6 +241,7 @@ public class EntityGem extends EntityCreature implements IEntityOwnable, IRanged
 		this.stepHeight = 0.6F;
 		this.tasks.addTask(0, new EntityAISwimming(this));
 		this.tasks.addTask(1, new EntityAIRestrictOpenDoor(this));
+		this.tasks.addTask(2, new EntityAIAvoidEntity(this, EntityCrystalShrimp.class, 10.0F, 5.0F, 19.5F));
 		this.dataManager.register(EntityGem.OWNER_UNIQUE_ID, Optional.<UUID>absent());
 		this.dataManager.register(EntityGem.GEUUID, Optional.<UUID>absent());
 		this.dataManager.register(EntityGem.SPECIFIC_NAME, "");
@@ -231,8 +262,10 @@ public class EntityGem extends EntityCreature implements IEntityOwnable, IRanged
 		this.dataManager.register(EntityGem.FUSION_COUNT, 1);
 		this.dataManager.register(EntityGem.FUSION_PLACEMENTS, "");
 		this.compatIndex = worldIn.rand.nextInt(20);
+
+		
 	}
-	
+
 	/*********************************************************
 	 * Methods related to entity loading. *
 	 *********************************************************/
@@ -309,11 +342,11 @@ public class EntityGem extends EntityCreature implements IEntityOwnable, IRanged
 		} else {
 			this.convertGems(compound.getInteger("gemPlacement"));
 		}
-		
+
 		if (!this.isGemPlacementDefined() || !this.isGemCutDefined() || !this.isCorrectCutPlacement()) {
 			this.setNewCutPlacement();
 		}
-		
+
 		this.applyGemPlacementBuffs(false);
 		this.setSpecial(compound.getInteger("special"));
 		this.setHasVisor(compound.getBoolean("hasVisor"));
@@ -328,7 +361,7 @@ public class EntityGem extends EntityCreature implements IEntityOwnable, IRanged
 		} else {
 			this.setUniformColor(this.getInsigniaColor());
 		}
-		
+
 		if (compound.hasKey("skinColor")) {
 			if (compound.getInteger("skinColor") == 0) {
 				this.setSkinColor(this.generateSkinColor());
@@ -338,7 +371,7 @@ public class EntityGem extends EntityCreature implements IEntityOwnable, IRanged
 		} else {
 			this.setSkinColor(this.generateSkinColor());
 		}
-		
+
 		if (compound.hasKey("hairColor")) {
 			if (compound.getInteger("hairColor") == 0) {
 				this.setHairColor(this.generateHairColor());
@@ -348,7 +381,7 @@ public class EntityGem extends EntityCreature implements IEntityOwnable, IRanged
 		} else {
 			this.setHairColor(this.generateHairColor());
 		}
-		
+
 		this.setHairStyle(compound.getInteger("hair"));
 
 		if (compound.hasKey("gemColor")) {
@@ -418,7 +451,8 @@ public class EntityGem extends EntityCreature implements IEntityOwnable, IRanged
 			}
 		}
 		if (compound.hasKey("restX") && compound.hasKey("restY") && compound.hasKey("restZ")) {
-			this.restPosition = new BlockPos(compound.getDouble("restX"), compound.getDouble("restY"), compound.getDouble("restZ"));
+			this.restPosition = new BlockPos(compound.getDouble("restX"), compound.getDouble("restY"),
+					compound.getDouble("restZ"));
 		}
 		if (this.stayAI != null) {
 			this.stayAI.setSitting(compound.getBoolean("sitting"));
@@ -458,6 +492,9 @@ public class EntityGem extends EntityCreature implements IEntityOwnable, IRanged
 
 	@Override
 	public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData livingdata) {
+		
+		
+		spawnedGems.add(this);
 		this.setHealth(this.getMaxHealth());
 		this.setGemId(MathHelper.getRandomUUID());
 		if (!this.isGemPlacementDefined() || !this.isGemCutDefined() || !this.isCorrectCutPlacement()) {
@@ -472,6 +509,7 @@ public class EntityGem extends EntityCreature implements IEntityOwnable, IRanged
 		this.setHasVisor(this.rand.nextInt(this.visorChanceReciprocal) == 0);
 		this.setDimensionOfCreation(this.dimension);
 		this.setAttackAI();
+		
 		if (this.fallbackServitude == -1) {
 			if (ModConfigs.canRebel) {
 				if (this.isDefective() && this.rand.nextInt(5) == 0 || this.rand.nextInt(50) == 0) {
@@ -487,6 +525,7 @@ public class EntityGem extends EntityCreature implements IEntityOwnable, IRanged
 		if (ModConfigs.displayNames) {
 			this.setSpecificName(this.generateSpecificName(this.getPosition()));
 		}
+		
 		return super.onInitialSpawn(difficulty, livingdata);
 	}
 	
@@ -537,6 +576,7 @@ public class EntityGem extends EntityCreature implements IEntityOwnable, IRanged
 	@Override
 	public void onLivingUpdate() {
 		if (this.world.isRemote) {
+			
 			if (this.getServitude() == EntityGem.SERVE_REBELLION) {
 				for (int i = 0; i < 2; ++i) {
 					this.world.spawnParticle(EnumParticleTypes.PORTAL, this.posX + (this.rand.nextDouble() - 0.5D) * this.width, this.posY + this.rand.nextDouble() * this.height - 0.25D, this.posZ + (this.rand.nextDouble() - 0.5D) * this.width, (this.rand.nextDouble() - 0.5D) * 2.0D, -this.rand.nextDouble(), (this.rand.nextDouble() - 0.5D) * 2.0D);
@@ -1524,6 +1564,12 @@ public class EntityGem extends EntityCreature implements IEntityOwnable, IRanged
 		this.dataManager.set(EntityGem.FUSION_COUNT, count);
 	}
 
+	public int getGemCount() {
+		return Integer.valueOf(count);
+	}
+
+	
+
 	public String getFusionPlacements() {
 		return this.dataManager.get(EntityGem.FUSION_PLACEMENTS);
 	}
@@ -1946,6 +1992,7 @@ public class EntityGem extends EntityCreature implements IEntityOwnable, IRanged
 	 *********************************************************/
 	@Override
 	public void onDeath(DamageSource cause) {
+		spawnedGems.remove(this);
 		this.world.spawnParticle(EnumParticleTypes.EXPLOSION_HUGE, this.posX, this.posY + this.height / 2, this.posZ, 1.0D, 1.0D, 1.0D);
 		if (!this.world.isRemote) {
 			if (this.isFusion()) {

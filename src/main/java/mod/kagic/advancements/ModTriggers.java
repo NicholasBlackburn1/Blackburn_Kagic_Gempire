@@ -43,12 +43,21 @@ public class ModTriggers
         public static final CustomTrigger BLUE_DIAMOND_AUTHORITY = new CustomTrigger("blue_diamond_authority");
         public static final CustomTrigger YELLOW_DIAMOND_AUTHORTY= new CustomTrigger("yellow_diamond_authority");
         public static final CustomTrigger WHITE_DIAMOND_AUTHORTY= new CustomTrigger("white_diamond_authority");
+
+        //Warp pad Advancemets
+        public static final CustomTrigger EXPLORE_WARPS = new CustomTrigger("explore_warp");
+        public static final CustomTrigger WARP_MASTER = new CustomTrigger("warp_master");
+        public static final CustomTrigger FROM_HERE_T0_HOMEWORLD = new CustomTrigger("from_here_to_home_world");
+
+        // Player Dies Advancements 
+        public static final CustomTrigger GETTING_PRICKED = new CustomTrigger("getting_pricked");
         /*
          * This array just makes it convenient to register all the criteria.
          */
         public static final CustomTrigger[] TRIGGER_ARRAY = new CustomTrigger[] {
             MOD_START,BATTLE_FIELD,GALAXY_WARP,DESERT_TEMPLE,COMMUNICATION_HUB,KINDERGARDEN,MOON_GODAS, HEAVEN_BEATLE,STRONGER_TOGETHER,GIANT_WOMEN, OFF_COLORS, YOU_CLOD,ARE_YOU_MY_DAD,
-            REACTIVATE_KINDERGARED,ARISTORCA_BULLY, BLUE_DIAMOND_AUTHORITY,YELLOW_DIAMOND_AUTHORTY,WHITE_DIAMOND_AUTHORTY
+            REACTIVATE_KINDERGARED,ARISTORCA_BULLY, BLUE_DIAMOND_AUTHORITY,YELLOW_DIAMOND_AUTHORTY,WHITE_DIAMOND_AUTHORTY,EXPLORE_WARPS,WARP_MASTER,FROM_HERE_T0_HOMEWORLD,GETTING_PRICKED
+
                 };
     
     
