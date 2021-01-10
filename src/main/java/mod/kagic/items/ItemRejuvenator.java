@@ -27,6 +27,7 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
+import net.minecraft.scoreboard.Team;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumBlockRenderType;
@@ -46,9 +47,9 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemRejuvenator extends ItemSword {
 
-    private Random rand;
+    private Random rand = new Random();
 	public ItemRejuvenator() {
-		super(ToolMaterial.DIAMOND);
+		super(ModItems.obsidianMaterial);
 		this.setUnlocalizedName("rejuvenator");
 		this.setCreativeTab(ModCreativeTabs.CREATIVE_TAB_OTHER);
 		this.setMaxStackSize(1);
@@ -64,10 +65,17 @@ public class ItemRejuvenator extends ItemSword {
 	public boolean hitEntity(ItemStack stack, EntityLivingBase target, EntityLivingBase attacker) {
 		stack.damageItem(1, attacker);
 		target.setGlowing(true);
-		target.world.spawnParticle(EnumParticleTypes.ENCHANTMENT_TABLE, target.posX, target.posY, target.posZ, 0.05D, 1.0D, 0.05D);
+		for (int i = 0; i < 7; ++i) {
+			double d0 = rand.nextGaussian() * 0.02D;
+			double d1 = rand.nextGaussian() * 0.02D;
+			double d2 = rand.nextGaussian() * 0.02D;
+			target.world.spawnParticle(EnumParticleTypes.ENCHANTMENT_TABLE, target.posX + this.rand.nextFloat() * target.width * 2.0F - target.width, target.posY + 0.5D + this.rand.nextFloat() * target.height, target.posZ + this.rand.nextFloat() * target.width * 2.0F - target.width, d0, d1, d2, new int[0]);
+		}
 		if(target instanceof EntityGem){
 			EntityGem gem = (EntityGem) target;
-
+		
+			gem.spawnedGems.remove(gem);
+			
 		}
 		return true;
 	
