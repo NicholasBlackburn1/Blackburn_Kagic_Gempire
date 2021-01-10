@@ -37,6 +37,7 @@ import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.IModel;
@@ -49,7 +50,7 @@ public class ItemRejuvenator extends ItemSword {
 
     private Random rand = new Random();
 	public ItemRejuvenator() {
-		super(ModItems.obsidianMaterial);
+		super(ToolMaterial.WOOD);
 		this.setUnlocalizedName("rejuvenator");
 		this.setCreativeTab(ModCreativeTabs.CREATIVE_TAB_OTHER);
 		this.setMaxStackSize(1);
@@ -73,8 +74,23 @@ public class ItemRejuvenator extends ItemSword {
 		}
 		if(target instanceof EntityGem){
 			EntityGem gem = (EntityGem) target;
-		
+
+			// Handles fusion 
+			if(gem.isFusion()){
+				gem.unfuse();
+				}
+			
+			gem.setHealth(-10);
+			stack = new ItemStack(gem.droppedGemItem);
+			stack.setItemDamage(1000);
+			gem.entityDropItem(stack, 1);
 			gem.spawnedGems.remove(gem);
+
+			if(attacker instanceof EntityPlayer){
+				EntityPlayer player = (EntityPlayer) attacker;
+				player.sendStatusMessage(new TextComponentString("§e Tip: The Rejuvenator Factory Resets Gems. §c(Takes about 5 mins to respawn)"), true); 
+			}
+		
 			
 		}
 		return true;

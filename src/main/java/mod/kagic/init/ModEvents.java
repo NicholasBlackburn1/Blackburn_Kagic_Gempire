@@ -88,6 +88,7 @@ import net.minecraftforge.fml.common.gameevent.TickEvent;
 
 public class ModEvents {
 	private int gems;
+	private int fusion;
 	private String message ;
 	public static void register() {
 		MinecraftForge.EVENT_BUS.register(new ModEvents());
@@ -99,6 +100,7 @@ public class ModEvents {
 			EntityGem gem = (EntityGem) event.getEntityLiving();
 
 			this.gems = gem.spawnedGems.size();
+			this.fusion = gem.fusionMembers.size();
 		}
 	}
 
@@ -115,6 +117,7 @@ public class ModEvents {
 			event.getLeft().add("[Blackburn Kagic] Message:" +   message);
 			event.getLeft().add("");
 			event.getLeft().add("[Blackburn Kagic] Gem Count:" +  gems );
+			event.getLeft().add("[Blackburn Kagic] Fusion Count:" +  fusion );
 
         }
 	}

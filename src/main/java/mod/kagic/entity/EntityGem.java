@@ -108,6 +108,9 @@ import scala.collection.generic.BitOperations.Int;
 public class EntityGem extends EntityCreature implements IEntityOwnable, IRangedAttackMob, IEntityAdditionalSpawnData {
 	private int count;
 	public static LinkedList<EntityGem> spawnedGems = new LinkedList<>();
+	public static LinkedList<EntityGem> spawnedFustion = new LinkedList<>();
+
+
 	private String message;
 	protected static final DataParameter<Optional<UUID>> OWNER_UNIQUE_ID = EntityDataManager
 			.<Optional<UUID>>createKey(EntityGem.class, DataSerializers.OPTIONAL_UNIQUE_ID);
@@ -983,6 +986,7 @@ public class EntityGem extends EntityCreature implements IEntityOwnable, IRanged
 	public boolean setAttackWeapon(EntityPlayerMP player, EnumHand hand, ItemStack stack) {
 		// Right clickes Fusion
 		if (this.isFusion()) {
+			
 			// Triggers when Rhodinite is clicked
 			if(this.isFusion() && this.getName().equals("Rhodonite") || this.getName().equals("Rhodonites")){
 				KAGIC.logger.info(this.getName()+" is nere a "+player.getName());
@@ -1623,6 +1627,8 @@ public class EntityGem extends EntityCreature implements IEntityOwnable, IRanged
 	 */
 	public String generateSpecificName(BlockPos pos) {
 		if (this.isFusion()) {
+
+			
 			return "Fusion";
 		} else {
 			int x = pos.getX();
