@@ -15,6 +15,7 @@ import mod.kagic.items.ItemLiberationContract;
 import mod.kagic.items.ItemObsidiansSword;
 import mod.kagic.items.ItemPeaceTreaty;
 import mod.kagic.items.ItemRejuvenator;
+import mod.kagic.items.ItemRoseSword;
 import mod.kagic.items.ItemTimeGlass;
 import mod.kagic.items.ItemTransferContract;
 import mod.kagic.items.ItemVehicle;
@@ -298,6 +299,7 @@ public class ModItems {
 	// Start of Defining Weapons  
 	public static final ItemObsidiansSword OBSIDIANS_SWORD = new ItemObsidiansSword();
 	public static final ItemRejuvenator REJUVENATOR = new ItemRejuvenator();
+	public static final ItemRoseSword ROSE_SWORD = new ItemRoseSword();
 
 	// Start of Defining Food items
 	public static final ItemBagelSandwitch BAGEL_SANDWITCH = new ItemBagelSandwitch(64, 1000, false);
@@ -305,6 +307,8 @@ public class ModItems {
 		// Registers Weapon Items here
 		ModItems.registerItemndb(OBSIDIANS_SWORD, event);
 		ModItems.registerItemndb(REJUVENATOR,event);
+		ModItems.registerItemndb(ROSE_SWORD, event);
+
 
 		// Register food here 
 		ModItems.registerItemndb(BAGEL_SANDWITCH, event);

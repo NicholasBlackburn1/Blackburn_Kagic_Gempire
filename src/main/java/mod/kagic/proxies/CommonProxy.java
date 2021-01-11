@@ -12,6 +12,7 @@ import mod.kagic.init.ModBlocks;
 import mod.kagic.init.ModEnchantments;
 import mod.kagic.init.ModItems;
 import mod.kagic.init.ModSounds;
+import mod.kagic.networking.MessageExtendedReachAttack;
 import mod.kagic.worlddata.GalaxyPadLocation;
 import mod.kagic.worlddata.WarpPadDataEntry;
 import net.minecraft.advancements.CriteriaTriggers;
@@ -30,8 +31,10 @@ import net.minecraftforge.fml.client.event.ConfigChangedEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
+import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.registries.IForgeRegistry;
 
 @Mod.EventBusSubscriber
@@ -85,6 +88,18 @@ public class CommonProxy {
 		if (event.getModID().equals(KAGIC.MODID)) {
 			ConfigManager.sync(KAGIC.MODID, Config.Type.INSTANCE);
 		}
+	}
+
+	@SubscribeEvent
+	public static void registerNetwork(){
+		KAGIC.network = NetworkRegistry.INSTANCE.newSimpleChannel("LONGSWORD");
+		int packetId = 0;
+		// register messages from client to server
+		KAGIC.network.registerMessage(MessageExtendedReachAttack.Handler.class, 
+
+      MessageExtendedReachAttack.class, packetId++, Side.SERVER);
+
+
 	}
 
 	public void openWarpPadSelectionGUI(LinkedHashMap<BlockPos, WarpPadDataEntry> padData, int x, int y, int z) {

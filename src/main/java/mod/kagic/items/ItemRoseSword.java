@@ -2,7 +2,10 @@ package mod.kagic.items;
 
 import java.util.function.Function;
 
+import com.google.common.collect.Multimap;
+
 import mod.kagic.advancements.ModTriggers;
+import mod.kagic.engin.IExtendedReach;
 import mod.kagic.init.KAGIC;
 import mod.kagic.init.ModCreativeTabs;
 import mod.kagic.init.ModItems;
@@ -16,8 +19,12 @@ import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.vertex.VertexFormat;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
@@ -35,12 +42,12 @@ import net.minecraftforge.common.model.IModelState;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class ItemObsidiansSword extends ItemSword{
+public class ItemRoseSword extends ItemSword {
 
-	public static final net.minecraft.entity.ai.attributes.IAttribute REACH_DISTANCE = new net.minecraft.entity.ai.attributes.RangedAttribute(null, "generic.reachDistance", 25.0D, 0.0D, 1024.0D).setShouldWatch(true);
-	public ItemObsidiansSword() {
+	
+	public ItemRoseSword() {
 		super(ModItems.obsidianMaterial);
-		this.setUnlocalizedName("obsidians_sword");
+		this.setUnlocalizedName("rose_sword");
 		this.setCreativeTab(ModCreativeTabs.CREATIVE_TAB_OTHER);
 		this.setMaxStackSize(1);
 		
@@ -54,12 +61,7 @@ public class ItemObsidiansSword extends ItemSword{
     public void initModel() {
         ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(getRegistryName(), "inventory"));
 	}
-
-
 	
-	
-
-
 	
 
 

@@ -6,12 +6,13 @@ import java.util.List;
 import java.util.Timer;
 import java.util.function.Consumer;
 
-import javax.swing.text.html.parser.Entity;
 
+import com.google.common.base.MoreObjects;
 import com.google.common.base.Predicate;
 import com.google.common.collect.ImmutableMap;
 
 import mod.kagic.advancements.ModTriggers;
+import mod.kagic.engin.IExtendedReach;
 import mod.kagic.engin.InfoEngine;
 import mod.kagic.entity.EntityGem;
 import mod.kagic.entity.ai.EntityAIFollowTopaz;
@@ -22,7 +23,7 @@ import mod.kagic.entity.gem.EntityRuby;
 import mod.kagic.entity.gem.EntityRutile;
 import mod.kagic.entity.gem.EntitySapphire;
 import mod.kagic.init.ModMetrics.Update;
-
+import mod.kagic.networking.MessageExtendedReachAttack;
 import mod.kagic.server.SpaceStuff;
 import net.minecraft.advancements.critereon.PlayerHurtEntityTrigger;
 import net.minecraft.client.Minecraft;
@@ -41,10 +42,15 @@ import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemSword;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextComponentTranslation;
@@ -60,6 +66,7 @@ import net.minecraft.world.storage.loot.conditions.LootCondition;
 import net.minecraft.world.storage.loot.functions.LootFunction;
 import net.minecraft.world.storage.loot.functions.SetCount;
 import net.minecraftforge.client.event.ModelRegistryEvent;
+import net.minecraftforge.client.event.MouseEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.GuiScreenEvent.InitGuiEvent;
 import net.minecraftforge.client.model.IModel;
@@ -79,6 +86,8 @@ import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.EntityInteract;
 import net.minecraftforge.event.world.WorldEvent;
+import net.minecraftforge.fml.client.FMLClientHandler;
+import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.PlayerTickEvent;
@@ -89,14 +98,16 @@ import net.minecraftforge.fml.common.gameevent.TickEvent;
 public class ModEvents {
 	private int gems;
 	private int fusion;
-	private String message ;
+	private String message;
+
 	public static void register() {
 		MinecraftForge.EVENT_BUS.register(new ModEvents());
 
 	}
+
 	@SubscribeEvent
-	public void getGemCount(LivingUpdateEvent event){
-		if(event.getEntityLiving() instanceof EntityGem){
+	public void getGemCount(LivingUpdateEvent event) {
+		if (event.getEntityLiving() instanceof EntityGem) {
 			EntityGem gem = (EntityGem) event.getEntityLiving();
 
 			this.gems = gem.spawnedGems.size();
@@ -104,24 +115,30 @@ public class ModEvents {
 		}
 	}
 
+	/**
+	 * TODO: add Display Users Gem Power Selection From the PlayerGem class
+	 * 
+	 * @param event
+	 */
 	@SubscribeEvent
-    @SideOnly(Side.CLIENT)
-    public void onOverlayRendered (RenderGameOverlayEvent.Text event) {
+	@SideOnly(Side.CLIENT)
+	public void onOverlayRendered(RenderGameOverlayEvent.Text event) {
 
-        final Minecraft mc = Minecraft.getMinecraft();
+		final Minecraft mc = Minecraft.getMinecraft();
 
-        if (mc.gameSettings.showDebugInfo && event.getLeft() != null) {
+		if (mc.gameSettings.showDebugInfo && event.getLeft() != null) {
 			event.getLeft().add("");
 			event.getLeft().add("[Blackburn Kagic] Engine: " + KAGIC.VERSION);
-			event.getLeft().add("[Blackburn Kagic] DevMode: "+ KAGIC.DEVELOPER);
-			event.getLeft().add("[Blackburn Kagic] Message:" +   message);
+			event.getLeft().add("[Blackburn Kagic] DevMode: " + KAGIC.DEVELOPER);
+			event.getLeft().add("[Blackburn Kagic] Message:" + message);
 			event.getLeft().add("");
-			event.getLeft().add("[Blackburn Kagic] Gem Count:" +  gems );
-			event.getLeft().add("[Blackburn Kagic] Fusion Count:" +  fusion );
+			event.getLeft().add("[Blackburn Kagic] Gem Count:" + gems);
+			event.getLeft().add("[Blackburn Kagic] Fusion Count:" + fusion);
+			event.getLeft().add("");
+			event.getLeft().add("[Blackburn Kagic] Gem Selection:" + null);
 
-        }
+		}
 	}
-
 
 	@SubscribeEvent
 	public void onPlayerLoggedIn(PlayerLoggedInEvent e) {
@@ -131,10 +148,9 @@ public class ModEvents {
 		KAGIC.logger.info("in Player innteract Fucntion need to execute the advancement");
 		ModTriggers.MOD_START.trigger(e.player);
 		KAGIC.logger.info("Executed the Trigger");
-		message =("Test Hello" + " "+ e.player.getName()+" "+ "just joined the World ;}");
+		message = ("Test Hello" + " " + e.player.getName() + " " + "just joined the World ;}");
 
 	}
-
 
 	@SubscribeEvent
 	public void onEntitySpawn(EntityJoinWorldEvent e) {
@@ -378,28 +394,18 @@ public class ModEvents {
 		}
 	}
 
-	//TODO: Detect Structure that player is in 
-	@SubscribeEvent
-	public void onPlayerWalkInStructure(LivingUpdateEvent e) {
-
-		if (e.getEntity() instanceof EntityPlayerMP) {
-			EntityPlayerMP player = (EntityPlayerMP) e.getEntity();
-			long systemtime = player.getServer().getCurrentTimeMillis();
-
-			if (systemtime % 20 == 0) {
-
-				}
-			}
-		}
-	
-		
 	
 
+
+
 	@SubscribeEvent
-    public void onStrongholdSpawnsCheck(WorldEvent.PotentialSpawns ev) {
-        WorldServer world = (WorldServer) ev.getWorld();
-		
+	public void onStrongholdSpawnsCheck(WorldEvent.PotentialSpawns ev) {
+		WorldServer world = (WorldServer) ev.getWorld();
+
 	}
+
+		
+
 }
             
         
