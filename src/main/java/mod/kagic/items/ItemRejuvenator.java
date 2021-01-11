@@ -82,13 +82,15 @@ public class ItemRejuvenator extends ItemSword {
 			
 			gem.setHealth(-10);
 			stack = new ItemStack(gem.droppedGemItem);
-			stack.setItemDamage(1000);
+			stack.setItemDamage(500);
 			gem.entityDropItem(stack, 1);
 			gem.spawnedGems.remove(gem);
+			
 
-			if(attacker instanceof EntityPlayer){
-				EntityPlayer player = (EntityPlayer) attacker;
+			if(attacker instanceof EntityPlayerMP){
+				EntityPlayerMP player = (EntityPlayerMP) attacker;
 				player.sendStatusMessage(new TextComponentString("§e Tip: The Rejuvenator Factory Resets Gems. §c(Takes about 5 mins to respawn)"), true); 
+				ModTriggers.Rejuvination.trigger(player);
 			}
 		
 			

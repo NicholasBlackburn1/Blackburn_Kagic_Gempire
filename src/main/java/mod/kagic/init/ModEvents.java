@@ -132,6 +132,7 @@ public class ModEvents {
 		ModTriggers.MOD_START.trigger(e.player);
 		KAGIC.logger.info("Executed the Trigger");
 		message =("Test Hello" + " "+ e.player.getName()+" "+ "just joined the World ;}");
+		
 
 	}
 
