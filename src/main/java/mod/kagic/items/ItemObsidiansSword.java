@@ -2,10 +2,7 @@ package mod.kagic.items;
 
 import java.util.function.Function;
 
-import com.google.common.collect.Multimap;
-
 import mod.kagic.advancements.ModTriggers;
-import mod.kagic.engin.IExtendedReach;
 import mod.kagic.init.KAGIC;
 import mod.kagic.init.ModCreativeTabs;
 import mod.kagic.init.ModItems;
@@ -19,11 +16,8 @@ import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.vertex.VertexFormat;
-import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
@@ -41,7 +35,7 @@ import net.minecraftforge.common.model.IModelState;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class ItemObsidiansSword extends ItemSword implements IExtendedReach{
+public class ItemObsidiansSword extends ItemSword{
 
 	
 	public ItemObsidiansSword() {
@@ -49,7 +43,7 @@ public class ItemObsidiansSword extends ItemSword implements IExtendedReach{
 		this.setUnlocalizedName("obsidians_sword");
 		this.setCreativeTab(ModCreativeTabs.CREATIVE_TAB_OTHER);
 		this.setMaxStackSize(1);
-	
+		
 		
 		
 	}
@@ -62,11 +56,10 @@ public class ItemObsidiansSword extends ItemSword implements IExtendedReach{
         ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(getRegistryName(), "inventory"));
 	}
 
-	@Override
-    public float getReach() 
-    {
-        return 20.0F;
-    }
+
+	
+	
+
 
 	
 

@@ -34,7 +34,6 @@ public class ModTriggers
         //Gem  Advacements
         public static final CustomTrigger YOU_CLOD = new CustomTrigger("you_clod");
         public static final CustomTrigger ARE_YOU_MY_DAD = new CustomTrigger("my_dad");
-        public static final CustomTrigger Rejuvination = new CustomTrigger("rejuvenation");
 
         //Gem Drill Advancements 
         public static final CustomTrigger REACTIVATE_KINDERGARED = new CustomTrigger("reactivate_kindergarden");
@@ -57,7 +56,7 @@ public class ModTriggers
          */
         public static final CustomTrigger[] TRIGGER_ARRAY = new CustomTrigger[] {
             MOD_START,BATTLE_FIELD,GALAXY_WARP,DESERT_TEMPLE,COMMUNICATION_HUB,KINDERGARDEN,MOON_GODAS, HEAVEN_BEATLE,STRONGER_TOGETHER,GIANT_WOMEN, OFF_COLORS, YOU_CLOD,ARE_YOU_MY_DAD,
-            REACTIVATE_KINDERGARED,ARISTORCA_BULLY, BLUE_DIAMOND_AUTHORITY,YELLOW_DIAMOND_AUTHORTY,WHITE_DIAMOND_AUTHORTY,EXPLORE_WARPS,WARP_MASTER,FROM_HERE_T0_HOMEWORLD,GETTING_PRICKED,Rejuvination
+            REACTIVATE_KINDERGARED,ARISTORCA_BULLY, BLUE_DIAMOND_AUTHORITY,YELLOW_DIAMOND_AUTHORTY,WHITE_DIAMOND_AUTHORTY,EXPLORE_WARPS,WARP_MASTER,FROM_HERE_T0_HOMEWORLD,GETTING_PRICKED
 
                 };
     
