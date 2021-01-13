@@ -5,7 +5,6 @@ import java.util.function.Function;
 import com.google.common.collect.Multimap;
 
 import mod.kagic.advancements.ModTriggers;
-import mod.kagic.engin.IExtendedReach;
 import mod.kagic.init.KAGIC;
 import mod.kagic.init.ModCreativeTabs;
 import mod.kagic.init.ModItems;

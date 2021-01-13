@@ -2,13 +2,13 @@
     "forge_marker": 1,
     "defaults": {
       "custom": { "flip-v": true },
-      "model": "ndbkagic:rose_sworc.obj",
+      "model": "ndbkagic:rose_sword.obj",
       "transform": "forge:default-item"
     },
     
     "variants": {
-      "normal": [{"model": "ndbkagic:rose_sworc.obj"},{ "x": -1800}],
+      "normal": [{"model": "ndbkagic:rose_sword.obj"}],
       
-      "inventory": [{"model": "ndbkagic:rose_sworc.obj"}]
+      "inventory": [{"model": "ndbkagic:rose_sword.obj"}]
     }
 }

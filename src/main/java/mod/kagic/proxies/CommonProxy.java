@@ -12,7 +12,7 @@ import mod.kagic.init.ModBlocks;
 import mod.kagic.init.ModEnchantments;
 import mod.kagic.init.ModItems;
 import mod.kagic.init.ModSounds;
-import mod.kagic.networking.MessageExtendedReachAttack;
+
 import mod.kagic.worlddata.GalaxyPadLocation;
 import mod.kagic.worlddata.WarpPadDataEntry;
 import net.minecraft.advancements.CriteriaTriggers;
@@ -51,6 +51,7 @@ public class CommonProxy {
 	public static void registerItems(RegistryEvent.Register<Item> event) {
 		ModBlocks.registerBlockItems(event);
 		ModItems.registerItems(event);
+		
 	}
 
 	@SubscribeEvent
@@ -90,17 +91,6 @@ public class CommonProxy {
 		}
 	}
 
-	@SubscribeEvent
-	public static void registerNetwork(){
-		KAGIC.network = NetworkRegistry.INSTANCE.newSimpleChannel("LONGSWORD");
-		int packetId = 0;
-		// register messages from client to server
-		KAGIC.network.registerMessage(MessageExtendedReachAttack.Handler.class, 
-
-      MessageExtendedReachAttack.class, packetId++, Side.SERVER);
-
-
-	}
 
 	public void openWarpPadSelectionGUI(LinkedHashMap<BlockPos, WarpPadDataEntry> padData, int x, int y, int z) {
 		

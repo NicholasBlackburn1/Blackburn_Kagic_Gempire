@@ -12,7 +12,7 @@ import com.google.common.base.Predicate;
 import com.google.common.collect.ImmutableMap;
 
 import mod.kagic.advancements.ModTriggers;
-import mod.kagic.engin.IExtendedReach;
+
 import mod.kagic.engin.InfoEngine;
 import mod.kagic.entity.EntityGem;
 import mod.kagic.entity.ai.EntityAIFollowTopaz;
@@ -23,7 +23,7 @@ import mod.kagic.entity.gem.EntityRuby;
 import mod.kagic.entity.gem.EntityRutile;
 import mod.kagic.entity.gem.EntitySapphire;
 import mod.kagic.init.ModMetrics.Update;
-import mod.kagic.networking.MessageExtendedReachAttack;
+import mod.kagic.items.IExtendedReachWeapon;
 import mod.kagic.server.SpaceStuff;
 import net.minecraft.advancements.critereon.PlayerHurtEntityTrigger;
 import net.minecraft.client.Minecraft;
@@ -102,7 +102,7 @@ public class ModEvents {
 
 	public static void register() {
 		MinecraftForge.EVENT_BUS.register(new ModEvents());
-
+		MinecraftForge.EVENT_BUS.register(new IExtendedReachWeapon.MouseClickHandler());
 	}
 
 	@SubscribeEvent
@@ -403,6 +403,8 @@ public class ModEvents {
 		WorldServer world = (WorldServer) ev.getWorld();
 
 	}
+
+	
 
 		
 

@@ -24,6 +24,11 @@ minecraft {
     runDir = "run"
     mappings = "snapshot_20171003"
 }
+dependencies {
+
+    compile 'io.netty:netty-all:4.1.24.Final'
+  
+}
 processResources {
     inputs.property "version", project.version
     from (sourceSets.main.resources.srcDirs) {

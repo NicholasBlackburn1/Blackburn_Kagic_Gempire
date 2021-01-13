@@ -21,6 +21,9 @@ import mod.kagic.dispenser.DispenserBehaviors;
 import mod.kagic.engin.InfoEngine;
 import mod.kagic.entity.gem.fusion.FusionSpawnHandler;
 import mod.kagic.networking.KTPacketHandler;
+import mod.kagic.networking.NetworkHandler;
+import mod.kagic.networking.PacketBase;
+import mod.kagic.networking.PacketExtendedReachAttack;
 import mod.kagic.proxies.CommonProxy;
 import mod.kagic.server.SpaceStuff;
 import mod.kagic.util.GemPlayerLoot;
@@ -80,6 +83,8 @@ public class KAGIC {
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent e) {
 		KAGIC.logger = e.getModLog();
+		NetworkHandler.INSTANCE.registerNetwork();
+		PacketBase.registerPacketType(NetworkHandler.PACKET_EXTENDED_REACH_ATTACK, PacketExtendedReachAttack.class, PacketExtendedReachAttack::new);
 		//ModBiomes.register();
 		//ModDimensions.register();
 		KAGICSmeltingRecipes.register();

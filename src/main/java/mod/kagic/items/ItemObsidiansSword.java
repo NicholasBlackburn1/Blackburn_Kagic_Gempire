@@ -35,7 +35,7 @@ import net.minecraftforge.common.model.IModelState;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class ItemObsidiansSword extends ItemSword{
+public class ItemObsidiansSword extends ItemSword implements IExtendedReachWeapon{
 
 	public static final net.minecraft.entity.ai.attributes.IAttribute REACH_DISTANCE = new net.minecraft.entity.ai.attributes.RangedAttribute(null, "generic.reachDistance", 25.0D, 0.0D, 1024.0D).setShouldWatch(true);
 	public ItemObsidiansSword() {
@@ -54,6 +54,13 @@ public class ItemObsidiansSword extends ItemSword{
     public void initModel() {
         ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(getRegistryName(), "inventory"));
 	}
+
+	@Override
+	public float getReach() {
+		// TODO Auto-generated method stub
+		return 20.05f;
+	}
+	
 
 
 	
