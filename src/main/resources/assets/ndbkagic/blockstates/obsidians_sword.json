@@ -7,7 +7,7 @@
     },
     
     "variants": {
-      "normal": [{"model": "ndbkagic:obsidian_sword_model_quad.obj"},{ "x": -1800}],
+      "normal": [{"model": "ndbkagic:obsidian_sword_model_quad.obj"}],
       
       "inventory": [{"model": "ndbkagic:obsidian_sword_model_quad.obj"}]
     }

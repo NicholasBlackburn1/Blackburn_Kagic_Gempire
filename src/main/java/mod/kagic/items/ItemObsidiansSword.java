@@ -58,7 +58,7 @@ public class ItemObsidiansSword extends ItemSword implements IExtendedReachWeapo
 	@Override
 	public float getReach() {
 		// TODO Auto-generated method stub
-		return 20.05f;
+		return 10.05f;
 	}
 	
 

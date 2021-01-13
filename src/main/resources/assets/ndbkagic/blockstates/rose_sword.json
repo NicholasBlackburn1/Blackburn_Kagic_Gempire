@@ -7,7 +7,7 @@
     },
     
     "variants": {
-      "normal": [{"model": "ndbkagic:rose_sword.obj"}],
+      "normal": [{"model": "ndbkagic:rose_sword.objx","x":-1800}],
       
       "inventory": [{"model": "ndbkagic:rose_sword.obj"}]
     }
