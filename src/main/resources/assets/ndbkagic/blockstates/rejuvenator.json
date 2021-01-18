@@ -7,7 +7,7 @@
     },
     
     "variants": {
-      "normal": [{"model": "ndbkagic:rejuvenator.obj"},{ "x": -1800}],
+      "normal": [{"model": "ndbkagic:rejuvenator.obj","x": -1800}],
       
       "inventory": [{"model": "ndbkagic:rejuvenator.obj"}]
     }
