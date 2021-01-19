@@ -404,6 +404,12 @@ public class ModEvents {
 
 	}
 
+
+	@SubscribeEvent
+	public void onPlayerNearSeaSpire(LivingUpdateEvent e){
+
+	}
+
 	
 
 		
