@@ -60,6 +60,7 @@ public class KAGICWorldGenerator implements IWorldGenerator {
 		if (this.ruinDimensions.contains(world.provider.getDimension())) {
 			for (RuinStructure ruin : this.ruins) {
 				this.runGenerator(ruin, world, rand, chunkX, chunkZ, 1);
+	;
 			}
 		}
 	}

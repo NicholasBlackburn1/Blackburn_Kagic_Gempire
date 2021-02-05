@@ -20,7 +20,6 @@ public class LunarSeaSpire extends SunkenRuinStructure {
 		
 		this.allowedBiomes.add(Biomes.DEEP_OCEAN);
 		this.allowedBiomes.add(Biomes.OCEAN);
-		this.allowedBiomes.add(Biomes.BEACH);
 		//this.chestTables.put(new BlockPos(54, 1, 11), LootTables.SEA_SHRINE);
 		
 	}

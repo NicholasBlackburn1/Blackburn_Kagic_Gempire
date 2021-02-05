@@ -52,4 +52,7 @@ public class SeaShrine extends SunkenRuinStructure {
 		
 		return super.generate(world, rand, pos);
 	}
+
+	
+  
 }

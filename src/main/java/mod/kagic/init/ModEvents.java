@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Timer;
 import java.util.function.Consumer;
 
-
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Predicate;
 import com.google.common.collect.ImmutableMap;
@@ -14,6 +13,7 @@ import com.google.common.collect.ImmutableMap;
 import mod.kagic.advancements.ModTriggers;
 
 import mod.kagic.engin.InfoEngine;
+import mod.kagic.entity.EntityCrystalShrimp;
 import mod.kagic.entity.EntityGem;
 import mod.kagic.entity.ai.EntityAIFollowTopaz;
 import mod.kagic.entity.gem.EntityAgate;
@@ -49,6 +49,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.ITextComponent;
@@ -85,6 +86,7 @@ import net.minecraftforge.event.entity.player.PlayerDropsEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.EntityInteract;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent.RightClickBlock;
 import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.fml.client.FMLClientHandler;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
@@ -404,17 +406,30 @@ public class ModEvents {
 
 	}
 
-
+/*
 	@SubscribeEvent
-	public void onPlayerNearSeaSpire(LivingUpdateEvent e){
-
+	public void onPlayerNearSeaSpire(RightClickBlock e){
+		
+		EntityPlayer player = (EntityPlayer) e.getEntityPlayer();
+		if(e.getEntity() instanceof EntityPlayer){
+			try{
+			KAGIC.logger.info(player.getEntityWorld().findNearestStructure("lunar_sea_spire", player.getPosition(), false).toString());
+			}catch(Exception xe){
+				KAGIC.logger.info(""+xe.getLocalizedMessage());
+			}
+		}
 	}
+	*/
+	
+	
+	}	
+
 
 	
 
 		
 
-}
+
             
         
     

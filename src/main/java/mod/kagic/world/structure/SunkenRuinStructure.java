@@ -43,7 +43,7 @@ public class SunkenRuinStructure extends RuinStructure {
 	@Override
 	public boolean generate(World world, Random rand, BlockPos pos) {
 		
-		return super.generate(world, rand, new BlockPos(pos.getX(), world.getSeaLevel() - this.depth, pos.getZ()));
+		return super.generate(world, rand, new BlockPos(pos.getX(), 10, pos.getZ()));
 	}
 
 	
