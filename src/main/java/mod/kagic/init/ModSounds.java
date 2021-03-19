@@ -5,6 +5,7 @@ import net.minecraft.util.SoundEvent;
 import net.minecraftforge.event.RegistryEvent;
 
 public class ModSounds {
+	public static final SoundEvent PLAYER_DEATH = new SoundEvent(new ResourceLocation("kagic:entities.player.player_death"));
 	public static final SoundEvent RECORD_LITTLE_PERIDOT = new SoundEvent(new ResourceLocation("kagic:records.little_peridot"));
 	public static final SoundEvent RECORD_ROSES_FOUNTAIN = new SoundEvent(new ResourceLocation("kagic:records.roses_fountain"));
 	public static final SoundEvent RECORD_LAPIS_FLIGHT = new SoundEvent(new ResourceLocation("kagic:records.lapis_flight"));

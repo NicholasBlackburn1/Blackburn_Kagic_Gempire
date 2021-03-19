@@ -10,6 +10,8 @@ import com.google.common.base.MoreObjects;
 import com.google.common.base.Predicate;
 import com.google.common.collect.ImmutableMap;
 
+import org.lwjgl.util.Color;
+
 import mod.kagic.advancements.ModTriggers;
 
 import mod.kagic.engin.InfoEngine;
@@ -27,6 +29,10 @@ import mod.kagic.items.IExtendedReachWeapon;
 import mod.kagic.server.SpaceStuff;
 import net.minecraft.advancements.critereon.PlayerHurtEntityTrigger;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.audio.Sound;
+import net.minecraft.client.audio.SoundHandler;
+import net.minecraft.client.audio.SoundList;
+import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.EntityLiving;
@@ -122,6 +128,7 @@ public class ModEvents {
 	 * 
 	 * @param event
 	 */
+	
 	@SubscribeEvent
 	@SideOnly(Side.CLIENT)
 	public void onOverlayRendered(RenderGameOverlayEvent.Text event) {
@@ -136,14 +143,18 @@ public class ModEvents {
 			event.getLeft().add("");
 			event.getLeft().add("[Blackburn Kagic] Gem Count:" + gems);
 			event.getLeft().add("[Blackburn Kagic] Fusion Count:" + fusion);
-			event.getLeft().add("");
-			event.getLeft().add("[Blackburn Kagic] Gem Selection:" + null);
+			
+			
 
 		}
 	}
 
+	
+
 	@SubscribeEvent
 	public void onPlayerLoggedIn(PlayerLoggedInEvent e) {
+
+		Minecraft mc = Minecraft.getMinecraft();
 
 		e.player.sendMessage(
 				new TextComponentString("§6 You are playing KAGIC-Blackburn " + KAGIC.VERSION + " Please Enjoy"));
@@ -151,7 +162,8 @@ public class ModEvents {
 		ModTriggers.MOD_START.trigger(e.player);
 		KAGIC.logger.info("Executed the Trigger");
 		message = ("Test Hello" + " " + e.player.getName() + " " + "just joined the World ;}");
-
+	
+		
 	}
 
 	@SubscribeEvent
@@ -358,6 +370,20 @@ public class ModEvents {
 		}
 	}
 
+	@SubscribeEvent
+	
+	public void onPlayerDeath(PlayerEvent event){
+		try{
+		if(event.getEntityPlayer().getHealth() <= 0.0){
+		 event.getEntityPlayer().playSound(ModSounds.PEARL_DEATH, 1.0f, 0.0f);
+		}else{
+
+		}
+	} catch (Exception e){
+		KAGIC.logger.error(e.getLocalizedMessage());
+	}
+	}
+
 	/**
 	 * Whenever player enters a biome Send the Acivement based on that biome
 	 * 
@@ -377,6 +403,7 @@ public class ModEvents {
 
 				switch (player.getEntityWorld().getBiome(player.getPosition()).getRegistryName().toString()) {
 					case "ndbkagic:strawberry_battlefield":
+						
 						ModTriggers.BATTLE_FIELD.trigger(player);
 						break;
 

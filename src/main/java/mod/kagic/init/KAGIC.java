@@ -33,6 +33,7 @@ import mod.kagic.world.GenEventCanceller;
 import mod.kagic.world.KAGICWorldGenerator;
 import mod.kagic.world.structure.LootTables;
 import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.client.Minecraft;
 import net.minecraft.server.management.PlayerList;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
@@ -69,6 +70,7 @@ public class KAGIC {
 	public static SpaceStuff spaceStuff;
 	public static KAGICWorldGenerator worldGen;
 	public static InfoEngine engine;
+	public static Minecraft minecraft;
 	
 	
 	static {
@@ -93,7 +95,10 @@ public class KAGIC {
 		LootTables.register();
 		KAGIC.worldGen = new KAGICWorldGenerator();
 		ModelLoaderRegistry.registerLoader(OBJLoaderKB.instance);
-        OBJLoaderKB.instance.addDomain(MODID);
+		OBJLoaderKB.instance.addDomain(MODID);
+		
+		
+		
 	}
 	
 	@EventHandler
@@ -117,6 +122,7 @@ public class KAGIC {
 		DispenserBehaviors.register();
 		KAGIC.proxy.registerBlockColors();
 		ModTriggers.registerTriggers();
+		
 	}
 	
 	@EventHandler
