@@ -5,6 +5,9 @@
 2. added biome detection to fire some advancemets
 3. added a new Gem Emerald 
 4. Emerald can follow her superiors and scare a way mobs with her evil glare Don't mess with Emerald she hits like a truck.
+5. Adding Wailing Stone
+6. Adding White diamond
+
 
 
 ## TODOs:
